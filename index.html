@@ -73,9 +73,82 @@
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="btn-lang-toggle" id="btn-open-lang" data-i18n-title="btn_lang_title" title="Seleccionar Idioma">
-          <span id="current-lang-badge">🇪🇸 ES</span>
-        </button>
+        <div class="lang-dropdown-wrapper" id="lang-dropdown-wrapper">
+          <button type="button" class="btn-lang-toggle" id="btn-open-lang" aria-haspopup="true" aria-expanded="false" data-i18n-title="btn_lang_title" title="Seleccionar Idioma">
+            <span id="current-lang-badge">🇪🇸 ES</span>
+            <span class="lang-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="lang-dropdown-menu" id="lang-dropdown-menu" role="menu" aria-label="Selector de idioma">
+            <div class="lang-dropdown-header">
+              <span data-i18n="modal_lang_title">🌐 Seleccionar Idioma</span>
+            </div>
+            <div class="lang-dropdown-list">
+              <button type="button" class="lang-drop-item" data-lang="es" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🇪🇸</span>
+                  <span class="lang-drop-name">Español</span>
+                </div>
+                <span class="lang-drop-code">ES</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="en" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🇬🇧</span>
+                  <span class="lang-drop-name">English</span>
+                </div>
+                <span class="lang-drop-code">EN</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="fr" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🇫🇷</span>
+                  <span class="lang-drop-name">Français</span>
+                </div>
+                <span class="lang-drop-code">FR</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="de" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🇩🇪</span>
+                  <span class="lang-drop-name">Deutsch</span>
+                </div>
+                <span class="lang-drop-code">DE</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="ca" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🟡🔴</span>
+                  <span class="lang-drop-name">Català</span>
+                </div>
+                <span class="lang-drop-code">CA</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="va" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🦇</span>
+                  <span class="lang-drop-name">Valencià</span>
+                </div>
+                <span class="lang-drop-code">VA</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="eu" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🟩</span>
+                  <span class="lang-drop-name">Euskara</span>
+                </div>
+                <span class="lang-drop-code">EU</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="gl" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🟦</span>
+                  <span class="lang-drop-name">Galego</span>
+                </div>
+                <span class="lang-drop-code">GL</span>
+              </button>
+              <button type="button" class="lang-drop-item" data-lang="ja" role="menuitem">
+                <div class="lang-item-left">
+                  <span class="lang-drop-flag">🇯🇵</span>
+                  <span class="lang-drop-name">日本語</span>
+                </div>
+                <span class="lang-drop-code">JA</span>
+              </button>
+            </div>
+          </div>
+        </div>
         <a href="#juegos" class="btn-action primary">
           <span data-i18n="nav_explore">🚀 Explorar Juegos</span>
         </a>
@@ -958,83 +1031,7 @@
         </div>
       </div>
     </div>
-  <!-- MODAL DE IDIOMA -->
-  <div id="modal-language" class="modal-overlay hidden">
-    <div class="modal-card lang-modal-card">
-      <div class="modal-head">
-        <h4 data-i18n="modal_lang_title">🌐 Seleccionar Idioma</h4>
-        <button class="modal-close" id="btn-close-lang" aria-label="Cerrar">&times;</button>
-      </div>
-      <div class="modal-content">
-        <p class="lang-modal-sub" data-i18n="modal_lang_sub">Elige tu lengua preferida para toda la plataforma:</p>
-        <div class="languages-grid">
-          <button type="button" class="lang-select-btn" data-lang="es">
-            <span class="lang-flag">🇪🇸</span>
-            <div class="lang-text">
-              <strong>Español</strong>
-              <small>Castellano</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="en">
-            <span class="lang-flag">🇬🇧</span>
-            <div class="lang-text">
-              <strong>English</strong>
-              <small>International</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="fr">
-            <span class="lang-flag">🇫🇷</span>
-            <div class="lang-text">
-              <strong>Français</strong>
-              <small>France</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="de">
-            <span class="lang-flag">🇩🇪</span>
-            <div class="lang-text">
-              <strong>Deutsch</strong>
-              <small>Deutschland</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="ca">
-            <span class="lang-flag">🟡🔴</span>
-            <div class="lang-text">
-              <strong>Català</strong>
-              <small>Catalunya</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="va">
-            <span class="lang-flag">🦇</span>
-            <div class="lang-text">
-              <strong>Valencià</strong>
-              <small>Comunitat</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="eu">
-            <span class="lang-flag">🟩</span>
-            <div class="lang-text">
-              <strong>Euskara</strong>
-              <small>Euskal Herria</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="gl">
-            <span class="lang-flag">🟦</span>
-            <div class="lang-text">
-              <strong>Galego</strong>
-              <small>Galiza</small>
-            </div>
-          </button>
-          <button type="button" class="lang-select-btn" data-lang="ja">
-            <span class="lang-flag">🇯🇵</span>
-            <div class="lang-text">
-              <strong>日本語</strong>
-              <small>Japanese</small>
-            </div>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <script type="module" src="js/main.js"></script>
 </body>

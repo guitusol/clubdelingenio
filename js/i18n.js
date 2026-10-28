@@ -1688,8 +1688,8 @@ export class ClubI18n {
       badge.textContent = `${langObj.flag} ${this.currentLang.toUpperCase()}`;
     }
 
-    // Actualizar estado activo en el modal
-    document.querySelectorAll('.lang-select-btn').forEach(btn => {
+    // Actualizar estado activo en los botones del desplegable
+    document.querySelectorAll('.lang-drop-item, .lang-select-btn').forEach(btn => {
       const btnLang = btn.getAttribute('data-lang');
       if (btnLang === this.currentLang) {
         btn.classList.add('active');
@@ -1728,42 +1728,45 @@ export class ClubI18n {
   }
 
   setupListeners() {
-    const modal = document.getElementById('modal-language');
-    const openBtn = document.getElementById('btn-open-lang');
-    const closeBtn = document.getElementById('btn-close-lang');
+    const wrapper = document.getElementById('lang-dropdown-wrapper');
+    const toggleBtn = document.getElementById('btn-open-lang');
+    const dropItems = document.querySelectorAll('.lang-drop-item');
 
-    if (!modal || !openBtn) return;
+    if (toggleBtn && wrapper) {
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = wrapper.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', isOpen);
+      });
 
-    const openModal = () => {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    };
+      // Cerrar al hacer clic fuera del desplegable
+      document.addEventListener('click', (e) => {
+        if (!wrapper.contains(e.target)) {
+          wrapper.classList.remove('open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
 
-    const closeModal = () => {
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    };
+      // Cerrar con tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && wrapper.classList.contains('open')) {
+          wrapper.classList.remove('open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
 
-    openBtn.addEventListener('click', openModal);
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeModal();
-      }
-    });
-
-    // Botones de selección de idioma
-    document.querySelectorAll('.lang-select-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const selectedLang = btn.getAttribute('data-lang');
+    // Selección de idioma al pulsar cualquier opción del desplegable
+    dropItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const selectedLang = item.getAttribute('data-lang');
         if (selectedLang) {
           this.setLanguage(selectedLang);
-          closeModal();
+          if (wrapper) {
+            wrapper.classList.remove('open');
+            toggleBtn?.setAttribute('aria-expanded', 'false');
+          }
         }
       });
     });
