@@ -1,0 +1,52 @@
+name: Deploy Club del Ingenio to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Plesk VPS via SSH
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy application via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            echo "🚀 Iniciando despliegue de Club del Ingenio en el servidor..."
+            cd ${{ secrets.PROJECT_PATH }} || { echo "❌ Error: Directorio ${{ secrets.PROJECT_PATH }} no encontrado"; exit 1; }
+
+            # 1. Verificar e inicializar repositorio Git en el directorio de Plesk si no existe
+            if [ ! -d ".git" ]; then
+              echo "📦 Inicializando repositorio Git local en el servidor..."
+              git init
+              git branch -m main 2>/dev/null || true
+            fi
+
+            git config --global --add safe.directory '*' || true
+            git remote remove origin 2>/dev/null || true
+            git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+
+            # 2. Descargar e incorporar los últimos cambios de main
+            echo "📥 Obteniendo cambios de origin/main..."
+            git fetch origin main
+            git reset --hard origin/main
+            git remote set-url origin "https://github.com/${{ github.repository }}.git" || true
+
+            # 3. Ajuste de permisos para servidor web (Plesk/Apache/Nginx)
+            chmod -R 755 .
+            chmod 644 .htaccess 2>/dev/null || true
+
+            echo "✅ Despliegue completado con éxito en $(date)."

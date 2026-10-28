@@ -17,3 +17,8 @@ ehthumbs_vista.db
 *.njsproj
 *.sln
 *.sw?
+
+# Local & Production Environment / DB configurations
+api/config.local.php
+config.local.php
+*.log
