@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DEXRHV69P0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DEXRHV69P0');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-m-i18n="page_title">Manual del Jugador — Sudoku Arena</title>
+  <meta name="description" content="Guía completa y manual de usuario para jugar y competir en Sudoku Arena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #111827;
+      --bg-surface: #1e293b;
+      --border: #334155;
+      --border-accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --gold: #f59e0b;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --font-sans: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      padding: 1rem;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ffffff;
+    }
+    .btn-back {
+      background: #2563eb;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: #1d4ed8; }
+    h1 { font-size: 1.85rem; color: #ffffff; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--border-accent); font-size: 1rem; font-weight: 600; margin-bottom: 1.5rem; }
+    h2 {
+      font-size: 1.3rem;
+      color: var(--gold);
+      border-left: 4px solid var(--gold);
+      padding-left: 0.75rem;
+      margin-top: 2rem;
+      margin-bottom: 0.85rem;
+    }
+    h3 { font-size: 1.05rem; color: var(--border-accent); margin-top: 1.25rem; margin-bottom: 0.4rem; }
+    p { margin-bottom: 0.85rem; color: #cbd5e1; font-size: 0.95rem; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #cbd5e1; font-size: 0.95rem; }
+    li { margin-bottom: 0.4rem; }
+    .table-responsive {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    th {
+      background: #1e293b;
+      padding: 0.75rem 1rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .badge-gold { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-red { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .card-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .highlight-tip {
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--border-accent);
+      padding: 0.85rem 1.15rem;
+      border-radius: 4px;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+    }
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 2.5rem;
+      padding-top: 1.25rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1.25rem 1rem; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.15rem; }
+    }
+  
+    .lang-bar {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    .manual-lang-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .manual-lang-btn:hover {
+      border-color: var(--border-accent);
+      color: #fff;
+    }
+    .manual-lang-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245, 158, 11, 0.15);
+    }
+
+    .btn-pdf {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+    }
+    .btn-pdf:hover {
+      background: var(--gold);
+      color: #000000;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    }
+    .btn-pdf:active {
+      transform: scale(0.96);
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+        font-size: 11pt;
+      }
+      .container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: #0f172a !important;
+      }
+      .header-nav-actions,
+      .lang-bar,
+      .btn-back,
+      .btn-pdf,
+      #btn-print-pdf {
+        display: none !important;
+      }
+      .header-nav {
+        border-bottom: 2px solid #0284c7 !important;
+        padding-bottom: 1rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+      .brand-title {
+        color: #0f172a !important;
+      }
+      h1 {
+        color: #0f172a !important;
+        font-size: 1.8rem !important;
+      }
+      .subtitle {
+        color: #0284c7 !important;
+      }
+      h2 {
+        color: #b45309 !important;
+        border-left: 4px solid #f59e0b !important;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      h3 {
+        color: #0369a1 !important;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      p, li, strong, td {
+        color: #1e293b !important;
+      }
+      .highlight-tip {
+        background: #f0f9ff !important;
+        border-left: 4px solid #0284c7 !important;
+        color: #0369a1 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .card-box {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin: 1rem 0 !important;
+      }
+      th {
+        background: #e2e8f0 !important;
+        color: #0f172a !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+      }
+      td {
+        border-bottom: 1px solid #e2e8f0 !important;
+        color: #334155 !important;
+      }
+      table {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .footer {
+        border-top: 1px solid #cbd5e1 !important;
+        color: #64748b !important;
+        margin-top: 2rem !important;
+      }
+      @page {
+        margin: 1.6cm 1.4cm;
+        size: A4 portrait;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-nav">
+      <div class="brand-title">
+        <img src="icons/icon-192.png" alt="Sudoku Arena" style="width:30px; height:30px; border-radius:7px; object-fit:contain; border:1px solid rgba(56,189,248,0.4); vertical-align:middle; margin-right:6px;"> SUDOKU ARENA
+      </div>
+      <div class="header-nav-actions" style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+        <button id="btn-print-pdf" class="btn-pdf" onclick="window.print()" title="Descargar o guardar este manual en PDF">
+          <span>📄</span> <span data-m-i18n="btn_pdf_text">Descargar en PDF</span>
+        </button>
+        <a href="index.html" class="btn-back" data-m-i18n="back">🎮 Ir a Jugar al Tablero</a>
+      </div>
+
+      <div class="lang-bar">
+        <button class="manual-lang-btn active" data-lang="es">🇪🇸 ES</button>
+        <button class="manual-lang-btn" data-lang="en">🇬🇧 EN</button>
+        <button class="manual-lang-btn" data-lang="fr">🇫🇷 FR</button>
+        <button class="manual-lang-btn" data-lang="de">🇩🇪 DE</button>
+        <button class="manual-lang-btn" data-lang="ca">🟡 CA</button>
+        <button class="manual-lang-btn" data-lang="va">🦇 VA</button>
+        <button class="manual-lang-btn" data-lang="eu">🟢 EU</button>
+        <button class="manual-lang-btn" data-lang="gl">🔵 GL</button>
+        <button class="manual-lang-btn" data-lang="ja">🇯🇵 JA</button>
+      </div>
+    </div>
+
+    <h1 data-m-i18n="title">Manual Oficial del Jugador</h1>
+    <div class="subtitle" data-m-i18n="subtitle">Guía de Uso, Motor de Puntuación Cognitiva y Duelos Multijugador</div>
+
+    <div class="highlight-tip">
+      <strong data-m-i18n="phil_title">Filosofía del Juego:</strong> <span data-m-i18n="phil_text">Sudoku Arena es un reto mental táctico. Aquí no se gana adivinando números por suerte, sino deduciendo con rigor lógico. Cada casilla tiene un valor en puntos según la dificultad del descarte y cada ayuda que pidas reduce tu techo de puntos.</span>
+    </div>
+
+    <!-- SECCIÓN 1: DIFICULTADES -->
+    <h2 id="sec-1" data-m-i18n="sec1_title">1. Niveles de Dificultad y Técnicas Humanas</h2>
+    <p data-m-i18n="sec1_desc">La dificultad se clasifica por la técnica deductiva mínima necesaria para resolver cada casilla:</p>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th data-m-i18n="th_level">Nivel</th>
+            <th data-m-i18n="th_clues">Pistas</th>
+            <th data-m-i18n="th_tech">Técnica Requerida</th>
+            <th data-m-i18n="th_pts">Puntos / Casilla</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong data-m-i18n="diff_facil_lbl">🟢 Fácil</strong></td>
+            <td data-m-i18n="clues_facil">42 pistas</td>
+            <td data-m-i18n="tech_facil">Candidatos Únicos Directos (Naked Singles)</td>
+            <td><span class="badge badge-emerald" data-m-i18n="pts_facil">10 pts</span></td>
+          </tr>
+          <tr>
+            <td><strong data-m-i18n="diff_medio_lbl">🟡 Medio</strong></td>
+            <td data-m-i18n="clues_medio">34 pistas</td>
+            <td data-m-i18n="tech_medio">Candidatos Ocultos en fila/col/caja (Hidden Singles)</td>
+            <td><span class="badge badge-emerald" data-m-i18n="pts_medio">15 pts</span></td>
+          </tr>
+          <tr>
+            <td><strong data-m-i18n="diff_dificil_lbl">🔴 Difícil</strong></td>
+            <td data-m-i18n="clues_dificil">28 pistas</td>
+            <td data-m-i18n="tech_dificil">Pares Desnudos/Ocultos y Bloqueos de Línea</td>
+            <td><span class="badge badge-gold" data-m-i18n="pts_dificil">25 - 30 pts</span></td>
+          </tr>
+          <tr>
+            <td><strong data-m-i18n="diff_endemoniado_lbl">🟣 Endemoniado</strong></td>
+            <td data-m-i18n="clues_endemoniado">22 pistas</td>
+            <td data-m-i18n="tech_endemoniado">X-Wing, Pez Espada (Swordfish), Cadenas Forzadas</td>
+            <td><span class="badge badge-gold" data-m-i18n="pts_endemoniado">50 - 100 pts</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECCIÓN 2: CONTROLES -->
+    <h2 id="sec-2" data-m-i18n="sec2_title">2. Controles en Móvil y Ordenador</h2>
+    <h3 data-m-i18n="sec2_sub1">📱 En Smartphone o Tablet</h3>
+    <ul>
+      <li data-m-i18n="sec2_m1"><strong>Tocar casilla</strong>: Selecciona la casilla activa y resalta en tiempo real su fila, columna y caja 3x3.</li>
+      <li data-m-i18n="sec2_m2"><strong>Teclado táctil (1 al 9)</strong>: Introduce el número en la casilla seleccionada con respuesta háptica (vibración).</li>
+      <li data-m-i18n="sec2_m3"><strong>⌫ Borrar</strong>: Limpia el número colocado si la casilla no era de las pistas fijas iniciales.</li>
+      <li data-m-i18n="sec2_m4"><strong>Herramientas Rápidas</strong>: Accede a la <strong>Lupa</strong>, <strong>Rayos X</strong> o <strong>Retar</strong> en la barra inferior.</li>
+    </ul>
+
+    <h3 data-m-i18n="sec2_sub2">💻 En Ordenador (PC o Portátil)</h3>
+    <ul>
+      <li data-m-i18n="sec2_pc1"><strong>Flechas del teclado</strong>: Desplazamiento ágil entre casillas.</li>
+      <li data-m-i18n="sec2_pc2"><strong>Números 1 al 9</strong>: Rellenar casilla.</li>
+      <li data-m-i18n="sec2_pc3"><strong>Supr / Retroceso / 0</strong>: Borrar casilla.</li>
+      <li data-m-i18n="sec2_pc4"><strong>Barra Espaciadora o Tecla P</strong>: Inspección Quirúrgica (Lupa).</li>
+      <li data-m-i18n="sec2_pc5"><strong>Tecla X</strong>: Activar Rayos X Globales.</li>
+      <li data-m-i18n="sec2_pc6"><strong>Tecla L</strong>: Abrir Libro Mayor de Auditoría.</li>
+    </ul>
+
+    <!-- SECCIÓN 3: PUNTUACIÓN -->
+    <h2 id="sec-3" data-m-i18n="sec3_title">3. Motor de Puntuación por Coste de Oportunidad</h2>
+    <p data-m-i18n="sec3_desc">Cada partida comienza con un <strong>Techo Inicial de Puntos</strong> (la suma de todos los puntos de las casillas vacías). Tus decisiones modifican este techo:</p>
+    <ul>
+      <li data-m-i18n="sec3_rule1"><strong>Acierto correcto</strong>: Suma los puntos asignados a la casilla a tu saldo neto.</li>
+      <li data-m-i18n="sec3_rule2"><strong>Fallo / Error</strong>: Resta <strong>-15 puntos netos</strong> directos de tu marcador y queda anotado en tu historial.</li>
+      <li data-m-i18n="sec3_rule3"><strong>Uso de Ayudas</strong>: Deducen puntos de tu techo máximo según la información que te regalan.</li>
+    </ul>
+
+    <!-- SECCIÓN 4: AYUDAS TÁCTICAS -->
+    <h2 id="sec-4" data-m-i18n="sec4_title">4. Las Ayudas Tácticas y sus Penalizaciones</h2>
+    
+    <div class="card-box">
+      <h3 data-m-i18n="sec4_sub1">🔍 Inspección Quirúrgica (Modo Lupa)</h3>
+      <p data-m-i18n="sec4_lupa_p1">Calcula y te muestra los candidatos válidos <strong>exclusivamente para la casilla que tienes seleccionada</strong>.</p>
+      <p data-m-i18n="sec4_lupa_p2"><span class="badge badge-gold">Coste de Oportunidad:</span> Se descuentan los puntos de esa casilla de tu techo máximo. Pierdes los puntos de esa celda por haber necesitado que la máquina te calcule las posibilidades.</p>
+    </div>
+
+    <div class="card-box">
+      <h3 data-m-i18n="sec4_sub2">⚡ Rayos X Globales (Todas las Posibilidades)</h3>
+      <p data-m-i18n="sec4_rayosx_p1">Escanea y muestra todos los números válidos en <strong>todas las casillas vacías del tablero a la vez</strong>.</p>
+      <p data-m-i18n="sec4_rayosx_p2"><span class="badge badge-red">Penalización Escalonada:</span> Al ver todo el tablero, la máquina aplica una deducción matemática proporcional:</p>
+      <ul>
+        <li data-m-i18n="sec4_rayosx_li1">Casillas con <strong>1 sola posibilidad</strong>: Deducción del <strong>100%</strong> de sus puntos.</li>
+        <li data-m-i18n="sec4_rayosx_li2">Casillas con <strong>2 posibilidades</strong>: Deducción del <strong>50%</strong> de sus puntos.</li>
+        <li data-m-i18n="sec4_rayosx_li3">Casillas con <strong>3 posibilidades</strong>: Deducción del <strong>25%</strong> de sus puntos.</li>
+        <li data-m-i18n="sec4_rayosx_li4">Casillas con <strong>4 o más</strong>: Deducción del <strong>10%</strong> de sus puntos.</li>
+      </ul>
+    </div>
+
+    <div class="card-box">
+      <h3 data-m-i18n="sec4_sub3">🏳️ Resolución por Sistema (Rendición)</h3>
+      <p data-m-i18n="sec4_autosolve_p">El motor autocompleta el resto del tablero al instante. <strong>Todas las casillas resueltas por la máquina reciben 0 puntos</strong>. Solo conservarás los puntos de las casillas acertadas por ti mismo.</p>
+      <p data-m-i18n="sec4_autosolve_p2" style="margin-top: 0.5rem; font-size: 0.9rem; color: #fde68a;"><strong>⚠️ Protección de Juego Limpio y Duelos:</strong> La resolución por el sistema invalida la partida como victoria (no se guardará en tu Historial ni en tus Récords). Además, <strong>queda permanentemente bloqueada la creación de duelos</strong> sobre ese tablero, incluso si se reinicia para copiar las casillas (se activa automáticamente el Modo Práctica sin validez competitiva).</p>
+    </div>
+
+    <!-- SECCIÓN 5: AUTONOMÍA Y RANGOS -->
+    <h2 id="sec-5" data-m-i18n="sec5_title">5. Índice de Autonomía Mental y Rangos</h2>
+    <p data-m-i18n="sec5_desc">Tu maestría se mide calculando el porcentaje de puntos obtenidos frente al techo inicial posible:</p>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th data-m-i18n="th_rank">Rango</th>
+            <th data-m-i18n="th_medal">Medalla</th>
+            <th data-m-i18n="th_autonomy">Autonomía</th>
+            <th data-m-i18n="th_req">Requisito</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong data-m-i18n="rank_gm_name">Gran Maestro Puro</strong></td>
+            <td>🥇</td>
+            <td><strong data-m-i18n="rank_gm_autonomy">≥ 90%</strong></td>
+            <td data-m-i18n="rank_gm_req">Sin fallos, sin lupa y sin rayos X. Lógica 100% autónoma.</td>
+          </tr>
+          <tr>
+            <td><strong data-m-i18n="rank_lq_name">Lógico Quirúrgico</strong></td>
+            <td>🥈</td>
+            <td><strong data-m-i18n="rank_lq_autonomy">80% – 89%</strong></td>
+            <td data-m-i18n="rank_lq_req">Deducción brillante con mínimas consultas o fallos aislados.</td>
+          </tr>
+          <tr>
+            <td><strong data-m-i18n="rank_rp_name">Resolutor Pragmático</strong></td>
+            <td>🥉</td>
+            <td><strong>50% – 79%</strong></td>
+            <td data-m-i18n="rank_rp_req">Partida resuelta apoyándose en ayudas o escáner de rayos X.</td>
+          </tr>
+          <tr>
+            <td><strong data-m-i18n="rank_cr_name">Nivel Muy Bajo</strong></td>
+            <td>🚸</td>
+            <td><strong>&lt; 50%</strong></td>
+            <td data-m-i18n="rank_cr_req">Uso intensivo de asistencias o autocompletado por la máquina.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECCIÓN 6: DUELOS -->
+    <h2 id="sec-6" data-m-i18n="sec6_title">6. Modo Duelo: Cómo Crear un Nuevo Planteamiento y Competir</h2>
+    <p data-m-i18n="sec6_desc">Sudoku Arena permite celebrar <strong>competiciones justas en igualdad matemática de condiciones</strong>. Ambos contrincantes resuelven exactamente la misma matriz, con el mismo orden de casillas y el mismo techo inicial de puntos.</p>
+
+    <div class="highlight-tip" style="border-left-color: var(--gold); background: rgba(245, 158, 11, 0.1);">
+      <strong data-m-i18n="fair_play_title">⚖️ Compromiso Ético y Juego Limpio:</strong>
+      <span data-m-i18n="fair_play_notice">Sea ético, resuelva los Retos Semanales y los Duelos mediante esta plataforma, no utilice recursos externos.</span>
+      <p data-m-i18n="fair_play_autosolve_block" style="margin-top: 0.4rem; font-size: 0.85rem; color: #cbd5e1;"><strong>Protección Anti-Copia:</strong> Los tableros cuya solución haya sido desvelada por el sistema quedan inhabilitados para retar a rivales o generar enlaces de duelo.</p>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid var(--border-accent);">
+      <h3 data-m-i18n="sec6_sub1">⚔️ Paso a Paso para Crear un Nuevo Duelo</h3>
+      <ol style="margin-top: 0.5rem;">
+        <li data-m-i18n="sec6_step1"><strong>Pulsa el botón <code>⚔️ Nuevo Duelo</code></strong>: Ubicado prominentemente en la cabecera superior (o en la barra táctil del móvil).</li>
+        <li data-m-i18n="sec6_step2"><strong>Selecciona la Dificultad deseada</strong>: Fácil (42 pistas), Medio (34 pistas), Difícil (28 pistas), Endemoniado (22 pistas).</li>
+        <li data-m-i18n="sec6_step3"><strong>Generación de Semilla Matemática en Tiempo Real</strong>: El sistema calcula de inmediato el código reproducible (ej: <code>ARENA-DIFI-44026</code>). Si deseas otro planteamiento dentro del mismo nivel, pulsa <strong><code>🎲 Cambiar Semilla</code></strong>.</li>
+        <li data-m-i18n="sec6_step4"><strong>Opciones de Juego e Invitación</strong>: <code>📋 Copiar Enlace para Rivales</code> para WhatsApp/Telegram, o <code>🎮 Jugar Este Duelo Ahora</code> para comenzar de inmediato.</li>
+      </ol>
+    </div>
+
+    <div class="card-box">
+      <h3 data-m-i18n="sec6_sub2">👥 Cómo se Conecta tu Rival</h3>
+      <p data-m-i18n="sec6_connect_p">Tu rival puede conectarse de dos maneras:</p>
+      <ul>
+        <li data-m-i18n="sec6_connect_li1"><strong>Enlace Directo</strong>: Simplemente abre el enlace recibido en su navegador o móvil y la partida se cargará sola.</li>
+        <li data-m-i18n="sec6_connect_li2"><strong>Pegar Código</strong>: Pulsa el botón <code>⚔️ Nuevo Duelo</code>, introduce el código en la casilla <em>"¿Te han retado a ti?"</em> y pulsa <strong>Cargar Duelo</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="card-box">
+      <h3 data-m-i18n="sec6_sub3">🏆 Criterio Oficial de Victoria</h3>
+      <p data-m-i18n="sec6_win_p">Al completarse el sudoku, la auditoría dictamina el ganador comparando:</p>
+      <ol>
+        <li data-m-i18n="sec6_win_li1"><strong>Puntos Netos Obtenidos</strong> (quien haya sumado más aciertos y menos penalizaciones).</li>
+        <li data-m-i18n="sec6_win_li2"><strong>Índice de Autonomía Mental (%)</strong> (quien haya necesitado menos ayudas).</li>
+        <li data-m-i18n="sec6_win_li3"><strong>Tiempo Cronometrado</strong> (criterio de desempate en caso de puntuaciones idénticas).</li>
+      </ol>
+    </div>
+
+    <!-- SECCIÓN 7: CONSEJOS -->
+    <h2 id="sec-7" data-m-i18n="sec7_title">7. Consejos para Lograr el Rango de Gran Maestro</h2>
+    <ul>
+      <li data-m-i18n="sec7_tip1"><strong>Fíjate en las restricciones cruzadas</strong>: Antes de colocar un número, revisa mentalmente la fila, la columna y la caja 3x3 para estar seguro al 100%.</li>
+      <li data-m-i18n="sec7_tip2"><strong>No te arriesgues al azar</strong>: Un fallo penaliza -15 puntos y destruye tu 100% de autonomía.</li>
+      <li data-m-i18n="sec7_tip3"><strong>Prefiere la Lupa a los Rayos X</strong>: Si estás atascado en un punto muerto, usar la Lupa en una sola casilla solo te penalizará esa celda, mientras que Rayos X castiga todo el tablero.</li>
+    </ul>
+
+    <!-- SECCIÓN 8: ESCANEO OCR, PLANTEAMIENTO MANUAL Y BÓVEDA DE RETOS -->
+    <h2 id="sec-8" data-m-i18n="sec8_title">8. Escaneo OCR, Planteamiento Manual y Bóveda de Retos</h2>
+    <p data-m-i18n="sec8_desc">Sudoku Arena te permite digitalizar cualquier sudoku del mundo real mediante Visión Computacional o diseñar tus propios retos a medida para archivarlos en tu Bóveda personal y competir con ellos.</p>
+
+    <div class="card-box" style="border-left: 4px solid #10b981;">
+      <h3 data-m-i18n="sec8_sub1">📷 Escaneo OCR Inteligente por Foto o Cámara</h3>
+      <p data-m-i18n="sec8_ocr_p1">Digitaliza sudokus de periódicos, revistas, pasatiempos impresos o libros en milisegundos sin enviar imágenes a ningún servidor externo (100% privado y seguro en tu dispositivo):</p>
+      <ul>
+        <li data-m-i18n="sec8_ocr_li1"><strong>Hacer Foto con Cámara</strong>: Enfoca el sudoku con la cámara de tu smartphone o tablet para capturarlo al instante.</li>
+        <li data-m-i18n="sec8_ocr_li2"><strong>Arrastrar o Subir Imagen</strong>: Carga fotos o capturas de pantalla desde tu galería o explorador de archivos.</li>
+        <li data-m-i18n="sec8_ocr_li3"><strong>Pegar desde el Portapapeles (Ctrl+V)</strong>: Si tienes una captura en la memoria, pulsa Ctrl+V y se procesará automáticamente.</li>
+        <li data-m-i18n="sec8_ocr_li4"><strong>Auto-perspectiva y Umbral Adaptativo</strong>: El motor corrige ángulos inclinados y sombras de papel mediante el algoritmo Bradley-Roth.</li>
+      </ul>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid #38bdf8;">
+      <h3 data-m-i18n="sec8_sub2">✍️ Planteamiento Manual y Carga de Cadenas de 81 Caracteres</h3>
+      <ul>
+        <li data-m-i18n="sec8_man_li1"><strong>Diseño Casilla a Casilla</strong>: Toca cualquier celda en la cuadrícula de verificación y utiliza el teclado numérico inferior (1 al 9 y borrar) para fijar las pistas iniciales.</li>
+        <li data-m-i18n="sec8_man_li2"><strong>Importación de Cadena 81</strong>: Pega cadenas numéricas estándar donde los ceros o puntos representan casillas vacías (ej: <code>0030206...</code>).</li>
+      </ul>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid var(--gold);">
+      <h3 data-m-i18n="sec8_sub3">📋 Cuadrícula de Verificación Táctica y Auditoría Cognitiva</h3>
+      <p data-m-i18n="sec8_audit_p">Antes de jugar o guardar, el sistema audita en vivo la integridad matemática de tu puzle:</p>
+      <ul>
+        <li data-m-i18n="sec8_audit_li1"><strong>Comprobación de Unicidad</strong>: Verifica que el sudoku tiene solución y que es 100% única (requiere al menos 17 pistas).</li>
+        <li data-m-i18n="sec8_audit_li2"><strong>Clasificación Humana de Dificultad</strong>: Analiza si se resuelve con técnicas básicas, pares o patrones avanzados (X-Wing, etc.).</li>
+        <li data-m-i18n="sec8_audit_li3"><strong>Cálculo de Techo de Puntos</strong>: Determina el valor cognitivo total de la partida para competir bajo el mismo baremo de puntuación.</li>
+      </ul>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid #a855f7;">
+      <h3 data-m-i18n="sec8_sub4">📁 Bóveda de Retos: "Mis Retos"</h3>
+      <p data-m-i18n="sec8_vault_p">Tu biblioteca personal guardada de forma persistente en tu dispositivo:</p>
+      <ul>
+        <li data-m-i18n="sec8_vault_li1"><strong>Búsqueda y Filtros</strong>: Clasifica tus sudokus por <em>Todos</em>, <em>Pendientes</em> o <em>Completados</em>, y busca por nombre o fecha.</li>
+        <li data-m-i18n="sec8_vault_li2"><strong>Récords y Medallas</strong>: Registra tu mejor puntuación, mejor tiempo, medalla de rango alcanzada y número de partidas jugadas en cada reto.</li>
+        <li data-m-i18n="sec8_vault_li3"><strong>Duelos por WhatsApp</strong>: Envía un reto de tu Bóveda a un amigo mediante un enlace directo para que compita en igualdad de condiciones.</li>
+      </ul>
+    </div>
+
+        <!-- SECCIÓN 9: SALÓN DE LA FAMA Y JUEGO LIMPIO -->
+    <h2 id="sec-9" data-m-i18n="sec9_title">9. Salón de la Fama Global y Compromiso de Juego Limpio</h2>
+    <p data-m-i18n="sec9_desc">Sudoku Arena premia la consistencia y el mérito intelectual con un Cuadro de Honor mundial público, clasificación segmentada y protección anti-trampas de última generación.</p>
+
+    <div class="card-box" style="border-left: 4px solid var(--gold);">
+      <h3 data-m-i18n="sec9_sub1">🏆 Salón de la Fama Público y Desafíos a Maestros</h3>
+      <p data-m-i18n="sec9_fame_p1">El Salón de la Fama es 100% público y accesible para todos los jugadores desde el primer día, sin necesidad de registro ni contraseñas (Zero-Login):</p>
+      <ul>
+        <li data-m-i18n="sec9_fame_li1"><strong>Copa de Naciones (🌍)</strong>: Rankings filtrados por país para consultar los podios de cada territorio.</li>
+        <li data-m-i18n="sec9_fame_li2"><strong>Orgullo Local y Ciudades (🏙️)</strong>: Competición entre resolutores de una misma localidad o provincia.</li>
+        <li data-m-i18n="sec9_fame_li3"><strong>Clasificación Generacional (🎂)</strong>: Tramos de edad justos para competir entre pares (Júnior &lt;18, Adultos 18-49, Senior 50-64, Leyendas 65+).</li>
+        <li data-m-i18n="sec9_fame_li4"><strong>Función «Desafiar al Maestro» (⚔️)</strong>: Cualquier jugador puede pulsar el botón de reto en una marca del Salón de la Fama para cargar exactamente el mismo tablero y semilla del maestro e intentar superar su tiempo o puntuación.</li>
+      </ul>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid var(--border-accent);">
+      <h3 data-m-i18n="sec9_sub2">🎖️ Entrada al Cuadro de Honor: Consistencia Anti-Suerte</h3>
+      <p data-m-i18n="sec9_cons_p1">Un solo sudoku afortunado puede deberse a la casualidad. Para que el título de Maestro tenga verdadero prestigio, la inscripción oficial exige trayectoria demostrada:</p>
+      <ul>
+        <li data-m-i18n="sec9_cons_li1"><strong>Mínimo de Partidas Certificadas</strong>: Se requiere acumular al menos <strong>3 victorias de Gran Maestro Puro</strong>.</li>
+        <li data-m-i18n="sec9_cons_li2"><strong>Baremos Oficiales de Maestría</strong>: Logradas en nivel Difícil o Endemoniado con <strong>≥ 90% de autonomía mental</strong> y <strong>0 ayudas del sistema (0 ay.)</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="card-box" style="border-left: 4px solid var(--danger);">
+      <h3 data-m-i18n="sec9_sub3">⚖️ Centinela Inteligente y Blindaje Anti-Pantalla Chivata</h3>
+      <p data-m-i18n="sec9_fp_p1">Sudoku Arena protege la integridad de los récords con una supervisión rigurosa y respetuosa:</p>
+      <ul>
+        <li data-m-i18n="sec9_fp_li1"><strong>Calibrado por Dificultad e Inmunidad en Fácil</strong>: En nivel Fácil el centinela no interviene para no frenar la velocidad legítima de los maestros.</li>
+        <li data-m-i18n="sec9_fp_li2"><strong>Inmunidad en Cascada Final</strong>: Cuando restan 28 o menos casillas vacías, las deducciones fluyen en cadena libremente sin riesgo de falsos positivos.</li>
+        <li data-m-i18n="sec9_fp_li3"><strong>Blindaje Anti-Pantalla Chivata</strong>: Transferir una partida viva a Top-Sudoku la marca automáticamente como comprometida/práctica (no puntuable para el Salón de la Fama). Asimismo, los cambios reiterados de pestaña o ventana (<code>window.onblur</code>) anulan la certificación oficial para evitar la copia externa.</li>
+      </ul>
+    </div>
+
+    <!-- CRÉDITOS Y DEDICATORIA -->
+    <div class="card-box" style="margin-top: 2rem; border-color: rgba(245, 158, 11, 0.45); background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(30, 41, 59, 0.85)); text-align: center; padding: 1.75rem 1.25rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
+      <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧩✨</div>
+      <p style="font-size: 1.15rem; font-weight: 800; color: var(--gold); margin-bottom: 0.3rem;" data-m-i18n="author_name">
+        Desarrollado por Guillermo Tudela
+      </p>
+      <p style="font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;" data-m-i18n="author_role">
+        director de CONECTIVIDAD Y COMUNICACIONES, S. L.
+      </p>
+      <div style="max-width: 580px; margin: 0 auto; padding-top: 0.85rem; border-top: 1px solid rgba(245, 158, 11, 0.25);">
+        <p style="font-size: 0.95rem; font-style: italic; color: #fde68a; line-height: 1.6; margin: 0;" data-m-i18n="author_dedication">
+          Esta APP está dedicada a mi familia, amigos y a todos los apasionados por los Rompecabezas y Sudokus
+        </p>
+      </div>
+    </div>
+
+    <div class="footer" data-m-i18n="footer">
+      Sudoku Arena &copy; 2026 &bull; CONECTIVIDAD Y COMUNICACIONES, S.L. &bull; Todos los derechos reservados
+    </div>
+  </div>
+<script src="js/manual_i18n.js?v=4.0"></script>
+
+  <!-- BARRA LATERAL DE SCROLL RÁPIDO (Especialmente para Móvil y Sobremesa) -->
+  <nav class="manual-quick-scroll-rail" id="quick-scroll-rail" aria-label="Navegación rápida de secciones">
+    <button class="rail-btn rail-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Inicio">▲</button>
+    <button class="rail-btn" data-target="sec-1" title="1. Niveles de Dificultad">1</button>
+    <button class="rail-btn" data-target="sec-2" title="2. Controles">2</button>
+    <button class="rail-btn" data-target="sec-3" title="3. Puntuación">3</button>
+    <button class="rail-btn" data-target="sec-4" title="4. Ayudas">4</button>
+    <button class="rail-btn" data-target="sec-5" title="5. Autonomía">5</button>
+    <button class="rail-btn" data-target="sec-6" title="6. Duelos">6</button>
+    <button class="rail-btn" data-target="sec-7" title="7. Consejos">7</button>
+    <button class="rail-btn" data-target="sec-8" title="8. Bóveda">8</button>
+    <button class="rail-btn" data-target="sec-9" title="9. Salón Fama">9</button>
+    <button class="rail-btn rail-bottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Final">▼</button>
+  </nav>
+
+  <style>
+    /* Estilos de la barra lateral de scroll rápido */
+    .manual-quick-scroll-rail {
+      position: fixed;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      backdrop-filter: blur(10px);
+      padding: 7px 4px;
+      border-radius: 24px;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      user-select: none;
+      touch-action: none;
+    }
+
+    .rail-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: rgba(30, 41, 59, 0.75);
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+    }
+
+    .rail-btn:hover, .rail-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #38bdf8;
+      transform: scale(1.15);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    }
+
+    .rail-btn.rail-top, .rail-btn.rail-bottom {
+      background: transparent;
+      color: #38bdf8;
+      font-size: 0.65rem;
+    }
+    .rail-btn.rail-top:hover, .rail-btn.rail-bottom:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      .manual-quick-scroll-rail {
+        right: 4px;
+        padding: 5px 3px;
+        gap: 4px;
+      }
+      .rail-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 0.64rem;
+      }
+    }
+  </style>
+
+  <script>
+    // Navegación rápida por click o arrastre táctil en la barra lateral
+    document.querySelectorAll('.rail-btn[data-target]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = btn.dataset.target;
+        const targetElem = document.getElementById(targetId);
+        if (targetElem) {
+          targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Soporte para arrastrar el dedo verticalmente por la barra lateral en móvil
+    const rail = document.getElementById('quick-scroll-rail');
+    if (rail) {
+      let isTouching = false;
+      const handleTouch = (e) => {
+        const touch = e.touches[0];
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (element && element.classList.contains('rail-btn') && element.dataset.target) {
+          const targetElem = document.getElementById(element.dataset.target);
+          if (targetElem) {
+            targetElem.scrollIntoView({ behavior: 'auto', block: 'start' });
+          }
+        }
+      };
+
+      rail.addEventListener('touchstart', (e) => { isTouching = true; handleTouch(e); }, { passive: true });
+      rail.addEventListener('touchmove', (e) => { if (isTouching) handleTouch(e); }, { passive: true });
+      rail.addEventListener('touchend', () => { isTouching = false; }, { passive: true });
+    }
+
+    // Scroll spy: iluminar la sección activa en la barra lateral
+    const sections = ['sec-1', 'sec-2', 'sec-3', 'sec-4', 'sec-5', 'sec-6', 'sec-7', 'sec-8', 'sec-9'];
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 120;
+      let currentSec = null;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          currentSec = id;
+        }
+      }
+      document.querySelectorAll('.rail-btn[data-target]').forEach(b => {
+        b.classList.toggle('active', b.dataset.target === currentSec);
+      });
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initEnvironmentLinks() {
   const host = window.location.hostname;
-  const isLocal = host === 'localhost' || host === '127.0.0.1';
   const isLaragonTest = host.endsWith('.test');
 
   let topSudokuBase = 'top-sudoku/';
@@ -29,9 +28,6 @@ function initEnvironmentLinks() {
   if (isLaragonTest) {
     topSudokuBase = 'http://top-sudoku.test/';
     sudokuArenaBase = 'http://sudoku-arena.test/';
-  } else if (!isLocal && host.includes('clubdelingenio')) {
-    topSudokuBase = '/top-sudoku/';
-    sudokuArenaBase = '/sudoku-arena/';
   }
 
   // Actualizar todos los enlaces que apunten a top-sudoku
