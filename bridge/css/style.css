@@ -18,14 +18,16 @@
   --font-title: 'Cinzel', serif;
   --font-body: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --card-width: 58px;
-  --card-height: 86px;
+  --card-width: 52px;
+  --card-height: 76px;
+  --card-overlap-x: -26px;
 }
 
 @media (min-width: 768px) {
   :root {
-    --card-width: 68px;
-    --card-height: 100px;
+    --card-width: 62px;
+    --card-height: 90px;
+    --card-overlap-x: -34px;
   }
 }
 
@@ -55,7 +57,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 0.75rem 1.5rem;
+  padding: 0.45rem 1.25rem;
 }
 
 .header-inner {
@@ -65,32 +67,32 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .brand-group {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.65rem;
   text-decoration: none;
   color: inherit;
 }
 
 .brand-crest {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
   object-fit: cover;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
   border: 1px solid var(--gold-accent);
 }
 
 .brand-title {
   display: block;
   font-family: var(--font-title);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -98,22 +100,22 @@ body {
 
 .brand-subtitle {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .nav-modes {
   display: flex;
   background: rgba(255, 255, 255, 0.05);
-  padding: 0.25rem;
+  padding: 0.2rem;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
 }
@@ -123,15 +125,15 @@ body {
   border: none;
   color: var(--text-muted);
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 0.4rem 1rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .mode-tab:hover {
@@ -170,7 +172,7 @@ body {
 .scenario-bar {
   background: #090e1c;
   border-bottom: 1px solid var(--border-subtle);
-  padding: 0.65rem 1.5rem;
+  padding: 0.35rem 1.25rem;
 }
 
 .scenario-bar-inner {
@@ -180,24 +182,24 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .controls-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .select-control {
   background: #0f172a;
   border: 1px solid var(--border-gold);
   color: var(--gold-light);
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   outline: none;
   cursor: pointer;
 }
@@ -206,10 +208,11 @@ body {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--border-subtle);
   color: var(--text-main);
-  padding: 0.35rem 0.65rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 700;
+  font-size: 0.8rem;
   transition: 0.2s;
 }
 
@@ -222,10 +225,10 @@ body {
   background: transparent;
   border: 1px solid var(--border-subtle);
   color: var(--cyan-accent);
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   transition: 0.2s;
 }
@@ -240,37 +243,44 @@ body {
    ========================================================================== */
 .table-hud {
   max-width: 1400px;
-  margin: 0.75rem auto 0;
-  padding: 0 1.5rem;
+  margin: 0.3rem auto 0;
+  padding: 0 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.45rem;
   width: 100%;
+}
+
+@media (max-width: 900px) {
+  .table-hud {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .hud-panel {
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .hud-label {
-  font-size: 0.7rem;
+  font-size: 0.62rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.2rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.1rem;
 }
 
 .hud-value {
   font-family: var(--font-mono);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--text-main);
+  line-height: 1.2;
 }
 
 .hud-value.highlight-gold {
@@ -283,9 +293,10 @@ body {
 
 .trump-badge {
   display: inline-block;
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
   font-weight: 800;
+  font-size: 0.85rem;
 }
 .trump-NT { background: #334155; color: #f8fafc; }
 .trump-S { background: #0f172a; color: #f8fafc; border: 1px solid #475569; }
@@ -296,37 +307,37 @@ body {
 /* Barra de Pistas del Maestro */
 .teacher-hint-bar {
   max-width: 1400px;
-  margin: 0.65rem auto 0;
-  padding: 0 1.5rem;
+  margin: 0.3rem auto 0;
+  padding: 0 1rem;
   width: 100%;
 }
 
 .hint-box {
   background: linear-gradient(90deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
   border: 1px solid rgba(245, 158, 11, 0.4);
-  border-left: 4px solid var(--gold-accent);
-  border-radius: 10px;
-  padding: 0.6rem 1rem;
-  font-size: 0.9rem;
+  border-left: 3px solid var(--gold-accent);
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.82rem;
   color: #fde68a;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  gap: 0.6rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hint-icon {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 /* ==========================================================================
    4. MESA DE PAÑO DE BRIDGE
    ========================================================================== */
 .table-stage-wrapper {
-  max-width: 1400px;
-  margin: 0.75rem auto 1.5rem;
-  padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0.25rem auto 0.5rem;
+  padding: 0 0.5rem;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -336,20 +347,19 @@ body {
 
 .bridge-felt-table {
   width: 100%;
-  max-width: 1050px;
-  min-height: 520px;
+  max-width: 940px;
   background: radial-gradient(circle at center, #0f3d24 0%, #082113 70%, #030e08 100%);
-  border: 10px solid #2d1e12; /* Borde caoba */
+  border: 7px solid #2d1e12; /* Borde caoba */
   box-shadow: 
-    inset 0 0 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 35px rgba(0, 0, 0, 0.8),
     0 0 0 2px var(--gold-accent),
-    0 20px 50px rgba(0, 0, 0, 0.9);
-  border-radius: 28px;
+    0 15px 35px rgba(0, 0, 0, 0.85);
+  border-radius: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.85rem 1rem;
+  padding: 0.4rem 0.65rem;
   overflow: hidden;
 }
 
@@ -360,10 +370,10 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 320px;
-  height: 320px;
+  width: 260px;
+  height: 260px;
   background: url('../img/bridge_logo.jpg') center/cover no-repeat;
-  opacity: 0.06;
+  opacity: 0.05;
   border-radius: 50%;
   pointer-events: none;
 }
@@ -378,11 +388,11 @@ body {
 }
 
 .seat-north {
-  margin-top: 0.25rem;
+  margin-top: 0;
 }
 
 .seat-south {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0;
 }
 
 .seat-middle-row {
@@ -390,58 +400,85 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 0.5rem;
-  margin: 0.5rem 0;
+  padding: 0 0.25rem;
+  margin: 0.15rem 0;
 }
 
 .seat-west, .seat-east {
-  width: 120px;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .seat-badge {
   font-family: var(--font-title);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--gold-light);
   background: rgba(11, 17, 32, 0.85);
   border: 1px solid var(--border-gold);
-  padding: 0.25rem 0.75rem;
+  padding: 0.12rem 0.55rem;
   border-radius: 999px;
-  margin-bottom: 0.4rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  margin-bottom: 0.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
+  white-space: nowrap;
 }
 
 .seat-badge.active-turn {
   background: var(--gold-gradient);
   color: #0f172a;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.7);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
   animation: pulseGold 1.5s infinite;
 }
 
 @keyframes pulseGold {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.04); }
 }
 
-/* Área de cartas de cada mano */
+/* Área de cartas de cada mano horizontal (Norte y Sur) */
 .hand-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: -15px; /* Superposición ligera de cartas */
   flex-wrap: nowrap;
   max-width: 100%;
+  padding: 4px 6px;
 }
 
+.hand-row .bridge-card {
+  margin-left: var(--card-overlap-x);
+}
+
+.hand-row .bridge-card:first-child {
+  margin-left: 0;
+}
+
+/* Naipes verticales para Oeste y Este (Defensa IA) con solapamiento exacto */
 .hand-vertical {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: -65px;
+  position: relative;
+  width: 44px;
+}
+
+.hand-vertical .bridge-card {
+  width: 44px;
+  height: 62px;
+  margin-left: 0 !important;
+  margin-top: -51px; /* Superposición vertical compacta para los 13 naipes */
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+}
+
+.hand-vertical .bridge-card:first-child {
+  margin-top: 0;
 }
 
 /* ==========================================================================
@@ -451,21 +488,17 @@ body {
   width: var(--card-width);
   height: var(--card-height);
   background: #ffffff;
-  border-radius: 6px;
+  border-radius: 5px;
   border: 1px solid #cbd5e1;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.3rem 0.35rem;
+  padding: 0.2rem 0.25rem;
   user-select: none;
   position: relative;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease;
-  margin-left: -18px; /* Solapamiento de naipes de bridge */
-}
-
-.hand-row .bridge-card:first-child {
-  margin-left: 0;
+  transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.16s ease;
+  flex-shrink: 0;
 }
 
 .bridge-card.suit-black {
@@ -494,12 +527,14 @@ body {
 
 .card-rank {
   font-family: var(--font-title);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 800;
+  line-height: 1;
 }
 
 .card-suit {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1;
 }
 
 .card-center {
@@ -510,7 +545,7 @@ body {
 }
 
 .card-big-suit {
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   opacity: 0.9;
 }
 
@@ -519,12 +554,12 @@ body {
   background: repeating-linear-gradient(
     45deg,
     #1e293b,
-    #1e293b 6px,
-    #0f172a 6px,
-    #0f172a 12px
+    #1e293b 5px,
+    #0f172a 5px,
+    #0f172a 10px
   );
   border: 2px solid #334155;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
 }
 
 /* Estado Jugable: destaca y flota al pasar el ratón */
@@ -534,15 +569,15 @@ body {
 }
 
 .bridge-card.card-playable:hover {
-  transform: translateY(-16px) scale(1.06);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5), 0 0 12px rgba(245, 158, 11, 0.8);
-  z-index: 50;
+  transform: translateY(-14px) scale(1.08);
+  box-shadow: 0 10px 22px rgba(245, 158, 11, 0.55), 0 0 10px rgba(245, 158, 11, 0.85);
+  z-index: 60;
 }
 
 /* Estado Deshabilitado (no asiste al palo de salida) */
 .bridge-card.card-dimmed {
-  opacity: 0.38;
-  filter: grayscale(40%);
+  opacity: 0.35;
+  filter: grayscale(45%);
   cursor: not-allowed;
 }
 
@@ -550,8 +585,8 @@ body {
    6. BAZA CENTRAL (TRICK AREA)
    ========================================================================== */
 .trick-arena {
-  width: 210px;
-  height: 210px;
+  width: 175px;
+  height: 175px;
   background: rgba(4, 20, 12, 0.65);
   border: 1px dashed rgba(245, 158, 11, 0.3);
   border-radius: 50%;
@@ -559,7 +594,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .trick-slot {
@@ -571,18 +606,18 @@ body {
   align-items: center;
 }
 
-.trick-slot-N { top: 8px; }
-.trick-slot-S { bottom: 8px; }
-.trick-slot-W { left: 8px; }
-.trick-slot-E { right: 8px; }
+.trick-slot-N { top: 4px; }
+.trick-slot-S { bottom: 4px; }
+.trick-slot-W { left: 4px; }
+.trick-slot-E { right: 4px; }
 
 .trick-card-played {
-  margin-left: 0 !important;
+  margin: 0 !important;
   animation: dropCard 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 @keyframes dropCard {
-  0% { transform: scale(1.3) translateY(-10px); opacity: 0; }
+  0% { transform: scale(1.25) translateY(-8px); opacity: 0; }
   100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
