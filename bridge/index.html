@@ -49,6 +49,9 @@
         <button class="mode-tab" data-mode="freeplay">
           <span>🎲</span> <span>Mesa de Salón Libre</span>
         </button>
+        <button class="mode-tab" data-mode="tournament">
+          <span>🏛️</span> <span>Salón de Torneo (Subasta & SAYC)</span>
+        </button>
       </nav>
 
       <!-- Acciones de Cabecera -->
@@ -93,6 +96,20 @@
         </select>
         <button class="btn-primary" id="btn-deal-random" style="padding:0.35rem 0.9rem; font-size:0.85rem;">
           🔀 Repartir Nueva Mano
+        </button>
+      </div>
+
+      <!-- Controles Modo Torneo Oficial con Subasta (Ocultos por defecto) -->
+      <div class="controls-group" id="tournament-controls" style="display: none;">
+        <label for="dealer-select" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Dador:</label>
+        <select class="select-control" id="dealer-select">
+          <option value="S">Sur (Tú)</option>
+          <option value="W" selected>Oeste</option>
+          <option value="N">Norte (Compañero)</option>
+          <option value="E">Este</option>
+        </select>
+        <button class="btn-primary" id="btn-deal-tournament" style="padding:0.35rem 0.9rem; font-size:0.85rem;">
+          🔀 Repartir Mano de Torneo
         </button>
       </div>
 
@@ -153,6 +170,61 @@
   <!-- 5. MESA DE PAÑO DE BRIDGE -->
   <main class="table-stage-wrapper">
     <div class="bridge-felt-table">
+
+      <!-- PANEL DE SUBASTA & BIDDING BOX (Modo Torneo - Overlay) -->
+      <div id="auction-overlay" class="auction-overlay hidden">
+        <div class="auction-board">
+          
+          <div class="auction-head">
+            <div class="auction-title-group">
+              <h4>🏛️ Subasta Reglamentaria (Bidding Box)</h4>
+              <span class="dealer-info" id="auction-dealer-text">Dador: Oeste | Turno de cante: Oeste</span>
+            </div>
+            
+            <!-- Asistente Pedagógico SAYC -->
+            <div class="sayc-assistant-box" id="sayc-assistant-box">
+              <div class="assistant-tag">💡 ASISTENTE PEDAGÓGICO SAYC (MAYOR QUINTO)</div>
+              <div class="assistant-content" id="sayc-recommendation-text">Calculando evaluación de mano...</div>
+            </div>
+          </div>
+
+          <!-- Tabla de Cantes Oficial (4 Columnas) -->
+          <div class="auction-table-wrapper">
+            <table class="auction-grid">
+              <thead>
+                <tr>
+                  <th>OESTE</th>
+                  <th>NORTE (COMPAÑERO)</th>
+                  <th>ESTE</th>
+                  <th>SUR (TÚ)</th>
+                </tr>
+              </thead>
+              <tbody id="auction-calls-tbody">
+                <!-- Se llena dinámicamente con los cantes de cada ronda -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Caja de Cantes (Bidding Box con botones para Sur) -->
+          <div class="bidding-box" id="bidding-box-container">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--gold-accent); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0 0.2rem;">
+              <span>Tus opciones de cante (Niveles 1 al 7 y palos oficiales)</span>
+              <span id="bidding-box-status" style="color:var(--text-muted); font-size:0.75rem; text-transform:none;">Esperando tu turno</span>
+            </div>
+            
+            <div class="bidding-levels-grid" id="bidding-levels-grid">
+              <!-- Columnas de niveles 1 a 7 generadas por JS -->
+            </div>
+
+            <div class="bidding-special-calls">
+              <button type="button" class="btn-bid-special bid-pass" id="btn-call-pass">PASO (Pass)</button>
+              <button type="button" class="btn-bid-special bid-dbl" id="btn-call-double" disabled>DOBLO (X)</button>
+              <button type="button" class="btn-bid-special bid-rdbl" id="btn-call-redouble" disabled>REDOBLO (XX)</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
       
       <!-- NORTE: El Muerto (Tu compañero, cartas abiertas sobre el paño) -->
       <div class="seat seat-north">
@@ -290,6 +362,19 @@
             <li><strong>2♥</strong> = 6 + 2 = <strong>8 bazas</strong>.</li>
             <li><strong>3NT</strong> = 6 + 3 = <strong>9 bazas</strong> (Manga).</li>
             <li><strong>4♠</strong> = 6 + 4 = <strong>10 bazas</strong> (Manga mayor).</li>
+          </ul>
+        </div>
+
+        <div class="rules-section">
+          <h4>6. La Subasta Oficial y el Bidding Box (Salón de Torneo)</h4>
+          <p>
+            En el Bridge de competición, antes de cartear se celebra una <strong>Subasta</strong> en la que cada jugador habla por turnos:
+          </p>
+          <ul style="padding-left: 1.25rem; margin-top: 0.35rem;">
+            <li><strong>Puntos de Honor (HCP)</strong>: Se evalúa la fuerza de tu mano con la escala clásica: <strong>As = 4</strong>, <strong>Rey = 3</strong>, <strong>Dama = 2</strong>, <strong>Jota = 1</strong> (40 puntos en toda la baraja).</li>
+            <li><strong>Sistema SAYC (Mayor Quinto)</strong>: Si tienes 12-21 HCP y un palo mayor (♥ o ♠) de 5 o más cartas, se abre en ese mayor. Si tienes 15-17 HCP equilibrados, abres 1NT. Con menos de 12 HCP, se suele pasar.</li>
+            <li><strong>Fin de la Subasta</strong>: Cuando un cante es seguido de <strong>3 Pasos consecutivos</strong>, queda fijado el Contrato definitivo y arranca el carteo de las 13 bazas.</li>
+            <li><strong>Puntuación Duplicada</strong>: Si cumples tu contrato recibes puntos por bazas, bonificación de manga (+300 pts) o parcial (+50 pts) y sobrebazas. Si caes, los rivales cobran multas por cada caída.</li>
           </ul>
         </div>
 

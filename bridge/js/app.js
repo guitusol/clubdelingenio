@@ -1,20 +1,25 @@
 /**
  * Bridge del Club — Interfaz de Usuario y Controlador Principal
+ * Con soporte para Escuela de Carteo, Salón Libre y Salón de Torneo Oficial
+ * (Subasta Bidding Box, Asistente Pedagógico SAYC y Puntuación Duplicada)
  */
 
 import { BridgeAudio } from './audio.js';
 import { BridgeEngine } from './engine.js';
 import { SCENARIOS, generateRandomDeal } from './scenarios.js';
 import { PLAYER_NAMES, SUITS } from './deck.js';
+import { STRAINS, SAYCAssistant } from './bidding.js';
 
 class BridgeApp {
   constructor() {
     this.audio = new BridgeAudio();
     this.engine = new BridgeEngine(this.audio);
     this.currentScenarioIndex = 0;
-    this.activeMode = 'school'; // 'school' | 'freeplay'
+    this.activeMode = 'school'; // 'school' | 'freeplay' | 'tournament'
+    this.bidButtons = {};
 
     this.initDOM();
+    this.initBiddingBox();
     this.bindEvents();
     this.loadScenarioByIndex(0);
   }
@@ -47,7 +52,7 @@ class BridgeApp {
       trickSlotW: document.getElementById('trick-slot-W'),
       lastTrickWinner: document.getElementById('last-trick-winner-text'),
 
-      // Selectores y Botones
+      // Selectores y Botones de Barra de Control
       btnPrevScenario: document.getElementById('btn-prev-scenario'),
       btnNextScenario: document.getElementById('btn-next-scenario'),
       scenarioSelect: document.getElementById('scenario-select'),
@@ -59,6 +64,23 @@ class BridgeApp {
       btnDealRandom: document.getElementById('btn-deal-random'),
       freeplayControls: document.getElementById('freeplay-controls'),
       schoolControls: document.getElementById('school-controls'),
+
+      // Controles Modo Torneo
+      tournamentControls: document.getElementById('tournament-controls'),
+      dealerSelect: document.getElementById('dealer-select'),
+      btnDealTournament: document.getElementById('btn-deal-tournament'),
+
+      // Panel de Subasta & Bidding Box
+      auctionOverlay: document.getElementById('auction-overlay'),
+      auctionDealerText: document.getElementById('auction-dealer-text'),
+      saycRecText: document.getElementById('sayc-recommendation-text'),
+      auctionTbody: document.getElementById('auction-calls-tbody'),
+      biddingBoxContainer: document.getElementById('bidding-box-container'),
+      biddingLevelsGrid: document.getElementById('bidding-levels-grid'),
+      biddingBoxStatus: document.getElementById('bidding-box-status'),
+      btnCallPass: document.getElementById('btn-call-pass'),
+      btnCallDouble: document.getElementById('btn-call-double'),
+      btnCallRedouble: document.getElementById('btn-call-redouble'),
 
       // Modales
       modalResult: document.getElementById('modal-result'),
@@ -74,13 +96,47 @@ class BridgeApp {
     };
   }
 
+  /**
+   * Genera dinámicamente la cuadrícula de la Bidding Box (niveles 1-7 y 5 palos)
+   */
+  initBiddingBox() {
+    if (!this.dom.biddingLevelsGrid) return;
+    this.dom.biddingLevelsGrid.innerHTML = '';
+    this.bidButtons = {};
+
+    for (let level = 1; level <= 7; level++) {
+      const col = document.createElement('div');
+      col.className = 'bidding-level-col';
+
+      STRAINS.forEach(strain => {
+        const bid = `${level}${strain.key}`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-bid';
+        btn.dataset.bid = bid;
+        btn.innerHTML = `<span style="color:${strain.color}">${level}${strain.symbol}</span>`;
+        btn.title = `Cantar ${level} ${strain.name}`;
+
+        btn.addEventListener('click', () => {
+          this.engine.makeBid(bid);
+        });
+
+        this.bidButtons[bid] = btn;
+        col.appendChild(btn);
+      });
+
+      this.dom.biddingLevelsGrid.appendChild(col);
+    }
+  }
+
   bindEvents() {
     // Motor callbacks
     this.engine.onStateChange = () => this.render();
+    this.engine.onAuctionChange = () => this.renderAuction();
     this.engine.onTrickComplete = (result, tricksWon) => this.onTrickFinished(result, tricksWon);
     this.engine.onGameFinished = (summary) => this.onGameEnd(summary);
 
-    // Controles de escenario
+    // Controles de escenario (Escuela)
     if (this.dom.scenarioSelect) {
       this.dom.scenarioSelect.addEventListener('change', (e) => {
         this.loadScenarioByIndex(parseInt(e.target.value, 10));
@@ -103,9 +159,14 @@ class BridgeApp {
       });
     }
 
+    // Botón Reiniciar
     if (this.dom.btnRestart) {
       this.dom.btnRestart.addEventListener('click', () => {
-        this.engine.loadScenario(this.engine.scenario);
+        if (this.activeMode === 'tournament') {
+          this.startNewTournamentGame();
+        } else {
+          this.engine.loadScenario(this.engine.scenario);
+        }
       });
     }
 
@@ -115,6 +176,30 @@ class BridgeApp {
         const contract = this.dom.freeContractSelect.value;
         const deal = generateRandomDeal(contract);
         this.engine.loadScenario(deal);
+      });
+    }
+
+    // Modo Torneo
+    if (this.dom.btnDealTournament) {
+      this.dom.btnDealTournament.addEventListener('click', () => {
+        this.startNewTournamentGame();
+      });
+    }
+
+    // Cantes especiales de la Bidding Box
+    if (this.dom.btnCallPass) {
+      this.dom.btnCallPass.addEventListener('click', () => {
+        this.engine.makeBid('PASS');
+      });
+    }
+    if (this.dom.btnCallDouble) {
+      this.dom.btnCallDouble.addEventListener('click', () => {
+        this.engine.makeBid('X');
+      });
+    }
+    if (this.dom.btnCallRedouble) {
+      this.dom.btnCallRedouble.addEventListener('click', () => {
+        this.engine.makeBid('XX');
       });
     }
 
@@ -129,12 +214,21 @@ class BridgeApp {
         if (mode === 'school') {
           this.dom.schoolControls.style.display = 'flex';
           this.dom.freeplayControls.style.display = 'none';
+          if (this.dom.tournamentControls) this.dom.tournamentControls.style.display = 'none';
+          if (this.dom.auctionOverlay) this.dom.auctionOverlay.classList.add('hidden');
           this.loadScenarioByIndex(this.currentScenarioIndex);
-        } else {
+        } else if (mode === 'freeplay') {
           this.dom.schoolControls.style.display = 'none';
           this.dom.freeplayControls.style.display = 'flex';
+          if (this.dom.tournamentControls) this.dom.tournamentControls.style.display = 'none';
+          if (this.dom.auctionOverlay) this.dom.auctionOverlay.classList.add('hidden');
           const contract = this.dom.freeContractSelect.value;
           this.engine.loadScenario(generateRandomDeal(contract));
+        } else if (mode === 'tournament') {
+          this.dom.schoolControls.style.display = 'none';
+          this.dom.freeplayControls.style.display = 'none';
+          if (this.dom.tournamentControls) this.dom.tournamentControls.style.display = 'flex';
+          this.startNewTournamentGame();
         }
       });
     });
@@ -171,7 +265,11 @@ class BridgeApp {
     if (this.dom.btnResultRetry) {
       this.dom.btnResultRetry.addEventListener('click', () => {
         this.dom.modalResult.classList.add('hidden');
-        this.engine.loadScenario(this.engine.scenario);
+        if (this.activeMode === 'tournament') {
+          this.startNewTournamentGame();
+        } else {
+          this.engine.loadScenario(this.engine.scenario);
+        }
       });
     }
     if (this.dom.btnResultNext) {
@@ -179,6 +277,8 @@ class BridgeApp {
         this.dom.modalResult.classList.add('hidden');
         if (this.activeMode === 'school' && this.currentScenarioIndex < SCENARIOS.length - 1) {
           this.loadScenarioByIndex(this.currentScenarioIndex + 1);
+        } else if (this.activeMode === 'tournament') {
+          this.startNewTournamentGame();
         } else {
           const contract = this.dom.freeContractSelect ? this.dom.freeContractSelect.value : '3NT';
           this.engine.loadScenario(generateRandomDeal(contract));
@@ -202,9 +302,41 @@ class BridgeApp {
     this.engine.loadScenario(scenario);
   }
 
+  startNewTournamentGame() {
+    const dealer = this.dom.dealerSelect ? this.dom.dealerSelect.value : 'W';
+    const deal = generateRandomDeal('3NT');
+    this.engine.startTournamentDeal(deal, dealer);
+  }
+
   render() {
     const sc = this.engine.scenario;
+
+    // Si estamos en fase de subasta de torneo
+    if (this.engine.phase === 'auction') {
+      this.renderAuction();
+      if (this.dom.tableName) this.dom.tableName.textContent = 'Salón de Torneo Oficial — Subasta Reglamentaria';
+      if (this.dom.contractBadge) this.dom.contractBadge.textContent = 'Subasta en curso...';
+      if (this.dom.targetBadge) this.dom.targetBadge.textContent = 'Por definir';
+      if (this.dom.tricksNs) this.dom.tricksNs.textContent = '0';
+      if (this.dom.tricksEw) this.dom.tricksEw.textContent = '0';
+      if (this.dom.tricksRemain) this.dom.tricksRemain.textContent = '13 bazas';
+      if (this.dom.turnIndicator) this.dom.turnIndicator.innerHTML = 'Fase de Subasta: consulta el Asistente SAYC en la mesa.';
+      
+      // Renderizar manos (Sur abierta para ver cartas al cantar; Norte, Este y Oeste cerradas)
+      this.renderHand('S', this.dom.handS, true);
+      this.renderHand('N', this.dom.handN, false);
+      this.renderHand('W', this.dom.handW, false);
+      this.renderHand('E', this.dom.handE, false);
+      this.renderTrickCards();
+      return;
+    }
+
     if (!sc) return;
+
+    // Ocultar subasta si ya no está activa
+    if (this.dom.auctionOverlay) {
+      this.dom.auctionOverlay.classList.add('hidden');
+    }
 
     // Actualizar HUD
     if (this.dom.tableName) this.dom.tableName.textContent = sc.title;
@@ -225,7 +357,7 @@ class BridgeApp {
 
     // Renderizar manos
     this.renderHand('S', this.dom.handS, true);
-    this.renderHand('N', this.dom.handN, true); // El Muerto siempre abierto
+    this.renderHand('N', this.dom.handN, true); // El Muerto abierto durante el carteo
     this.renderHand('W', this.dom.handW, false); // Oponentes cerrados
     this.renderHand('E', this.dom.handE, false);
 
@@ -236,6 +368,136 @@ class BridgeApp {
     if (this.dom.hintText) {
       this.dom.hintText.textContent = this.engine.getTeacherHint();
     }
+  }
+
+  renderAuction() {
+    if (!this.dom.auctionOverlay) return;
+
+    if (this.engine.phase !== 'auction' || !this.engine.auction) {
+      this.dom.auctionOverlay.classList.add('hidden');
+      return;
+    }
+
+    this.dom.auctionOverlay.classList.remove('hidden');
+
+    const auction = this.engine.auction;
+    const currentBidder = auction.currentBidder;
+    const isSouthTurn = (currentBidder === 'S');
+
+    // Información de cabecera
+    if (this.dom.auctionDealerText) {
+      const dealerName = PLAYER_NAMES[auction.dealer] || auction.dealer;
+      const turnName = PLAYER_NAMES[currentBidder] || currentBidder;
+      this.dom.auctionDealerText.innerHTML = `Dador: <strong>${dealerName}</strong> | Turno de cante: <strong style="color:var(--gold-accent)">${turnName}</strong>`;
+    }
+
+    // Asistente Pedagógico SAYC
+    if (this.dom.saycRecText && this.engine.hands.S) {
+      const evalS = SAYCAssistant.evaluateHand(this.engine.hands.S);
+      const rec = SAYCAssistant.getRecommendedCall('S', this.engine.hands.S, auction);
+      const c = evalS.counts;
+      const countsText = `♠${c.S}  ♥${c.H}  ♦${c.D}  ♣${c.C}`;
+      const distDesc = evalS.isBalanced ? 'Mano Equilibrada' : 'Mano Desigual';
+
+      this.dom.saycRecText.innerHTML = `
+        <div style="margin-bottom:0.3rem;">
+          <strong>Tus Puntos de Honor (HCP):</strong> <span class="highlight-gold" style="font-weight:800; font-size:1.05rem;">${evalS.hcp} pts</span> 
+          <span style="color:var(--text-muted); font-size:0.8rem;">(${distDesc} • ${countsText})</span>
+        </div>
+        <div>
+          <strong>Voz recomendada SAYC:</strong> 
+          <span class="highlight-cyan" style="font-weight:800; font-size:1rem; padding:0.15rem 0.45rem; background:rgba(56,189,248,0.15); border-radius:4px; border:1px solid #38bdf8;">${rec.call}</span>
+          <span style="color:#fde68a; margin-left:0.4rem; font-size:0.85rem;">— ${rec.reason}</span>
+        </div>
+      `;
+    }
+
+    // Tabla de Cantes Oficial (Oeste, Norte, Este, Sur)
+    if (this.dom.auctionTbody) {
+      this.dom.auctionTbody.innerHTML = '';
+      const cols = ['W', 'N', 'E', 'S'];
+      const dealerIdx = cols.indexOf(auction.dealer);
+
+      let currentRow = [];
+      for (let i = 0; i < dealerIdx; i++) {
+        currentRow.push('');
+      }
+
+      auction.history.forEach(item => {
+        currentRow.push(item.call);
+        if (currentRow.length === 4) {
+          this.appendAuctionRow(currentRow);
+          currentRow = [];
+        }
+      });
+
+      if (currentRow.length > 0) {
+        while (currentRow.length < 4) {
+          currentRow.push('');
+        }
+        this.appendAuctionRow(currentRow);
+      }
+    }
+
+    // Estado de la Bidding Box
+    if (this.dom.biddingBoxStatus) {
+      this.dom.biddingBoxStatus.textContent = isSouthTurn ? '¡Es tu turno de cantar!' : `Esperando cante de ${PLAYER_NAMES[currentBidder]}...`;
+      this.dom.biddingBoxStatus.style.color = isSouthTurn ? '#34d399' : 'var(--text-muted)';
+    }
+
+    // Actualizar botones de cante en la cuadrícula
+    const rec = SAYCAssistant.getRecommendedCall('S', this.engine.hands.S, auction);
+    for (let bid in this.bidButtons) {
+      const btn = this.bidButtons[bid];
+      const isLegal = isSouthTurn && auction.isCallLegal(bid, 'S');
+      btn.disabled = !isLegal;
+
+      if (isSouthTurn && bid === rec.call) {
+        btn.style.boxShadow = '0 0 10px rgba(56, 189, 248, 0.9)';
+        btn.style.borderColor = '#38bdf8';
+        btn.style.background = 'rgba(56, 189, 248, 0.2)';
+      } else {
+        btn.style.boxShadow = '';
+        btn.style.borderColor = '';
+        btn.style.background = '';
+      }
+    }
+
+    // Botones especiales
+    if (this.dom.btnCallPass) {
+      this.dom.btnCallPass.disabled = !isSouthTurn;
+    }
+    if (this.dom.btnCallDouble) {
+      this.dom.btnCallDouble.disabled = !isSouthTurn || !auction.isCallLegal('X', 'S');
+    }
+    if (this.dom.btnCallRedouble) {
+      this.dom.btnCallRedouble.disabled = !isSouthTurn || !auction.isCallLegal('XX', 'S');
+    }
+  }
+
+  appendAuctionRow(rowCells) {
+    const tr = document.createElement('tr');
+    rowCells.forEach(call => {
+      const td = document.createElement('td');
+      if (!call) {
+        td.textContent = '—';
+        td.style.color = 'var(--text-muted)';
+      } else if (call === 'PASS') {
+        td.innerHTML = '<span class="bid-badge bid-PASS">Paso</span>';
+      } else if (call === 'X') {
+        td.innerHTML = '<span class="bid-badge bid-X">Doblo</span>';
+      } else if (call === 'XX') {
+        td.innerHTML = '<span class="bid-badge bid-XX">Redoblo</span>';
+      } else {
+        const strain = call.substring(1);
+        const strainObj = STRAINS.find(s => s.key === strain);
+        const color = strainObj ? strainObj.color : '#fff';
+        const sym = strainObj ? strainObj.symbol : strain;
+        td.innerHTML = `<span class="bid-badge" style="background:#1e293b; color:${color}; border:1px solid rgba(255,255,255,0.1);">${call[0]}${sym}</span>`;
+      }
+      tr.appendChild(td);
+    });
+    this.dom.auctionTbody.appendChild(tr);
   }
 
   renderTurnIndicator() {
@@ -272,7 +534,7 @@ class BridgeApp {
 
     const isLegalMap = new Set(legalCards.map(c => c.id));
 
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       const el = document.createElement('div');
       el.className = `bridge-card ${card.suit.color === '#ef4444' || card.suit.color === '#f59e0b' ? 'suit-red' : 'suit-black'}`;
 
@@ -282,7 +544,6 @@ class BridgeApp {
         return;
       }
 
-      // Si es cara arriba
       const isLegal = isLegalMap.has(card.id);
       if (isCurrentTurn && (player === 'S' || player === 'N')) {
         if (isLegal) {
@@ -349,7 +610,7 @@ class BridgeApp {
     });
   }
 
-  onTrickFinished(result, tricksWon) {
+  onTrickFinished(result) {
     if (this.dom.lastTrickWinner) {
       const winnerName = PLAYER_NAMES[result.winner];
       this.dom.lastTrickWinner.textContent = `Baza ganada por: ${winnerName} con ${result.winningCard.toString()}`;
@@ -359,6 +620,50 @@ class BridgeApp {
   onGameEnd(summary) {
     if (!this.dom.modalResult) return;
 
+    // Desglose oficial de Torneo Duplicado
+    if (summary.tournamentScore) {
+      const sc = summary.tournamentScore;
+      const isPlus = sc.totalScore > 0;
+      const sign = isPlus ? '+' : '';
+      
+      let breakdownRows = sc.breakdown.map(item => `
+        <tr>
+          <td>${item.concept}</td>
+          <td style="text-align:right; font-family:var(--font-mono); font-weight:700; color:${item.points >= 0 ? '#34d399' : '#f87171'}">
+            ${item.points > 0 ? '+' : ''}${item.points} pts
+          </td>
+        </tr>
+      `).join('');
+
+      this.dom.resultTitle.textContent = sc.isSuccess ? '🏆 ¡MANO DE TORNEO CUMPLIDA!' : '❌ MANO DE TORNEO CAÍDA';
+      this.dom.resultTitle.style.color = sc.isSuccess ? '#34d399' : '#f87171';
+      this.dom.resultBadge.className = sc.isSuccess ? 'result-badge success' : 'result-badge failure';
+      this.dom.resultBadge.textContent = sc.isSuccess ? `Total Torneo: ${sign}${sc.totalScore} pts` : `Multas: ${sc.totalScore} pts`;
+
+      this.dom.resultDetails.innerHTML = `
+        <p>Contrato final: <strong>${sc.contract}</strong> | Bazas ganadas: <strong>${sc.tricksWon} de 13</strong> (Objetivo: ${sc.targetTricks}).</p>
+        <div style="margin-top: 1rem; background: rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:12px; padding:0.75rem 1rem;">
+          <h4 style="font-family:var(--font-title); color:var(--gold-light); margin-bottom:0.5rem; font-size:0.95rem;">
+            📜 Hoja Oficial de Torneo Duplicado
+          </h4>
+          <table class="score-breakdown-table">
+            <tbody>
+              ${breakdownRows}
+              <tr class="row-total">
+                <td>Puntuación Total Duplicada</td>
+                <td style="text-align:right; color:${isPlus ? '#34d399' : '#f87171'}">${sign}${sc.totalScore} pts</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+      this.dom.btnResultNext.textContent = '🔀 Siguiente Mano de Torneo';
+      this.dom.btnResultNext.style.display = 'inline-block';
+      this.dom.modalResult.classList.remove('hidden');
+      return;
+    }
+
+    // Modo Escuela / Libre
     if (summary.success) {
       this.dom.resultTitle.textContent = '🎉 ¡CONTRATO CUMPLIDO!';
       this.dom.resultTitle.style.color = '#34d399';
@@ -399,4 +704,3 @@ if (document.readyState === 'loading') {
 } else {
   window.bridgeApp = new BridgeApp();
 }
-

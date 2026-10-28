@@ -1,30 +1,51 @@
 /**
- * Bridge del Club — Motor de Reglas y Ciclo de Bazas (MiniBridge)
- * Administra el flujo de turnos, validación de jugadas reglamentarias y contabilidad de contrato.
+ * Bridge del Club — Motor de Reglas, Subasta y Ciclo de Bazas (MiniBridge & Torneo)
+ * Administra el flujo de turnos, subasta con Bidding Box, validación de jugadas y contabilidad de contrato.
  */
 
 import { evaluateTrick, PLAYERS, PLAYER_NAMES } from './deck.js';
 import { BridgeAI } from './ai.js';
+import { Auction, SAYCAssistant } from './bidding.js';
+import { BridgeScoring } from './scoring.js';
 
 export class BridgeEngine {
   constructor(audio) {
     this.audio = audio;
+    this.mode = 'school'; // 'school' | 'tournament'
+    this.phase = 'play'; // 'auction' | 'play' | 'finished'
     this.scenario = null;
     this.hands = { N: [], E: [], S: [], W: [] };
+    this.handsOriginal = { N: [], E: [], S: [], W: [] };
     this.currentTrick = [];
     this.currentTurn = 'W'; // El que abre la baza
     this.tricksWon = { NS: 0, EW: 0 };
     this.trickHistory = [];
     this.status = 'ready'; // 'ready', 'playing', 'evaluating_trick', 'finished'
+    
+    // Subasta
+    this.auction = null;
+    this.tournamentScore = null;
+
     this.onStateChange = null;
     this.onTrickComplete = null;
     this.onGameFinished = null;
+    this.onAuctionChange = null;
   }
 
+  /**
+   * Carga un escenario de MiniBridge (salto directo a carteo)
+   */
   loadScenario(scenario) {
+    this.mode = 'school';
+    this.phase = 'play';
     this.scenario = scenario;
-    // Clonar las manos para no mutar el original
     this.hands = {
+      N: [...scenario.presetHands.N],
+      E: [...scenario.presetHands.E],
+      S: [...scenario.presetHands.S],
+      W: [...scenario.presetHands.W]
+    };
+    this.handsOriginal = {
       N: [...scenario.presetHands.N],
       E: [...scenario.presetHands.E],
       S: [...scenario.presetHands.S],
@@ -35,11 +56,137 @@ export class BridgeEngine {
     this.tricksWon = { NS: 0, EW: 0 };
     this.trickHistory = [];
     this.status = 'playing';
+    this.auction = null;
+    this.tournamentScore = null;
 
     if (this.onStateChange) this.onStateChange();
 
-    // Si abre la IA (ej: Oeste en la salida inicial), ejecutar jugada con pequeño retardo
     if (this.currentTurn === 'E' || this.currentTurn === 'W') {
+      setTimeout(() => this.executeAITurn(), 700);
+    }
+  }
+
+  /**
+   * Inicia una mano completa reglamentaria con Subasta (Salón de Expertos)
+   */
+  startTournamentDeal(deal, dealer = 'W') {
+    this.mode = 'tournament';
+    this.phase = 'auction';
+    this.hands = {
+      N: [...deal.presetHands.N],
+      E: [...deal.presetHands.E],
+      S: [...deal.presetHands.S],
+      W: [...deal.presetHands.W]
+    };
+    this.handsOriginal = {
+      N: [...deal.presetHands.N],
+      E: [...deal.presetHands.E],
+      S: [...deal.presetHands.S],
+      W: [...deal.presetHands.W]
+    };
+    this.currentTrick = [];
+    this.tricksWon = { NS: 0, EW: 0 };
+    this.trickHistory = [];
+    this.status = 'playing';
+    this.tournamentScore = null;
+
+    // Crear nueva subasta
+    this.auction = new Auction(dealer);
+
+    if (this.onStateChange) this.onStateChange();
+    if (this.onAuctionChange) this.onAuctionChange();
+
+    // Si el dador no es Sur, ejecutar cante de la IA
+    if (this.auction.currentBidder !== 'S') {
+      setTimeout(() => this.executeAIBid(), 600);
+    }
+  }
+
+  /**
+   * Procesa un cante de subasta (usuario o IA)
+   */
+  makeBid(call) {
+    if (this.phase !== 'auction' || !this.auction || this.auction.isFinished) return false;
+
+    const bidder = this.auction.currentBidder;
+    const hand = this.hands[bidder];
+    const rec = SAYCAssistant.getRecommendedCall(bidder, hand, this.auction);
+    const reason = rec.reason || '';
+
+    const ok = this.auction.makeCall(bidder, call, reason);
+    if (!ok) return false;
+
+    if (this.audio) this.audio.playCard();
+    if (this.onStateChange) this.onStateChange();
+    if (this.onAuctionChange) this.onAuctionChange();
+
+    // ¿Ha concluido la subasta?
+    if (this.auction.isFinished) {
+      if (this.auction.contract === 'PASS') {
+        // Pasada general: 4 pasos consecutivos
+        this.status = 'finished';
+        this.phase = 'finished';
+        if (this.onStateChange) this.onStateChange();
+        return true;
+      }
+
+      // Configurar contrato y arrancar la fase de carteo
+      setTimeout(() => this.startPlayAfterAuction(), 800);
+      return true;
+    }
+
+    // Si el siguiente cante le toca a la IA (W, N, E)
+    if (this.auction.currentBidder !== 'S') {
+      setTimeout(() => this.executeAIBid(), 650);
+    }
+
+    return true;
+  }
+
+  executeAIBid() {
+    if (this.phase !== 'auction' || !this.auction || this.auction.isFinished) return;
+    if (this.auction.currentBidder === 'S') return;
+
+    const bidder = this.auction.currentBidder;
+    const hand = this.hands[bidder];
+    const rec = SAYCAssistant.getRecommendedCall(bidder, hand, this.auction);
+
+    // Si la voz recomendada es legal, cantarla; si no, Paso
+    const callToMake = this.auction.isCallLegal(rec.call, bidder) ? rec.call : 'PASS';
+    this.makeBid(callToMake);
+  }
+
+  startPlayAfterAuction() {
+    this.phase = 'play';
+    const contract = this.auction.contract;
+    const level = parseInt(contract[0], 10);
+    const strain = contract.substring(1);
+    const declarer = this.auction.declarer;
+
+    // El jugador que abre la baza es el defensor a la izquierda del declarador
+    const leadPlayer = this.getNextPlayer(declarer);
+
+    this.scenario = {
+      title: `Torneo: Contrato ${contract} por ${declarer}`,
+      contract,
+      contractLabel: `${contract} (${strain === 'NT' ? 'Sin Triunfo' : strain})`,
+      trumpSuit: strain,
+      targetTricks: level + 6,
+      declarer,
+      leadPlayer
+    };
+
+    this.currentTurn = leadPlayer;
+    this.currentTrick = [];
+    this.tricksWon = { NS: 0, EW: 0 };
+    this.trickHistory = [];
+    this.status = 'playing';
+
+    if (this.onStateChange) this.onStateChange();
+
+    // Salida inicial si no es el usuario
+    const isUserLead = (this.currentTurn === 'S' || (this.scenario.declarer === 'S' && this.currentTurn === 'N'));
+    if (!isUserLead) {
       setTimeout(() => this.executeAITurn(), 700);
     }
   }
@@ -56,7 +203,7 @@ export class BridgeEngine {
       return [...hand];
     }
 
-    // Si la baza ya tiene carta de salida, regla de oro: ASISTIR AL PALO
+    // Regla de oro: ASISTIR AL PALO
     const leadSuit = this.currentTrick[0].card.suitKey;
     const sameSuitCards = hand.filter(c => c.suitKey === leadSuit);
 
@@ -65,7 +212,7 @@ export class BridgeEngine {
       return sameSuitCards;
     }
 
-    // Si no tiene del palo, puede jugar CUALQUIER carta (fallar o descartar)
+    // Si no tiene del palo, puede jugar cualquier carta (fallar o descartar)
     return [...hand];
   }
 
@@ -73,7 +220,7 @@ export class BridgeEngine {
    * Intenta jugar una carta
    */
   playCard(player, card) {
-    if (this.status !== 'playing') return false;
+    if (this.status !== 'playing' || this.phase !== 'play') return false;
     if (this.currentTurn !== player) return false;
 
     const legalCards = this.getLegalCards(player);
@@ -100,8 +247,9 @@ export class BridgeEngine {
       this.currentTurn = this.getNextPlayer(this.currentTurn);
       if (this.onStateChange) this.onStateChange();
 
-      // Si el siguiente es la IA (E o W), programar su jugada
-      if (this.currentTurn === 'E' || this.currentTurn === 'W') {
+      // Si el siguiente es la IA (no controlado por el usuario en Sur)
+      const isUserControl = (this.currentTurn === 'S' || (this.scenario && this.scenario.declarer === 'S' && this.currentTurn === 'N'));
+      if (!isUserControl) {
         setTimeout(() => this.executeAITurn(), 600);
       }
     }
@@ -110,8 +258,9 @@ export class BridgeEngine {
   }
 
   executeAITurn() {
-    if (this.status !== 'playing') return;
-    if (this.currentTurn !== 'E' && this.currentTurn !== 'W') return;
+    if (this.status !== 'playing' || this.phase !== 'play') return;
+    const isUserControl = (this.currentTurn === 'S' || (this.scenario && this.scenario.declarer === 'S' && this.currentTurn === 'N'));
+    if (isUserControl) return;
 
     const player = this.currentTurn;
     const hand = this.hands[player];
@@ -164,7 +313,8 @@ export class BridgeEngine {
 
       if (this.onStateChange) this.onStateChange();
 
-      if (this.currentTurn === 'E' || this.currentTurn === 'W') {
+      const isUserControl = (this.currentTurn === 'S' || (this.scenario && this.scenario.declarer === 'S' && this.currentTurn === 'N'));
+      if (!isUserControl) {
         setTimeout(() => this.executeAITurn(), 650);
       }
     }
@@ -172,10 +322,25 @@ export class BridgeEngine {
 
   finishGame() {
     this.status = 'finished';
+    this.phase = 'finished';
     const target = this.scenario.targetTricks;
-    const achieved = this.tricksWon.NS;
+    const declarerPair = (this.scenario.declarer === 'S' || this.scenario.declarer === 'N') ? 'NS' : 'EW';
+    const achieved = this.tricksWon[declarerPair];
     const success = achieved >= target;
     const difference = achieved - target;
+
+    // Cálculo de Puntuación Oficial Duplicada de Torneo
+    let scoreBreakdown = null;
+    if (this.mode === 'tournament' && this.auction) {
+      scoreBreakdown = BridgeScoring.calculateScore({
+        contract: this.auction.contract,
+        tricksWon: achieved,
+        doubled: this.auction.doubled,
+        redoubled: this.auction.redoubled,
+        vulnerable: false
+      });
+      this.tournamentScore = scoreBreakdown;
+    }
 
     if (success && this.audio) {
       this.audio.contractSuccess();
@@ -190,7 +355,9 @@ export class BridgeEngine {
         achieved,
         difference,
         tricksWon: this.tricksWon,
-        scenario: this.scenario
+        scenario: this.scenario,
+        tournamentScore: scoreBreakdown,
+        mode: this.mode
       });
     }
 
@@ -207,9 +374,19 @@ export class BridgeEngine {
    * Asistente pedagógico: proporciona una pista contextual de lógica de carteo
    */
   getTeacherHint() {
+    if (this.phase === 'auction') {
+      if (!this.auction) return '';
+      if (this.auction.currentBidder === 'S') {
+        const evalData = SAYCAssistant.evaluateHand(this.hands.S);
+        const rec = SAYCAssistant.getRecommendedCall('S', this.hands.S, this.auction);
+        return `💡 Subasta: Tienes ${evalData.hcp} HCP. Voz recomendada: ${rec.call} (${rec.reason}).`;
+      }
+      return `Esperando cante de ${PLAYER_NAMES[this.auction.currentBidder]}...`;
+    }
+
     if (this.status !== 'playing') return 'La mano ha concluido.';
 
-    const isUserTurn = (this.currentTurn === 'S' || this.currentTurn === 'N');
+    const isUserTurn = (this.currentTurn === 'S' || (this.scenario && this.scenario.declarer === 'S' && this.currentTurn === 'N'));
     if (!isUserTurn) {
       return `Esperando la jugada de ${PLAYER_NAMES[this.currentTurn]}...`;
     }
