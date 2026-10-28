@@ -22,7 +22,7 @@ class HallOfFameEngine {
         flag: '🇪🇸',
         country: 'ES',
         countryName: 'España',
-        city: 'Madrid',
+        city: 'Valencia',
         age: 73,
         ageGroup: 'legend',
         difficulty: 'dificil',

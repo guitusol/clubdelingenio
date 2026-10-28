@@ -277,7 +277,7 @@ function seedGuillermoHistory() {
         country: 'ES',
         countryName: 'España',
         flag: '🇪🇸',
-        city: 'Madrid',
+        city: 'Valencia',
         age: 73,
         ageGroup: 'legend',
         isFounder: true
