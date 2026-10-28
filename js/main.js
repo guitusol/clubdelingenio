@@ -5,11 +5,12 @@
  */
 
 import { ClubBackupManager } from './backup-manager.js';
+import { ClubI18n } from './i18n.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initEnvironmentLinks();
-  initSupportModal();
   initSmoothScroll();
+  window.clubI18n = new ClubI18n();
   window.clubBackup = new ClubBackupManager();
 });
 
@@ -22,8 +23,8 @@ function initEnvironmentLinks() {
   const isLocal = host === 'localhost' || host === '127.0.0.1';
   const isLaragonTest = host.endsWith('.test');
 
-  let topSudokuBase = '../top-sudoku/';
-  let sudokuArenaBase = '../sudoku-arena/';
+  let topSudokuBase = 'top-sudoku/';
+  let sudokuArenaBase = 'sudoku-arena/';
 
   if (isLaragonTest) {
     topSudokuBase = 'http://top-sudoku.test/';
@@ -47,42 +48,6 @@ function initEnvironmentLinks() {
     if (!rawHref || rawHref.startsWith('#') || rawHref.startsWith('http')) return;
     const subpath = rawHref.replace(/^(\.\.\/)?sudoku-arena\/?/, '');
     a.href = sudokuArenaBase + subpath;
-  });
-}
-
-/**
- * 2. Modal de Apoyo Ético (Micropago Voluntario 3 €)
- */
-function initSupportModal() {
-  const modal = document.getElementById('modal-support');
-  const openBtn = document.getElementById('btn-open-support');
-  const closeBtn = document.getElementById('btn-close-modal');
-  const ackBtn = document.getElementById('btn-ack-support');
-
-  if (!modal || !openBtn) return;
-
-  const openModal = () => {
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    modal.classList.add('hidden');
-    document.body.style.overflow = '';
-  };
-
-  openBtn.addEventListener('click', openModal);
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (ackBtn) ackBtn.addEventListener('click', closeModal);
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-      closeModal();
-    }
   });
 }
 

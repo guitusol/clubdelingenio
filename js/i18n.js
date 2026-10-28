@@ -1,0 +1,1771 @@
+/**
+ * CLUB DEL INGENIO — Motor de Internacionalización (i18n)
+ * 9 Idiomas Oficiales: Español (ES), English (EN), Français (FR), Deutsch (DE),
+ * Català (CA), Valencià (VA), Euskara (EU), Galego (GL) y Japonés (JA - 🇯🇵 日本語)
+ */
+
+export const CLUB_I18N = {
+  es: {
+    code: "es", flag: "🇪🇸", name: "Español", native: "Español",
+    page_title: "Club del Ingenio — La Sede de la Lógica, el Ingenio y la Estimulación Cognitiva",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "SEDE DE LÓGICA & MENTE",
+    nav_games: "🎮 Sala de Juegos",
+    nav_manifesto: "🛡️ Manifiesto Zero-Ads",
+    nav_gym: "🧠 Gimnasio Mental",
+    nav_backup: "💾 Copia de Seguridad",
+    nav_explore: "🚀 Explorar Juegos",
+    btn_lang_title: "Seleccionar Idioma / Select Language",
+
+    hero_badge: "EL CLUB DE LAS MENTES INQUIETAS",
+    hero_title: "Donde la Lógica se Convierte en <span class=\"gradient-gold\">Arte</span> y <span class=\"gradient-cyan\">Competición</span>",
+    hero_desc: "Bienvenido a <strong>Club del Ingenio</strong>. Una plataforma independiente, cuidada y <strong>100% libre de anuncios comerciales invasivos</strong>, diseñada para desafiar tu intelecto, potenciar tu agilidad deductiva y disfrutar del placer del pensamiento puro a cualquier edad.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "La Escuela de Deducción",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "La Competición & Salón Fama",
+    cta_calc_title: "Cálculo Táctico",
+    cta_calc_sub: "Agilidad Mental en 60s",
+    cta_nono_title: "Nonogramas Zen",
+    cta_nono_sub: "Mosaicos de Lógica & Arte",
+    cta_ded_title: "Deducción Lógica",
+    cta_ded_sub: "Misterio en el Club",
+    cta_rubik_title: "Cubo de Rubik 3D",
+    cta_rubik_sub: "Lógica Espacial & WCA",
+    cta_damas_title: "Damas del Club",
+    cta_damas_sub: "Estrategia 3D & Duelo",
+
+    pillar_1_title: "Cero Anuncios Invasivos",
+    pillar_1_sub: "Sin vídeos que corten tu concentración",
+    pillar_2_title: "Gimnasio Cognitivo",
+    pillar_2_sub: "Salud mental para jóvenes, adultos y seniors",
+    pillar_3_title: "Juego Limpio Certificado",
+    pillar_3_sub: "Duelos en igualdad matemática y auditoría",
+    pillar_4_title: "Comunidad Global",
+    pillar_4_sub: "Soporte multilingüe en 9 idiomas",
+
+    catalog_tag: "CATÁLOGO OFICIAL",
+    catalog_title: "La Sala de Juegos del Club",
+    catalog_sub: "Elige tu modalidad: aprende y perfecciona tu método con la pedagogía guiada de <strong>Top-Sudoku</strong>, o ponte a prueba contra el reloj y tus amigos en <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 ESCUELA DE LÓGICA",
+    top_badge_origin: "APRENDIZAJE GUIADO",
+    top_visual_tag: "Tablero Dual en Espejo 1:1",
+    top_tagline: "El maestro paciente: aprende a deducir paso a paso sin atascos ni adivinanzas.",
+    top_feat_1: "<strong>Tablero Espejo de Posibilidades:</strong> Visualiza en tiempo real los candidatos posibles por casilla calculados por descarte sistemático.",
+    top_feat_2: "<strong>Cero Callejones sin Salida:</strong> Comprobación activa contra la solución matemática única. Impide bifurcaciones erróneas que arruinen tu partida.",
+    top_feat_3: "<strong>Escáner OCR con Visión Artificial:</strong> Fotografía un sudoku de periódico o revista y juégalo en tu pantalla al instante sin servidores.",
+    top_feat_4: "<strong>Reloj Analógico Clásico:</strong> Elegante reloj de esfera con segundero suave y cronómetro de precisión para acompañar tu ritmo de resolución.",
+    top_btn_play: "🎓 Abrir Top-Sudoku",
+    top_btn_manual: "📖 Manual de la Escuela",
+
+    arena_badge_tag: "⚔️ COMPETICIÓN ESPORTS",
+    arena_badge_origin: "AUDITORÍA COGNITIVA",
+    arena_visual_tag: "Marcador Táctico Neón",
+    arena_tagline: "La arena de competición: retos mentales, duelos multijugador y Salón de la Fama.",
+    arena_feat_1: "<strong>Motor de Puntuación Cognitiva:</strong> Cada celda puntúa según la técnica lógica humana exigida (Singles, Pairs, Triples, X-Wing).",
+    arena_feat_2: "<strong>Duelos Compartibles por WhatsApp:</strong> Reta a amigos con un enlace instantáneo para competir con la misma semilla matemática.",
+    arena_feat_3: "<strong>Salón de la Fama Global:</strong> Copa de Naciones, Orgullo Local y Clasificación Generacional (Júnior, Adultos, Senior y Leyendas 65+).",
+    arena_feat_4: "<strong>Libro Mayor de Auditoría:</strong> Trazabilidad cronológica de cada deducción, penalizaciones por ayuda y porcentaje de autonomía.",
+    arena_btn_play: "⚔️ Entrar a Sudoku Arena",
+    arena_btn_manual: "📖 Manual del Jugador",
+
+    calc_badge_tag: "⚡ AGILIDAD MENTAL",
+    calc_badge_origin: "PARTIDAS DE 60 SEGUNDOS",
+    calc_visual_tag: "Cifra Diana & Cronómetro",
+    calc_tagline: "La prueba definitiva de rapidez mental: alcanza la cifra diana antes de que el reloj llegue a cero.",
+    calc_feat_1: "<strong>Cifras y Operaciones al Límite:</strong> 6 fichas numéricas y 4 operaciones básicas para deducir la cifra exacta o aproximarte al milímetro.",
+    calc_feat_2: "<strong>Presión Contrarreloj:</strong> Partidas ultrarrápidas de 45 a 90 segundos que activan la plasticidad cerebral y el cálculo aritmético.",
+    calc_feat_3: "<strong>Solucionador Óptimo en Vivo:</strong> Al terminar la ronda, el motor matemático te desvela la combinación perfecta paso a paso.",
+    calc_feat_4: "<strong>Duelos Compartibles:</strong> Desafía a familiares o amigos a resolver exactamente el mismo tablero mediante un código único.",
+    calc_btn_play: "⚡ Jugar a Cálculo Táctico",
+    calc_btn_manual: "📖 Reglas y Mecánica",
+
+    ded_badge_tag: "🕵️‍♂️ LÓGICA PURA & NOIR",
+    ded_badge_origin: "MATRIZ DE ELIMINACIÓN",
+    ded_visual_tag: "Sherlock Holmes & Acertijos Lógicos",
+    ded_tagline: "Misterio en el Club: el clásico acertijo deductivo de eliminación cruzada sin números para mentes analíticas.",
+    ded_feat_1: "<strong>Matriz Cruzada Interactiva:</strong> Descarta hipótesis con ❌ y consolida certezas con ✔️ en una cuadrícula lógica elegante.",
+    ded_feat_2: "<strong>Enigmas Narrativos de Salón:</strong> Robos de joyas, llaves maestras y torneos de ajedrez con pistas cruzadas interactivas.",
+    ded_feat_3: "<strong>Salón de Enigmas Clásicos:</strong> Desafíos legendarios del pensamiento puro (La Isla de los Ojos Azules, Monty Hall, Los Tres Sabios) con simuladores interactivos.",
+    ded_feat_4: "<strong>Auto-Tachado Inteligente:</strong> Al fijar una certeza, el motor descarta filas y columnas de inmediato para agilizar tu investigación.",
+    ded_feat_5: "<strong>9 Idiomas Oficiales:</strong> Casos, testimonios y pistas completamente adaptados a todos los idiomas de la plataforma.",
+    ded_btn_play: "🕵️‍♂️ Investigar Misterios",
+    ded_btn_manual: "📖 Cómo Usar la Matriz",
+
+    nono_badge_tag: "🎨 ARTE & DEDUCCIÓN ZEN",
+    nono_badge_tech: "3 NIVELES & PINACOTECA",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "El arte de desvelar bellas ilustraciones mediante la deducción matemática de pistas numéricas en un ambiente zen.",
+    nono_feat_1: "<strong>3 Niveles de Maestría:</strong> 5×5 (Bocetos rápidos de iniciación), 10×10 (Galería clásica) y 15×15 (Grandes obras maestras).",
+    nono_feat_2: "<strong>Pinacoteca Privada:</strong> Cada mosaico resuelto cobra vida a todo color y se archiva en tu museo personal con marco dorado.",
+    nono_feat_3: "<strong>Universal en 9 Idiomas:</strong> Traducido íntegramente (incluyendo japonés 🇯🇵 日本語, cuna de los nonogramas).",
+    nono_btn_play: "🎨 Pintar Mosaicos",
+    nono_btn_manual: "📖 Cómo Resolver",
+
+    rubik_badge_tag: "LÓGICA ESPACIAL 3D",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "Render 3D, Escuela & Speedcubing",
+    rubik_tagline: "El rey de la lógica tridimensional: resuelve mediante deducción espacial, aprende con el tutor paso a paso o compite contra el cronómetro WCA.",
+    rubik_feat_1: "<strong>Motor 3D Interactivo:</strong> Gira capas arrastrando directamente con el ratón o dedo sobre las caras del cubo con física y sonido táctil.",
+    rubik_feat_2: "<strong>Escuela del Cubo (Tutor):</strong> Guía paso a paso por el método de capas con explicaciones claras y fórmulas recomendadas.",
+    rubik_feat_3: "<strong>Cronómetro Oficial WCA:</strong> Modo Speedcubing con inspección de 15s, medición de milisegundos, TPS (giros/seg) y medias Ao5.",
+    rubik_feat_4: "<strong>Patrones & Arte Geométrico:</strong> Aplica en un clic patrones asombrosos como el tablero de ajedrez, puntos centrales o el cubo en el cubo.",
+    rubik_btn_play: "Explorar Cubo 3D",
+    rubik_btn_manual: "📖 Atajos y Guía",
+
+    damas_badge_tag: "👑 TÁCTICA & ESTRATEGIA",
+    damas_badge_tech: "THREE.JS & IA MINIMAX",
+    damas_visual_tag: "Tablero de Ébano & Damas Voladoras",
+    damas_tagline: "La nobleza del juego clásico: tablero de ébano y mármol en 3D, coronación cinemática y duelos tácticos contra la IA o contrincantes locales.",
+    damas_feat_1: "<strong>Coronación de la Dama 3D:</strong> Al alcanzar la última fila rival, desciende una corona dorada sobre la pieza desbloqueando el vuelo diagonal libre.",
+    damas_feat_2: "<strong>Inteligencia Artificial con 3 Niveles:</strong> Desafía a la IA táctica (Iniciado, Táctico, Gran Maestro) calculada con poda alfa-beta.",
+    damas_feat_3: "<strong>Reglamento Oficial Español:</strong> Damas voladoras de largo alcance y aplicación estricta de la ley de captura obligatoria por cantidad.",
+    damas_feat_4: "<strong>9 Idiomas & Modo 1v1:</strong> Juega dos personas en el mismo dispositivo y prepárate para las salas online por enlace y WhatsApp.",
+    damas_btn_play: "👑 Jugar a las Damas",
+    damas_btn_manual: "📖 Reglamento Oficial",
+
+    up_badge: "🔬 EN EL LABORATORIO DEL CLUB",
+    up_title: "Próximos Desafíos en Desarrollo",
+    up_sub: "El Club del Ingenio está ampliando su repertorio de aplicaciones lúdicas. Nuevos proyectos de lógica matemática y deducción se incorporarán a este catálogo.",
+    up_card1_status: "EN INVESTIGACIÓN",
+    up_card1_title: "Criptogramas y Enigmas de Letras",
+    up_card1_desc: "Descifrado de mensajes ocultos y sustitución de frecuencias para entrenar el lenguaje, la agudeza verbal y el pensamiento lateral.",
+    up_card2_status: "CONCEPTO",
+    up_card2_title: "Táctica Geométrica y Patrones",
+    up_card2_desc: "Juegos de reconocimiento de patrones simétricos y optimización de movimientos para todas las edades.",
+
+    mani_tag: "NUESTRA PROMESA",
+    mani_title: "El Manifiesto de Juego Limpio",
+    mani_lead: "«Creemos firmemente que el entrenamiento mental y la concentración profunda son incompatibles con la publicidad invasiva y los vídeos ruidosos.»",
+    mani_p1_title: "1. Sin Anuncios en Pantalla:",
+    mani_p1_desc: "Nuestras aplicaciones son de uso libre, ilimitado y sin banners parpadeantes ni vídeos obligatorios que interrumpan tu partida.",
+    mani_p2_title: "2. Privacidad Absoluta (Zero-Tracking):",
+    mani_p2_desc: "No recopilamos tus datos personales, no vendemos perfiles publicitarios ni exigimos registros de correo obligatorio.",
+    mani_p3_title: "3. Respeto al Jugador:",
+    mani_p3_desc: "Diseñadas por y para amantes de la lógica. La satisfacción reside en el reto intelectual y en la superación personal.",
+
+    ben_tag: "SALUD MENTAL",
+    ben_title: "Gimnasio Cerebral para Todas las Generaciones",
+    ben_sub: "El ejercicio sistemático de la deducción lógica no tiene edad. Beneficios contrastados para cada etapa de la vida:",
+    ben_c1_badge: "🐣 JÓVENES & ESTUDIANTES",
+    ben_c1_title: "Pensamiento Analítico",
+    ben_c1_desc: "Fomenta la disciplina deductiva, el rigor en la resolución de problemas y la capacidad de concentración sostenida frente a la dispersión digital.",
+    ben_c2_badge: "⚡ ADULTOS (18-49 AÑOS)",
+    ben_c2_title: "Desconexión Activa",
+    ben_c2_desc: "Una alternativa de ocio constructiva para liberar el estrés diario mediante un foco mental ordenado, compitiendo en duelos contra reloj.",
+    ben_c3_badge: "🧠 SENIOR & VETERANOS (50-64)",
+    ben_c3_title: "Memoria de Trabajo",
+    ben_c3_desc: "Mantiene en forma las conexiones neuronales, la agilidad en la toma de decisiones y la retención visual de patrones complejos.",
+    ben_c4_badge: "👑 LEYENDAS (65+ AÑOS)",
+    ben_c4_title: "Reserva Cognitiva Saludable",
+    ben_c4_desc: "Estimula activamente la plasticidad cerebral y la lucidez deductiva. La mejor gimnasia para conservar la mente despierta, activa y llena de vitalidad.",
+
+    back_badge_tag: "🔄 SINCRONIZACIÓN Y TRASPASO",
+    back_badge_origin: "TODOS TUS JUEGOS PROTEGIDOS",
+    back_title: "Lleva tus récords y partidas a cualquier dispositivo",
+    back_desc: "Juega en tu ordenador de sobremesa y continúa en tu móvil o tableta. Crea una copia de seguridad en un archivo <code>.json</code> o genera un código de traspaso para transferir tu progreso completo de <strong>Top-Sudoku, Sudoku Arena, Nonogramas, Cubo de Rubik, Cálculo Táctico, Damas y Deducción</strong> en cuestión de segundos.",
+    back_btn: "🔄 Abrir Centro de Copia y Traspaso",
+
+    footer_tagline: "Portal oficial: clubdelingenio.es & clubdelingenio.com.<br>La sede de la lógica, la deducción y la estimulación mental.",
+    footer_col1_title: "JUEGOS ACTIVOS",
+    footer_col2_title: "DOCUMENTACIÓN",
+    footer_col3_title: "EL CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desarrollado por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "España • Unión Europea • Sin cookies de rastreo",
+
+    modal_lang_title: "🌐 Seleccionar Idioma",
+    modal_lang_sub: "Elige tu lengua preferida para toda la plataforma:",
+    backup_modal_title: "💾 Centro de Copia de Seguridad y Traspaso",
+    backup_modal_intro: "Guarda o transfiere tu progreso de <strong>todos los juegos del Club</strong> (Sudoku Arena, Nonogramas, Cubo de Rubik, Cálculo Táctico, Top-Sudoku, Damas y Deducción) de forma rápida y 100% privada."
+  },
+
+  en: {
+    code: "en", flag: "🇬🇧", name: "English", native: "English",
+    page_title: "Club del Ingenio — The Headquarters of Logic, Ingenuity & Cognitive Stimulation",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "HEADQUARTERS OF LOGIC & MIND",
+    nav_games: "🎮 Games Room",
+    nav_manifesto: "🛡️ Zero-Ads Manifesto",
+    nav_gym: "🧠 Mental Gym",
+    nav_backup: "💾 Cloud & Backup",
+    nav_explore: "🚀 Explore Games",
+    btn_lang_title: "Select Language",
+
+    hero_badge: "THE CLUB OF RESTLESS MINDS",
+    hero_title: "Where Logic Becomes <span class=\"gradient-gold\">Art</span> and <span class=\"gradient-cyan\">Competition</span>",
+    hero_desc: "Welcome to <strong>Club del Ingenio</strong>. An independent, finely crafted platform, <strong>100% free of invasive commercial ads</strong>, designed to challenge your intellect, sharpen your deductive agility, and enjoy the thrill of pure thinking at any age.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "The School of Deduction",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "Competition & Hall of Fame",
+    cta_calc_title: "Tactical Calc",
+    cta_calc_sub: "Mental Agility in 60s",
+    cta_nono_title: "Zen Nonograms",
+    cta_nono_sub: "Mosaics of Logic & Art",
+    cta_ded_title: "Logical Deduction",
+    cta_ded_sub: "Mystery at the Club",
+    cta_rubik_title: "3D Rubik's Cube",
+    cta_rubik_sub: "Spatial Logic & WCA",
+    cta_damas_title: "Club Checkers",
+    cta_damas_sub: "3D Strategy & Duels",
+
+    pillar_1_title: "Zero Invasive Ads",
+    pillar_1_sub: "No video interruptions while you focus",
+    pillar_2_title: "Cognitive Gym",
+    pillar_2_sub: "Brain health for youth, adults and seniors",
+    pillar_3_title: "Certified Fair Play",
+    pillar_3_sub: "Duels with mathematical parity and audits",
+    pillar_4_title: "Global Community",
+    pillar_4_sub: "Multilingual support in 9 languages",
+
+    catalog_tag: "OFFICIAL CATALOG",
+    catalog_title: "The Club Games Room",
+    catalog_sub: "Choose your mode: master your deductive method with the guided pedagogy of <strong>Top-Sudoku</strong>, or test your speed and skill against rivals in <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 SCHOOL OF LOGIC",
+    top_badge_origin: "GUIDED PEDAGOGY",
+    top_visual_tag: "1:1 Mirror Candidate Board",
+    top_tagline: "The patient master: learn to deduce step by step without deadlocks or guessing.",
+    top_feat_1: "<strong>Mirror Board of Possibilities:</strong> Real-time display of potential candidates per cell calculated through systematic elimination.",
+    top_feat_2: "<strong>Zero Dead Ends:</strong> Active validation against the unique mathematical solution prevents flawed branchings that ruin your game.",
+    top_feat_3: "<strong>Computer Vision OCR Scanner:</strong> Photograph any printed sudoku from a newspaper or magazine and play it instantly on your screen.",
+    top_feat_4: "<strong>Classic Analog Clock:</strong> Elegant clock dial with smooth second-hand motion and precision stopwatch to pace your solving rhythm.",
+    top_btn_play: "🎓 Open Top-Sudoku",
+    top_btn_manual: "📖 School Manual",
+
+    arena_badge_tag: "⚔️ ESPORTS COMPETITION",
+    arena_badge_origin: "COGNITIVE AUDIT",
+    arena_visual_tag: "Neon Tactical Scoreboard",
+    arena_tagline: "The competitive arena: mental challenges, multiplayer duels and the Global Hall of Fame.",
+    arena_feat_1: "<strong>Cognitive Scoring Engine:</strong> Each cell awards points based on the required human logical technique (Singles, Pairs, Triples, X-Wing).",
+    arena_feat_2: "<strong>Shareable WhatsApp Duels:</strong> Challenge friends with an instant seed link to compete on the exact same mathematical puzzle.",
+    arena_feat_3: "<strong>Global Hall of Fame:</strong> Nations Cup, Local Pride and Generational Rankings (Junior, Adults, Senior and Legends 65+).",
+    arena_feat_4: "<strong>Audit Ledger:</strong> Full chronological log of every move, assist penalties and verified cognitive autonomy percentage.",
+    arena_btn_play: "⚔️ Enter Sudoku Arena",
+    arena_btn_manual: "📖 Player Manual",
+
+    calc_badge_tag: "⚡ MENTAL AGILITY",
+    calc_badge_origin: "60-SECOND ROUNDS",
+    calc_visual_tag: "Target Number & Timer",
+    calc_tagline: "The ultimate test of mental speed: hit the target number before the clock hits zero.",
+    calc_feat_1: "<strong>Numbers & Operations on the Clock:</strong> 6 numbered tiles and 4 arithmetic operators to deduce the exact figure.",
+    calc_feat_2: "<strong>High-Stakes Countdown:</strong> Lightning-fast 45 to 90 second matches that ignite brain plasticity and mental calculation.",
+    calc_feat_3: "<strong>Live Optimal Solver:</strong> At the end of each round, our math engine reveals the most elegant step-by-step combination.",
+    calc_feat_4: "<strong>Shareable Duels:</strong> Challenge friends or family to crack the exact same target using a unique battle code.",
+    calc_btn_play: "⚡ Play Tactical Calc",
+    calc_btn_manual: "📖 Rules & Mechanics",
+
+    ded_badge_tag: "🕵️‍♂️ PURE LOGIC & NOIR",
+    ded_badge_origin: "ELIMINATION MATRIX",
+    ded_visual_tag: "Sherlock Holmes & Logic Riddles",
+    ded_tagline: "Mystery at the Club: the classic grid deduction puzzle without numbers for analytical minds.",
+    ded_feat_1: "<strong>Interactive Elimination Grid:</strong> Cross off false leads with ❌ and lock in verified truths with ✔️ on an elegant matrix.",
+    ded_feat_2: "<strong>Narrative Parlor Mysteries:</strong> Stolen heirlooms, master keys and chess tournaments with interactive cross-clues.",
+    ded_feat_3: "<strong>Classic Enigmas Hall:</strong> Renowned philosophical and mathematical dilemmas (Blue Eyes Island, Monty Hall, Three Wise Men) with simulators.",
+    ded_feat_4: "<strong>Intelligent Auto-Strike:</strong> Confirming a fact instantly strikes out conflicting rows and columns to accelerate your investigation.",
+    ded_feat_5: "<strong>9 Official Languages:</strong> Cases, witness testimonies and clues translated and culturally tailored across all platforms.",
+    ded_btn_play: "🕵️‍♂️ Investigate Mysteries",
+    ded_btn_manual: "📖 Grid User Guide",
+
+    nono_badge_tag: "🎨 ART & ZEN DEDUCTION",
+    nono_badge_tech: "3 TIERS & GALLERY",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "The Japanese art of revealing beautiful pixel artworks through numerical line clues in a relaxing zen environment.",
+    nono_feat_1: "<strong>3 Mastery Levels:</strong> 5×5 (Quick introductory sketches), 10×10 (Classic gallery) and 15×15 (Grand masterpieces).",
+    nono_feat_2: "<strong>Private Art Gallery:</strong> Every completed mosaic comes alive in full color and is preserved in your gilded personal museum.",
+    nono_feat_3: "<strong>Universal in 9 Languages:</strong> Completely translated including native Japanese (🇯🇵 日本語), birthplace of nonograms.",
+    nono_btn_play: "🎨 Paint Mosaics",
+    nono_btn_manual: "📖 How to Solve",
+
+    rubik_badge_tag: "3D SPATIAL LOGIC",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "3D Engine, Tutor & Speedcubing",
+    rubik_tagline: "The king of 3D puzzles: solve with spatial reasoning, follow the step-by-step tutor, or race against the official WCA timer.",
+    rubik_feat_1: "<strong>Interactive 3D Engine:</strong> Rotate faces smoothly by dragging directly on the cube with realistic haptic sound.",
+    rubik_feat_2: "<strong>Cube Academy (Tutor):</strong> Step-by-step layer method guide with clear visual diagrams and recommended algorithms.",
+    rubik_feat_3: "<strong>Official WCA Timer:</strong> Speedcubing mode with 15-second inspection, millisecond tracking, TPS, and Ao5 averages.",
+    rubik_feat_4: "<strong>Art & Geometric Patterns:</strong> Apply stunning cube patterns in one click (checkerboard, center dots, cube-in-a-cube).",
+    rubik_btn_play: "Explore 3D Cube",
+    rubik_btn_manual: "📖 Shortcuts & Guide",
+
+    damas_badge_tag: "👑 CLASSIC TACTICS",
+    damas_badge_tech: "THREE.JS & MINIMAX AI",
+    damas_visual_tag: "Ebony Board & Flying Kings",
+    damas_tagline: "The nobility of classic checkers: 3D ebony and marble board, cinematic kinging, and tactical duels against AI or local rivals.",
+    damas_feat_1: "<strong>Cinematic 3D Kinging:</strong> A golden crown descends upon your piece as it reaches the back row, unlocking flying queen movement.",
+    damas_feat_2: "<strong>3-Tier Artificial Intelligence:</strong> Challenge adaptive tactical AI (Novice, Tactician, Grandmaster) with alpha-beta pruning.",
+    damas_feat_3: "<strong>Official Spanish Rules:</strong> Long-range flying queens with mandatory multi-capture quantity laws strictly enforced.",
+    damas_feat_4: "<strong>9 Languages & 1v1 Mode:</strong> Play two players locally on one device, ready for future WhatsApp online rooms.",
+    damas_btn_play: "👑 Play Checkers",
+    damas_btn_manual: "📖 Official Rules",
+
+    up_badge: "🔬 INSIDE THE CLUB LAB",
+    up_title: "Upcoming Challenges in Development",
+    up_sub: "Club del Ingenio is actively expanding its catalog. New mathematical logic and brain training projects will arrive soon.",
+    up_card1_status: "IN RESEARCH",
+    up_card1_title: "Cryptograms & Letter Riddles",
+    up_card1_desc: "Frequency analysis and hidden message decoding to sharpen verbal acuity and lateral thinking.",
+    up_card2_status: "CONCEPT",
+    up_card2_title: "Geometric Tactics & Patterns",
+    up_card2_desc: "Visual symmetry and movement optimization puzzles designed for all age groups.",
+
+    mani_tag: "OUR PROMISE",
+    mani_title: "The Fair Play Manifesto",
+    mani_lead: "«We firmly believe that deep concentration and brain fitness are fundamentally incompatible with noisy videos and invasive ads.»",
+    mani_p1_title: "1. No On-Screen Ads:",
+    mani_p1_desc: "Our games are completely free and unlimited, without flashing banners or mandatory video ads disrupting your flow.",
+    mani_p2_title: "2. Absolute Privacy (Zero Tracking):",
+    mani_p2_desc: "We do not collect personal data, sell marketing profiles, or require email registrations.",
+    mani_p3_title: "3. Player-First Philosophy:",
+    mani_p3_desc: "Crafted by and for logic enthusiasts. True reward lies in the intellectual challenge and self-improvement.",
+
+    ben_tag: "MENTAL WELLNESS",
+    ben_title: "Brain Gym for Every Generation",
+    ben_sub: "Systematic logical thinking benefits every stage of life. Scientifically proven advantages:",
+    ben_c1_badge: "🐣 YOUTH & STUDENTS",
+    ben_c1_title: "Analytical Thinking",
+    ben_c1_desc: "Fosters deductive discipline, structured problem solving, and sustained concentration against digital distractions.",
+    ben_c2_badge: "⚡ ADULTS (18-49)",
+    ben_c2_title: "Active Decompression",
+    ben_c2_desc: "A healthy, constructive leisure alternative to unwind from daily stress through ordered cognitive focus.",
+    ben_c3_badge: "🧠 SENIORS & VETERANS (50-64)",
+    ben_c3_title: "Working Memory",
+    ben_c3_desc: "Maintains neural plasticity, quick decision-making, and strong retention of complex visual patterns.",
+    ben_c4_badge: "👑 LEGENDS (65+ YEARS)",
+    ben_c4_title: "Healthy Cognitive Reserve",
+    ben_c4_desc: "Actively stimulates synaptic connections and deductive clarity. The finest gymnastics to keep the mind sharp and vibrant.",
+
+    back_badge_tag: "🔄 CLOUD SYNC & TRANSFER",
+    back_badge_origin: "ALL GAMES PROTECTED",
+    back_title: "Take your records and puzzles to any device",
+    back_desc: "Start on desktop and continue on your phone or tablet. Create a <code>.json</code> backup or generate a quick transfer code to migrate your progress across <strong>Top-Sudoku, Sudoku Arena, Nonograms, Rubik's Cube, Tactical Calc, Checkers, and Deduction</strong> in seconds.",
+    back_btn: "🔄 Open Backup & Transfer Hub",
+
+    footer_tagline: "Official portals: clubdelingenio.es & clubdelingenio.com.<br>The home of logic, deduction, and cognitive stimulation.",
+    footer_col1_title: "ACTIVE GAMES",
+    footer_col2_title: "DOCUMENTATION",
+    footer_col3_title: "THE CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Developed by <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "Spain • European Union • Zero tracking cookies",
+
+    modal_lang_title: "🌐 Select Language",
+    modal_lang_sub: "Choose your preferred language across the entire platform:",
+    backup_modal_title: "💾 Backup & Transfer Center",
+    backup_modal_intro: "Safeguard or transfer your progress for <strong>all Club games</strong> (Sudoku Arena, Nonograms, Rubik's Cube, Tactical Calc, Top-Sudoku, Checkers, and Deduction) quickly and 100% privately."
+  },
+
+  fr: {
+    code: "fr", flag: "🇫🇷", name: "Français", native: "Français",
+    page_title: "Club del Ingenio — Le Siège de la Logique, de l'Ingéniosité et de la Stimulation Cognitive",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "SIÈGE DE LOGIQUE & ESPRIT",
+    nav_games: "🎮 Salle de Jeux",
+    nav_manifesto: "🛡️ Manifeste Zero-Ads",
+    nav_gym: "🧠 Gymnastique Cérébrale",
+    nav_backup: "💾 Sauvegarde & Transfert",
+    nav_explore: "🚀 Explorer les Jeux",
+    btn_lang_title: "Changer de langue",
+
+    hero_badge: "LE CLUB DES ESPRITS CURIEUX",
+    hero_title: "Où la Logique Devient <span class=\"gradient-gold\">Art</span> et <span class=\"gradient-cyan\">Compétition</span>",
+    hero_desc: "Bienvenue au <strong>Club del Ingenio</strong>. Une plateforme indépendante et <strong>100% sans publicité commerciale invasive</strong>, conçue pour stimuler votre intellect, renforcer votre agilité déductive et savourer le plaisir de la pensée pure à tout âge.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "L'École de Déduction",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "Compétition & Hall of Fame",
+    cta_calc_title: "Calcul Tactique",
+    cta_calc_sub: "Agilité Mentale en 60s",
+    cta_nono_title: "Nonogrammes Zen",
+    cta_nono_sub: "Mosaïques de Logique & Art",
+    cta_ded_title: "Déduction Logique",
+    cta_ded_sub: "Mystère au Club",
+    cta_rubik_title: "Rubik's Cube 3D",
+    cta_rubik_sub: "Logique Spatiale & WCA",
+    cta_damas_title: "Dames du Club",
+    cta_damas_sub: "Stratégie 3D & Duels",
+
+    pillar_1_title: "Zéro Pub Invasive",
+    pillar_1_sub: "Aucune vidéo pour couper votre réflexion",
+    pillar_2_title: "Gym Cérébral",
+    pillar_2_sub: "Santé cognitive pour jeunes, adultes et seniors",
+    pillar_3_title: "Jeu Équitable Certifié",
+    pillar_3_sub: "Duels à parité mathématique et audit",
+    pillar_4_title: "Communauté Globale",
+    pillar_4_sub: "Prise en charge en 9 langues",
+
+    catalog_tag: "CATALOGUE OFFICIEL",
+    catalog_title: "La Salle de Jeux du Club",
+    catalog_sub: "Choisissez votre mode : apprenez avec la pédagogie guidée de <strong>Top-Sudoku</strong> ou défiez vos amis en duel dans <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 ÉCOLE DE LOGIQUE",
+    top_badge_origin: "APPRENTISSAGE GUIDÉ",
+    top_visual_tag: "Plateau Miroir 1:1",
+    top_tagline: "Le maître patient : apprenez à déduire pas à pas sans blocages ni conjectures.",
+    top_feat_1: "<strong>Plateau Miroir des Possibles :</strong> Visualisez en direct les candidats par case par élimination systématique.",
+    top_feat_2: "<strong>Zéro Impasse :</strong> Vérification active contre la solution unique pour éviter les erreurs tardives.",
+    top_feat_3: "<strong>Scanner OCR Intelligent :</strong> Photographiez un sudoku papier et jouez-le immédiatement.",
+    top_feat_4: "<strong>Horloge Analogique :</strong> Aiguille fluide et chronomètre de précision pour rythmer vos parties.",
+    top_btn_play: "🎓 Ouvrir Top-Sudoku",
+    top_btn_manual: "📖 Manuel de l'École",
+
+    arena_badge_tag: "⚔️ COMPÉTITION ESPORTS",
+    arena_badge_origin: "AUDIT COGNITIF",
+    arena_visual_tag: "Tableau Tactique Néon",
+    arena_tagline: "L'arène compétitive : défis mentaux, duels multijoueurs et Panthéon mondial.",
+    arena_feat_1: "<strong>Moteur de Score Cognitif :</strong> Chaque case rapporte des points selon la technique logique requise.",
+    arena_feat_2: "<strong>Duels par WhatsApp :</strong> Défiez vos proches avec un lien direct et la même grille mathématique.",
+    arena_feat_3: "<strong>Panthéon Mondial :</strong> Coupe des Nations, Villes et Générations (Juniors, Adultes, Seniors, Légendes).",
+    arena_feat_4: "<strong>Grand Livre d'Audit :</strong> Historique complet de vos déductions et pourcentage d'autonomie.",
+    arena_btn_play: "⚔️ Entrer dans l'Arène",
+    arena_btn_manual: "📖 Manuel du Joueur",
+
+    calc_badge_tag: "⚡ AGILITÉ MENTALE",
+    calc_badge_origin: "PARTIES DE 60 SECONDES",
+    calc_visual_tag: "Cible & Chronomètre",
+    calc_tagline: "Le test ultime de rapidité : atteignez la cible numérique avant la fin du compte à rebours.",
+    calc_feat_1: "<strong>Chiffres et Opérations :</strong> 6 plaques et 4 opérations pour trouver le compte exact.",
+    calc_feat_2: "<strong>Compte à Rebours Tendu :</strong> 45 à 90 secondes de pure gymnastique arithmétique.",
+    calc_feat_3: "<strong>Solveur Optimal en Direct :</strong> Découvrez la combinaison mathématique parfaite à chaque tour.",
+    calc_feat_4: "<strong>Duels Partageables :</strong> Partagez la même cible avec un code unique de défi.",
+    calc_btn_play: "⚡ Jouer au Calcul Tactique",
+    calc_btn_manual: "📖 Règles du Jeu",
+
+    ded_badge_tag: "🕵️‍♂️ LOGIQUE PURE & NOIR",
+    ded_badge_origin: "MATRICE D'ÉLIMINATION",
+    ded_visual_tag: "Sherlock Holmes & Énigmes",
+    ded_tagline: "Mystère au Club : le classique casse-tête de déduction par élimination croisée sans chiffres.",
+    ded_feat_1: "<strong>Matrice Croisée Interactive :</strong> Écartez les fausses pistes avec ❌ et fixez les certitudes avec ✔️.",
+    ded_feat_2: "<strong>Énigmes Narratives de Salon :</strong> Bijoux volés, clés et tournois d'échecs avec indices interactifs.",
+    ded_feat_3: "<strong>Salon des Énigmes Classiques :</strong> L'Île aux Yeux Bleus, Monty Hall et dilemmes célèbres avec simulateur.",
+    ded_feat_4: "<strong>Biffage Intelligent :</strong> Valider une certitude élimine automatiquement les cases de la même ligne et colonne.",
+    ded_feat_5: "<strong>9 Langues Officielles :</strong> Enquêtes et témoignages intégralement traduits.",
+    ded_btn_play: "🕵️‍♂️ Résoudre les Enquêtes",
+    ded_btn_manual: "📖 Guide de la Matrice",
+
+    nono_badge_tag: "🎨 ART & DÉDUCTION ZEN",
+    nono_badge_tech: "3 NIVEAUX & PINACOTHÈQUE",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "L'art de révéler de magnifiques mosaïques en croisant les indices numériques dans un cadre zen.",
+    nono_feat_1: "<strong>3 Niveaux de Maîtrise :</strong> 5×5 (Croquis rapides), 10×10 (Galerie) et 15×15 (Grandes œuvres).",
+    nono_feat_2: "<strong>Pinacothèque Privée :</strong> Chaque puzzle résolu rejoint votre musée personnel avec cadre doré.",
+    nono_feat_3: "<strong>9 Langues dont le Japonais :</strong> Prise en charge native du japonais (🇯🇵 日本語).",
+    nono_btn_play: "🎨 Peindre les Mosaïques",
+    nono_btn_manual: "📖 Comment Résoudre",
+
+    rubik_badge_tag: "LOGIQUE SPATIALE 3D",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "Rendu 3D & Speedcubing",
+    rubik_tagline: "Le maître des casse-têtes 3D : résolvez-le dans l'espace, apprenez avec le tuteur ou battez le chrono WCA.",
+    rubik_feat_1: "<strong>Moteur 3D Interactif :</strong> Faites tourner les faces au doigt ou à la souris avec sons haptiques.",
+    rubik_feat_2: "<strong>École du Cube (Tuteur) :</strong> Méthode par étapes avec schémas clairs et formules pas à pas.",
+    rubik_feat_3: "<strong>Chronomètre Officiel WCA :</strong> Inspection 15s, millisecondes, TPS et moyennes Ao5.",
+    rubik_feat_4: "<strong>Motifs Géométriques :</strong> Échiquier, points centraux et motifs artistiques en un clic.",
+    rubik_btn_play: "Explorer le Cube 3D",
+    rubik_btn_manual: "📖 Raccourcis & Guide",
+
+    damas_badge_tag: "👑 STRATÉGIE CLASSIQUE",
+    damas_badge_tech: "THREE.JS & IA MINIMAX",
+    damas_visual_tag: "Damier Ébène & Dames Volantes",
+    damas_tagline: "La noblesse du jeu de dames : plateau 3D en ébène et marbre, couronnement et duels contre l'IA.",
+    damas_feat_1: "<strong>Couronnement 3D :</strong> Une couronne dorée descend sur la pièce pour libérer le vol diagonal.",
+    damas_feat_2: "<strong>Intelligence Artificielle à 3 Niveaux :</strong> Défiez l'IA (Initié, Tactique, Grand Maître).",
+    damas_feat_3: "<strong>Règles Officielles :</strong> Prise obligatoire par quantité et dames volantes à longue portée.",
+    damas_feat_4: "<strong>9 Langues & Mode 1v1 :</strong> Jouez à deux sur le même écran ou préparez des duels en ligne.",
+    damas_btn_play: "👑 Jouer aux Dames",
+    damas_btn_manual: "📖 Règles Officielles",
+
+    up_badge: "🔬 AU LABORATOIRE DU CLUB",
+    up_title: "Prochains Défis en Développement",
+    up_sub: "Le Club del Ingenio enrichit continuellement sa collection avec de nouvelles disciplines logiques.",
+    up_card1_status: "EN RECHERCHE",
+    up_card1_title: "Cryptogrammes et Énigmes Verbales",
+    up_card1_desc: "Déchiffrement de messages secrets et analyse fréquentielle pour stimuler la vivacité verbale.",
+    up_card2_status: "CONCEPT",
+    up_card2_title: "Tactique Géométrique et Motifs",
+    up_card2_desc: "Reconnaissance de symétries et optimisation de mouvements pour tous les âges.",
+
+    mani_tag: "NOTRE ENGAGEMENT",
+    mani_title: "Le Manifeste du Jeu Équitable",
+    mani_lead: "« Nous croyons fermement que l'exercice cérébral et la concentration profonde sont incompatibles avec les publicités intrusives. »",
+    mani_p1_title: "1. Zéro Publicité à l'Écran :",
+    mani_p1_desc: "Toutes nos applications sont libres et illimitées, sans bannières clignotantes ni vidéos obligatoires.",
+    mani_p2_title: "2. Confidentialité Totale :",
+    mani_p2_desc: "Aucune collecte de données personnelles ni revente de profils publicitaires.",
+    mani_p3_title: "3. Respect du Joueur :",
+    mani_p3_desc: "Conçu par et pour les passionnés de logique. La seule récompense est la satisfaction intellectuelle.",
+
+    ben_tag: "SANTÉ COGNITIVE",
+    ben_title: "Gymnastique Cérébrale pour Toutes les Générations",
+    ben_sub: "La déduction logique n'a pas d'âge. Des bienfaits prouvés à chaque étape de la vie :",
+    ben_c1_badge: "🐣 JEUNES & ÉTUDIANTS",
+    ben_c1_title: "Pensée Analytique",
+    ben_c1_desc: "Développe la rigueur déductive et la capacité de concentration face à la dispersion numérique.",
+    ben_c2_badge: "⚡ ADULTES (18-49 ANS)",
+    ben_c2_title: "Déconnexion Active",
+    ben_c2_desc: "Une pause stimulante pour libérer le stress quotidien grâce à un focus mental structuré.",
+    ben_c3_badge: "🧠 SENIORS (50-64 ANS)",
+    ben_c3_title: "Mémoire de Travail",
+    ben_c3_desc: "Préserve la vivacité neuronale, la prise de décision rapide et la reconnaissance de motifs.",
+    ben_c4_badge: "👑 LÉGENDES (65+ ANS)",
+    ben_c4_title: "Réserve Cognitive Saine",
+    ben_c4_desc: "Stimule la plasticité cérébrale et la clarté d'esprit pour garder un cerveau vif et plein d'énergie.",
+
+    back_badge_tag: "🔄 SYNCHRONISATION & TRANSFERT",
+    back_badge_origin: "TOUS VOS JEUX PROTÉGÉS",
+    back_title: "Emportez vos records sur n'importe quel appareil",
+    back_desc: "Jouez sur votre ordinateur et poursuivez sur mobile. Téléchargez une sauvegarde <code>.json</code> ou générez un code pour transférer votre progression complète en quelques secondes.",
+    back_btn: "🔄 Ouvrir le Centre de Transfert",
+
+    footer_tagline: "Portails officiels : clubdelingenio.es & clubdelingenio.com.<br>Le siège de la logique, de la déduction et de l'entraînement mental.",
+    footer_col1_title: "JEUX ACTIFS",
+    footer_col2_title: "DOCUMENTATION",
+    footer_col3_title: "LE CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Conçu par <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "Espagne • Union Européenne • Sans cookies de pistage",
+
+    modal_lang_title: "🌐 Sélectionner la Langue",
+    modal_lang_sub: "Choisissez votre langue pour l'ensemble du Club :",
+    backup_modal_title: "💾 Centre de Sauvegarde et Transfert",
+    backup_modal_intro: "Sauvegardez ou transférez vos progrès pour <strong>tous les jeux du Club</strong> en toute confidentialité."
+  },
+
+  de: {
+    code: "de", flag: "🇩🇪", name: "Deutsch", native: "Deutsch",
+    page_title: "Club del Ingenio — Die Zentrale für Logik, Scharfsinn & Geistige Fitness",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "ZENTRALE FÜR LOGIK & GEIST",
+    nav_games: "🎮 Spielesalon",
+    nav_manifesto: "🛡️ Zero-Ads Manifest",
+    nav_gym: "🧠 Gehirnjogging",
+    nav_backup: "💾 Datensicherung",
+    nav_explore: "🚀 Spiele Entdecken",
+    btn_lang_title: "Sprache wählen",
+
+    hero_badge: "DER CLUB DER WACHEN GEISTER",
+    hero_title: "Wo Logik zu <span class=\"gradient-gold\">Kunst</span> und <span class=\"gradient-cyan\">Wettkampf</span> wird",
+    hero_desc: "Willkommen im <strong>Club del Ingenio</strong>. Eine unabhängige Plattform, <strong>100% frei von lästiger Werbung</strong>, geschaffen um Ihren Intellekt zu fordern, Ihre Kombinationsgabe zu schärfen und die reine Freude am Denken zu genießen.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "Die Schule der Deduktion",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "Wettkampf & Ruhmeshalle",
+    cta_calc_title: "Taktisches Rechnen",
+    cta_calc_sub: "Kopfrechnen in 60s",
+    cta_nono_title: "Zen-Nonogramme",
+    cta_nono_sub: "Logikmosaike & Pixelkunst",
+    cta_ded_title: "Logische Deduktion",
+    cta_ded_sub: "Mysterium im Club",
+    cta_rubik_title: "3D Rubik's Cube",
+    cta_rubik_sub: "Raumlogik & WCA-Timer",
+    cta_damas_title: "Club-Dame",
+    cta_damas_sub: "3D-Strategie & Duelle",
+
+    pillar_1_title: "Keine Störende Werbung",
+    pillar_1_sub: "Keine Videos, die Ihre Konzentration unterbrechen",
+    pillar_2_title: "Kognitives Fitnessstudio",
+    pillar_2_sub: "Geistige Vitalität für Jung, Alt und Senioren",
+    pillar_3_title: "Zertifiziertes Fairplay",
+    pillar_3_sub: "Mathematisch identische Duelle mit Prüfung",
+    pillar_4_title: "Globale Gemeinschaft",
+    pillar_4_sub: "Mehrsprachig in 9 Sprachen",
+
+    catalog_tag: "OFFIZIELLER KATALOG",
+    catalog_title: "Der Spielesalon des Clubs",
+    catalog_sub: "Wählen Sie Ihre Disziplin: Meistern Sie systematische Deduktion mit <strong>Top-Sudoku</strong> oder messen Sie sich gegen die Uhr in <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 SCHULE DER LOGIK",
+    top_badge_origin: "GEFÜHRTES LERNEN",
+    top_visual_tag: "1:1 Spiegel-Kandidatenfeld",
+    top_tagline: "Der geduldige Lehrmeister: Schritt für Schritt deduzieren ohne Raten oder Sackgassen.",
+    top_feat_1: "<strong>Spiegel-Kandidatenbrett:</strong> Zeigt alle möglichen Kandidaten pro Feld in Echtzeit an.",
+    top_feat_2: "<strong>Keine Sackgassen:</strong> Aktive Überprüfung verhindert fehlerhafte Verzweigungen von Anfang an.",
+    top_feat_3: "<strong>OCR-Kamera-Scanner:</strong> Sudokus aus Zeitschriften fotografieren und sofort im Browser lösen.",
+    top_feat_4: "<strong>Klassische Analoguhr:</strong> Ästhetisches Zifferblatt mit sanftem Sekundenzeiger und Präzisionsstoppuhr.",
+    top_btn_play: "🎓 Top-Sudoku Öffnen",
+    top_btn_manual: "📖 Schulhandbuch",
+
+    arena_badge_tag: "⚔️ ESPORTS WETTKAMPF",
+    arena_badge_origin: "KOGNITIVE PRÜFUNG",
+    arena_visual_tag: "Neon-Taktikanzeige",
+    arena_tagline: "Die Wettkampfarena: Duelle, wöchentliche Herausforderungen und die globale Ruhmeshalle.",
+    arena_feat_1: "<strong>Kognitives Punktesystem:</strong> Jedes Feld wird nach der erforderlichen Logiktechnik bewertet.",
+    arena_feat_2: "<strong>WhatsApp-Duelle:</strong> Fordern Sie Freunde mit demselben Zahlencode direkt heraus.",
+    arena_feat_3: "<strong>Globale Ruhmeshalle:</strong> Nationenwertung, Städte und Altersklassen (Junior, Erwachsene, Senioren, Legenden).",
+    arena_feat_4: "<strong>Prüfungsprotokoll:</strong> Lückenlose Dokumentation Ihrer Züge und Eigenständigkeitsquote.",
+    arena_btn_play: "⚔️ Arena Betreten",
+    arena_btn_manual: "📖 Spielerhandbuch",
+
+    calc_badge_tag: "⚡ SCHNELLES RECHNEN",
+    calc_badge_origin: "60-SEKUNDEN-RUNDEN",
+    calc_visual_tag: "Zielzahl & Stoppuhr",
+    calc_tagline: "Der Härtetest für Kopfrechner: Treffen Sie die Zielzahl, bevor der Timer abläuft.",
+    calc_feat_1: "<strong>Zahlen & Grundrechenarten:</strong> 6 Zahlenkärtchen und 4 Operatoren für das exakte Ergebnis.",
+    calc_feat_2: "<strong>Nervenkitzel gegen die Uhr:</strong> Schnelle 45–90 Sekunden Runden trainieren die Neuroplastizität.",
+    calc_feat_3: "<strong>Live-Löser:</strong> Zeigt nach jeder Runde die mathematisch eleganteste Kombination Schritt für Schritt.",
+    calc_feat_4: "<strong>Teilbare Duelle:</strong> Dieselbe Aufgabe mit Freunden per Code teilen und vergleichen.",
+    calc_btn_play: "⚡ Taktisches Rechnen",
+    calc_btn_manual: "📖 Spielregeln",
+
+    ded_badge_tag: "🕵️‍♂️ REINE LOGIK & NOIR",
+    ded_badge_origin: "AUSSCHLUSSMATRIX",
+    ded_visual_tag: "Sherlock Holmes & Rätsel",
+    ded_tagline: "Mysterium im Club: das klassische Deduktionsrätsel ganz ohne Zahlen für analytische Köpfe.",
+    ded_feat_1: "<strong>Interaktives Kreuzgitter:</strong> Falsche Spuren mit ❌ streichen und Gewissheiten mit ✔️ festhalten.",
+    ded_feat_2: "<strong>Spannende Kriminalfälle:</strong> Juwelendiebe, Generalschlüssel und Turniere mit interaktiven Hinweisen.",
+    ded_feat_3: "<strong>Klassische Denkrätsel:</strong> Die Insel der blauen Augen, Ziegenproblem und Logikdilemmata mit Simulator.",
+    ded_feat_4: "<strong>Intelligentes Streichen:</strong> Automatische Zeilen- und Spaltenbereinigung bei jedem Treffer.",
+    ded_feat_5: "<strong>In 9 Sprachen:</strong> Vollständig übersetzte Fallakten und Zeugenaussagen.",
+    ded_btn_play: "🕵️‍♂️ Fälle Untersuchen",
+    ded_btn_manual: "📖 Anleitung zur Matrix",
+
+    nono_badge_tag: "🎨 KUNST & ZEN-LOGIK",
+    nono_badge_tech: "3 STUFEN & GALERIE",
+    nono_visual_tag: "Picross, Griddlers & Pixelkunst",
+    nono_tagline: "Die japanische Kunst, durch Zahlenhinweise verborgene Bilder in entspannter Zen-Atmosphäre freizulegen.",
+    nono_feat_1: "<strong>3 Meisterstufen:</strong> 5×5 (Einsteiger-Skizzen), 10×10 (Klassiker) und 15×15 (Große Meisterwerke).",
+    nono_feat_2: "<strong>Eigene Pinakothek:</strong> Jedes gelöste Bild wird farbig in Ihrer Galerie mit Goldrahmen verewigt.",
+    nono_feat_3: "<strong>Universell in 9 Sprachen:</strong> Einschließlich Japanisch (🇯🇵 日本語), der Heimat der Nonogramme.",
+    nono_btn_play: "🎨 Mosaike Malen",
+    nono_btn_manual: "📖 Anleitung",
+
+    rubik_badge_tag: "3D RAUMLOGIK",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "3D-Grafik & Speedcubing",
+    rubik_tagline: "Der König aller 3D-Geduldsspiele: Drehen im Raum, Schritt-für-Schritt Tutor oder Speedcubing.",
+    rubik_feat_1: "<strong>Interaktive 3D-Engine:</strong> Ebenen flüssig mit der Maus oder per Touch drehen.",
+    rubik_feat_2: "<strong>Würfel-Akademie (Tutor):</strong> Schicht-für-Schicht-Methode mit Formeln und Bildern.",
+    rubik_feat_3: "<strong>WCA-Wettkampftimer:</strong> Speedcubing-Modus mit 15s Inspektion, Millisekunden und Ao5-Schnitt.",
+    rubik_feat_4: "<strong>Geometrische Muster:</strong> Schachbrett, Mittelpunkte und kunstvolle Würfelmuster auf Knopfdruck.",
+    rubik_btn_play: "3D-Würfel Erkunden",
+    rubik_btn_manual: "📖 Tastatur & Hilfe",
+
+    damas_badge_tag: "👑 KLASSISCHE STRATEGIE",
+    damas_badge_tech: "THREE.JS & MINIMAX-KI",
+    damas_visual_tag: "Ebenholzbrett & Fliegende Damen",
+    damas_tagline: "Die Vornehmheit des Damespiels: 3D-Ebenholzbrett, Krönung und taktische Duelle gegen KI oder Freunde.",
+    damas_feat_1: "<strong>3D-Krönung:</strong> Eine goldene Krone krönt die Dame und verleiht ihr weite Diagonalsprünge.",
+    damas_feat_2: "<strong>KI in 3 Schwierigkeitsgraden:</strong> Taktische Minimax-KI (Anfänger, Taktiker, Großmeister).",
+    damas_feat_3: "<strong>Offizielle Regeln:</strong> Schlagpflicht mit maximaler Schlagzahl und fliegende Damen.",
+    damas_feat_4: "<strong>9 Sprachen & 2-Spieler-Modus:</strong> Zu zweit an einem Gerät spielen oder Online vorbereiten.",
+    damas_btn_play: "👑 Dame Spielen",
+    damas_btn_manual: "📖 Offizielle Regeln",
+
+    up_badge: "🔬 IM CLUB-LABOR",
+    up_title: "Demnächst im Club",
+    up_sub: "Der Club del Ingenio erweitert ständig seine Auswahl an intelligenten Denkspielen.",
+    up_card1_status: "IN ENTWICKLUNG",
+    up_card1_title: "Kryptogramme & Buchstabenrätsel",
+    up_card1_desc: "Geheime Botschaften entschlüsseln zur Förderung von Wortschatz und lateralem Denken.",
+    up_card2_status: "KONZEPT",
+    up_card2_title: "Geometrische Taktik & Muster",
+    up_card2_desc: "Mustererkennung und Zugoptimierung für Denker aller Generationen.",
+
+    mani_tag: "UNSER VERSPRECHEN",
+    mani_title: "Das Fairplay-Manifest",
+    mani_lead: "«Wir sind überzeugt, dass geistige Konzentration und laute Werbevideos unvereinbar sind.»",
+    mani_p1_title: "1. Keine Bildschirmsperren:",
+    mani_p1_desc: "Alle Spiele sind unbegrenzt und ohne störende Banner oder Werbeunterbrechungen nutzbar.",
+    mani_p2_title: "2. Absolute Privatsphäre:",
+    mani_p2_desc: "Keine Weitergabe persönlicher Daten, kein Werbetracking und kein Registrierungszwang.",
+    mani_p3_title: "3. Respekt vor dem Spieler:",
+    mani_p3_desc: "Von Logikbegeisterten für Logikbegeisterte geschaffen. Die Freude liegt im Denkerfolg.",
+
+    ben_tag: "GEISTIGE GESUNDHEIT",
+    ben_title: "Gehirnjogging für Jede Generation",
+    ben_sub: "Regelmäßiges logisches Denken kennt kein Alter. Wissenschaftlich belegte Vorzüge:",
+    ben_c1_badge: "🐣 JUGEND & STUDIUM",
+    ben_c1_title: "Analytisches Denken",
+    ben_c1_desc: "Fördert Problemlösungskompetenz, Struktur und dauerhafte Konzentration.",
+    ben_c2_badge: "⚡ ERWACHSENE (18-49)",
+    ben_c2_title: "Aktive Erholung",
+    ben_c2_desc: "Konstruktiver Stressabbau durch fokussierte mentale Herausforderungen im Alltag.",
+    ben_c3_badge: "🧠 SENIOREN (50-64)",
+    ben_c3_title: "Arbeitsgedächtnis",
+    ben_c3_desc: "Hält neuronale Verknüpfungen fit und stärkt das schnelle Erkennen visueller Muster.",
+    ben_c4_badge: "👑 LEGENDEN (65+ JAHRE)",
+    ben_c4_title: "Kognitive Reserve",
+    ben_c4_desc: "Aktiviert die neuronale Plastizität und geistige Wachheit für lebenslange Vitalität.",
+
+    back_badge_tag: "🔄 SYNCHRONISATION & ÜBERTRAGUNG",
+    back_badge_origin: "ALLE SPIELSTÄNDE GESICHERT",
+    back_title: "Nehmen Sie Ihre Erfolge auf jedes Gerät mit",
+    back_desc: "Spielen Sie am PC und setzen Sie die Partie am Smartphone fort. Erstellen Sie eine <code>.json</code>-Sicherung oder übertragen Sie alles per Code in Sekundenschnelle.",
+    back_btn: "🔄 Sicherungszentrale Öffnen",
+
+    footer_tagline: "Offizielle Portale: clubdelingenio.es & clubdelingenio.com.<br>Die Zentrale für Logik, Deduktion und geistige Fitness.",
+    footer_col1_title: "AKTIVE SPIELE",
+    footer_col2_title: "DOKUMENTATION",
+    footer_col3_title: "DER CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Entwickelt von <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "Spanien • Europäische Union • Keine Tracking-Cookies",
+
+    modal_lang_title: "🌐 Sprache Auswählen",
+    modal_lang_sub: "Wählen Sie Ihre bevorzugte Sprache für die gesamte Plattform:",
+    backup_modal_title: "💾 Datensicherung & Übertragungszentrum",
+    backup_modal_intro: "Sichern oder übertragen Sie Ihre Spielstände für <strong>alle Spiele des Clubs</strong> privat und unkompliziert."
+  },
+
+  ca: {
+    code: "ca", flag: "🟡🔴", name: "Català", native: "Català",
+    page_title: "Club del Ingenio — La Seu de la Lògica, l'Enginy i l'Estimulació Cognitiva",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "SEU DE LÒGICA & MENT",
+    nav_games: "🎮 Sala de Jocs",
+    nav_manifesto: "🛡️ Manifest Zero-Ads",
+    nav_gym: "🧠 Gimnàs Mental",
+    nav_backup: "💾 Còpia de Seguretat",
+    nav_explore: "🚀 Explorar Jocs",
+    btn_lang_title: "Seleccionar idioma",
+
+    hero_badge: "EL CLUB DE LES MENTS INQUIETES",
+    hero_title: "On la Lògica es Converteix en <span class=\"gradient-gold\">Art</span> i <span class=\"gradient-cyan\">Competició</span>",
+    hero_desc: "Benvingut al <strong>Club del Ingenio</strong>. Una plataforma independent, cuidada i <strong>100% lliure d'anuncis comercials invasius</strong>, dissenyada per desafiar el teu intel·lecte, potenciar la teva agilitat deductiva i gaudir del plaer del pensament pur a qualsevol edat.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "L'Escola de Deducció",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "La Competició & Saló Fama",
+    cta_calc_title: "Càlcul Tàctic",
+    cta_calc_sub: "Agilitat Mental en 60s",
+    cta_nono_title: "Nonogrames Zen",
+    cta_nono_sub: "Mosaics de Lògica & Art",
+    cta_ded_title: "Deducció Lògica",
+    cta_ded_sub: "Misteri al Club",
+    cta_rubik_title: "Cub de Rubik 3D",
+    cta_rubik_sub: "Lògica Espacial & WCA",
+    cta_damas_title: "Dames del Club",
+    cta_damas_sub: "Estratègia 3D & Duels",
+
+    pillar_1_title: "Zero Anuncis Invasius",
+    pillar_1_sub: "Sense vídeos que trenquin la teva concentració",
+    pillar_2_title: "Gimnàs Cognitiu",
+    pillar_2_sub: "Salut mental per a joves, adults i sèniors",
+    pillar_3_title: "Joc Net Certificat",
+    pillar_3_sub: "Duels en igualtat matemàtica i auditoria",
+    pillar_4_title: "Comunitat Global",
+    pillar_4_sub: "Suport multilingüe en 9 idiomes",
+
+    catalog_tag: "CATÀLEG OFICIAL",
+    catalog_title: "La Sala de Jocs del Club",
+    catalog_sub: "Tria la teva modalitat: aprèn i perfecciona el teu mètode amb <strong>Top-Sudoku</strong> o posa't a prova contra el rellotge a <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 ESCOLA DE LÒGICA",
+    top_badge_origin: "APRENENTATGE GUIAT",
+    top_visual_tag: "Tauler Dual en Mirall 1:1",
+    top_tagline: "El mestre pacient: aprèn a deduir pas a pas sense bloquejos ni conjectures.",
+    top_feat_1: "<strong>Tauler Mirall de Possibilitats:</strong> Visualitza en temps real els candidats possibles per casella calculats per descart sistemàtic.",
+    top_feat_2: "<strong>Zero Atzucacs:</strong> Comprovació activa contra la solució matemàtica única.",
+    top_feat_3: "<strong>Escàner OCR Intel·ligent:</strong> Fotografia un sudoku de diari o revista i juga'l a l'instant.",
+    top_feat_4: "<strong>Rellotge Analògic Clàssic:</strong> Elegant esfera amb segonera suau i cronòmetre de precisió.",
+    top_btn_play: "🎓 Obrir Top-Sudoku",
+    top_btn_manual: "📖 Manual de l'Escola",
+
+    arena_badge_tag: "⚔️ COMPETICIÓ ESPORTS",
+    arena_badge_origin: "AUDITORIA COGNITIVA",
+    arena_visual_tag: "Marcador Tàctic Neó",
+    arena_tagline: "L'arena de competició: reptes mentals, duels multijugador i Saló de la Fama.",
+    arena_feat_1: "<strong>Motor de Puntuació Cognitiva:</strong> Cada cel·la puntua segons la tècnica lògica requerida.",
+    arena_feat_2: "<strong>Duels per WhatsApp:</strong> Reta els teus amics amb un enllaç instantani i la mateixa llavor.",
+    arena_feat_3: "<strong>Saló de la Fama Global:</strong> Copa de Nacions, Pobles i Ciutats i Classificació Generacional.",
+    arena_feat_4: "<strong>Llibre Major d'Auditoria:</strong> Traçabilitat completa de cada jugada i autonomia.",
+    arena_btn_play: "⚔️ Entrar a Sudoku Arena",
+    arena_btn_manual: "📖 Manual del Jugador",
+
+    calc_badge_tag: "⚡ AGILITAT MENTAL",
+    calc_badge_origin: "PARTIDES DE 60 SEGONS",
+    calc_visual_tag: "Xifra Diana & Cronòmetre",
+    calc_tagline: "La prova definitiva de rapidesa mental: arriba a la xifra diana abans que el rellotge arribi a zero.",
+    calc_feat_1: "<strong>Xifres i Operacions al Límit:</strong> 6 fitxes numèriques i 4 operacions bàsiques.",
+    calc_feat_2: "<strong>Pressió Contrareloj:</strong> Partides de 45 a 90 segons que activen el càlcul ràpid.",
+    calc_feat_3: "<strong>Solucionador Òptim en Viu:</strong> Desvela la combinació perfecta pas a pas.",
+    calc_feat_4: "<strong>Duels Compartibles:</strong> Reta tothom a resoldre el mateix tauler.",
+    calc_btn_play: "⚡ Jugar a Càlcul Tàctic",
+    calc_btn_manual: "📖 Normes del Joc",
+
+    ded_badge_tag: "🕵️‍♂️ LÒGICA PURA & NOIR",
+    ded_badge_origin: "MATRIU D'ELIMINACIÓ",
+    ded_visual_tag: "Sherlock Holmes & Enigmes Lògics",
+    ded_tagline: "Misteri al Club: el clàssic enigma deductiu d'eliminació creuada sense números.",
+    ded_feat_1: "<strong>Matriu Creuada Interactiva:</strong> Descarta hipòtesis amb ❌ i fixa certeses amb ✔️.",
+    ded_feat_2: "<strong>Enigmes Narratius de Saló:</strong> Robatoris de joies, claus i tornejos amb pistes interactives.",
+    ded_feat_3: "<strong>Saló d'Enigmes Clàssics:</strong> L'Illa dels Ulls Blaus, Monty Hall i grans dilemes amb simuladors.",
+    ded_feat_4: "<strong>Auto-Tatxat Intel·ligent:</strong> En fixar una certesa, el motor descarta files i columnes d'immediat.",
+    ded_feat_5: "<strong>9 Idiomes Oficials:</strong> Casos i declaracions completament adaptats.",
+    ded_btn_play: "🕵️‍♂️ Investigar Misteris",
+    ded_btn_manual: "📖 Com Usar la Matriu",
+
+    nono_badge_tag: "🎨 ART & DEDUCCIÓ ZEN",
+    nono_badge_tech: "3 NIVELLS & PINACOTECA",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "L'art de descobrir belles il·lustracions mitjançant la deducció matemàtica en un ambient zen.",
+    nono_feat_1: "<strong>3 Nivells de Mestratge:</strong> 5×5 (Esbossos), 10×10 (Galeria) i 15×15 (Grans obres).",
+    nono_feat_2: "<strong>Pinacoteca Privada:</strong> Cada mosaic resolt es guarda al teu museu personal amb marc daurat.",
+    nono_feat_3: "<strong>Universal en 9 Idiomes:</strong> Traducció íntegra incloent japonès (🇯🇵 日本語).",
+    nono_btn_play: "🎨 Pintar Mosaics",
+    nono_btn_manual: "📖 Com Resoldre",
+
+    rubik_badge_tag: "LÒGICA ESPACIAL 3D",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "Render 3D, Escola & Speedcubing",
+    rubik_tagline: "El rei dels trencaclosques 3D: resol per deducció espacial, aprèn amb el tutor o competeix al cronòmetre.",
+    rubik_feat_1: "<strong>Motor 3D Interactiu:</strong> Gira capes arrossegant amb el ratolí o dit amb so tàctil.",
+    rubik_feat_2: "<strong>Escola del Cub (Tutor):</strong> Mètode de capes pas a pas amb explicacions i fórmules.",
+    rubik_feat_3: "<strong>Cronòmetre Oficial WCA:</strong> Mode Speedcubing amb inspecció de 15s i mitjanes Ao5.",
+    rubik_feat_4: "<strong>Patrons Artístics:</strong> Aplica patrons com el tauler d'escacs en un clic.",
+    rubik_btn_play: "Explorar Cub 3D",
+    rubik_btn_manual: "📖 Dreceres i Guia",
+
+    damas_badge_tag: "👑 TÀCTICA & ESTRATÈGIA",
+    damas_badge_tech: "THREE.JS & IA MINIMAX",
+    damas_visual_tag: "Tauler d'Èban & Dames Voladores",
+    damas_tagline: "La noblesa del joc clàssic: tauler d'èban i marbre 3D, coronació i duels contra la IA o amics.",
+    damas_feat_1: "<strong>Coronació de la Dama 3D:</strong> Una corona daurada baixa sobre la peça desbloquejant el vol lliure.",
+    damas_feat_2: "<strong>Intel·ligència Artificial amb 3 Nivells:</strong> Desafia la IA tàctica (Iniciat, Tàctic, Gran Mestre).",
+    damas_feat_3: "<strong>Reglament Oficial:</strong> Dames voladores de llarg abast i captura obligatòria per quantitat.",
+    damas_feat_4: "<strong>9 Idiomes & Mode 1v1:</strong> Juga dues persones al mateix dispositiu.",
+    damas_btn_play: "👑 Jugar a Dames",
+    damas_btn_manual: "📖 Reglament Oficial",
+
+    up_badge: "🔬 AL LABORATORI DEL CLUB",
+    up_title: "Propers Reptes en Desenvolupament",
+    up_sub: "El Club del Ingenio està ampliant el seu repertori de jocs de lògica i enginy.",
+    up_card1_status: "EN INVESTIGACIÓ",
+    up_card1_title: "Criptogrames i Enigmes de Lletres",
+    up_card1_desc: "Desxiframent de missatges ocults per entrenar el llenguatge i el pensament lateral.",
+    up_card2_status: "CONCEPTE",
+    up_card2_title: "Tàctica Geomètrica i Patrons",
+    up_card2_desc: "Reconeixement de patrons simètrics i optimització de moviments.",
+
+    mani_tag: "LA NOSTRA PROMESA",
+    mani_title: "El Manifest de Joc Net",
+    mani_lead: "«Creiem fermament que l'entrenament mental i la concentració profunda són incompatibles amb la publicitat invasiva.»",
+    mani_p1_title: "1. Sense Anuncis en Pantalla:",
+    mani_p1_desc: "Aplicacions d'ús lliure, il·limitat i sense bàners ni vídeos obligatoris.",
+    mani_p2_title: "2. Privacitat Absoluta (Zero-Tracking):",
+    mani_p2_desc: "No recopilem dades personals ni venem perfils publicitaris.",
+    mani_p3_title: "3. Respecte al Jugador:",
+    mani_p3_desc: "Creat per i per a amants de la lògica. La satisfacció és el repte intel·lectual.",
+
+    ben_tag: "SALUT COGNITIVA",
+    ben_title: "Gimnàs Cerebral per a Totes les Generacions",
+    ben_sub: "La deducció lògica no té edat. Beneficis contrastats per a cada etapa:",
+    ben_c1_badge: "🐣 JOVES & ESTUDIANTS",
+    ben_c1_title: "Pensament Analític",
+    ben_c1_desc: "Fomenta la disciplina deductiva, el rigor i la concentració davant la dispersió digital.",
+    ben_c2_badge: "⚡ ADULTS (18-49 ANYS)",
+    ben_c2_title: "Desconnexió Activa",
+    ben_c2_desc: "Una alternativa d'oci constructiva per alliberar l'estrès diari amb concentració ordenada.",
+    ben_c3_badge: "🧠 SÈNIOR & VETERANS (50-64)",
+    ben_c3_title: "Memòria de Treball",
+    ben_c3_desc: "Manté en forma les connexions neuronals i la retenció visual de patrons complexos.",
+    ben_c4_badge: "👑 LLEGENDES (65+ ANYS)",
+    ben_c4_title: "Reserva Cognitiva Saludable",
+    ben_c4_desc: "Estimula la plasticitat cerebral i la lucidesa deductiva per conservar la ment desperta.",
+
+    back_badge_tag: "🔄 SINCRONITZACIÓ I TRASPÀS",
+    back_badge_origin: "TOTS ELS JOCS PROTEGITS",
+    back_title: "Porta els teus rècords a qualsevol dispositiu",
+    back_desc: "Juga a l'ordinador i continua al mòbil o tauleta. Descarrega un arxiu <code>.json</code> o genera un codi de traspàs en qüestió de segons.",
+    back_btn: "🔄 Obrir Centre de Còpia i Traspàs",
+
+    footer_tagline: "Portals oficials: clubdelingenio.es & clubdelingenio.com.<br>La seu de la lògica, la deducció i l'estimulació mental.",
+    footer_col1_title: "JOCS ACTIUS",
+    footer_col2_title: "DOCUMENTACIÓ",
+    footer_col3_title: "EL CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desenvolupat per <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "Espanya • Unió Europea • Sense galetes de rastreig",
+
+    modal_lang_title: "🌐 Seleccionar Idioma",
+    modal_lang_sub: "Tria la teva llengua preferida per a tota la plataforma:",
+    backup_modal_title: "💾 Centre de Còpia de Seguretat i Traspàs",
+    backup_modal_intro: "Guarda o transfereix el teu progrés de <strong>tots els jocs del Club</strong> de manera 100% privada."
+  },
+
+  va: {
+    code: "va", flag: "🦇", name: "Valencià", native: "Valencià",
+    page_title: "Club del Ingenio — La Seu de la Lògica, l'Enginy i l'Estimulació Cognitiva",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "SEU DE LÒGICA & MENT",
+    nav_games: "🎮 Sala de Jocs",
+    nav_manifesto: "🛡️ Manifest Zero-Ads",
+    nav_gym: "🧠 Gimnàs Mental",
+    nav_backup: "💾 Còpia de Seguretat",
+    nav_explore: "🚀 Explorar Jocs",
+    btn_lang_title: "Seleccionar idioma",
+
+    hero_badge: "EL CLUB DE LES MENTS INQUIETES",
+    hero_title: "On la Lògica es Convertix en <span class=\"gradient-gold\">Art</span> i <span class=\"gradient-cyan\">Competició</span>",
+    hero_desc: "Benvingut al <strong>Club del Ingenio</strong>. Una plataforma independent, cuidada i <strong>100% lliure d'anuncis comercials invasius</strong>, dissenyada per a desafiar el teu intel·lecte, potenciar la teua agilitat deductiva i fruir del plaer del pensament pur a qualsevol edat.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "L'Escola de Deducció",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "La Competició & Saló Fama",
+    cta_calc_title: "Càlcul Tàctic",
+    cta_calc_sub: "Agilitat Mental en 60s",
+    cta_nono_title: "Nonogrames Zen",
+    cta_nono_sub: "Mosaics de Lògica & Art",
+    cta_ded_title: "Deducció Lògica",
+    cta_ded_sub: "Misteri al Club",
+    cta_rubik_title: "Cub de Rubik 3D",
+    cta_rubik_sub: "Lògica Espacial & WCA",
+    cta_damas_title: "Dames del Club",
+    cta_damas_sub: "Estratègia 3D & Duels",
+
+    pillar_1_title: "Zero Anuncis Invasius",
+    pillar_1_sub: "Sense vídeos que tallen la teua concentració",
+    pillar_2_title: "Gimnàs Cognitiu",
+    pillar_2_sub: "Salut mental per a jóvens, adults i sèniors",
+    pillar_3_title: "Joc Net Certificat",
+    pillar_3_sub: "Duels en igualtat matemàtica i auditoria",
+    pillar_4_title: "Comunitat Global",
+    pillar_4_sub: "Suport multilingüe en 9 idiomes",
+
+    catalog_tag: "CATÀLEG OFICIAL",
+    catalog_title: "La Sala de Jocs del Club",
+    catalog_sub: "Tria la teua modalitat: aprén i perfecciona el teu mètode amb <strong>Top-Sudoku</strong> o posa't a prova contra el rellotge en <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 ESCOLA DE LÒGICA",
+    top_badge_origin: "APRENENTATGE GUIAT",
+    top_visual_tag: "Tauler Dual en Espill 1:1",
+    top_tagline: "El mestre pacient: aprén a deduir pas a pas sense bloquejos ni endevinalles.",
+    top_feat_1: "<strong>Tauler Espill de Possibilitats:</strong> Visualitza en temps real els candidats possibles per casella calculats per descart sistemàtic.",
+    top_feat_2: "<strong>Zero Atzucacs:</strong> Comprovació activa contra la solució matemàtica única.",
+    top_feat_3: "<strong>Escàner OCR Intel·ligent:</strong> Fotografia un sudoku de periòdic o revista i juga'l a l'instant.",
+    top_feat_4: "<strong>Rellotge Analògic Clàssic:</strong> Elegant esfera amb segonera suau i cronòmetre de precisió.",
+    top_btn_play: "🎓 Obrir Top-Sudoku",
+    top_btn_manual: "📖 Manual de l'Escola",
+
+    arena_badge_tag: "⚔️ COMPETICIÓ ESPORTS",
+    arena_badge_origin: "AUDITORIA COGNITIVA",
+    arena_visual_tag: "Marcador Tàctic Neó",
+    arena_tagline: "L'arena de competició: reptes mentals, duels multijugador i Saló de la Fama.",
+    arena_feat_1: "<strong>Motor de Puntuació Cognitiva:</strong> Cada cel·la puntua segons la tècnica lògica requerida.",
+    arena_feat_2: "<strong>Duels per WhatsApp:</strong> Reta els teus amics amb un enllaç instantani i la mateixa llavor.",
+    arena_feat_3: "<strong>Saló de la Fama Global:</strong> Copa de Nacions, Pobles i Ciutats i Classificació Generacional.",
+    arena_feat_4: "<strong>Llibre Major d'Auditoria:</strong> Traçabilitat completa de cada jugada i autonomia.",
+    arena_btn_play: "⚔️ Entrar a Sudoku Arena",
+    arena_btn_manual: "📖 Manual del Jugador",
+
+    calc_badge_tag: "⚡ AGILITAT MENTAL",
+    calc_badge_origin: "PARTIDES DE 60 SEGONS",
+    calc_visual_tag: "Xifra Diana & Cronòmetre",
+    calc_tagline: "La prova definitiva de rapidesa mental: aplega a la xifra diana abans que el rellotge aplegue a zero.",
+    calc_feat_1: "<strong>Xifres i Operacions al Límit:</strong> 6 fitxes numèriques i 4 operacions bàsiques.",
+    calc_feat_2: "<strong>Pressió Contrarrellotge:</strong> Partides de 45 a 90 segons que activen el càlcul ràpid.",
+    calc_feat_3: "<strong>Solucionador Òptim en Viu:</strong> Desvela la combinació perfecta pas a pas.",
+    calc_feat_4: "<strong>Duels Compartibles:</strong> Reta a tothom a resoldre el mateix tauler.",
+    calc_btn_play: "⚡ Jugar a Càlcul Tàctic",
+    calc_btn_manual: "📖 Normes del Joc",
+
+    ded_badge_tag: "🕵️‍♂️ LÒGICA PURA & NOIR",
+    ded_badge_origin: "MATRIU D'ELIMINACIÓ",
+    ded_visual_tag: "Sherlock Holmes & Enigmes Lògics",
+    ded_tagline: "Misteri al Club: el clàssic enigma deductiu d'eliminació creuada sense números.",
+    ded_feat_1: "<strong>Matriu Creuada Interactiva:</strong> Descarta hipòtesis amb ❌ i fixa certeses amb ✔️.",
+    ded_feat_2: "<strong>Enigmes Narratius de Saló:</strong> Robatoris de joies, claus i tornejos amb pistes interactives.",
+    ded_feat_3: "<strong>Saló d'Enigmes Clàssics:</strong> L'Illa dels Ulls Blaus, Monty Hall i grans dilemes amb simuladors.",
+    ded_feat_4: "<strong>Auto-Tatxat Intel·ligent:</strong> En fixar una certesa, el motor descarta files i columnes d'immediat.",
+    ded_feat_5: "<strong>9 Idiomes Oficials:</strong> Casos i declaracions completament adaptats.",
+    ded_btn_play: "🕵️‍♂️ Investigar Misteris",
+    ded_btn_manual: "📖 Com Usar la Matriu",
+
+    nono_badge_tag: "🎨 ART & DEDUCCIÓ ZEN",
+    nono_badge_tech: "3 NIVELLS & PINACOTECA",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "L'art de descobrir belles il·lustracions per mitjà de la deducció matemàtica en un ambient zen.",
+    nono_feat_1: "<strong>3 Nivells de Mestratge:</strong> 5×5 (Esbossos), 10×10 (Galeria) i 15×15 (Grans obres).",
+    nono_feat_2: "<strong>Pinacoteca Privada:</strong> Cada mosaic resolt es guarda al teu museu personal amb marc daurat.",
+    nono_feat_3: "<strong>Universal en 9 Idiomes:</strong> Traducció íntegra incloent japonés (🇯🇵 日本語).",
+    nono_btn_play: "🎨 Pintar Mosaics",
+    nono_btn_manual: "📖 Com Resoldre",
+
+    rubik_badge_tag: "LÒGICA ESPACIAL 3D",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "Render 3D, Escola & Speedcubing",
+    rubik_tagline: "El rei dels trencaclosques 3D: resol per deducció espacial, aprén amb el tutor o competix al cronòmetre.",
+    rubik_feat_1: "<strong>Motor 3D Interactiu:</strong> Gira capes arrossegant amb el ratolí o dit amb so tàctil.",
+    rubik_feat_2: "<strong>Escola del Cub (Tutor):</strong> Mètode de capes pas a pas amb explicacions i fórmules.",
+    rubik_feat_3: "<strong>Cronòmetre Oficial WCA:</strong> Mode Speedcubing amb inspecció de 15s i mitjanes Ao5.",
+    rubik_feat_4: "<strong>Patrons Artístics:</strong> Aplica patrons com el tauler d'escacs en un clic.",
+    rubik_btn_play: "Explorar Cub 3D",
+    rubik_btn_manual: "📖 Dreceres i Guia",
+
+    damas_badge_tag: "👑 TÀCTICA & ESTRATÈGIA",
+    damas_badge_tech: "THREE.JS & IA MINIMAX",
+    damas_visual_tag: "Tauler d'Èban & Dames Voladores",
+    damas_tagline: "La noblesa del joc clàssic: tauler d'èban i marbre 3D, coronació i duels contra la IA o amics.",
+    damas_feat_1: "<strong>Coronació de la Dama 3D:</strong> Una corona daurada baixa sobre la peça desbloquejant el vol lliure.",
+    damas_feat_2: "<strong>Intel·ligència Artificial amb 3 Nivells:</strong> Desafia la IA tàctica (Iniciat, Tàctic, Gran Mestre).",
+    damas_feat_3: "<strong>Reglament Oficial:</strong> Dames voladores de llarg abast i captura obligatòria per quantitat.",
+    damas_feat_4: "<strong>9 Idiomes & Mode 1v1:</strong> Juga dos persones al mateix dispositiu.",
+    damas_btn_play: "👑 Jugar a Dames",
+    damas_btn_manual: "📖 Reglament Oficial",
+
+    up_badge: "🔬 AL LABORATORI DEL CLUB",
+    up_title: "Pròxims Reptes en Desenvolupament",
+    up_sub: "El Club del Ingenio està ampliant el seu repertori de jocs de lògica i enginy.",
+    up_card1_status: "EN INVESTIGACIÓ",
+    up_card1_title: "Criptogrames i Enigmes de Lletres",
+    up_card1_desc: "Desxiframent de missatges ocults per a entrenar el llenguatge i el pensament lateral.",
+    up_card2_status: "CONCEPTE",
+    up_card2_title: "Tàctica Geomètrica i Patrons",
+    up_card2_desc: "Reconeixement de patrons simètrics i optimització de moviments.",
+
+    mani_tag: "LA NOSTRA PROMESA",
+    mani_title: "El Manifest de Joc Net",
+    mani_lead: "«Creiem fermament que l'entrenament mental i la concentració profunda són incompatibles amb la publicitat invasiva.»",
+    mani_p1_title: "1. Sense Anuncis en Pantalla:",
+    mani_p1_desc: "Aplicacions d'ús lliure, il·limitat i sense bàners ni vídeos obligatoris.",
+    mani_p2_title: "2. Privacitat Absoluta (Zero-Tracking):",
+    mani_p2_desc: "No recopilem dades personals ni venem perfils publicitaris.",
+    mani_p3_title: "3. Respecte al Jugador:",
+    mani_p3_desc: "Creat per i per a amants de la lògica. La satisfacció és el repte intel·lectual.",
+
+    ben_tag: "SALUT COGNITIVA",
+    ben_title: "Gimnàs Cerebral per a Totes les Generacions",
+    ben_sub: "La deducció lògica no té edat. Beneficis contrastats per a cada etapa:",
+    ben_c1_badge: "🐣 JÓVENS & ESTUDIANTS",
+    ben_c1_title: "Pensament Analític",
+    ben_c1_desc: "Fomenta la disciplina deductiva, el rigor i la concentració davant la dispersió digital.",
+    ben_c2_badge: "⚡ ADULTS (18-49 ANYS)",
+    ben_c2_title: "Desconnexió Activa",
+    ben_c2_desc: "Una alternativa d'oci constructiva per a alliberar l'estrès diari amb concentració ordenada.",
+    ben_c3_badge: "🧠 SÈNIOR & VETERANS (50-64)",
+    ben_c3_title: "Memòria de Treball",
+    ben_c3_desc: "Manté en forma les connexions neuronals i la retenció visual de patrons complexos.",
+    ben_c4_badge: "👑 LLEGENDES (65+ ANYS)",
+    ben_c4_title: "Reserva Cognitiva Saludable",
+    ben_c4_desc: "Estimula la plasticitat cerebral i la lucidesa deductiva per a conservar la ment desperta.",
+
+    back_badge_tag: "🔄 SINCRONITZACIÓ I TRASPÀS",
+    back_badge_origin: "TOTS ELS JOCS PROTEGITS",
+    back_title: "Porta els teus rècords a qualsevol dispositiu",
+    back_desc: "Juga a l'ordinador i continua al mòbil o tauleta. Descarrega un arxiu <code>.json</code> o genera un codi de traspàs en qüestió de segons.",
+    back_btn: "🔄 Obrir Centre de Còpia i Traspàs",
+
+    footer_tagline: "Portals oficials: clubdelingenio.es & clubdelingenio.com.<br>La seu de la lògica, la deducció i l'estimulació mental.",
+    footer_col1_title: "JOCS ACTIUS",
+    footer_col2_title: "DOCUMENTACIÓ",
+    footer_col3_title: "EL CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desenvolupat per <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "Espanya • Unió Europea • Sense galetes de rastreig",
+
+    modal_lang_title: "🌐 Seleccionar Idioma",
+    modal_lang_sub: "Tria la teua llengua preferida per a tota la plataforma:",
+    backup_modal_title: "💾 Centre de Còpia de Seguretat i Traspàs",
+    backup_modal_intro: "Guarda o transferix el teu progrés de <strong>tots els jocs del Club</strong> de manera 100% privada."
+  },
+
+  eu: {
+    code: "eu", flag: "🟩", name: "Euskara", native: "Euskara",
+    page_title: "Club del Ingenio — Logika, Sormena eta Estimulazio Kognitiboaren Egoitza",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "LOGIKA & ADIMEN EGOITZA",
+    nav_games: "🎮 Joko Gela",
+    nav_manifesto: "🛡️ Zero-Ads Agiria",
+    nav_gym: "🧠 Buru Gimnasioa",
+    nav_backup: "💾 Segurtasun Kopia",
+    nav_explore: "🚀 Jokoak Arakatu",
+    btn_lang_title: "Hizkuntza hautatu",
+
+    hero_badge: "BURU ARINEKOEN KLUBA",
+    hero_title: "Logika <span class=\"gradient-gold\">Arte</span> eta <span class=\"gradient-cyan\">Lehia</span> bihurtzen den lekuan",
+    hero_desc: "Ongi etorri <strong>Club del Ingenio</strong>ra. Plataforma independentea eta <strong>iragarki gogaikarririk gabea</strong>, zure adimena probatzeko eta pentsamendu garbiarekin gozatzeko sortua.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "Dedukzioaren Eskola",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "Lehia & Ospearen Aretoa",
+    cta_calc_title: "Kalkulu Taktikoa",
+    cta_calc_sub: "Buru Azkartasuna 60 segundotan",
+    cta_nono_title: "Zen Nonogramak",
+    cta_nono_sub: "Logika Mosaikoak & Artea",
+    cta_ded_title: "Dedukzio Logikoa",
+    cta_ded_sub: "Misterioa Klubean",
+    cta_rubik_title: "3D Rubik Kuboa",
+    cta_rubik_sub: "Espazio Logika & WCA",
+    cta_damas_title: "Klubeko Damak",
+    cta_damas_sub: "3D Estrategia & Erronkak",
+
+    pillar_1_title: "Iragarkirik Gabe",
+    pillar_1_sub: "Zure kontzentrazioa mozten duten bideorik gabe",
+    pillar_2_title: "Gimnasio Kognitiboa",
+    pillar_2_sub: "Buru osasuna gazte, heldu eta nagusientzat",
+    pillar_3_title: "Joko Garbi Ziurtatua",
+    pillar_3_sub: "Berdintasun matematikoan oinarritutako erronkak",
+    pillar_4_title: "Komunitate Globala",
+    pillar_4_sub: "Laguntza eleaniztuna 9 hizkuntzatan",
+
+    catalog_tag: "KATALOGO OFIZIALA",
+    catalog_title: "Klubeko Joko Gela",
+    catalog_sub: "Aukeratu zure erronka: ikasi metodo deduktiboa <strong>Top-Sudoku</strong>rekin edo lehiatu erlojuaren aurka <strong>Sudoku Arena</strong>n.",
+
+    top_badge_tag: "🎓 LOGIKA ESKOLA",
+    top_badge_origin: "IKASKUNTZA GIDATUA",
+    top_visual_tag: "Ispilu Taula 1:1",
+    top_tagline: "Maisu pazientea: pausoz pauso deduzitu asmatu edo trabatu gabe.",
+    top_feat_1: "<strong>Posibilitateen Ispilu Taula:</strong> Gelaxka bakoitzeko hautagaiak denbora errealean ikusi.",
+    top_feat_2: "<strong>Bide-itxirik Gabe:</strong> Egiaztapen aktiboak akatsak ekiditen ditu.",
+    top_feat_3: "<strong>OCR Eskanerra:</strong> Paperezko sudokuei argazkia atera eta pantailan berehala jokatu.",
+    top_feat_4: "<strong>Erloju Analogiko Klasikoa:</strong> Segundoko orratz leuna eta doitasun kronometroa.",
+    top_btn_play: "🎓 Ireki Top-Sudoku",
+    top_btn_manual: "📖 Eskolako Eskuliburua",
+
+    arena_badge_tag: "⚔️ ESPORTS LEHIA",
+    arena_badge_origin: "IKUSKAPEN KOGNITIBOA",
+    arena_visual_tag: "Neoi Markagailu Taktikoa",
+    arena_tagline: "Lehiaren eremua: buru erronkak, jokalari anitzeko lehiak eta Ospearen Aretoa.",
+    arena_feat_1: "<strong>Puntuazio Kognitiboaren Motorra:</strong> Gelaxka bakoitzak teknika logikoaren arabera puntuatzen du.",
+    arena_feat_2: "<strong>WhatsApp Erronkak:</strong> Lagunak desafiatu taula berdinarekin.",
+    arena_feat_3: "<strong>Mundu Mailako Ospearen Aretoa:</strong> Nazioak, Hiriak eta Belaunaldiak.",
+    arena_feat_4: "<strong>Ikuskapen Liburua:</strong> Zure dedukzio guztien erregistro osoa.",
+    arena_btn_play: "⚔️ Sartu Sudoku Arenara",
+    arena_btn_manual: "📖 Jokalariaren Gida",
+
+    calc_badge_tag: "⚡ BURU AZKARTASUNA",
+    calc_badge_origin: "60 SEGUNDOKO PARTIDAK",
+    calc_visual_tag: "Helburu Zifra & Erlojua",
+    calc_tagline: "Azkartasun proba gorena: lortu helburu zenbakia erlojua zerora iritsi aurretik.",
+    calc_feat_1: "<strong>Zenbakiak Mugan:</strong> 6 fitxa eta 4 eragiketa zenbaki zehatza lortzeko.",
+    calc_feat_2: "<strong>Erlojuaren Aurkako Presioa:</strong> 45-90 segundoko partida azkarrak burua pizteko.",
+    calc_feat_3: "<strong>Ebazle Optimoa Zuzenean:</strong> Konbinazio perfektua erakusten du pausoz pauso.",
+    calc_feat_4: "<strong>Erronka Partekagarriak:</strong> Lagunekin kode bidez lehiatu.",
+    calc_btn_play: "⚡ Kalkulu Taktikoa Jokatu",
+    calc_btn_manual: "📖 Arauak eta Mekanika",
+
+    ded_badge_tag: "🕵️‍♂️ LOGIKA GARBIA & NOIR",
+    ded_badge_origin: "BAZTERKETA MATRIZEA",
+    ded_visual_tag: "Sherlock Holmes & Igarkizunak",
+    ded_tagline: "Misterioa Klubean: zenbakirik gabeko gurutzatutako bazterketa enigma klasikoa.",
+    ded_feat_1: "<strong>Matrize Gurutzatu Interaktiboa:</strong> Baztertu ❌ markaz eta finkatu ziurtasunak ✔️ bidez.",
+    ded_feat_2: "<strong>Istorio Enigmatikoak:</strong> Bitxi lapurretak, giltzak eta xake txapelketak.",
+    ded_feat_3: "<strong>Enigma Klasikoen Aretoa:</strong> Begi Urdinen Uhartea, Monty Hall eta dilema handiak simulagailuekin.",
+    ded_feat_4: "<strong>Marraketa Adimenduna:</strong> Ziurtasun bat jartzean lerroak berehala garbitzen dira.",
+    ded_feat_5: "<strong>9 Hizkuntza Ofizialetan:</strong> Ikerketak eta lekukotzak guztiz itzulita.",
+    ded_btn_play: "🕵️‍♂️ Misterioak Ikertu",
+    ded_btn_manual: "📖 Matrizearen Gida",
+
+    nono_badge_tag: "🎨 ARTEA & ZEN DEDUKZIOA",
+    nono_badge_tech: "3 MAILA & PINAKOTEKA",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "Irudi ederrak argitzeko arte japoniarra zen giro lasaigarrian.",
+    nono_feat_1: "<strong>3 Maisutza Maila:</strong> 5×5 (Zirriborroak), 10×10 (Galeria) eta 15×15 (Maisulanak).",
+    nono_feat_2: "<strong>Pinakoteka Pribatua:</strong> Ebatzitako mosaiko bakoitza zure museoan gordetzen da.",
+    nono_feat_3: "<strong>9 Hizkuntzatan:</strong> Japoniar jatorrizko hizkuntza barne (🇯🇵 日本語).",
+    nono_btn_play: "🎨 Mosaikoak Margotu",
+    nono_btn_manual: "📖 Nola Ebatzi",
+
+    rubik_badge_tag: "3D ESPAZIO LOGIKA",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "3D Bistarapena & Speedcubing",
+    rubik_tagline: "3D igarkizunen erregea: ebatzi espazioan, ikasi tutorearekin edo lehiatu kronometroan.",
+    rubik_feat_1: "<strong>3D Motor Interaktiboa:</strong> Aurpegiak saguarekin edo hatzarekin biratu.",
+    rubik_feat_2: "<strong>Kubo Eskola (Tutorea):</strong> Geruzen metodoa pausoz pauso formula argiekin.",
+    rubik_feat_3: "<strong>WCA Kronometro Ofiziala:</strong> Speedcubing modua 15s ikuskapenarekin.",
+    rubik_feat_4: "<strong>Mosaiko Geometrikoak:</strong> Xake-taula eta eredu artistikoak klik bakar batean.",
+    rubik_btn_play: "3D Kuboa Arakatu",
+    rubik_btn_manual: "📖 Lasterbideak eta Gida",
+
+    damas_badge_tag: "👑 ESTRATEGIA KLASIKOA",
+    damas_badge_tech: "THREE.JS & MINIMAX AI",
+    damas_visual_tag: "Ebanozko Taula & Dama Hegalariak",
+    damas_tagline: "Joko klasikoaren dotorezia: ebano eta marmolezko 3D taula eta AIren aurkako erronkak.",
+    damas_feat_1: "<strong>Damaren Koroatzea 3D:</strong> Urrezko koroa jaisten da hegaldia desblokeatuz.",
+    damas_feat_2: "<strong>Adimen Artifiziala 3 Mailatan:</strong> AI taktikoa (Hasiberria, Taktikoa, Maisua).",
+    damas_feat_3: "<strong>Arau Ofizialak:</strong> Distantzia luzeko dama hegalariak eta harrapaketa derrigorrezkoa.",
+    damas_feat_4: "<strong>9 Hizkuntza & 1v1 Modua:</strong> Bi pertsona gailu berean elkarrekin jokatzeko.",
+    damas_btn_play: "👑 Dametan Jokatu",
+    damas_btn_manual: "📖 Arau Ofizialak",
+
+    up_badge: "🔬 KLUBEKO LABORATEGIAN",
+    up_title: "Garapenean dauden Hurrengo Erronkak",
+    up_sub: "Club del Ingeniok joko logikoen eskaintza zabaltzen jarraitzen du etengabe.",
+    up_card1_status: "IKERTZEN",
+    up_card1_title: "Kriptogramak eta Hizki Enigmak",
+    up_card1_desc: "Ezkutuko mezuak deszifratzea buruaren bizkortasuna trebatzeko.",
+    up_card2_status: "KONTZEPTUA",
+    up_card2_title: "Taktika Geometrikoa eta Ereduak",
+    up_card2_desc: "Eredu simetrikoak ezagutzea eta mugimenduak optimizatzea.",
+
+    mani_tag: "GURE AGINTZA",
+    mani_title: "Joko Garbiaren Agiria",
+    mani_lead: "«Sinki sinesten dugu kontzentrazio sakona eta publizitate inbaditzailea bateraezinak direla.»",
+    mani_p1_title: "1. Iragarkirik Gabe Pantailan:",
+    mani_p1_desc: "Gure aplikazioak libreak eta mugagabeak dira, bideo eta iragarki gogaikarririk gabe.",
+    mani_p2_title: "2. Pribatutasun Osoa:",
+    mani_p2_desc: "Ez dugu datu pertsonalik biltzen ezta saltzen ere.",
+    mani_p3_title: "3. Jokalariarenganako Errespetua:",
+    mani_p3_desc: "Logika zaleek logika zaleentzat sortua. Sari nagusia lorpen intelektuala da.",
+
+    ben_tag: "BURU OSASUNA",
+    ben_title: "Buru Gimnasioa Belaunaldi Guztientzat",
+    ben_sub: "Dedukzio logikoak ez du adinik. Onura zientifiko frogatuak:",
+    ben_c1_badge: "🐣 GAZTEAK & IKASLEAK",
+    ben_c1_title: "Pentsamendu Analitikoa",
+    ben_c1_desc: "Buru diziplina eta sakoneko kontzentrazio gaitasuna bultzatzen ditu.",
+    ben_c2_badge: "⚡ HELDUAK (18-49 URTE)",
+    ben_c2_title: "Eskualdatze Aktiboa",
+    ben_c2_desc: "Eguneroko estresa askatzeko alternatiba eraikitzailea buru fokua landuz.",
+    ben_c3_badge: "🧠 SENIORRAK (50-64 URTE)",
+    ben_c3_title: "Laneko Memoria",
+    ben_c3_desc: "Neuronen arteko loturak eta patroi bisualak gogoratzeko gaitasuna indartzen ditu.",
+    ben_c4_badge: "👑 LEHENDARIAK (65+ URTE)",
+    ben_c4_title: "Erreserba Kognitibo Osasuntsua",
+    ben_c4_desc: "Garunaren plastikotasuna eta argitasuna estimulatzen ditu adimena beti erne edukitzeko.",
+
+    back_badge_tag: "🔄 SINKRONIZAZIOA ETA TRASPASOA",
+    back_badge_origin: "JOKO GUZTIAK BABESTUTA",
+    back_title: "Eraman zure markak edozein gailutara",
+    back_desc: "Jokatu ordenagailuan eta jarraitu mugikorrean. Deskargatu <code>.json</code> fitxategia edo sortu kode bat segundotan dena transferitzeko.",
+    back_btn: "🔄 Traspaso Zentroa Ireki",
+
+    footer_tagline: "Atari ofizialak: clubdelingenio.es & clubdelingenio.com.<br>Logika, dedukzioa eta buru entrenamenduaren egoitza nagusia.",
+    footer_col1_title: "JOKO AKTIBOAK",
+    footer_col2_title: "DOKUMENTAZIOA",
+    footer_col3_title: "KLUBA",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.k garatua.",
+    footer_sub: "Espainia • Europar Batasuna • Jarraipen cookie-rik gabe",
+
+    modal_lang_title: "🌐 Hizkuntza Hautatu",
+    modal_lang_sub: "Aukeratu zure hizkuntza gogokoena plataforma osorako:",
+    backup_modal_title: "💾 Segurtasun Kopia eta Traspaso Zentroa",
+    backup_modal_intro: "Gorde edo transferitu zure aurrerapena modu seguru eta pribatuan."
+  },
+
+  gl: {
+    code: "gl", flag: "🟦", name: "Galego", native: "Galego",
+    page_title: "Club del Ingenio — A Sede da Lóxica, o Enxeño e a Estimulación Cognitiva",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "SEDE DE LÓXICA & MENTE",
+    nav_games: "🎮 Sala de Xogos",
+    nav_manifesto: "🛡️ Manifesto Zero-Ads",
+    nav_gym: "🧠 Ximnasio Mental",
+    nav_backup: "💾 Copia de Seguridade",
+    nav_explore: "🚀 Explorar Xogos",
+    btn_lang_title: "Seleccionar idioma",
+
+    hero_badge: "O CLUB DAS MENTES INQUEDAS",
+    hero_title: "Onde a Lóxica se Converte en <span class=\"gradient-gold\">Arte</span> e <span class=\"gradient-cyan\">Competición</span>",
+    hero_desc: "Benvido ao <strong>Club del Ingenio</strong>. Unha plataforma independente, coidada e <strong>100% libre de anuncios invasivos</strong>, deseñada para desafiar o teu intelecto, potenciar a túa axilidade deductiva e gozar do pracer do pensamento puro a calquera idade.",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "A Escola de Dedución",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "A Competición & Salón Fama",
+    cta_calc_title: "Cálculo Táctico",
+    cta_calc_sub: "Axilidade Mental en 60s",
+    cta_nono_title: "Nonogramas Zen",
+    cta_nono_sub: "Mosaicos de Lóxica & Arte",
+    cta_ded_title: "Dedución Lóxica",
+    cta_ded_sub: "Misterio no Club",
+    cta_rubik_title: "Cubo de Rubik 3D",
+    cta_rubik_sub: "Lóxica Espacial & WCA",
+    cta_damas_title: "Damas do Club",
+    cta_damas_sub: "Estratexia 3D & Duos",
+
+    pillar_1_title: "Cero Anuncios Invasivos",
+    pillar_1_sub: "Sen vídeos que corten a túa concentración",
+    pillar_2_title: "Ximnasio Cognitivo",
+    pillar_2_sub: "Saúde mental para mozos, adultos e maiores",
+    pillar_3_title: "Xogo Limpo Certificado",
+    pillar_3_sub: "Duos en igualdade matemática e auditoría",
+    pillar_4_title: "Comunidade Global",
+    pillar_4_sub: "Soporte multilingüe en 9 idiomas",
+
+    catalog_tag: "CATÁLOGO OFICIAL",
+    catalog_title: "A Sala de Xogos do Club",
+    catalog_sub: "Elixe a túa modalidade: aprende e perfecciona o teu método con <strong>Top-Sudoku</strong> ou ponte a proba contra o reloxo en <strong>Sudoku Arena</strong>.",
+
+    top_badge_tag: "🎓 ESCOLA DE LÓXICA",
+    top_badge_origin: "APRENDIZAXE GUIADA",
+    top_visual_tag: "Taboleiro Dual en Espello 1:1",
+    top_tagline: "O mestre paciente: aprende a deducir paso a paso sen atrancos nin adiviñanzas.",
+    top_feat_1: "<strong>Taboleiro Espello de Posibilidades:</strong> Visualiza en tempo real os candidatos posibles por casa calculados por descarte sistemático.",
+    top_feat_2: "<strong>Cero Calexóns sen Saída:</strong> Comprobación activa contra a solución matemática única.",
+    top_feat_3: "<strong>Escáner OCR Intelixente:</strong> Fotografa un sudoku de xornal ou revista e xógao ao instante.",
+    top_feat_4: "<strong>Reloxo Analóxico Clásico:</strong> Elegante esfera con segundeiro suave e cronómetro de precisión.",
+    top_btn_play: "🎓 Abrir Top-Sudoku",
+    top_btn_manual: "📖 Manual da Escola",
+
+    arena_badge_tag: "⚔️ COMPETICIÓN ESPORTS",
+    arena_badge_origin: "AUDITORÍA COGNITIVA",
+    arena_visual_tag: "Marcador Táctico Neón",
+    arena_tagline: "A arena de competición: retos mentais, duos multixogador e Salón da Fama.",
+    arena_feat_1: "<strong>Motor de Puntuación Cognitiva:</strong> Cada cela puntúa segundo a técnica lóxica requirida.",
+    arena_feat_2: "<strong>Duos por WhatsApp:</strong> Reta amigos cunha ligazón instantánea e a mesma semente.",
+    arena_feat_3: "<strong>Salón da Fama Global:</strong> Copa de Nacións, Vilas e Cidades e Clasificación Xeracional.",
+    arena_feat_4: "<strong>Libro Maior de Auditoría:</strong> Trazabilidade completa de cada dedución e autonomía.",
+    arena_btn_play: "⚔️ Entrar en Sudoku Arena",
+    arena_btn_manual: "📖 Manual do Xogador",
+
+    calc_badge_tag: "⚡ AXILIDADE MENTAL",
+    calc_badge_origin: "PARTIDAS DE 60 SEGUNDOS",
+    calc_visual_tag: "Cifra Diana & Cronómetro",
+    calc_tagline: "A proba definitiva de rapidez mental: acada a cifra diana antes de que o reloxo chegue a cero.",
+    calc_feat_1: "<strong>Cifras e Operacións ao Límite:</strong> 6 fichas numéricas e 4 operacións básicas.",
+    calc_feat_2: "<strong>Presión Contrarreloxo:</strong> Partidas rápidas de 45 a 90 segundos que activan o cálculo mental.",
+    calc_feat_3: "<strong>Solucionador Óptimo en Vivo:</strong> Amosa a combinación matemática perfecta paso a paso.",
+    calc_feat_4: "<strong>Duos Compartibles:</strong> Reta a amigos a resolver exactamente o mesmo taboleiro.",
+    calc_btn_play: "⚡ Xogar a Cálculo Táctico",
+    calc_btn_manual: "📖 Normas do Xogo",
+
+    ded_badge_tag: "🕵️‍♂️ LÓXICA PURA & NOIR",
+    ded_badge_origin: "MATRIZ DE ELIMINACIÓN",
+    ded_visual_tag: "Sherlock Holmes & Enigmas Lóxicos",
+    ded_tagline: "Misterio no Club: o clásico enigma deductivo de eliminación cruzada sen números para mentes analíticas.",
+    ded_feat_1: "<strong>Matriz Cruzada Interactiva:</strong> Descarta hipóteses con ❌ e fixa certezas con ✔️.",
+    ded_feat_2: "<strong>Enigmas Narrativos de Salón:</strong> Roubos de xoias, chaves e torneos de xadrez.",
+    ded_feat_3: "<strong>Salón de Enigmas Clásicos:</strong> A Illa dos Ollos Azuis, Monty Hall e grandes dilemas con simuladores.",
+    ded_feat_4: "<strong>Auto-Riscado Intelixente:</strong> Ao fixar unha certeza, o motor descarta ringleiras e columnas.",
+    ded_feat_5: "<strong>9 Idiomas Oficiais:</strong> Casos e declaracións completamente adaptados.",
+    ded_btn_play: "🕵️‍♂️ Investigar Misterios",
+    ded_btn_manual: "📖 Como Usar a Matriz",
+
+    nono_badge_tag: "🎨 ARTE & DEDUCIÓN ZEN",
+    nono_badge_tech: "3 NIVEIS & PINACOTECA",
+    nono_visual_tag: "Picross, Griddlers & Pixel-Art",
+    nono_tagline: "A arte de descubrir fermosas ilustracións mediante a dedución matemática nun ambiente zen.",
+    nono_feat_1: "<strong>3 Niveis de Mestría:</strong> 5×5 (Esbozos), 10×10 (Galería) e 15×15 (Grandes obras).",
+    nono_feat_2: "<strong>Pinacoteca Privada:</strong> Cada mosaico resolto gárdase no teu museo persoal con marco dourado.",
+    nono_feat_3: "<strong>Universal en 9 Idiomas:</strong> Tradución íntegra incluíndo xaponés (🇯🇵 日本語).",
+    nono_btn_play: "🎨 Pintar Mosaicos",
+    nono_btn_manual: "📖 Como Resolver",
+
+    rubik_badge_tag: "LÓXICA ESPACIAL 3D",
+    rubik_badge_tech: "THREE.JS & WCA",
+    rubik_visual_tag: "Render 3D, Escola & Speedcubing",
+    rubik_tagline: "O rei dos crebacabezas 3D: resolve por dedución espacial, aprende co titor ou compite ao cronómetro.",
+    rubik_feat_1: "<strong>Motor 3D Interactivo:</strong> Xira capas arrastrando co rato ou dedo con son táctil.",
+    rubik_feat_2: "<strong>Escola do Cubo (Titor):</strong> Método de capas paso a paso con fórmulas e imaxes.",
+    rubik_feat_3: "<strong>Cronómetro Oficial WCA:</strong> Modo Speedcubing con inspección de 15s e medias Ao5.",
+    rubik_feat_4: "<strong>Patróns Xeométricos:</strong> Aplica patróns como o taboleiro de xadrez nun clic.",
+    rubik_btn_play: "Explorar Cubo 3D",
+    rubik_btn_manual: "📖 Atallos e Guía",
+
+    damas_badge_tag: "👑 TÁCTICA & ESTRATEXIA",
+    damas_badge_tech: "THREE.JS & IA MINIMAX",
+    damas_visual_tag: "Taboleiro de Ébano & Damas Voadoras",
+    damas_tagline: "A nobreza do xogo clásico: taboleiro de ébano e mármore 3D, coroación e duos tácticos.",
+    damas_feat_1: "<strong>Coroación da Dama 3D:</strong> Unha coroa dourada baixa sobre a peza desbloqueando o voo libre.",
+    damas_feat_2: "<strong>Intelixencia Artificial con 3 Niveis:</strong> Desafía a IA táctica (Iniciado, Táctico, Gran Mestre).",
+    damas_feat_3: "<strong>Regulamento Oficial:</strong> Damas voadoras de longo alcance e captura obrigatoria por cantidade.",
+    damas_feat_4: "<strong>9 Idiomas & Modo 1v1:</strong> Xoga dúas persoas no mesmo dispositivo.",
+    damas_btn_play: "👑 Xogar ás Damas",
+    damas_btn_manual: "📖 Regulamento Oficial",
+
+    up_badge: "🔬 NO LABORATORIO DO CLUB",
+    up_title: "Próximos Desafíos en Desenvolvemento",
+    up_sub: "O Club del Ingenio está a ampliar a súa colección de xogos de enxeño e lóxica.",
+    up_card1_status: "EN INVESTIGACIÓN",
+    up_card1_title: "Criptogramas e Enigmas de Letras",
+    up_card1_desc: "Descifrado de mensaxes ocultas para adestrar a linguaxe e a axilidade verbal.",
+    up_card2_status: "CONCEPTO",
+    up_card2_title: "Táctica Xeométrica e Patróns",
+    up_card2_desc: "Recoñecemento de patróns simétricos e optimización de movementos.",
+
+    mani_tag: "O NOSO COMPROMISO",
+    mani_title: "O Manifesto de Xogo Limpo",
+    mani_lead: "«Cremos firmemente que o adestramento mental e a concentración profunda son incompatibles coa publicidade invasiva.»",
+    mani_p1_title: "1. Sen Anuncios na Pantalla:",
+    mani_p1_desc: "Aplicacións de uso libre e ilimitado sen vídeos obrigatorios nin anuncios molestos.",
+    mani_p2_title: "2. Privacidade Absoluta:",
+    mani_p2_desc: "Non recompilamos datos persoais nin comerciamos con perfís.",
+    mani_p3_title: "3. Respecto polo Xogador:",
+    mani_p3_desc: "Feito por e para amantes da lóxica. A verdadeira recompensa é a satisfacción mental.",
+
+    ben_tag: "SAÚDE COGNITIVA",
+    ben_title: "Ximnasio Cerebral para Todas as Xeracións",
+    ben_sub: "A dedución lóxica non ten idade. Beneficios científicos contrastados para cada etapa:",
+    ben_c1_badge: "🐣 MOZOS & ESTUDANTES",
+    ben_c1_title: "Pensamento Analítico",
+    ben_c1_desc: "Fomenta a disciplina deductiva, o rigor e a concentración fronte á dispersión dixital.",
+    ben_c2_badge: "⚡ ADULTOS (18-49 ANOS)",
+    ben_c2_title: "Desconexión Activa",
+    ben_c2_desc: "Unha alternativa de lecer saudable para liberar o estrés diario a través do foco mental.",
+    ben_c3_badge: "🧠 SENIORS (50-64 ANOS)",
+    ben_c3_title: "Memoria de Traballo",
+    ben_c3_desc: "Mantén en forma as conexións neuronais e a retención visual de patróns complexos.",
+    ben_c4_badge: "👑 LENDAS (65+ ANOS)",
+    ben_c4_title: "Reserva Cognitiva Saudable",
+    ben_c4_desc: "Estimula a plasticidade cerebral e a claridade deductiva para conservar a mente esperta.",
+
+    back_badge_tag: "🔄 SINCRONIZACIÓN E TRASPASO",
+    back_badge_origin: "TODOS OS XOGOS PROTEXIDOS",
+    back_title: "Leva as túas marcas a calquera dispositivo",
+    back_desc: "Comeza no ordenador e continúa no móbil ou tableta. Descarga unha copia <code>.json</code> ou xera un código de traspaso en segundos.",
+    back_btn: "🔄 Abrir Centro de Traspaso",
+
+    footer_tagline: "Portais oficiais: clubdelingenio.es & clubdelingenio.com.<br>A sede da lóxica, a dedución e o adestramento mental.",
+    footer_col1_title: "XOGOS ACTIVOS",
+    footer_col2_title: "DOCUMENTACIÓN",
+    footer_col3_title: "O CLUB",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desenvolvido por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "España • Unión Europea • Sen cookies de seguimento",
+
+    modal_lang_title: "🌐 Seleccionar Idioma",
+    modal_lang_sub: "Elixe a túa lingua preferida para todo o Club:",
+    backup_modal_title: "💾 Centro de Copia de Seguridade e Traspaso",
+    backup_modal_intro: "Garda ou transfire o teu progreso de <strong>todos os xogos do Club</strong> de xeito 100% privado."
+  },
+
+  ja: {
+    code: "ja", flag: "🇯🇵", name: "日本語", native: "日本語",
+    page_title: "Club del Ingenio — 論理・知性・認知刺激の総合拠点",
+    brand_title: "CLUB DEL INGENIO",
+    brand_subtitle: "論理と思考の総本部",
+    nav_games: "🎮 ゲームルーム",
+    nav_manifesto: "🛡️ 広告ゼロ宣言",
+    nav_gym: "🧠 脳トレジム",
+    nav_backup: "💾 データ移行＆バックアップ",
+    nav_explore: "🚀 ゲーム一覧を見る",
+    btn_lang_title: "言語を選択 / Select Language",
+
+    hero_badge: "探求する知性のためのクラブ",
+    hero_title: "論理が<span class=\"gradient-gold\">芸術</span>と<span class=\"gradient-cyan\">競技</span>に昇華する場所",
+    hero_desc: "<strong>Club del Ingenio</strong>（クラブ・デル・インヘニオ）へようこそ。煩わしい<strong>広告は一切排除（ゼロ広告）</strong>。何歳になっても知性を刺激し、純粋な思考の歓びを体験できる独立系ロジックプラットフォームです。",
+
+    cta_top_title: "Top-Sudoku",
+    cta_top_sub: "論理的数独の学び舎",
+    cta_arena_title: "Sudoku Arena",
+    cta_arena_sub: "対戦競技＆名誉の殿堂",
+    cta_calc_title: "電光戦術計算",
+    cta_calc_sub: "60秒間の暗算アジリティ",
+    cta_nono_title: "禅ノノグラム",
+    cta_nono_sub: "論理とピクセルアートのモザイク",
+    cta_ded_title: "純粋論理演繹",
+    cta_ded_sub: "クラブのミステリー事件簿",
+    cta_rubik_title: "3D ルービックキューブ",
+    cta_rubik_sub: "空間論理＆公式タイマー",
+    cta_damas_title: "クラブ・チェッカー",
+    cta_damas_sub: "3D盤上の知略対決",
+
+    pillar_1_title: "広告ゼロ（Zero-Ads）",
+    pillar_1_sub: "集中力を削ぐ動画広告は一切ありません",
+    pillar_2_title: "認知フィットネス",
+    pillar_2_sub: "若者からシニアまで生涯にわたる脳の健康",
+    pillar_3_title: "認定フェアプレー",
+    pillar_3_sub: "数学的同一条件での対戦と監査システム",
+    pillar_4_title: "多言語対応（9言語）",
+    pillar_4_sub: "日本語をはじめ世界9言語に完全対応",
+
+    catalog_tag: "公式カタログ",
+    catalog_title: "クラブのゲームルーム",
+    catalog_sub: "<strong>Top-Sudoku</strong>で論理的解法を段階的に身につけるか、<strong>Sudoku Arena</strong>で世界中の知性と競い合うか、お好みのモードをお選びください。",
+
+    top_badge_tag: "🎓 論理の学び舎",
+    top_badge_origin: "段階的学習",
+    top_visual_tag: "1:1 ミラー候補盤面",
+    top_tagline: "忍耐強い名師：推測や行き詰まりに頼らず、論理的に一手ずつ導き出す教育的数独。",
+    top_feat_1: "<strong>候補数字ミラーボード：</strong> マスごとの候補数字をリアルタイムで自動計算・可視化。",
+    top_feat_2: "<strong>行き詰まりゼロ：</strong> 唯一解との照合により、ゲームを破綻させる誤配置を即座にブロック。",
+    top_feat_3: "<strong>OCRカメラ読取：</strong> 新聞や雑誌の数独を撮影するだけで即座にデジタル盤面化。",
+    top_feat_4: "<strong>クラシックな針式時計：</strong> 滑らかな秒針のアナログ時計と高精度タイマーが心地よいリズムを生み出します。",
+    top_btn_play: "🎓 Top-Sudoku を開く",
+    top_btn_manual: "📖 数独学校マニュアル",
+
+    arena_badge_tag: "⚔️ eスポーツ競技数独",
+    arena_badge_origin: "認知的監査ログ",
+    arena_visual_tag: "ネオン戦術スコアボード",
+    arena_tagline: "競技アリーナ：同一盤面での知的対戦、週間チャレンジ、そして世界名誉の殿堂。",
+    arena_feat_1: "<strong>認知スコアエンジン：</strong> 人間の論理的解法テクニック（単一候補、ペア、X-Wing等）に応じて得点加算。",
+    arena_feat_2: "<strong>WhatsApp＆リンク対戦：</strong> 同一のシード値リンクを共有し、まったく同じ数学条件で勝負。",
+    arena_feat_3: "<strong>世界名誉の殿堂：</strong> 国別対抗、地域ランキング、世代別（ジュニア、アダルト、シニア、レジェンド65+）。",
+    arena_feat_4: "<strong>監査台帳システム：</strong> 全ての思考プロセス、ヒント減点、純粋自力達成率を厳格に記録。",
+    arena_btn_play: "⚔️ アリーナに参戦",
+    arena_btn_manual: "📖 競技者マニュアル",
+
+    calc_badge_tag: "⚡ 暗算アジリティ",
+    calc_badge_origin: "60秒スプリント",
+    calc_visual_tag: "目標数字＆タイマー",
+    calc_tagline: "知性のスピードテスト：制限時間内に数字を組み合わせて目標値へ到達せよ。",
+    calc_feat_1: "<strong>数字カードと四則演算：</strong> 6枚の数字タイルを瞬時に組み合わせて正確な値を導出。",
+    calc_feat_2: "<strong>タイムアタックの緊張感：</strong> 45〜90秒の素早い計算が脳の可塑性を活性化。",
+    calc_feat_3: "<strong>ライブ最適解ソルバー：</strong> 各ラウンド終了後、数学的に最も美しい解法を手順ごとに表示。",
+    calc_feat_4: "<strong>共有デュエル機能：</strong> ユニークコードで家族や友人に全く同じ計算課題を挑戦状として送信。",
+    calc_btn_play: "⚡ 電光戦術計算をプレイ",
+    calc_btn_manual: "📖 ルールと解法",
+
+    ded_badge_tag: "🕵️‍♂️ 純粋演繹＆推理",
+    ded_badge_origin: "消去法マトリクス",
+    ded_visual_tag: "シャーロック・ホームズ風ロジック",
+    ded_tagline: "クラブのミステリー：数字を使わない、交差消去法による本格的な論理推理パズル。",
+    ded_feat_1: "<strong>対話型消去マトリクス：</strong> ❌で仮説を消去し、✔️で確実な事実を確定する美しいグリッド。",
+    ded_feat_2: "<strong>名探偵の物語事件簿：</strong> 盗難宝石、合鍵、チェス大会など多彩なシナリオと証言の手がかり。",
+    ded_feat_3: "<strong>名作ロジック難問サロン：</strong> 「青い目の島」「モンティ・ホール問題」「三人の賢者」等をシミュレーターで体験。",
+    ded_feat_4: "<strong>スマート自動消去：</strong> 確定事実を入力すると、同列・同行の不要な選択肢を自動消去。",
+    ded_feat_5: "<strong>日本語完全対応：</strong> 事件の証言、手がかり、推理ノートまで全て日本語でお楽しみいただけます。",
+    ded_btn_play: "🕵️‍♂️ 事件を推理する",
+    ded_btn_manual: "📖 マトリクスの使い方",
+
+    nono_badge_tag: "🎨 視覚論理＆禅の美",
+    nono_badge_tech: "3段階難易度＆美術館",
+    nono_visual_tag: "ピクロス・イラストロジック",
+    nono_tagline: "数字の手がかりから美しいピクセルアートを浮かび上がらせる、心落ち着く日本の論理パズル。",
+    nono_feat_1: "<strong>3つの難易度：</strong> 5×5（手軽なスケッチ）、10×10（クラシックギャラリー）、15×15（大作絵画）。",
+    nono_feat_2: "<strong>プライベート美術館：</strong> 解き明かした作品は額装され、自分だけのコレクションギャラリーに収蔵。",
+    nono_feat_3: "<strong>本場日本発信：</strong> ノノグラム（イラストロジック）発祥の国、日本のユーザーに向けた丁寧な翻訳。",
+    nono_btn_play: "🎨 モザイクを描く",
+    nono_btn_manual: "📖 解き方ガイド",
+
+    rubik_badge_tag: "3D空間認知ロジック",
+    rubik_badge_tech: "THREE.JS ＆ 公式WCAタイマー",
+    rubik_visual_tag: "3Dレンダリング＆スピードキューブ",
+    rubik_tagline: "三次元パズルの最高峰：空間的演繹で挑むか、段階的チュートリアルで学ぶか、公式タイマーで競うか。",
+    rubik_feat_1: "<strong>直感的な3Dエンジン：</strong> 指やマウスで面をスムーズに回転。リアルな回転音付き。",
+    rubik_feat_2: "<strong>キューブ・アカデミー：</strong> 図解と分かりやすいアルゴリズムによる初心者向け層別解法ガイド。",
+    rubik_feat_3: "<strong>WCA公式タイマー機能：</strong> 15秒インスペクション、ミリ秒計測、TPS、Ao5平均計測に対応。",
+    rubik_feat_4: "<strong>幾何学アートパターン：</strong> 市松模様（チェッカーボード）やセンタードットをワンクリックで適用。",
+    rubik_btn_play: "3Dキューブを開く",
+    rubik_btn_manual: "📖 操作方法とガイド",
+
+    damas_badge_tag: "👑 クラシック戦術",
+    damas_badge_tech: "THREE.JS ＆ ミニマックスAI",
+    damas_visual_tag: "黒檀ボード＆フライング・クイーン",
+    damas_tagline: "伝統ボードゲームの気品：黒檀と大理石の3D盤面、ドラマチックな戴冠、AIや友人との知略戦。",
+    damas_feat_1: "<strong>3Dドラマチック戴冠：</strong> 最奥列に到達すると黄金の王冠が降り立ち、斜め全域への飛翔が解禁。",
+    damas_feat_2: "<strong>3段階の適応型AI：</strong> アルファベータ法を用いた本格的な戦術AI（初級・戦術派・グランドマスター）。",
+    damas_feat_3: "<strong>スペイン公式ルール：</strong> 長距離フライングクイーンと最多コマ獲得義務規則を厳格に適用。",
+    damas_feat_4: "<strong>1台で2人プレイ可能：</strong> 1台の端末で対面対戦可能。将来のオンライン対戦にも対応予定。",
+    damas_btn_play: "👑 チェッカーをプレイ",
+    damas_btn_manual: "📖 公式ルール解説",
+
+    up_badge: "🔬 クラブ開発研究所",
+    up_title: "開発中の次回プロジェクト",
+    up_sub: "Club del Ingenio は知性と論理の総合プラットフォームとして、新たなタイトルを開発中です。",
+    up_card1_status: "研究開発中",
+    up_card1_title: "クリプトグラム＆文字暗号パズル",
+    up_card1_desc: "出現頻度分析と換字暗号の解読を通じて、言語力と水平思考を鍛えるワードパズル。",
+    up_card2_status: "コンセプト設計中",
+    up_card2_title: "幾何学タクティクス＆パターン認識",
+    up_card2_desc: "対称性認識と移動手数最適化をテーマにした全年齢向け知的ボードゲーム。",
+
+    mani_tag: "私たちの誓約",
+    mani_title: "フェアプレー宣言（広告ゼロ・マニフェスト）",
+    mani_lead: "「深い集中と知的トレーニングは、煩わしい動画広告や画面占有バナーと決して両立できないと私たちは確信しています。」",
+    mani_p1_title: "1. 画面広告ゼロ：",
+    mani_p1_desc: "全てのゲームは無制限・完全無料でご利用いただけます。点滅するバナーや強制動画広告はありません。",
+    mani_p2_title: "2. 完全なプライバシー保護（追跡ゼロ）：",
+    mani_p2_desc: "個人情報の収集、広告プロファイルの売買、強制的なメール登録は一切行いません。",
+    mani_p3_title: "3. プレイヤーへの敬意：",
+    mani_p3_desc: "論理を愛する人の手によって作られたプラットフォーム。最大の報酬は知的な達成感そのものです。",
+
+    ben_tag: "認知ウェルネス",
+    ben_title: "全世代のための脳トレーニングジム",
+    ben_sub: "論理的思考の鍛錬に年齢は関係ありません。各世代における確かな健康効果：",
+    ben_c1_badge: "🐣 若者・学生",
+    ben_c1_title: "分析的思考力",
+    ben_c1_desc: "スマートフォンの情報過多に惑わされない、演繹的規律と持続的な集中力を養成。",
+    ben_c2_badge: "⚡ 青年・壮年（18〜49歳）",
+    ben_c2_title: "能動的リフレッシュ",
+    ben_c2_desc: "日常のストレスから解放され、整然とした論理的思考に没頭することで頭をクリアに。",
+    ben_c3_badge: "🧠 実年・シニア（50〜64歳）",
+    ben_c3_title: "ワーキングメモリの維持",
+    ben_c3_desc: "神経ネットワークの柔軟性を保ち、素早い判断力と複雑なパターンの視覚的保持力を強化。",
+    ben_c4_badge: "👑 レジェンド（65歳以上）",
+    ben_c4_title: "健やかな認知的予備能",
+    ben_c4_desc: "脳の可塑性と明晰な演繹力を積極的に刺激。生涯にわたり活き活きとした知性を維持する最高の体操。",
+
+    back_badge_tag: "🔄 クラウド移行＆同期",
+    back_badge_origin: "全ゲームのセーブデータを保護",
+    back_title: "お好みの端末へ記録と進行状況を引き継ぎ可能",
+    back_desc: "デスクトップPCで遊んだ続きをスマートフォンやタブレットで。<code>.json</code>ファイル保存、または移行コードをコピーするだけで、<strong>Top-Sudoku、Sudoku Arena、Nonogramas、Rubik、Cálculo Táctico、Damas、Deducción</strong> の全進捗を一瞬で引き継げます。",
+    back_btn: "🔄 データ移行センターを開く",
+
+    footer_tagline: "公式ポータル：clubdelingenio.es ＆ clubdelingenio.com<br>論理・演繹・認知的刺激の総合本部",
+    footer_col1_title: "公開中のゲーム",
+    footer_col2_title: "ドキュメント＆解説",
+    footer_col3_title: "クラブについて",
+    footer_copy: "© 2026 <strong>Club del Ingenio</strong>. 開発：<strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
+    footer_sub: "スペイン・欧州連合（EU） • トラッキングクッキー不使用",
+
+    modal_lang_title: "🌐 言語を選択",
+    modal_lang_sub: "プラットフォーム全体で使用する言語を選択してください：",
+    backup_modal_title: "💾 データ移行＆バックアップセンター",
+    backup_modal_intro: "クラブ内の<strong>全てのゲーム</strong>のセーブデータを、安全かつ完全にプライベートな方法で保存・引き継ぎできます。"
+  }
+};
+
+/**
+ * Gestor del Motor i18n para Club del Ingenio
+ */
+export class ClubI18n {
+  constructor() {
+    this.currentLang = this.detectInitialLanguage();
+    this.applyTranslations();
+    this.setupListeners();
+  }
+
+  detectInitialLanguage() {
+    // 1. Prioridad: Parámetro en la URL (?lang=...)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      if (urlLang && CLUB_I18N[urlLang.toLowerCase()]) {
+        return urlLang.toLowerCase();
+      }
+    } catch (e) {}
+
+    // 2. Prioridad: Preferencia guardada en localStorage
+    try {
+      const savedLang = localStorage.getItem('club_ingenio_lang');
+      if (savedLang && CLUB_I18N[savedLang]) {
+        return savedLang;
+      }
+    } catch (e) {}
+
+    // 3. Prioridad: Idioma del navegador del usuario
+    try {
+      const navLang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+      if (navLang.startsWith('en')) return 'en';
+      if (navLang.startsWith('fr')) return 'fr';
+      if (navLang.startsWith('de')) return 'de';
+      if (navLang.startsWith('ca')) return 'ca';
+      if (navLang.startsWith('va')) return 'va';
+      if (navLang.startsWith('eu')) return 'eu';
+      if (navLang.startsWith('gl')) return 'gl';
+      if (navLang.startsWith('ja')) return 'ja';
+    } catch (e) {}
+
+    // Por omisión: Español
+    return 'es';
+  }
+
+  setLanguage(langCode) {
+    if (!CLUB_I18N[langCode]) return;
+    this.currentLang = langCode;
+
+    try {
+      localStorage.setItem('club_ingenio_lang', langCode);
+    } catch (e) {}
+
+    // Actualizar parámetro en la URL sin recargar la página
+    try {
+      const url = new URL(window.location);
+      url.searchParams.set('lang', langCode);
+      window.history.replaceState({}, '', url);
+    } catch (e) {}
+
+    this.applyTranslations();
+    this.propagateLanguageToLinks();
+  }
+
+  t(key) {
+    const langDict = CLUB_I18N[this.currentLang] || CLUB_I18N['es'];
+    return langDict[key] || CLUB_I18N['es'][key] || key;
+  }
+
+  applyTranslations() {
+    // Título de la página
+    if (this.t('page_title')) {
+      document.title = this.t('page_title');
+    }
+
+    // Elementos con data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (key) {
+        el.innerHTML = this.t(key);
+      }
+    });
+
+    // Elementos con data-i18n-title
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+      const key = el.getAttribute('data-i18n-title');
+      if (key) {
+        el.setAttribute('title', this.t(key));
+      }
+    });
+
+    // Actualizar distintivo del botón de cabecera
+    const badge = document.getElementById('current-lang-badge');
+    if (badge) {
+      const langObj = CLUB_I18N[this.currentLang] || CLUB_I18N['es'];
+      badge.textContent = `${langObj.flag} ${this.currentLang.toUpperCase()}`;
+    }
+
+    // Actualizar estado activo en el modal
+    document.querySelectorAll('.lang-select-btn').forEach(btn => {
+      const btnLang = btn.getAttribute('data-lang');
+      if (btnLang === this.currentLang) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Propagar idioma a los enlaces de los juegos
+    this.propagateLanguageToLinks();
+  }
+
+  /**
+   * Propaga el parámetro ?lang= a todos los enlaces de juegos
+   * para que al abrirlos ya carguen directamente en el idioma activo
+   */
+  propagateLanguageToLinks() {
+    const gamePaths = [
+      'top-sudoku', 'sudoku-arena', 'calculo-tactico',
+      'deduccion-logica', 'nonogramas', 'cubo-rubik', 'damas'
+    ];
+
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+      const isGameLink = gamePaths.some(gp => href.includes(gp));
+      if (isGameLink) {
+        try {
+          const url = new URL(a.href, window.location.origin);
+          url.searchParams.set('lang', this.currentLang);
+          a.href = url.pathname + url.search + url.hash;
+        } catch (e) {}
+      }
+    });
+  }
+
+  setupListeners() {
+    const modal = document.getElementById('modal-language');
+    const openBtn = document.getElementById('btn-open-lang');
+    const closeBtn = document.getElementById('btn-close-lang');
+
+    if (!modal || !openBtn) return;
+
+    const openModal = () => {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    };
+
+    openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Botones de selección de idioma
+    document.querySelectorAll('.lang-select-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedLang = btn.getAttribute('data-lang');
+        if (selectedLang) {
+          this.setLanguage(selectedLang);
+          closeModal();
+        }
+      });
+    });
+  }
+}

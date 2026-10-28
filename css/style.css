@@ -1770,3 +1770,111 @@ body {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* --- 14. Selector de Idioma y Modal i18n --- */
+.btn-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-pill, 9999px);
+  color: #f8fafc;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-lang-toggle:hover {
+  border-color: var(--gold-400, #fbbf24);
+  background: rgba(30, 41, 59, 0.85);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+  transform: translateY(-1px);
+}
+
+#current-lang-badge {
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+}
+
+.lang-modal-card {
+  max-width: 580px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(7, 10, 19, 0.98));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(245, 158, 11, 0.15);
+}
+
+.lang-modal-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #94a3b8);
+  margin-bottom: 1.25rem;
+}
+
+.languages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 540px) {
+  .languages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.lang-select-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md, 12px);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lang-select-btn:hover {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--gold-400, #fbbf24);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.lang-select-btn.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(56, 189, 248, 0.15));
+  border-color: var(--gold-400, #fbbf24);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.lang-flag {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.lang-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lang-text strong {
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.lang-text small {
+  font-size: 0.75rem;
+  color: var(--text-dim, #64748b);
+}
+
+.lang-select-btn.active .lang-text strong {
+  color: var(--gold-400, #fbbf24);
+}
+

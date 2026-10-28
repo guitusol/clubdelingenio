@@ -60,22 +60,24 @@
           </svg>
         </div>
         <div class="brand-text">
-          <span class="brand-title">CLUB DEL INGENIO</span>
-          <span class="brand-subtitle">SEDE DE LÓGICA & MENTE</span>
+          <span class="brand-title" data-i18n="brand_title">CLUB DEL INGENIO</span>
+          <span class="brand-subtitle" data-i18n="brand_subtitle">SEDE DE LÓGICA & MENTE</span>
         </div>
       </a>
 
       <nav class="nav-desktop">
-        <a href="#juegos" class="nav-item">🎮 Sala de Juegos</a>
-        <a href="#filosofia" class="nav-item">🛡️ Manifiesto Zero-Ads</a>
-        <a href="#beneficios" class="nav-item">🧠 Gimnasio Mental</a>
-        <a href="#copia-seguridad" class="nav-item" id="nav-backup-link">💾 Copia de Seguridad</a>
-        <a href="#apoyo" class="nav-item">☕ Apoyar el Club</a>
+        <a href="#juegos" class="nav-item" data-i18n="nav_games">🎮 Sala de Juegos</a>
+        <a href="#filosofia" class="nav-item" data-i18n="nav_manifesto">🛡️ Manifiesto Zero-Ads</a>
+        <a href="#beneficios" class="nav-item" data-i18n="nav_gym">🧠 Gimnasio Mental</a>
+        <a href="#copia-seguridad" class="nav-item" id="nav-backup-link" data-i18n="nav_backup">💾 Copia de Seguridad</a>
       </nav>
 
       <div class="nav-actions">
+        <button type="button" class="btn-lang-toggle" id="btn-open-lang" data-i18n-title="btn_lang_title" title="Seleccionar Idioma">
+          <span id="current-lang-badge">🇪🇸 ES</span>
+        </button>
         <a href="#juegos" class="btn-action primary">
-          <span>🚀 Explorar Juegos</span>
+          <span data-i18n="nav_explore">🚀 Explorar Juegos</span>
         </a>
       </div>
     </div>
@@ -118,14 +120,14 @@
 
       <div class="hero-badge">
         <span class="badge-icon">👑</span>
-        <span class="badge-text">EL CLUB DE LAS MENTES INQUIETAS</span>
+        <span class="badge-text" data-i18n="hero_badge">EL CLUB DE LAS MENTES INQUIETAS</span>
       </div>
 
-      <h1 class="hero-title">
+      <h1 class="hero-title" data-i18n="hero_title">
         Donde la Lógica se Convierte en <span class="gradient-gold">Arte</span> y <span class="gradient-cyan">Competición</span>
       </h1>
 
-      <p class="hero-description">
+      <p class="hero-description" data-i18n="hero_desc">
         Bienvenido a <strong>Club del Ingenio</strong>. Una plataforma independiente, cuidada y <strong>100% libre de anuncios comerciales invasivos</strong>, diseñada para desafiar tu intelecto, potenciar tu agilidad deductiva y disfrutar del placer del pensamiento puro a cualquier edad.
       </p>
 
@@ -133,8 +135,8 @@
         <a href="#top-sudoku" class="hero-cta gold">
           <div class="cta-icon">🎓</div>
           <div class="cta-text">
-            <strong>Top-Sudoku</strong>
-            <span>La Escuela de Deducción</span>
+            <strong data-i18n="cta_top_title">Top-Sudoku</strong>
+            <span data-i18n="cta_top_sub">La Escuela de Deducción</span>
           </div>
           <div class="cta-arrow">➔</div>
         </a>
@@ -142,8 +144,8 @@
         <a href="#sudoku-arena" class="hero-cta cyan">
           <div class="cta-icon">⚔️</div>
           <div class="cta-text">
-            <strong>Sudoku Arena</strong>
-            <span>La Competición & Salón Fama</span>
+            <strong data-i18n="cta_arena_title">Sudoku Arena</strong>
+            <span data-i18n="cta_arena_sub">La Competición & Salón Fama</span>
           </div>
           <div class="cta-arrow">➔</div>
         </a>
@@ -151,8 +153,8 @@
         <a href="#calculo-tactico" class="hero-cta emerald">
           <div class="cta-icon">⚡</div>
           <div class="cta-text">
-            <strong>Cálculo Táctico</strong>
-            <span>Agilidad Mental en 60s</span>
+            <strong data-i18n="cta_calc_title">Cálculo Táctico</strong>
+            <span data-i18n="cta_calc_sub">Agilidad Mental en 60s</span>
           </div>
           <div class="cta-arrow">➔</div>
         </a>
@@ -160,8 +162,8 @@
         <a href="#nonogramas" class="hero-cta rose">
           <div class="cta-icon">🎨</div>
           <div class="cta-text">
-            <strong>Nonogramas Zen</strong>
-            <span>Mosaicos de Lógica & Arte</span>
+            <strong data-i18n="cta_nono_title">Nonogramas Zen</strong>
+            <span data-i18n="cta_nono_sub">Mosaicos de Lógica & Arte</span>
           </div>
           <div class="cta-arrow">➜</div>
         </a>
@@ -169,8 +171,8 @@
         <a href="#deduccion-logica" class="hero-cta purple">
           <div class="cta-icon">🕵️‍♂️</div>
           <div class="cta-text">
-            <strong>Deducción Lógica</strong>
-            <span>Misterio en el Club</span>
+            <strong data-i18n="cta_ded_title">Deducción Lógica</strong>
+            <span data-i18n="cta_ded_sub">Misterio en el Club</span>
           </div>
           <div class="cta-arrow">➔</div>
         </a>
@@ -178,8 +180,8 @@
         <a href="#cubo-rubik" class="hero-cta gold">
           <div class="cta-icon"><img src="rubik-icon.svg" alt="Cubo de Rubik 3D" class="rubik-cta-img"></div>
           <div class="cta-text">
-            <strong>Cubo de Rubik 3D</strong>
-            <span>Lógica Espacial & WCA</span>
+            <strong data-i18n="cta_rubik_title">Cubo de Rubik 3D</strong>
+            <span data-i18n="cta_rubik_sub">Lógica Espacial & WCA</span>
           </div>
           <div class="cta-arrow">➔</div>
         </a>
@@ -187,8 +189,8 @@
         <a href="#damas" class="hero-cta cyan">
           <div class="cta-icon">👑</div>
           <div class="cta-text">
-            <strong>Damas del Club</strong>
-            <span>Estrategia 3D & Duelo</span>
+            <strong data-i18n="cta_damas_title">Damas del Club</strong>
+            <span data-i18n="cta_damas_sub">Estrategia 3D & Duelo</span>
           </div>
           <div class="cta-arrow">➔</div>
         </a>
@@ -199,29 +201,29 @@
         <div class="pillar-item">
           <div class="pillar-icon">🛡️</div>
           <div class="pillar-info">
-            <strong>Cero Anuncios Invasivos</strong>
-            <span>Sin vídeos que corten tu concentración</span>
+            <strong data-i18n="pillar_1_title">Cero Anuncios Invasivos</strong>
+            <span data-i18n="pillar_1_sub">Sin vídeos que corten tu concentración</span>
           </div>
         </div>
         <div class="pillar-item">
           <div class="pillar-icon">🧠</div>
           <div class="pillar-info">
-            <strong>Gimnasio Cognitivo</strong>
-            <span>Salud mental para jóvenes, adultos y seniors</span>
+            <strong data-i18n="pillar_2_title">Gimnasio Cognitivo</strong>
+            <span data-i18n="pillar_2_sub">Salud mental para jóvenes, adultos y seniors</span>
           </div>
         </div>
         <div class="pillar-item">
           <div class="pillar-icon">⚔️</div>
           <div class="pillar-info">
-            <strong>Juego Limpio Certificado</strong>
-            <span>Duelos en igualdad matemática y auditoría</span>
+            <strong data-i18n="pillar_3_title">Juego Limpio Certificado</strong>
+            <span data-i18n="pillar_3_sub">Duelos en igualdad matemática y auditoría</span>
           </div>
         </div>
         <div class="pillar-item">
           <div class="pillar-icon">🌐</div>
           <div class="pillar-info">
-            <strong>Comunidad Global</strong>
-            <span>Soporte multilingüe en 9 idiomas</span>
+            <strong data-i18n="pillar_4_title">Comunidad Global</strong>
+            <span data-i18n="pillar_4_sub">Soporte multilingüe en 9 idiomas</span>
           </div>
         </div>
       </div>
@@ -234,9 +236,9 @@
     <div class="section-container">
       
       <div class="section-header">
-        <div class="section-tag">CATÁLOGO OFICIAL</div>
-        <h2 class="section-title">La Sala de Juegos del Club</h2>
-        <p class="section-subtitle">
+        <div class="section-tag" data-i18n="catalog_tag">CATÁLOGO OFICIAL</div>
+        <h2 class="section-title" data-i18n="catalog_title">La Sala de Juegos del Club</h2>
+        <p class="section-subtitle" data-i18n="catalog_sub">
           Elige tu modalidad: aprende y perfecciona tu método con la pedagogía guiada de <strong>Top-Sudoku</strong>, o ponte a prueba contra el reloj y tus amigos en <strong>Sudoku Arena</strong>.
         </p>
       </div>
@@ -248,8 +250,8 @@
         <article class="game-card card-top" id="top-sudoku">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag gold">🎓 ESCUELA DE LÓGICA</span>
-            <span class="badge-origin">APRENDIZAJE GUIADO</span>
+            <span class="badge-tag gold" data-i18n="top_badge_tag">🎓 ESCUELA DE LÓGICA</span>
+            <span class="badge-origin" data-i18n="top_badge_origin">APRENDIZAJE GUIADO</span>
           </div>
 
           <div class="game-visual">
@@ -257,38 +259,38 @@
               <img src="top_sudoku_logo.jpg" alt="Logotipo Oficial Top-Sudoku" class="game-img" onerror="this.onerror=null; this.src='../top_sudoku_logo.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Tablero Dual en Espejo 1:1</span>
+              <span class="visual-tag" data-i18n="top_visual_tag">Tablero Dual en Espejo 1:1</span>
             </div>
           </div>
 
           <div class="game-body">
             <h3 class="game-name">Top-Sudoku</h3>
-            <p class="game-tagline">
+            <p class="game-tagline" data-i18n="top_tagline">
               El maestro paciente: aprende a deducir paso a paso sin atascos ni adivinanzas.
             </p>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">🪞</span>
-                <div>
+                <div data-i18n="top_feat_1">
                   <strong>Tablero Espejo de Posibilidades:</strong> Visualiza en tiempo real los candidatos posibles por casilla calculados por descarte sistemático.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🎯</span>
-                <div>
+                <div data-i18n="top_feat_2">
                   <strong>Cero Callejones sin Salida:</strong> Comprobación activa contra la solución matemática única. Impide bifurcaciones erróneas que arruinen tu partida.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">📷</span>
-                <div>
+                <div data-i18n="top_feat_3">
                   <strong>Escáner OCR con Visión Artificial:</strong> Fotografía un sudoku de periódico o revista y juégalo en tu pantalla al instante sin servidores.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⏱️</span>
-                <div>
+                <div data-i18n="top_feat_4">
                   <strong>Reloj Analógico Clásico:</strong> Elegante reloj de esfera con segundero suave y cronómetro de precisión para acompañar tu ritmo de resolución.
                 </div>
               </li>
@@ -296,10 +298,10 @@
 
             <div class="card-actions">
               <a href="top-sudoku/" class="btn-play gold">
-                <span>🎓 Abrir Top-Sudoku</span>
+                <span data-i18n="top_btn_play">🎓 Abrir Top-Sudoku</span>
                 <span class="btn-arrow">➔</span>
               </a>
-              <a href="top-sudoku/manual.html" class="btn-sub">
+              <a href="top-sudoku/manual.html" class="btn-sub" data-i18n="top_btn_manual">
                 📖 Manual de la Escuela
               </a>
             </div>
@@ -310,8 +312,8 @@
         <article class="game-card card-arena" id="sudoku-arena">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag cyan">⚔️ COMPETICIÓN ESPORTS</span>
-            <span class="badge-origin">AUDITORÍA COGNITIVA</span>
+            <span class="badge-tag cyan" data-i18n="arena_badge_tag">⚔️ COMPETICIÓN ESPORTS</span>
+            <span class="badge-origin" data-i18n="arena_badge_origin">AUDITORÍA COGNITIVA</span>
           </div>
 
           <div class="game-visual">
@@ -319,38 +321,38 @@
               <img src="sudoku_arena_logo.jpg" alt="Logotipo Oficial Sudoku Arena" class="game-img" onerror="this.onerror=null; this.src='../sudoku_arena_logo.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Marcador Táctico Neón</span>
+              <span class="visual-tag" data-i18n="arena_visual_tag">Marcador Táctico Neón</span>
             </div>
           </div>
 
           <div class="game-body">
             <h3 class="game-name">Sudoku Arena</h3>
-            <p class="game-tagline">
+            <p class="game-tagline" data-i18n="arena_tagline">
               La arena de competición: retos mentales, duelos multijugador y Salón de la Fama.
             </p>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">🧠</span>
-                <div>
+                <div data-i18n="arena_feat_1">
                   <strong>Motor de Puntuación Cognitiva:</strong> Cada celda puntúa según la técnica lógica humana exigida (Singles, Pairs, Triples, X-Wing).
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⚔️</span>
-                <div>
+                <div data-i18n="arena_feat_2">
                   <strong>Duelos Compartibles por WhatsApp:</strong> Reta a amigos con un enlace instantáneo para competir con la misma semilla matemática.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🏛️</span>
-                <div>
+                <div data-i18n="arena_feat_3">
                   <strong>Salón de la Fama Global:</strong> Copa de Naciones, Orgullo Local y Clasificación Generacional (Júnior, Adultos, Senior y Leyendas 65+).
                 </div>
               </li>
               <li>
                 <span class="feat-icon">📋</span>
-                <div>
+                <div data-i18n="arena_feat_4">
                   <strong>Libro Mayor de Auditoría:</strong> Trazabilidad cronológica de cada deducción, penalizaciones por ayuda y porcentaje de autonomía.
                 </div>
               </li>
@@ -358,10 +360,10 @@
 
             <div class="card-actions">
               <a href="sudoku-arena/" class="btn-play cyan">
-                <span>⚔️ Entrar a Sudoku Arena</span>
+                <span data-i18n="arena_btn_play">⚔️ Entrar a Sudoku Arena</span>
                 <span class="btn-arrow">➔</span>
               </a>
-              <a href="sudoku-arena/manual.html" class="btn-sub">
+              <a href="sudoku-arena/manual.html" class="btn-sub" data-i18n="arena_btn_manual">
                 📖 Manual del Jugador
               </a>
             </div>
@@ -372,8 +374,8 @@
         <article class="game-card card-calc" id="calculo-tactico">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag cyan">⚡ AGILIDAD MENTAL</span>
-            <span class="badge-origin">PARTIDAS DE 60 SEGUNDOS</span>
+            <span class="badge-tag cyan" data-i18n="calc_badge_tag">⚡ AGILIDAD MENTAL</span>
+            <span class="badge-origin" data-i18n="calc_badge_origin">PARTIDAS DE 60 SEGUNDOS</span>
           </div>
 
           <div class="game-visual">
@@ -381,38 +383,38 @@
               <img src="calculo_tactico_logo.jpg" alt="Logotipo Oficial Cálculo Táctico Relámpago" class="game-img" onerror="this.onerror=null; this.src='calculo-tactico/icons/icon-512.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Cifra Diana & Cronómetro</span>
+              <span class="visual-tag" data-i18n="calc_visual_tag">Cifra Diana & Cronómetro</span>
             </div>
           </div>
 
           <div class="game-body">
             <h3 class="game-name">Cálculo Táctico Relámpago</h3>
-            <p class="game-tagline">
+            <p class="game-tagline" data-i18n="calc_tagline">
               La prueba definitiva de rapidez mental: alcanza la cifra diana antes de que el reloj llegue a cero.
             </p>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">🎯</span>
-                <div>
+                <div data-i18n="calc_feat_1">
                   <strong>Cifras y Letras al Límite:</strong> 6 fichas numéricas y 4 operaciones básicas para deducir la cifra exacta o aproximarte al milímetro.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⏱️</span>
-                <div>
+                <div data-i18n="calc_feat_2">
                   <strong>Presión Contrarreloj:</strong> Partidas ultrarrápidas de 45 a 90 segundos que activan la plasticidad cerebral y el cálculo aritmético.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🔍</span>
-                <div>
+                <div data-i18n="calc_feat_3">
                   <strong>Solucionador Óptimo en Vivo:</strong> Al terminar la ronda, el motor matemático te desvela la combinación perfecta paso a paso.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⚔️</span>
-                <div>
+                <div data-i18n="calc_feat_4">
                   <strong>Duelos Compartibles:</strong> Desafía a familiares o amigos a resolver exactamente el mismo tablero mediante un código único.
                 </div>
               </li>
@@ -420,10 +422,10 @@
 
             <div class="card-actions">
               <a href="calculo-tactico/" class="btn-play cyan">
-                <span>⚡ Jugar a Cálculo Táctico</span>
+                <span data-i18n="calc_btn_play">⚡ Jugar a Cálculo Táctico</span>
                 <span class="btn-arrow">➔</span>
               </a>
-              <a href="calculo-tactico/#modal-rules" class="btn-sub">
+              <a href="calculo-tactico/#modal-rules" class="btn-sub" data-i18n="calc_btn_manual">
                 📖 Reglas y Mecánica
               </a>
             </div>
@@ -434,8 +436,8 @@
         <article class="game-card card-mystery" id="deduccion-logica">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag gold">🕵️‍♂️ LÓGICA PURA & NOIR</span>
-            <span class="badge-origin">MATRIZ DE ELIMINACIÓN</span>
+            <span class="badge-tag gold" data-i18n="ded_badge_tag">🕵️‍♂️ LÓGICA PURA & NOIR</span>
+            <span class="badge-origin" data-i18n="ded_badge_origin">MATRIZ DE ELIMINACIÓN</span>
           </div>
 
           <div class="game-visual">
@@ -443,44 +445,44 @@
               <img src="deduccion_logica_logo.jpg" alt="Logotipo Oficial Deducción Lógica" class="game-img" onerror="this.onerror=null; this.src='deduccion-logica/icons/icon-512.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Sherlock Holmes & Acertijos Lógicos</span>
+              <span class="visual-tag" data-i18n="ded_visual_tag">Sherlock Holmes & Acertijos Lógicos</span>
             </div>
           </div>
 
           <div class="game-body">
             <h3 class="game-name">Deducción Lógica</h3>
-            <p class="game-tagline">
+            <p class="game-tagline" data-i18n="ded_tagline">
               Misterio en el Club: el clásico acertijo deductivo de eliminación cruzada sin números para mentes analíticas.
             </p>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">🧩</span>
-                <div>
+                <div data-i18n="ded_feat_1">
                   <strong>Matriz Cruzada Interactiva:</strong> Descarta hipótesis con ❌ y consolida certezas con ✔️ en una cuadrícula lógica elegante.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">📜</span>
-                <div>
+                <div data-i18n="ded_feat_2">
                   <strong>Enigmas Narrativos de Salón:</strong> Robos de joyas, llaves maestras y torneos de ajedrez con pistas cruzadas interactivas.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">💡</span>
-                <div>
+                <div data-i18n="ded_feat_3">
                   <strong>Salón de Enigmas Clásicos:</strong> Desafíos legendarios del pensamiento puro (La Isla de los Ojos Azules, Monty Hall, Los Tres Sabios) con simuladores interactivos.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⚡</span>
-                <div>
+                <div data-i18n="ded_feat_4">
                   <strong>Auto-Tachado Inteligente:</strong> Al fijar una certeza, el motor descarta filas y columnas de inmediato para agilizar tu investigación.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🌐</span>
-                <div>
+                <div data-i18n="ded_feat_5">
                   <strong>9 Idiomas Oficiales:</strong> Casos, testimonios y pistas completamente adaptados a todos los idiomas de la plataforma.
                 </div>
               </li>
@@ -488,10 +490,10 @@
 
             <div class="card-actions">
               <a href="deduccion-logica/" class="btn-play gold">
-                <span>🕵️‍♂️ Investigar Misterios</span>
+                <span data-i18n="ded_btn_play">🕵️‍♂️ Investigar Misterios</span>
                 <span class="btn-arrow">➔</span>
               </a>
-              <a href="deduccion-logica/#modal-rules" class="btn-sub">
+              <a href="deduccion-logica/#modal-rules" class="btn-sub" data-i18n="ded_btn_manual">
                 📖 Cómo Usar la Matriz
               </a>
             </div>
@@ -502,8 +504,8 @@
         <article class="game-card card-nonogram" id="nonogramas">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag rose">🎨 ARTE & DEDUCCIÓN ZEN</span>
-            <span class="badge-tech">3 NIVELES & PINACOTECA</span>
+            <span class="badge-tag rose" data-i18n="nono_badge_tag">🎨 ARTE & DEDUCCIÓN ZEN</span>
+            <span class="badge-tech" data-i18n="nono_badge_tech">3 NIVELES & PINACOTECA</span>
           </div>
 
           <div class="game-visual">
@@ -511,32 +513,32 @@
               <img src="nonogramas_logo.jpg" alt="Logotipo Oficial Nonogramas del Club" class="game-img" onerror="this.onerror=null; this.src='nonogramas/nonogramas_logo.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Picross, Griddlers & Pixel-Art</span>
+              <span class="visual-tag" data-i18n="nono_visual_tag">Picross, Griddlers & Pixel-Art</span>
             </div>
           </div>
 
           <div class="game-content">
             <div class="game-header">
               <h3 class="game-title">Nonogramas del Club</h3>
-              <p class="game-tagline">El arte de desvelar bellas ilustraciones mediante la deducción matemática de pistas numéricas en un ambiente zen.</p>
+              <p class="game-tagline" data-i18n="nono_tagline">El arte de desvelar bellas ilustraciones mediante la deducción matemática de pistas numéricas en un ambiente zen.</p>
             </div>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">📐</span>
-                <div>
+                <div data-i18n="nono_feat_1">
                   <strong>3 Niveles de Maestría:</strong> 5×5 (Bocetos rápidos de iniciación), 10×10 (Galería clásica) y 15×15 (Grandes obras maestras).
                 </div>
               </li>
               <li>
                 <span class="feat-icon">👑</span>
-                <div>
+                <div data-i18n="nono_feat_2">
                   <strong>Pinacoteca Privada:</strong> Cada mosaico resuelto cobra vida a todo color y se archiva en tu museo personal con marco dorado.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🌐</span>
-                <div>
+                <div data-i18n="nono_feat_3">
                   <strong>Universal en 9 Idiomas:</strong> Traducido íntegramente (incluyendo japonés 🇯🇵 日本語, cuna de los nonogramas).
                 </div>
               </li>
@@ -544,10 +546,10 @@
 
             <div class="card-actions">
               <a href="nonogramas/" class="btn-play rose">
-                <span>🎨 Pintar Mosaicos</span>
+                <span data-i18n="nono_btn_play">🎨 Pintar Mosaicos</span>
                 <span class="btn-arrow">➜</span>
               </a>
-              <a href="nonogramas/#modal-rules" class="btn-sub">
+              <a href="nonogramas/#modal-rules" class="btn-sub" data-i18n="nono_btn_manual">
                 📖 Cómo Resolver
               </a>
             </div>
@@ -558,8 +560,8 @@
         <article class="game-card card-rubik" id="cubo-rubik">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag gold"><img src="rubik-icon.svg" class="badge-inline-rubik" alt="Cubo"> LÓGICA ESPACIAL 3D</span>
-            <span class="badge-tech">THREE.JS & WCA</span>
+            <span class="badge-tag gold" data-i18n="rubik_badge_tag"><img src="rubik-icon.svg" class="badge-inline-rubik" alt="Cubo"> LÓGICA ESPACIAL 3D</span>
+            <span class="badge-tech" data-i18n="rubik_badge_tech">THREE.JS & WCA</span>
           </div>
 
           <div class="game-visual">
@@ -567,38 +569,38 @@
               <img src="cubo_rubik_logo.jpg" alt="Logotipo Oficial Cubo de Rubik 3D" class="game-img" onerror="this.onerror=null; this.src='cubo-rubik/cubo_rubik_logo.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Render 3D, Escuela & Speedcubing</span>
+              <span class="visual-tag" data-i18n="rubik_visual_tag">Render 3D, Escuela & Speedcubing</span>
             </div>
           </div>
 
           <div class="game-body">
             <h3 class="game-name">Cubo de Rubik 3D</h3>
-            <p class="game-tagline">
+            <p class="game-tagline" data-i18n="rubik_tagline">
               El rey de la lógica tridimensional: resuelve mediante deducción espacial, aprende con el tutor paso a paso o compite contra el cronómetro WCA.
             </p>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">🌐</span>
-                <div>
+                <div data-i18n="rubik_feat_1">
                   <strong>Motor 3D Interactivo:</strong> Gira capas arrastrando directamente con el ratón o dedo sobre las caras del cubo con física y sonido táctil.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🎓</span>
-                <div>
+                <div data-i18n="rubik_feat_2">
                   <strong>Escuela del Cubo (Tutor):</strong> Guía paso a paso por el método de capas con explicaciones claras y fórmulas recomendadas.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⏱️</span>
-                <div>
+                <div data-i18n="rubik_feat_3">
                   <strong>Cronómetro Oficial WCA:</strong> Modo Speedcubing con inspección de 15s, medición de milisegundos, TPS (giros/seg) y medias Ao5.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">✨</span>
-                <div>
+                <div data-i18n="rubik_feat_4">
                   <strong>Patrones & Arte Geométrico:</strong> Aplica en un clic patrones asombrosos como el tablero de ajedrez, puntos centrales o el cubo en el cubo.
                 </div>
               </li>
@@ -606,10 +608,10 @@
 
             <div class="card-actions">
               <a href="cubo-rubik/" class="btn-play gold">
-                <span><img src="rubik-icon.svg" class="btn-inline-rubik" alt="Cubo"> Explorar Cubo 3D</span>
+                <span data-i18n="rubik_btn_play"><img src="rubik-icon.svg" class="btn-inline-rubik" alt="Cubo"> Explorar Cubo 3D</span>
                 <span class="btn-arrow">➔</span>
               </a>
-              <a href="cubo-rubik/#modal-help" class="btn-sub">
+              <a href="cubo-rubik/#modal-help" class="btn-sub" data-i18n="rubik_btn_manual">
                 📖 Atajos y Guía
               </a>
             </div>
@@ -620,8 +622,8 @@
         <article class="game-card card-damas" id="damas">
           <div class="card-glow"></div>
           <div class="card-banner">
-            <span class="badge-tag cyan">👑 TÁCTICA & ESTRATEGIA</span>
-            <span class="badge-tech">THREE.JS & IA MINIMAX</span>
+            <span class="badge-tag cyan" data-i18n="damas_badge_tag">👑 TÁCTICA & ESTRATEGIA</span>
+            <span class="badge-tech" data-i18n="damas_badge_tech">THREE.JS & IA MINIMAX</span>
           </div>
 
           <div class="game-visual">
@@ -629,38 +631,38 @@
               <img src="damas_del_club_logo.jpg" alt="Logotipo Oficial Damas del Club" class="game-img" onerror="this.onerror=null; this.src='damas/damas_del_club_logo.jpg';">
             </div>
             <div class="visual-subtag">
-              <span class="visual-tag">Tablero de Ébano & Damas Voladoras</span>
+              <span class="visual-tag" data-i18n="damas_visual_tag">Tablero de Ébano & Damas Voladoras</span>
             </div>
           </div>
 
           <div class="game-body">
             <h3 class="game-name">Damas del Club</h3>
-            <p class="game-tagline">
+            <p class="game-tagline" data-i18n="damas_tagline">
               La nobleza del juego clásico: tablero de ébano y mármol en 3D, coronación cinemática y duelos tácticos contra la IA o contrincantes locales.
             </p>
 
             <ul class="game-features">
               <li>
                 <span class="feat-icon">👑</span>
-                <div>
+                <div data-i18n="damas_feat_1">
                   <strong>Coronación de la Dama 3D:</strong> Al alcanzar la última fila rival, desciende una corona dorada sobre la pieza desbloqueando el vuelo diagonal libre.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🧠</span>
-                <div>
+                <div data-i18n="damas_feat_2">
                   <strong>Inteligencia Artificial con 3 Niveles:</strong> Desafía a la IA táctica (Iniciado, Táctico, Gran Maestro) calculada con poda alfa-beta.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">⚖️</span>
-                <div>
+                <div data-i18n="damas_feat_3">
                   <strong>Reglamento Oficial Español:</strong> Damas voladoras de largo alcance y aplicación estricta de la ley de captura obligatoria por cantidad.
                 </div>
               </li>
               <li>
                 <span class="feat-icon">🌐</span>
-                <div>
+                <div data-i18n="damas_feat_4">
                   <strong>9 Idiomas & Modo 1v1:</strong> Juega dos personas en el mismo dispositivo y prepárate para las salas online por enlace y WhatsApp.
                 </div>
               </li>
@@ -668,10 +670,10 @@
 
             <div class="card-actions">
               <a href="damas/" class="btn-play cyan">
-                <span>👑 Jugar a las Damas</span>
+                <span data-i18n="damas_btn_play">👑 Jugar a las Damas</span>
                 <span class="btn-arrow">➔</span>
               </a>
-              <a href="damas/#modal-rules" class="btn-sub">
+              <a href="damas/#modal-rules" class="btn-sub" data-i18n="damas_btn_manual">
                 📖 Reglamento Oficial
               </a>
             </div>
@@ -683,33 +685,29 @@
       <!-- PRÓXIMOS PROYECTOS DEL CLUB (Expansión Futura) -->
       <div class="upcoming-showcase">
         <div class="upcoming-header">
-          <div class="upcoming-badge">🔬 EN EL LABORATORIO DEL CLUB</div>
-          <h3>Próximos Desafíos en Desarrollo</h3>
-          <p>El Club del Ingenio está ampliando su repertorio de aplicaciones lúdicas. Nuevos proyectos de lógica matemática y deducción se incorporarán a este catálogo.</p>
+          <div class="upcoming-badge" data-i18n="up_badge">🔬 EN EL LABORATORIO DEL CLUB</div>
+          <h3 data-i18n="up_title">Próximos Desafíos en Desarrollo</h3>
+          <p data-i18n="up_sub">El Club del Ingenio está ampliando su repertorio de aplicaciones lúdicas. Nuevos proyectos de lógica matemática y deducción se incorporarán a este catálogo.</p>
         </div>
 
         <div class="upcoming-grid">
-          
-          
-
           <div class="upcoming-card">
             <div class="up-icon">📜</div>
             <div class="up-meta">
-              <span class="up-status">EN INVESTIGACIÓN</span>
-              <h4>Criptogramas y Enigmas de Letras</h4>
-              <p>Descifrado de mensajes ocultos y sustitución de frecuencias para entrenar el lenguaje, la agudeza verbal y el pensamiento lateral.</p>
+              <span class="up-status" data-i18n="up_card1_status">EN INVESTIGACIÓN</span>
+              <h4 data-i18n="up_card1_title">Criptogramas y Enigmas de Letras</h4>
+              <p data-i18n="up_card1_desc">Descifrado de mensajes ocultos y sustitución de frecuencias para entrenar el lenguaje, la agudeza verbal y el pensamiento lateral.</p>
             </div>
           </div>
 
           <div class="upcoming-card">
             <div class="up-icon">♟️</div>
             <div class="up-meta">
-              <span class="up-status">CONCEPTO</span>
-              <h4>Táctica Geométrica y Patrones</h4>
-              <p>Juegos de reconocimiento de patrones simétricos y optimización de movimientos para todas las edades.</p>
+              <span class="up-status" data-i18n="up_card2_status">CONCEPTO</span>
+              <h4 data-i18n="up_card2_title">Táctica Geométrica y Patrones</h4>
+              <p data-i18n="up_card2_desc">Juegos de reconocimiento de patrones simétricos y optimización de movimientos para todas las edades.</p>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -722,25 +720,25 @@
       
       <div class="manifesto-box">
         <div class="manifesto-icon">🛡️</div>
-        <div class="section-tag">NUESTRA PROMESA</div>
-        <h2 class="section-title">El Manifiesto de Juego Limpio</h2>
+        <div class="section-tag" data-i18n="mani_tag">NUESTRA PROMESA</div>
+        <h2 class="section-title" data-i18n="mani_title">El Manifiesto de Juego Limpio</h2>
         
         <div class="manifesto-text">
-          <p class="highlight-lead">
+          <p class="highlight-lead" data-i18n="mani_lead">
             «Creemos firmemente que el entrenamiento mental y la concentración profunda son incompatibles con la publicidad invasiva y los vídeos ruidosos.»
           </p>
           <div class="manifesto-grid">
             <div class="m-point">
-              <strong>1. Sin Anuncios en Pantalla:</strong>
-              <p>Nuestras aplicaciones son de uso libre, ilimitado y sin banners parpadeantes ni vídeos obligatorios que interrumpan tu partida.</p>
+              <strong data-i18n="mani_p1_title">1. Sin Anuncios en Pantalla:</strong>
+              <p data-i18n="mani_p1_desc">Nuestras aplicaciones son de uso libre, ilimitado y sin banners parpadeantes ni vídeos obligatorios que interrumpan tu partida.</p>
             </div>
             <div class="m-point">
-              <strong>2. Privacidad Absoluta (Zero-Tracking):</strong>
-              <p>No recopilamos tus datos personales, no vendemos perfiles publicitarios ni exigimos registros de correo obligatorio.</p>
+              <strong data-i18n="mani_p2_title">2. Privacidad Absoluta (Zero-Tracking):</strong>
+              <p data-i18n="mani_p2_desc">No recopilamos tus datos personales, no vendemos perfiles publicitarios ni exigimos registros de correo obligatorio.</p>
             </div>
             <div class="m-point">
-              <strong>3. Respeto al Jugador:</strong>
-              <p>Diseñadas por y para amantes de la lógica. La satisfacción reside en el reto intelectual y en la superación personal.</p>
+              <strong data-i18n="mani_p3_title">3. Respeto al Jugador:</strong>
+              <p data-i18n="mani_p3_desc">Diseñadas por y para amantes de la lógica. La satisfacción reside en el reto intelectual y en la superación personal.</p>
             </div>
           </div>
         </div>
@@ -754,39 +752,37 @@
     <div class="section-container">
       
       <div class="section-header">
-        <div class="section-tag">SALUD MENTAL</div>
-        <h2 class="section-title">Gimnasio Cerebral para Todas las Generaciones</h2>
-        <p class="section-subtitle">
+        <div class="section-tag" data-i18n="ben_tag">SALUD MENTAL</div>
+        <h2 class="section-title" data-i18n="ben_title">Gimnasio Cerebral para Todas las Generaciones</h2>
+        <p class="section-subtitle" data-i18n="ben_sub">
           El ejercicio sistemático de la deducción lógica no tiene edad. Beneficios contrastados para cada etapa de la vida:
         </p>
       </div>
 
       <div class="benefits-grid">
-        
         <div class="benefit-card">
-          <div class="b-badge">🐣 JÓVENES & ESTUDIANTES</div>
-          <h3>Pensamiento Analítico</h3>
-          <p>Fomenta la disciplina deductiva, el rigor en la resolución de problemas y la capacidad de concentración sostenida frente a la dispersión digital.</p>
+          <div class="b-badge" data-i18n="ben_c1_badge">🐣 JÓVENES & ESTUDIANTES</div>
+          <h3 data-i18n="ben_c1_title">Pensamiento Analítico</h3>
+          <p data-i18n="ben_c1_desc">Fomenta la disciplina deductiva, el rigor en la resolución de problemas y la capacidad de concentración sostenida frente a la dispersión digital.</p>
         </div>
 
         <div class="benefit-card">
-          <div class="b-badge">⚡ ADULTOS (18-49 AÑOS)</div>
-          <h3>Desconexión Activa</h3>
-          <p>Una alternativa de ocio constructiva para liberar el estrés diario mediante un foco mental ordenado, compitiendo en duelos contra reloj.</p>
+          <div class="b-badge" data-i18n="ben_c2_badge">⚡ ADULTOS (18-49 AÑOS)</div>
+          <h3 data-i18n="ben_c2_title">Desconexión Activa</h3>
+          <p data-i18n="ben_c2_desc">Una alternativa de ocio constructiva para liberar el estrés diario mediante un foco mental ordenado, compitiendo en duelos contra reloj.</p>
         </div>
 
         <div class="benefit-card">
-          <div class="b-badge">🧠 SENIOR & VETERANOS (50-64)</div>
-          <h3>Memoria de Trabajo</h3>
-          <p>Mantiene en forma las conexiones neuronales, la agilidad en la toma de decisiones y la retención visual de patrones complejos.</p>
+          <div class="b-badge" data-i18n="ben_c3_badge">🧠 SENIOR & VETERANOS (50-64)</div>
+          <h3 data-i18n="ben_c3_title">Memoria de Trabajo</h3>
+          <p data-i18n="ben_c3_desc">Mantiene en forma las conexiones neuronales, la agilidad en la toma de decisiones y la retención visual de patrones complejos.</p>
         </div>
 
         <div class="benefit-card featured-benefit">
-          <div class="b-badge gold-badge">👑 LEYENDAS (65+ AÑOS)</div>
-          <h3>Reserva Cognitiva Saludable</h3>
-          <p>Estimula activamente la plasticidad cerebral y la lucidez deductiva. La mejor gimnasia para conservar la mente despierta, activa y llena de vitalidad.</p>
+          <div class="b-badge gold-badge" data-i18n="ben_c4_badge">👑 LEYENDAS (65+ AÑOS)</div>
+          <h3 data-i18n="ben_c4_title">Reserva Cognitiva Saludable</h3>
+          <p data-i18n="ben_c4_desc">Estimula activamente la plasticidad cerebral y la lucidez deductiva. La mejor gimnasia para conservar la mente despierta, activa y llena de vitalidad.</p>
         </div>
-
       </div>
 
     </div>
@@ -799,44 +795,23 @@
         <div class="backup-hub-glow"></div>
         <div class="backup-hub-inner">
           <div class="backup-hub-badge">
-            <span class="badge-tag gold">🔄 SINCRONIZACIÓN Y TRASPASO</span>
-            <span class="badge-origin">TODOS TUS JUEGOS PROTEGIDOS</span>
+            <span class="badge-tag gold" data-i18n="back_badge_tag">🔄 SINCRONIZACIÓN Y TRASPASO</span>
+            <span class="badge-origin" data-i18n="back_badge_origin">TODOS TUS JUEGOS PROTEGIDOS</span>
           </div>
           <div class="backup-hub-content">
             <div class="backup-hub-icon">💾</div>
             <div class="backup-hub-texts">
-              <h3>Lleva tus récords y partidas a cualquier dispositivo</h3>
-              <p>
+              <h3 data-i18n="back_title">Lleva tus récords y partidas a cualquier dispositivo</h3>
+              <p data-i18n="back_desc">
                 Juega en tu ordenador de sobremesa y continúa en tu móvil o tableta. Crea una copia de seguridad en un archivo <code>.json</code> o genera un código de traspaso para transferir tu progreso completo de <strong>Top-Sudoku, Sudoku Arena, Nonogramas, Cubo de Rubik, Cálculo Táctico, Damas y Deducción</strong> en cuestión de segundos.
               </p>
             </div>
             <div class="backup-hub-cta">
               <button type="button" class="btn-action primary btn-trigger-backup">
-                <span>🔄 Abrir Centro de Copia y Traspaso</span>
+                <span data-i18n="back_btn">🔄 Abrir Centro de Copia y Traspaso</span>
               </button>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN: APOYO ÉTICO AL CLUB (MICROPAGO VOLUNTARIO) -->
-  <section class="section-support" id="apoyo">
-    <div class="section-container">
-      <div class="support-card">
-        <div class="support-header">
-          <div class="support-icon">☕💙</div>
-          <h3>¿Te gusta esta APP? Ayúdanos a mantenerla viva y sin anuncios</h3>
-        </div>
-        <p class="support-body">
-          Esta plataforma y sus aplicaciones son de <strong>uso libre, ilimitado y sin anuncios</strong>. Pero para mantener su puesta al día, desarrollo de nuevos juegos, supervisión y servidores, agradeceríamos una pequeña y única aportación de <strong>3 euros</strong> con la cual nos ayudaréis a seguir creciendo y a mantener viva esta comunidad.
-        </p>
-        <div class="support-action">
-          <button type="button" class="btn-support" id="btn-open-support">
-            <span>☕ Colaborar con una Aportación de 3 €</span>
-          </button>
-          <span class="support-note">Aportación única y 100% voluntaria mediante pasarela segura internacional.</span>
         </div>
       </div>
     </div>
@@ -851,7 +826,7 @@
           <span class="footer-crest-icon">🏛️</span>
           <strong>CLUB DEL INGENIO</strong>
         </div>
-        <p class="footer-tagline">
+        <p class="footer-tagline" data-i18n="footer_tagline">
           Portal oficial: <a href="https://clubdelingenio.es" class="link-domain">clubdelingenio.es</a> & <a href="https://clubdelingenio.com" class="link-domain">clubdelingenio.com</a>.
           <br>La sede de la lógica, la deducción y la estimulación mental.
         </p>
@@ -859,7 +834,7 @@
 
       <div class="footer-links-group">
         <div class="footer-col">
-          <strong>JUEGOS ACTIVOS</strong>
+          <strong data-i18n="footer_col1_title">JUEGOS ACTIVOS</strong>
           <a href="top-sudoku/">Top-Sudoku (Escuela)</a>
           <a href="sudoku-arena/">Sudoku Arena (Competición)</a>
           <a href="calculo-tactico/">Cálculo Táctico Relámpago</a>
@@ -867,17 +842,16 @@
           <a href="sudoku-arena/#modal-hall-of-fame">Salón de la Fama</a>
         </div>
         <div class="footer-col">
-          <strong>DOCUMENTACIÓN</strong>
+          <strong data-i18n="footer_col2_title">DOCUMENTACIÓN</strong>
           <a href="sudoku-arena/manual.html">Manual de Sudoku Arena</a>
           <a href="top-sudoku/manual.html">Manual de Top-Sudoku</a>
           <a href="sudoku-arena/privacidad.html">Política de Privacidad</a>
         </div>
         <div class="footer-col">
-          <strong>EL CLUB</strong>
+          <strong data-i18n="footer_col3_title">EL CLUB</strong>
           <a href="#filosofia">Manifiesto Zero-Ads</a>
           <a href="#beneficios">Salud Cognitiva</a>
           <a href="#copia-seguridad">Copia de Seguridad</a>
-          <a href="#apoyo">Apoyar el Proyecto</a>
         </div>
       </div>
 
@@ -885,42 +859,21 @@
 
     <div class="footer-bottom">
       <div class="bottom-container">
-        <span>© 2026 <strong>Club del Ingenio</strong>. Desarrollado por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.</span>
-        <span>España • Unión Europea • Sin cookies de rastreo</span>
+        <span data-i18n="footer_copy">© 2026 <strong>Club del Ingenio</strong>. Desarrollado por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.</span>
+        <span data-i18n="footer_sub">España • Unión Europea • Sin cookies de rastreo</span>
       </div>
     </div>
   </footer>
-
-  <!-- MODAL DE APOYO / MICROPAGO -->
-  <div id="modal-support" class="modal-overlay hidden">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h4>☕ Colaboración con Club del Ingenio</h4>
-        <button class="modal-close" id="btn-close-modal">&times;</button>
-      </div>
-      <div class="modal-content">
-        <p>Agradecemos de corazón tu interés en apoyar este proyecto independiente.</p>
-        <div class="donation-box">
-          <div class="don-amount">3,00 €</div>
-          <div class="don-desc">Aportación única voluntaria para mantenimiento de servidores, supervisiones y nuevos desarrollos de juegos lógicos.</div>
-        </div>
-        <p class="don-sub">La integración con la pasarela oficial de Stripe Payment Links se activará en cuanto el dominio <strong>clubdelingenio.es</strong> esté conectado a producción.</p>
-      </div>
-      <div class="modal-foot">
-        <button type="button" class="btn-action primary" id="btn-ack-support">Entendido, ¡gracias!</button>
-      </div>
-    </div>
-  </div>
 
   <!-- MODAL DE COPIA DE SEGURIDAD Y TRASPASO -->
   <div id="modal-backup" class="modal-overlay hidden">
     <div class="modal-card backup-modal-card">
       <div class="modal-head">
-        <h4>💾 Centro de Copia de Seguridad y Traspaso</h4>
+        <h4 data-i18n="backup_modal_title">💾 Centro de Copia de Seguridad y Traspaso</h4>
         <button class="modal-close" id="btn-close-backup">&times;</button>
       </div>
       <div class="modal-content">
-        <p class="backup-intro">
+        <p class="backup-intro" data-i18n="backup_modal_intro">
           Guarda o transfiere tu progreso de <strong>todos los juegos del Club</strong> (Sudoku Arena, Nonogramas, Cubo de Rubik, Cálculo Táctico, Top-Sudoku, Damas y Deducción) de forma rápida y 100% privada.
         </p>
 
@@ -1001,6 +954,82 @@
 
           <button type="button" class="btn-action primary" id="btn-confirm-import" style="width:100%; margin-top:1rem; justify-content:center;" disabled>
             🚀 Restaurar Progreso en este Navegador
+          </button>
+        </div>
+      </div>
+    </div>
+  <!-- MODAL DE IDIOMA -->
+  <div id="modal-language" class="modal-overlay hidden">
+    <div class="modal-card lang-modal-card">
+      <div class="modal-head">
+        <h4 data-i18n="modal_lang_title">🌐 Seleccionar Idioma</h4>
+        <button class="modal-close" id="btn-close-lang" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-content">
+        <p class="lang-modal-sub" data-i18n="modal_lang_sub">Elige tu lengua preferida para toda la plataforma:</p>
+        <div class="languages-grid">
+          <button type="button" class="lang-select-btn" data-lang="es">
+            <span class="lang-flag">🇪🇸</span>
+            <div class="lang-text">
+              <strong>Español</strong>
+              <small>Castellano</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="en">
+            <span class="lang-flag">🇬🇧</span>
+            <div class="lang-text">
+              <strong>English</strong>
+              <small>International</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="fr">
+            <span class="lang-flag">🇫🇷</span>
+            <div class="lang-text">
+              <strong>Français</strong>
+              <small>France</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="de">
+            <span class="lang-flag">🇩🇪</span>
+            <div class="lang-text">
+              <strong>Deutsch</strong>
+              <small>Deutschland</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="ca">
+            <span class="lang-flag">🟡🔴</span>
+            <div class="lang-text">
+              <strong>Català</strong>
+              <small>Catalunya</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="va">
+            <span class="lang-flag">🦇</span>
+            <div class="lang-text">
+              <strong>Valencià</strong>
+              <small>Comunitat</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="eu">
+            <span class="lang-flag">🟩</span>
+            <div class="lang-text">
+              <strong>Euskara</strong>
+              <small>Euskal Herria</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="gl">
+            <span class="lang-flag">🟦</span>
+            <div class="lang-text">
+              <strong>Galego</strong>
+              <small>Galiza</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="ja">
+            <span class="lang-flag">🇯🇵</span>
+            <div class="lang-text">
+              <strong>日本語</strong>
+              <small>Japanese</small>
+            </div>
           </button>
         </div>
       </div>
