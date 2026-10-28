@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Damas del Club — Táctica Clásica & Estrategia | Club del Ingenio</title>
+  
+  <meta name="description" content="Juego de Damas 3D de alta alcurnia en Club del Ingenio. Damas españolas con damas voladoras, IA táctica con poda alfa-beta y duelos 1v1.">
+  <meta name="theme-color" content="#070a13">
+  <meta name="author" content="Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.">
+
+  <!-- Tipografías Oficiales de Club del Ingenio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Dark Luxury -->
+  <link rel="stylesheet" href="css/style.css?v=2.2">
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- CABECERA PRINCIPAL -->
+  <header class="app-header">
+    <div class="header-inner">
+      
+      <!-- Marca & Enlace -->
+      <a href="../index.html" class="brand-group">
+        <img src="damas_del_club_logo.jpg" alt="Emblema Damas del Club" class="brand-crest" style="width:38px; height:38px; border-radius:8px; object-fit:cover; box-shadow:0 0 10px rgba(245,158,11,0.35);">
+        <div>
+          <span class="brand-title" data-i18n="app_title">Damas del Club</span>
+          <span class="brand-subtitle" data-i18n="app_subtitle">Táctica Clásica & Estrategia</span>
+        </div>
+      </a>
+
+      <!-- Modos de Juego -->
+      <nav class="nav-modes">
+        <button class="mode-tab active" data-mode="ai">
+          <span>🤖</span> <span data-i18n="mode_ai">Vs Inteligencia Artificial</span>
+        </button>
+        <button class="mode-tab" data-mode="pvp">
+          <span>👥</span> <span data-i18n="mode_pvp">Duelo 1v1 Local</span>
+        </button>
+        <button class="mode-tab" data-mode="puzzles">
+          <span>🧩</span> <span data-i18n="mode_puzzles">Retos de Salón</span>
+        </button>
+      </nav>
+
+      <!-- Utilidades Cabecera -->
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-sound" title="Sonido">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button class="btn-icon" id="btn-lang" title="Idioma">
+          <span>🌐</span>
+          <span id="current-lang-code" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.78rem; margin-left: 2px;">ES</span>
+        </button>
+        <button class="btn-icon" id="btn-rules" title="Reglamento Oficial">
+          <span>📖</span>
+        </button>
+        <a href="../index.html" class="btn-back-hub">
+          <span>🏛️</span> <span data-i18n="back_to_club">Sede Central</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="app-main">
+
+    <!-- BARRA SUPERIOR DE ESTADO Y TURNO -->
+    <div class="top-status-bar">
+      <div class="turn-badge white" id="turn-badge" data-i18n="turn_white">
+        Turno: Blancas (Tú)
+      </div>
+
+      <!-- Selector de Bando frente a la IA -->
+      <div class="side-controls" id="side-controls">
+        <span class="diff-label" data-i18n="side_label">Bando:</span>
+        <button class="side-btn active" data-side="W" id="btn-side-white">⚪ <span data-i18n="side_white">Blancas</span></button>
+        <button class="side-btn" data-side="B" id="btn-side-black">⚫ <span data-i18n="side_black">Negras</span></button>
+      </div>
+
+      <!-- Selector de Dificultad IA -->
+      <div class="ai-controls" id="ai-difficulty-controls">
+        <span class="diff-label">IA:</span>
+        <button class="diff-btn" data-diff="easy" data-i18n="diff_easy">Iniciado</button>
+        <button class="diff-btn active" data-diff="medium" data-i18n="diff_medium">Táctico</button>
+        <button class="diff-btn" data-diff="hard" data-i18n="diff_hard">Gran Maestro</button>
+      </div>
+
+      <!-- Controles de Giro de Tablero en PvP -->
+      <div class="pvp-controls" id="pvp-controls" style="display:none;">
+        <button class="side-btn active" id="btn-pvp-rotate" title="Girar tablero según el turno">
+          <span>🔄</span> <span id="pvp-rotate-text" data-i18n="pvp_rotate_on">Giro automático: Sí</span>
+        </button>
+      </div>
+
+      <!-- Controles de Retos de Salón (Puzles) -->
+      <div class="puzzle-controls" id="puzzle-controls" style="display:none;">
+        <button class="diff-btn" id="btn-prev-puzzle" title="Anterior Reto">◀</button>
+        <span id="puzzle-info-badge" class="puzzle-badge">Reto 1 / 4</span>
+        <button class="diff-btn" id="btn-next-puzzle" title="Siguiente Reto">▶</button>
+      </div>
+
+      <div id="game-status-msg" style="font-size:0.82rem; color:var(--gold-light); font-weight:600;"></div>
+    </div>
+
+    <!-- MARCADOR DE PIEZAS Y ESTADÍSTICAS (EXTERNO AL VIEWPORT 3D) -->
+    <div class="damas-stats-strip">
+      <div class="hud-counters">
+        <div class="hud-item">
+          <span data-i18n="hud_white_pieces">Blancas:</span>
+          <span class="hud-val" id="stat-white-val">12</span>
+          <span style="margin-left:0.35rem; color:var(--gold-light); font-size:0.75rem;">(👑 <span id="stat-white-queens">0</span>)</span>
+        </div>
+        <div class="hud-item">
+          <span data-i18n="hud_black_pieces">Negras:</span>
+          <span class="hud-val" id="stat-black-val">12</span>
+          <span style="margin-left:0.35rem; color:var(--cyan-primary); font-size:0.75rem;">(👑 <span id="stat-black-queens">0</span>)</span>
+        </div>
+        <div class="hud-item">
+          <span data-i18n="hud_moves">Jugadas:</span>
+          <span class="hud-val" id="stat-moves-val">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D VIEWPORT CONTAINER (100% LIBRE DE ELEMENTOS SUPERPUESTOS) -->
+    <div class="viewport-wrapper">
+      <div id="damas-canvas-container"></div>
+    </div>
+
+    <!-- ACTION DOCK -->
+    <div class="action-dock">
+      <button class="btn-action-primary" id="btn-new-game">
+        <span>🔄</span> <span data-i18n="btn_new_game">Nueva Partida</span>
+      </button>
+      <button class="btn-action-secondary" id="btn-undo">
+        <span>↩️</span> <span data-i18n="btn_undo">Deshacer</span>
+      </button>
+      <button class="btn-action-secondary" id="btn-view-mode">
+        <span>👁️</span> <span data-i18n="btn_view_mode">Cambiar Vista 2D/3D</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- MODAL: IDIOMAS (9 IDIOMAS) -->
+  <div class="modal-overlay" id="modal-lang">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">🌐 Seleccionar Idioma</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <div class="lang-grid">
+        <button class="lang-btn" data-lang="es"><span style="font-size:1.4rem;">🇪🇸</span><span>Español</span></button>
+        <button class="lang-btn" data-lang="en"><span style="font-size:1.4rem;">🇬🇧</span><span>English</span></button>
+        <button class="lang-btn" data-lang="ca"><span style="font-size:1.4rem;">🏛️</span><span>Català</span></button>
+        <button class="lang-btn" data-lang="va"><span style="font-size:1.4rem;">🦇</span><span>Valencià</span></button>
+        <button class="lang-btn" data-lang="gl"><span style="font-size:1.4rem;">🌊</span><span>Galego</span></button>
+        <button class="lang-btn" data-lang="eu"><span style="font-size:1.4rem;">🏔️</span><span>Euskara</span></button>
+        <button class="lang-btn" data-lang="fr"><span style="font-size:1.4rem;">🇫🇷</span><span>Français</span></button>
+        <button class="lang-btn" data-lang="de"><span style="font-size:1.4rem;">🇩🇪</span><span>Deutsch</span></button>
+        <button class="lang-btn" data-lang="ja"><span style="font-size:1.4rem;">🇯🇵</span><span>日本語</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: REGLAMENTO OFICIAL -->
+  <div class="modal-overlay" id="modal-rules">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="rules_title">Reglamento Oficial: Damas Españolas</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <div class="rules-list">
+        <p data-i18n="rules_1">1. Movimiento básico: Los peones mueven en diagonal hacia adelante una casilla a casillas oscuras vacías.</p>
+        <p data-i18n="rules_2">2. Capturas y Ley de la Cantidad: Es obligatorio capturar si hay opción de comer. Los peones comen únicamente hacia adelante. Si existen varios caminos, es forzoso elegir el que capture el mayor número de piezas.</p>
+        <p data-i18n="rules_quality">3. Ley de la Calidad: A igualdad de número de piezas a capturar, es obligatorio elegir la opción donde se capturen más Damas. Si persiste el empate, se prioriza comer con la Dama frente al peón.</p>
+        <p data-i18n="rules_3">4. Damas voladoras: Al alcanzar la última fila rival, la pieza corona y se convierte en DAMA. Las damas pueden recorrer toda la diagonal libremente en cualquier dirección y saltar a distancia. Si un peón corona comiendo en una captura múltiple, el turno finaliza de inmediato.</p>
+        <p data-i18n="rules_4">5. Fin de partida: Gana el jugador que capture todas las piezas rivales o las deje completamente bloqueadas sin jugada legal.</p>
+      </div>
+      <div class="pvp-tip-box" data-i18n="rules_pvp_tip">
+        💡 Consejo Multijugador: En una próxima actualización se activarán las salas online por enlace y WhatsApp.
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: FIN DE PARTIDA / VICTORIA -->
+  <div class="modal-overlay" id="modal-game-over">
+    <div class="modal-card modal-game-over-card">
+      <div class="game-over-crest">
+        <span id="game-over-icon" style="font-size:3.2rem;">👑</span>
+      </div>
+      <h2 class="modal-title game-over-title" id="game-over-title">¡Victoria de las Blancas!</h2>
+      <p class="game-over-desc" id="game-over-desc">Has demostrado un dominio táctico impecable sobre el tablero.</p>
+
+      <div class="game-over-stats">
+        <div class="go-stat-box">
+          <span class="go-stat-val" id="go-stat-moves">0</span>
+          <span class="go-stat-label" data-i18n="hud_moves">Jugadas</span>
+        </div>
+        <div class="go-stat-box">
+          <span class="go-stat-val" id="go-stat-captures">0</span>
+          <span class="go-stat-label" data-i18n="stat_captures">Capturas</span>
+        </div>
+        <div class="go-stat-box">
+          <span class="go-stat-val" id="go-stat-queens">0</span>
+          <span class="go-stat-label" data-i18n="stat_queens">Damas</span>
+        </div>
+      </div>
+
+      <div class="game-over-actions">
+        <button class="btn-action-primary" id="btn-rematch">
+          <span>⚔️</span> <span data-i18n="btn_rematch">Revancha</span>
+        </button>
+        <button class="btn-action-secondary" id="btn-share-duel">
+          <span>📲</span> <span data-i18n="btn_share_duel">Compartir Reto</span>
+        </button>
+        <button class="btn-action-secondary btn-close-modal">
+          <span>✖️</span> <span data-i18n="btn_close">Cerrar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="damas-toast" id="damas-toast">¡Notificación!</div>
+
+  <!-- MAIN SCRIPT -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

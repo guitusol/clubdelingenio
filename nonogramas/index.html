@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nonogramas del Club — Mosaicos de Lógica & Arte Zen | Club del Ingenio</title>
+  <meta name="description" content="Puzles de lógica visual y Picross en 3 niveles (5x5, 10x10, 15x15). Deduce ilustraciones pixel-art a través de pistas numéricas en un entorno zen sin anuncios.">
+  <link rel="icon" type="image/png" href="icons/favicon.png">
+
+  <!-- Google Fonts: Outfit, Cinzel, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- CABECERA DE LA SEDE -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="../" class="brand-group" title="Volver a Club del Ingenio">
+        <img src="nonogramas_logo.jpg" alt="Emblema Nonogramas del Club" class="brand-logo-crest" style="width:38px; height:38px; border-radius:8px; object-fit:cover; box-shadow:0 0 10px rgba(244,63,94,0.35);">
+        <div class="brand-text">
+          <h1 data-i18n="app_title">NONOGRAMAS</h1>
+          <p data-i18n="app_subtitle">🎨 Mosaicos de Lógica & Arte Zen</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="../" class="btn-header club-btn" data-i18n-title="btn_club_title">
+          <span>🏛️</span>
+          <span data-i18n="btn_club">Club</span>
+        </a>
+        <button id="btn-toggle-sound" class="btn-header" data-i18n-title="btn_sound_title">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="btn-open-rules" class="btn-header" data-i18n-title="btn_rules_title">
+          <span>📖</span>
+        </button>
+        <button id="btn-open-weekly" class="btn-header weekly-btn" data-i18n-title="btn_weekly_title" style="border-color: var(--border-gold); color: var(--gold-light);">
+          <span>🏆</span>
+          <span data-i18n="btn_weekly">Reto Semanal</span>
+        </button>
+        <button id="btn-open-editor" class="btn-header editor-btn" data-i18n-title="btn_editor_title" style="border-color: var(--border-cyan); color: var(--cyan-primary);">
+          <span>🖌️</span>
+          <span data-i18n="btn_editor">Taller</span>
+        </button>
+        <button id="btn-open-catalog" class="btn-header" data-i18n-title="btn_catalog_title">
+          <span>🖼️</span>
+          <span data-i18n="btn_catalog">Puzles</span>
+        </button>
+        <button id="btn-open-gallery" class="btn-header" data-i18n-title="btn_gallery_title" style="border-color: var(--border-gold); color: var(--gold-light);">
+          <span>👑</span>
+          <span data-i18n="btn_gallery">Pinacoteca</span>
+        </button>
+        <button id="btn-open-lang-modal" class="btn-header" data-i18n-title="btn_lang_title">
+          <span>🌐</span>
+          <span id="current-lang-code" style="font-family: var(--font-mono); font-weight: 700;">ES</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-wrapper">
+
+    <!-- BARRA DE INFORMACIÓN Y PROGRESO -->
+    <section class="puzzle-info-bar">
+      <div class="puzzle-title-area">
+        <h2 id="puzzle-title" class="puzzle-title">Cargando...</h2>
+        <span id="puzzle-diff-badge" class="diff-badge facil">5×5 Boceto</span>
+      </div>
+
+      <div class="puzzle-stats-area">
+        <div class="stat-item" title="Tiempo transcurrido">
+          <span>⏱️</span>
+          <span id="timer-display">00:00</span>
+        </div>
+
+        <div class="stat-item" title="Progreso del mosaico">
+          <span class="progress-track">
+            <span id="progress-bar-fill" class="progress-fill"></span>
+          </span>
+          <span id="progress-bar-text" style="font-size: 0.75rem; color: var(--text-muted); min-width: 32px;">0%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARRA DE HERRAMIENTAS TÁCTILES / RATÓN -->
+    <section class="tools-bar">
+      <button id="tool-paint" class="tool-btn active" title="Pintar casilla con píxel de color">
+        <span>⬛</span>
+        <span data-i18n="tool_paint">Pintar</span>
+      </button>
+
+      <button id="tool-cross" class="tool-btn" title="Tachar casilla que debe quedar vacía">
+        <span>✖</span>
+        <span data-i18n="tool_cross">Tachar</span>
+      </button>
+
+      <button id="btn-reset-board" class="btn-secondary" title="Reiniciar cuadrícula actual">
+        <span>🔄</span>
+        <span data-i18n="btn_reset_grid">Reiniciar Tablero</span>
+      </button>
+    </section>
+
+    <!-- ÁREA DEL TABLERO DE NONOGRAMAS -->
+    <section class="board-viewport">
+      <div id="nonogram-board-container"></div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE REGLAS / CÓMO RESOLVER UN NONOGRAMA -->
+  <div id="modal-rules" class="modal-overlay">
+    <div class="modal-card">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <h2 class="modal-title" data-i18n="modal_rules_title">Cómo Resolver un Nonograma</h2>
+      <p class="modal-subtitle" data-i18n="modal_rules_sub">El noble arte de deducir bellas imágenes a través de los números.</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.9rem; line-height: 1.5; color: #cbd5e1;">
+        <div>
+          <strong style="color: var(--gold-light);" data-i18n="rule_1_title">1. Las Pistas Numéricas</strong>
+          <p data-i18n="rule_1_desc" style="margin-top: 0.2rem; font-size: 0.85rem; color: var(--text-muted);">
+            Los números de cada fila y columna indican bloques consecutivos de casillas pintadas.
+          </p>
+        </div>
+
+        <div>
+          <strong style="color: var(--rose-primary);" data-i18n="rule_2_title">2. Cruces de Descarte (✖)</strong>
+          <p data-i18n="rule_2_desc" style="margin-top: 0.2rem; font-size: 0.85rem; color: var(--text-muted);">
+            Cuando sepas con certeza que una casilla debe estar vacía, márcala con una cruz.
+          </p>
+        </div>
+
+        <div>
+          <strong style="color: var(--cyan-primary);" data-i18n="rule_3_title">3. Solapamiento de Bloques</strong>
+          <p data-i18n="rule_3_desc" style="margin-top: 0.2rem; font-size: 0.85rem; color: var(--text-muted);">
+            En cuadrículas grandes, si una pista es mayor que la mitad de la fila, las casillas centrales estarán necesariamente pintadas.
+          </p>
+        </div>
+
+        <div>
+          <strong style="color: var(--emerald-primary);" data-i18n="rule_4_title">4. La Revelación Artística</strong>
+          <p data-i18n="rule_4_desc" style="margin-top: 0.2rem; font-size: 0.85rem; color: var(--text-muted);">
+            No adivines al azar: cada casilla puede deducirse por pura lógica. Al colocar la última celda correcta, el mosaico cobrará vida a todo color.
+          </p>
+        </div>
+      </div>
+
+      <button class="btn-header btn-close-modal" style="width: 100%; margin-top: 1.5rem; justify-content: center; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(30, 41, 59, 0.85)); border-color: var(--border-gold); color: var(--gold-light);" data-i18n="btn_start_playing">
+        Entrar al Lienzo
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DEL CATÁLOGO DE PUZLES -->
+  <div id="modal-catalog" class="modal-overlay">
+    <div class="modal-card">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <h2 class="modal-title" data-i18n="modal_catalog_title">Catálogo de Puzles</h2>
+      <p class="modal-subtitle" data-i18n="modal_catalog_sub">Selecciona el nivel y la ilustración que deseas desvelar:</p>
+
+      <div class="catalog-tabs">
+        <button class="catalog-tab-btn active" data-diff="facil" data-i18n="tab_5x5">5×5 Bocetos (Iniciación)</button>
+        <button class="catalog-tab-btn" data-diff="medio" data-i18n="tab_10x10">10×10 Galería (Clásico)</button>
+        <button class="catalog-tab-btn" data-diff="dificil" data-i18n="tab_15x15">15×15 Maestría (Gran Obra)</button>
+        <button class="catalog-tab-btn" data-diff="taller" data-i18n="tab_custom" style="border-color: var(--border-cyan); color: var(--cyan-primary);">🎨 Mi Taller</button>
+      </div>
+
+      <div id="catalog-cards-list" class="catalog-cards-grid"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE LA PINACOTECA DEL CLUB (COLECCIÓN) -->
+  <div id="modal-gallery" class="modal-overlay">
+    <div class="modal-card" style="max-width: 750px;">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <h2 class="modal-title" data-i18n="modal_gallery_title">Mi Pinacoteca del Club</h2>
+      <p class="modal-subtitle" data-i18n="modal_gallery_sub">Tus mosaicos desvelados y archivados en alta resolución:</p>
+
+      <div id="gallery-showcase-grid" class="gallery-grid"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE VICTORIA -->
+  <div id="modal-victory" class="modal-overlay">
+    <div class="modal-card" style="text-align: center; max-width: 480px;">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <div style="font-size: 3rem; margin-bottom: 0.25rem;">✨🎨✨</div>
+      <h2 class="modal-title" data-i18n="modal_victory_title">¡OBRA MAESTRA REVELADA!</h2>
+      <p class="modal-subtitle" data-i18n="modal_victory_sub">Has desvelado el mosaico con deducción impecable.</p>
+
+      <!-- PREVIEW PIXEL ART -->
+      <div id="vic-artwork-preview" style="width: 130px; height: 130px; margin: 0 auto 1rem; background: #030712; border: 2px solid var(--gold-light); border-radius: 8px; box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);"></div>
+
+      <h3 id="vic-puzzle-title" style="font-family: var(--font-serif); color: var(--gold-light); font-size: 1.15rem; margin-bottom: 0.25rem;">--</h3>
+      <p id="vic-puzzle-desc" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4;">--</p>
+
+      <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+        <span style="color: var(--text-muted);" data-i18n="lbl_time_spent">Tiempo de resolución:</span>
+        <strong id="vic-time-spent" style="color: var(--cyan-primary); font-family: var(--font-mono); font-size: 1.05rem;">--</strong>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="btn-next-puzzle" class="btn-header" style="flex: 1; justify-content: center; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(30, 41, 59, 0.85)); border-color: var(--border-gold); color: var(--gold-light); padding: 0.65rem;" data-i18n="btn_next_puzzle">
+          Siguiente Ilustración
+        </button>
+        <button id="btn-view-gallery" class="btn-header" style="flex: 1; justify-content: center; padding: 0.65rem;" data-i18n="btn_view_in_gallery">
+          Ver en Pinacoteca
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE IDIOMA -->
+  <div id="modal-language" class="modal-overlay">
+    <div class="modal-card" style="max-width: 550px;">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <h2 class="modal-title" data-i18n="modal_lang_title">Seleccionar Idioma</h2>
+      <p class="modal-subtitle" data-i18n="modal_lang_sub">Elige tu lengua para toda la experiencia del Club:</p>
+
+      <div class="lang-modal-grid">
+        <button class="lang-select-btn" data-lang="es">
+          <span class="lang-flag">🇪🇸</span>
+          <div class="lang-text">
+            <strong>Español</strong>
+            <small>España / América</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="en">
+          <span class="lang-flag">🇬🇧</span>
+          <div class="lang-text">
+            <strong>English</strong>
+            <small>International</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="ja">
+          <span class="lang-flag">🇯🇵</span>
+          <div class="lang-text">
+            <strong>日本語</strong>
+            <small>日本 (ピクロス)</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="fr">
+          <span class="lang-flag">🇫🇷</span>
+          <div class="lang-text">
+            <strong>Français</strong>
+            <small>France</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="de">
+          <span class="lang-flag">🇩🇪</span>
+          <div class="lang-text">
+            <strong>Deutsch</strong>
+            <small>Deutschland</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="ca">
+          <span class="lang-flag">🏴󠁥󠁳󠁣󠁴󠁿</span>
+          <div class="lang-text">
+            <strong>Català</strong>
+            <small>Catalunya</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="va">
+          <span class="lang-flag">🦇</span>
+          <div class="lang-text">
+            <strong>Valencià</strong>
+            <small>Comunitat Valenciana</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="eu">
+          <span class="lang-flag">🏴</span>
+          <div class="lang-text">
+            <strong>Euskara</strong>
+            <small>Euskal Herria</small>
+          </div>
+        </button>
+
+        <button class="lang-select-btn" data-lang="gl">
+          <span class="lang-flag">🏴</span>
+          <div class="lang-text">
+            <strong>Galego</strong>
+            <small>Galicia</small>
+          </div>
+        </button>
+      </div>
+  <!-- MODAL DEL RETO SEMANAL -->
+  <div id="modal-weekly" class="modal-overlay">
+    <div class="modal-card" style="max-width: 580px; text-align: center;">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <div style="font-size: 2.8rem; margin-bottom: 0.25rem;">🏆🏛️🏆</div>
+      <h2 class="modal-title" data-i18n="modal_weekly_title">Reto Semanal del Club</h2>
+      <p class="modal-subtitle" data-i18n="modal_weekly_sub">Cada semana se corona un nuevo mosaico oficial para toda la comunidad.</p>
+
+      <div class="weekly-card-banner" style="background: rgba(15, 23, 42, 0.7); border: 2px solid var(--border-gold); border-radius: 12px; padding: 1.25rem; margin: 1.25rem 0; box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span id="weekly-week-badge" class="diff-badge" style="background: rgba(245, 158, 11, 0.2); border: 1px solid var(--border-gold); color: var(--gold-light); font-weight: 800;">SEMANA --</span>
+          <span id="weekly-status-badge" class="badge-pending" style="font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; background: rgba(56, 189, 248, 0.2); color: var(--cyan-primary); border: 1px solid var(--border-cyan);">RETO ACTIVO</span>
+        </div>
+
+        <h3 id="weekly-puzzle-title" style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--gold-light); margin-bottom: 0.4rem;">--</h3>
+        <p id="weekly-puzzle-desc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4;">--</p>
+
+        <div style="display: flex; justify-content: center; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); background: rgba(0,0,0,0.3); padding: 0.6rem; border-radius: 8px; margin-bottom: 1.2rem;">
+          <div>Tamaño: <strong id="weekly-puzzle-size" style="color: var(--text-main);">10×10</strong></div>
+          <div>Dificultad: <strong id="weekly-puzzle-diff" style="color: var(--gold-light);">Galería</strong></div>
+          <div>Tu tiempo: <strong id="weekly-puzzle-time" style="color: var(--cyan-primary);">--</strong></div>
+        </div>
+
+        <button id="btn-start-weekly-puzzle" class="btn-header" style="width: 100%; justify-content: center; padding: 0.75rem; font-size: 1rem; background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(30, 41, 59, 0.9)); border-color: var(--border-gold); color: var(--gold-light);" data-i18n="btn_play_weekly">
+          Jugar Reto Semanal
+        </button>
+      </div>
+
+      <div id="weekly-history-summary" style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">
+        <span id="weekly-streak-text">Victorias Semanales acumuladas: 0 🏆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DEL EDITOR VISUAL (TALLER DEL CREADOR) -->
+  <div id="modal-editor" class="modal-overlay">
+    <div class="modal-card" style="max-width: 680px;">
+      <button class="btn-close-modal" aria-label="Cerrar">✕</button>
+      <h2 class="modal-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <span>🖌️</span>
+        <span data-i18n="modal_editor_title">Taller de Creación de Nonogramas</span>
+      </h2>
+      <p class="modal-subtitle" data-i18n="modal_editor_sub">Dibuja tu ilustración sobre el lienzo y genera un puzle jugable al instante.</p>
+
+      <!-- BARRA DE CONFIGURACIÓN DEL EDITOR -->
+      <div class="editor-settings-bar" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; background: rgba(15, 23, 42, 0.6); padding: 0.85rem; border-radius: 10px; border: 1px solid var(--border-subtle);">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;" data-i18n="lbl_editor_size">Tamaño de Cuadrícula:</label>
+          <div class="editor-size-tabs" style="display: flex; gap: 0.35rem;">
+            <button class="btn-editor-size active" data-size="5">5×5</button>
+            <button class="btn-editor-size" data-size="10">10×10</button>
+            <button class="btn-editor-size" data-size="15">15×15</button>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;" data-i18n="lbl_editor_title">Título de la Obra:</label>
+          <input type="text" id="editor-puzzle-title" placeholder="Ej: Flor de Loto, Barco Velero..." maxlength="35" style="width: 100%; background: #070a13; border: 1px solid var(--border-gold); color: var(--text-main); padding: 0.45rem 0.65rem; border-radius: 6px; font-family: var(--font-sans); font-size: 0.85rem;">
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;" data-i18n="lbl_editor_color">Color Temático de la Obra:</label>
+          <div class="editor-color-palette" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="color-swatch active" data-color="#f59e0b" style="background: #f59e0b;" title="Dorado Zen"></button>
+            <button class="color-swatch" data-color="#f43f5e" style="background: #f43f5e;" title="Rubí Pasión"></button>
+            <button class="color-swatch" data-color="#38bdf8" style="background: #38bdf8;" title="Cian Eléctrico"></button>
+            <button class="color-swatch" data-color="#10b981" style="background: #10b981;" title="Esmeralda Viva"></button>
+            <button class="color-swatch" data-color="#a855f7" style="background: #a855f7;" title="Púrpura Místico"></button>
+            <button class="color-swatch" data-color="#ec4899" style="background: #ec4899;" title="Flor Sakura"></button>
+            <button class="color-swatch" data-color="#f97316" style="background: #f97316;" title="Ámbar Solar"></button>
+            <button class="color-swatch" data-color="#06b6d4" style="background: #06b6d4;" title="Turquesa"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÁREA DE DIBUJO CON PISTAS DINÁMICAS EN VIVO -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Haz clic o arrastra para encender o apagar píxeles:</span>
+        <div style="display: flex; gap: 0.35rem;">
+          <button id="btn-editor-clear" class="btn-secondary" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" data-i18n="btn_editor_clear">Limpiar</button>
+          <button id="btn-editor-invert" class="btn-secondary" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" data-i18n="btn_editor_invert">Invertir</button>
+        </div>
+      </div>
+
+      <div class="editor-canvas-wrapper" style="background: #030712; border: 1px solid var(--border-gold); border-radius: 12px; padding: 1rem; display: flex; justify-content: center; align-items: center; min-height: 280px; overflow: auto;">
+        <div id="editor-board-container"></div>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN DEL TALLER -->
+      <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem; flex-wrap: wrap;">
+        <button id="btn-editor-test" class="btn-header" style="flex: 1; min-width: 140px; justify-content: center; background: rgba(56, 189, 248, 0.2); border-color: var(--cyan-primary); color: var(--cyan-primary); padding: 0.6rem;" data-i18n="btn_editor_test">
+          ▶ Probar Puzle
+        </button>
+        <button id="btn-editor-save" class="btn-header" style="flex: 1; min-width: 170px; justify-content: center; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(30, 41, 59, 0.85)); border-color: var(--border-gold); color: var(--gold-light); padding: 0.6rem;" data-i18n="btn_editor_save">
+          💾 Guardar en Mi Taller
+        </button>
+        <button id="btn-editor-copy-json" class="btn-secondary" style="padding: 0.6rem 0.85rem;" data-i18n="btn_editor_copy_json" title="Copiar código JSON para incorporar a puzzles.js">
+          📋 Copiar JSON
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN FLOTANTE (TOAST) -->
+  <div id="toast-notification" class="toast-box"></div>
+
+  <!-- SCRIPTS EN ORDEN ESTRICTO -->
+  <script src="js/engine/puzzles.js"></script>
+  <script src="js/engine/nonogram-logic.js"></script>
+  <script src="js/engine/sound.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

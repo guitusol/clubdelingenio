@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Cubo de Rubik 3D — Club del Ingenio</title>
+  
+  <meta name="description" content="Cubo de Rubik 3D interactivo en Club del Ingenio. Speedcubing oficial WCA, Escuela de resolución paso a paso y patrones artísticos.">
+  <meta name="theme-color" content="#070a13">
+  <meta name="author" content="Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.">
+
+  <!-- Tipografías Oficiales de Club del Ingenio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Dark Luxury -->
+  <link rel="stylesheet" href="css/style.css?v=2.2">
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- CABECERA PRINCIPAL -->
+  <header class="app-header">
+    <div class="header-inner">
+      
+      <!-- Marca & Enlace -->
+      <a href="../index.html" class="brand-group">
+        <img src="cubo_rubik_logo.jpg" alt="Emblema Cubo de Rubik 3D" class="brand-crest" style="width:38px; height:38px; border-radius:8px; object-fit:cover; box-shadow:0 0 10px rgba(245,158,11,0.35);">
+        <div>
+          <span class="brand-title" data-i18n="app_title">Cubo de Rubik 3D</span>
+          <span class="brand-subtitle" data-i18n="app_subtitle">Lógica Espacial & Competición</span>
+        </div>
+      </a>
+
+      <!-- Modos de Interacción -->
+      <nav class="nav-modes">
+        <button class="mode-tab active" data-mode="free">
+          <span>🎮</span> <span data-i18n="mode_free">Modo Libre</span>
+        </button>
+        <button class="mode-tab" data-mode="timer">
+          <span>⏱️</span> <span data-i18n="mode_timer">Speedcubing WCA</span>
+        </button>
+        <button class="mode-tab" data-mode="tutor">
+          <span>🎓</span> <span data-i18n="mode_tutor">Escuela del Cubo</span>
+        </button>
+        <button class="mode-tab" data-mode="patterns">
+          <span>✨</span> <span data-i18n="mode_patterns">Patrones & Arte</span>
+        </button>
+      </nav>
+
+      <!-- Utilidades Cabecera -->
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-sound" title="Sonido">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button class="btn-icon btn-lang-display" id="btn-lang" title="Idioma">
+          <span>🌐</span>
+          <span id="current-lang-code" style="font-family: var(--font-mono); font-weight: 700; font-size: 0.78rem; margin-left: 2px;">ES</span>
+        </button>
+        <button class="btn-icon" id="btn-help" title="Ayuda y Atajos">
+          <span>❓</span>
+        </button>
+        <a href="../index.html" class="btn-back-hub">
+          <span>🏛️</span> <span data-i18n="back_to_club">Sede Central</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="app-main">
+
+    <!-- Barra de Scramble WCA -->
+    <div class="scramble-bar">
+      <span class="scramble-label">Scramble:</span>
+      <span class="scramble-text" id="scramble-text">R U' B2 L D' F2 U2 R B' D' R2 U' F2 L B2 D' F U R2</span>
+    </div>
+
+    <!-- BARRA DE MÉTRICAS Y CRONÓMETRO WCA (EXTERIOR AL VIEWPORT 3D) -->
+    <div class="rubik-status-strip">
+      <!-- HUD de Métricas en Vivo -->
+      <div class="hud-stats">
+        <div class="hud-stat-item">
+          <span class="hud-stat-label" data-i18n="stat_moves">Movimientos:</span>
+          <span class="hud-stat-val" id="stat-moves-val">0</span>
+        </div>
+        <div class="hud-stat-item">
+          <span class="hud-stat-label" data-i18n="stat_tps">Giros/s (TPS):</span>
+          <span class="hud-stat-val" id="stat-tps-val">0.0</span>
+        </div>
+      </div>
+
+      <!-- Cronómetro de Speedcubing -->
+      <div class="timer-overlay interactive-btn" id="timer-touch-trigger">
+        <div class="timer-time-val" id="timer-time">00:00.000</div>
+        <div class="timer-status-msg" id="timer-status" data-i18n="timer_ready">Mantén pulsado Espacio / Pantalla</div>
+      </div>
+    </div>
+
+    <!-- 3D VIEWPORT CONTAINER (100% LIBRE DE ELEMENTOS SUPERPUESTOS) -->
+    <div class="viewport-wrapper" id="timer-touch-area">
+      <div id="rubik-canvas-container"></div>
+    </div>
+
+    <!-- Floating Action Dock -->
+    <div class="action-dock interactive-btn">
+      <button class="btn-action-primary" id="btn-scramble">
+        <img src="rubik-icon.svg" style="width:18px; height:18px; vertical-align:-3px; margin-right:4px;" alt="Cubo"> <span data-i18n="btn_scramble">Mezclar Cubo</span>
+      </button>
+      <button class="btn-action-secondary" id="btn-solve">
+        <span>⚡</span> <span data-i18n="btn_solve">Resolver</span>
+      </button>
+      <button class="btn-action-secondary" id="btn-reset">
+        <span>🔄</span> <span data-i18n="btn_reset">Reiniciar</span>
+      </button>
+      <button class="btn-action-secondary" id="btn-undo">
+        <span>↩️</span> <span data-i18n="btn_undo">Deshacer</span>
+      </button>
+    </div>
+
+    <!-- Botonera de Giros WCA (Giro Directo) -->
+    <div class="wca-buttons-bar interactive-btn">
+      <div class="face-btn-group" title="Capa Superior (Up)">
+        <button class="face-btn" data-move="U">U</button>
+        <button class="face-btn" data-move="U'">U'</button>
+      </div>
+      <div class="face-btn-group" title="Capa Inferior (Down)">
+        <button class="face-btn" data-move="D">D</button>
+        <button class="face-btn" data-move="D'">D'</button>
+      </div>
+      <div class="face-btn-group" title="Capa Izquierda (Left)">
+        <button class="face-btn" data-move="L">L</button>
+        <button class="face-btn" data-move="L'">L'</button>
+      </div>
+      <div class="face-btn-group" title="Capa Derecha (Right)">
+        <button class="face-btn" data-move="R">R</button>
+        <button class="face-btn" data-move="R'">R'</button>
+      </div>
+      <div class="face-btn-group" title="Capa Frontal (Front)">
+        <button class="face-btn" data-move="F">F</button>
+        <button class="face-btn" data-move="F'">F'</button>
+      </div>
+      <div class="face-btn-group" title="Capa Trasera (Back)">
+        <button class="face-btn" data-move="B">B</button>
+        <button class="face-btn" data-move="B'">B'</button>
+      </div>
+    </div>
+
+    <!-- PANELES DE MODOS -->
+
+    <!-- PANEL 1: MODO LIBRE (Default) -->
+    <section class="mode-panel active" id="panel-free">
+      <!-- Estadísticas rápidas -->
+      <div style="display:flex; justify-content:center; gap:2rem; margin-top:0.75rem; font-size:0.85rem; color:var(--text-muted);">
+        <div><strong style="color:#fff;" data-i18n="stat_best">Mejor (PB):</strong> <span id="stat-best-val" style="color:var(--gold-light); font-family:var(--font-mono);">--:--.---</span></div>
+        <div><strong style="color:#fff;" data-i18n="stat_ao5">Media de 5 (Ao5):</strong> <span id="stat-ao5-val" style="color:var(--cyan-primary); font-family:var(--font-mono);">--:--.---</span></div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: SPEEDCUBING WCA -->
+    <section class="mode-panel" id="panel-timer">
+      <div class="tutor-card">
+        <div class="tutor-header">
+          <div class="tutor-title-group">
+            <span class="tutor-badge">WCA</span>
+            <h3 class="tutor-title" data-i18n="mode_timer">Speedcubing WCA</h3>
+          </div>
+        </div>
+        <p class="tutor-desc">
+          Coloca tus manos sobre el teclado manteniendo pulsada la <strong>Barra Espaciadora</strong> (o toca y mantén la pantalla en móviles). Cuando el cronómetro se ilumine en verde, suelta para comenzar a resolver. Al finalizar el último giro, vuelve a pulsar para registrar tu tiempo oficial.
+        </p>
+      </div>
+    </section>
+
+    <!-- PANEL 3: ESCUELA DEL CUBO (TUTOR PASO A PASO) -->
+    <section class="mode-panel" id="panel-tutor">
+      <div class="tutor-card">
+        <div class="tutor-header">
+          <div class="tutor-title-group">
+            <span class="tutor-badge" id="tutor-step-badge">1/7</span>
+            <h3 class="tutor-title" id="tutor-step-title" data-i18n="step_cross">Paso 1: Cruz Blanca</h3>
+          </div>
+          <button class="btn-action-primary" id="btn-tutor-step">
+            <span>✨</span> <span data-i18n="btn_auto_step">Ejecutar Paso</span>
+          </button>
+        </div>
+        <p class="tutor-desc" id="tutor-step-desc">
+          Forma una cruz blanca en la cara superior haciendo coincidir el lateral de cada arista con su centro correspondiente.
+        </p>
+        <div class="tutor-algo-box">
+          <span class="algo-label">Algoritmo Recomendado:</span>
+          <span class="algo-formula" id="tutor-step-algo">F R U R' U' F'</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 4: PATRONES ARTÍSTICOS -->
+    <section class="mode-panel" id="panel-patterns">
+      <div class="patterns-grid" id="patterns-grid">
+        <!-- Generado dinámicamente -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: IDIOMAS (9 IDIOMAS) -->
+  <div class="modal-overlay" id="modal-lang">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">🌐 Seleccionar Idioma</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <div class="lang-grid">
+        <button class="lang-btn" data-lang="es"><span class="lang-flag">🇪🇸</span><span>Español</span></button>
+        <button class="lang-btn" data-lang="en"><span class="lang-flag">🇬🇧</span><span>English</span></button>
+        <button class="lang-btn" data-lang="ca"><span class="lang-flag">🏛️</span><span>Català</span></button>
+        <button class="lang-btn" data-lang="va"><span class="lang-flag">🦇</span><span>Valencià</span></button>
+        <button class="lang-btn" data-lang="gl"><span class="lang-flag">🌊</span><span>Galego</span></button>
+        <button class="lang-btn" data-lang="eu"><span class="lang-flag">🏔️</span><span>Euskara</span></button>
+        <button class="lang-btn" data-lang="fr"><span class="lang-flag">🇫🇷</span><span>Français</span></button>
+        <button class="lang-btn" data-lang="de"><span class="lang-flag">🇩🇪</span><span>Deutsch</span></button>
+        <button class="lang-btn" data-lang="ja"><span class="lang-flag">🇯🇵</span><span>日本語</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: AYUDA Y ATAJOS -->
+  <div class="modal-overlay" id="modal-help">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="help_title">Guía de Manejo & Atajos</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <div class="help-list">
+        <div class="help-item">
+          <span>🔄</span>
+          <div>
+            <strong>Giro Orbital 3D:</strong>
+            <p data-i18n="help_drag_cube">Arrastra en el fondo para rotar la cámara en 3D.</p>
+          </div>
+        </div>
+        <div class="help-item">
+          <span>🖐️</span>
+          <div>
+            <strong>Giro de Capas Táctil:</strong>
+            <p data-i18n="help_drag_layer">Toca y arrastra directamente una cara del cubo para girar esa capa en esa dirección física.</p>
+          </div>
+        </div>
+        <div class="help-item">
+          <span>⌨️</span>
+          <div>
+            <strong>Teclado WCA:</strong>
+            <p data-i18n="help_keys">Teclas WCA: U, D, L, R, F, B (Mayús = antihorario). Espacio = Iniciar/Parar cronómetro.</p>
+          </div>
+        </div>
+        <div class="help-item">
+          <span>↩️</span>
+          <div>
+            <strong>Deshacer Movimiento:</strong>
+            <p>Pulsa <strong>Ctrl + Z</strong> para deshacer el último movimiento ejecutado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICACIÓN -->
+  <div class="rubik-toast" id="rubik-toast">¡Notificación!</div>
+
+  <!-- SCRIPT PRINCIPAL -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

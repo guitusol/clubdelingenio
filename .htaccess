@@ -1,0 +1,46 @@
+# ==============================================================================
+# CLUB DEL INGENIO — CONFIGURACIÓN APACHE (.htaccess)
+# Sede Canónica Oficial: https://clubdelingenio.com
+# Redirección automática 301 desde clubdelingenio.es y www hacia .com
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Ignorar en local (localhost o 127.0.0.1) para permitir pruebas en Laragon
+  RewriteCond %{HTTP_HOST} ^localhost$ [NC,OR]
+  RewriteCond %{HTTP_HOST} ^127\.0\.0\.1$ [NC]
+  RewriteRule ^ - [L]
+
+  # 2. Redirección canónica 301 desde clubdelingenio.es (con o sin www) hacia clubdelingenio.com
+  RewriteCond %{HTTP_HOST} ^(www\.)?clubdelingenio\.es$ [NC]
+  RewriteRule ^(.*)$ https://clubdelingenio.com/$1 [R=301,L,QSA]
+
+  # 3. Redirección canónica 301 desde www.clubdelingenio.com hacia https://clubdelingenio.com
+  RewriteCond %{HTTP_HOST} ^www\.clubdelingenio\.com$ [NC]
+  RewriteRule ^(.*)$ https://clubdelingenio.com/$1 [R=301,L,QSA]
+
+  # 4. Forzar HTTPS en clubdelingenio.com
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP_HOST} ^clubdelingenio\.com$ [NC]
+  RewriteRule ^(.*)$ https://clubdelingenio.com/$1 [R=301,L,QSA]
+</IfModule>
+
+# ==============================================================================
+# SEGURIDAD Y TIPOS MIME
+# ==============================================================================
+<IfModule mod_headers.c>
+  # Prevenir MIME-sniffing
+  Header always set X-Content-Type-Options "nosniff"
+  # Prevenir Clickjacking manteniendo compatibilidad en el mismo origen
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType application/json .json
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+</IfModule>

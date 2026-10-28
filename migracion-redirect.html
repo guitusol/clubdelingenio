@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Club del Ingenio — Traslado a la Sede Oficial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #07090e 70%);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.15);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+    .emblem {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(56, 189, 248, 0.1));
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.75rem;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);
+      animation: pulse 2.5s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
+      100% { transform: scale(1.05); box-shadow: 0 0 35px rgba(245, 158, 11, 0.4); }
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.85rem;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .tagline {
+      color: var(--cyan);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+    p.desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .status-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(56, 189, 248, 0.2);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-action {
+      display: inline-block;
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #000;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(245, 158, 11, 0.5);
+    }
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="emblem">🏛️</div>
+    <h1>CLUB DEL INGENIO</h1>
+    <div class="tagline">La Sede Oficial de la Lógica y el Desafío Cognitivo</div>
+
+    <p class="desc">
+      Nos hemos trasladado a nuestro portal oficial <strong>clubdelingenio.com</strong>.<br>
+      Para tu comodidad, estamos transfiriendo tus <strong>partidas, récords y configuración</strong> de forma 100% segura y automática.
+    </p>
+
+    <div class="status-box">
+      <div class="spinner"></div>
+      <div>
+        <span id="status-text">Empaquetando tu historial y progreso...</span><br>
+        <small style="color: var(--cyan);">Redirigiendo automáticamente en <strong id="countdown">3</strong>s</small>
+      </div>
+    </div>
+
+    <button id="btn-redirect-now" class="btn-action">
+      🚀 Entrar al Club del Ingenio Ahora
+    </button>
+
+    <div class="footer-note">
+      Tus logros y estadísticas quedan preservados en el nuevo dominio oficial.
+    </div>
+  </div>
+
+  <script>
+    // 1. Detección de la app de origen y empaquetado de datos
+    (function() {
+      const isTopSudoku = window.location.pathname.includes('top-sudoku');
+      const baseDestination = isTopSudoku 
+        ? 'https://clubdelingenio.com/top-sudoku/' 
+        : 'https://clubdelingenio.com/sudoku-arena/';
+
+      let backupPayload = null;
+
+      try {
+        if (isTopSudoku) {
+          // Extraer datos de Top-Sudoku
+          const topData = {};
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && (key.startsWith('top_sudoku') || key.startsWith('sudoku_puzzle_'))) {
+              topData[key] = localStorage.getItem(key);
+            }
+          }
+          if (Object.keys(topData).length > 0) {
+            backupPayload = btoa(encodeURIComponent(JSON.stringify(topData)));
+          }
+        } else {
+          // Extraer datos de Sudoku Arena
+          const arenaData = {
+            history: JSON.parse(localStorage.getItem('sudoku_arena_player_history_v1') || 'null'),
+            vault: JSON.parse(localStorage.getItem('sudoku_arena_vault_v1') || 'null'),
+            profile: JSON.parse(localStorage.getItem('sudoku_arena_player_master_profile_v1') || 'null'),
+            weekly: JSON.parse(localStorage.getItem('sudoku_arena_weekly_history_v1') || 'null')
+          };
+          if (arenaData.history || arenaData.vault || arenaData.profile || arenaData.weekly) {
+            backupPayload = btoa(encodeURIComponent(JSON.stringify(arenaData)));
+          }
+        }
+      } catch (e) {
+        console.warn('No se pudo empaquetar localStorage:', e);
+      }
+
+      const finalUrl = backupPayload 
+        ? `${baseDestination}?traspaso=${backupPayload}` 
+        : baseDestination;
+
+      // 2. Botón manual
+      const btn = document.getElementById('btn-redirect-now');
+      btn.addEventListener('click', () => {
+        window.location.replace(finalUrl);
+      });
+
+      // 3. Cuenta atrás y redirección automática
+      let timeLeft = 3;
+      const countEl = document.getElementById('countdown');
+      const timer = setInterval(() => {
+        timeLeft--;
+        if (countEl) countEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.replace(finalUrl);
+        }
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>
