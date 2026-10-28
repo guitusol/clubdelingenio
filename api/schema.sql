@@ -58,3 +58,24 @@ VALUES
 ON DUPLICATE KEY UPDATE 
   `score` = VALUES(`score`),
   `time_seconds` = VALUES(`time_seconds`);
+
+-- 4. Estructura de la tabla de Salas de Damas Online (Duelos Multijugador)
+CREATE TABLE IF NOT EXISTS `damas_rooms` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `room_code` VARCHAR(16) NOT NULL UNIQUE COMMENT 'Código único de sala (ej. DAMAS-A8K2M)',
+    `player_white` VARCHAR(64) DEFAULT NULL COMMENT 'ID de sesión/dispositivo del jugador Blancas',
+    `player_white_name` VARCHAR(50) DEFAULT 'Blancas' COMMENT 'Nombre o alias del jugador Blancas',
+    `player_black` VARCHAR(64) DEFAULT NULL COMMENT 'ID de sesión/dispositivo del jugador Negras',
+    `player_black_name` VARCHAR(50) DEFAULT 'Negras' COMMENT 'Nombre o alias del jugador Negras',
+    `status` ENUM('waiting', 'playing', 'finished', 'abandoned') NOT NULL DEFAULT 'waiting',
+    `turn` CHAR(1) NOT NULL DEFAULT 'W' COMMENT 'Turno actual: W o B',
+    `board_json` MEDIUMTEXT NOT NULL COMMENT 'Estado del tablero 8x8 serializado',
+    `last_move_json` TEXT DEFAULT NULL COMMENT 'Último movimiento realizado para reproducir animación',
+    `move_count` INT NOT NULL DEFAULT 0,
+    `winner` CHAR(1) DEFAULT NULL COMMENT 'W, B o null si sigue en juego',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX `idx_room_code` (`room_code`),
+    INDEX `idx_room_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

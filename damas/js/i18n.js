@@ -13,6 +13,7 @@ export const I18N = {
     // Modos
     mode_ai: "Vs Inteligencia Artificial",
     mode_pvp: "Duelo 1v1 Local",
+    mode_online: "🌐 Duelo Online",
     mode_puzzles: "Retos de Salón",
     
     // Controles de Bando y Giro
@@ -77,7 +78,28 @@ export const I18N = {
     rules_quality: "3. Ley de la Calidad: A igualdad de número de piezas a capturar, es obligatorio elegir la opción donde se capturen más Damas. Si persiste el empate, se prioriza comer con la Dama frente al peón.",
     rules_3: "4. Damas voladoras: Al alcanzar la última fila rival, la pieza corona y se convierte en DAMA. Las damas pueden recorrer toda la diagonal libremente en cualquier dirección y saltar a distancia. Si un peón corona comiendo en una captura múltiple, el turno finaliza de inmediato.",
     rules_4: "5. Fin de partida: Gana el jugador que capture todas las piezas rivales o las deje completamente bloqueadas sin jugada legal.",
-    rules_pvp_tip: "💡 Consejo Multijugador: En una próxima actualización se activarán las salas online por enlace y WhatsApp."
+    rules_pvp_tip: "💡 Duelos Online Activos: Puedes crear una sala y compartir el enlace directo o invitar a tu rival por WhatsApp en tiempo real sin registro.",
+
+    // Online Multiplayer
+    online_modal_title: "🌐 Duelo Online entre Dos Jugadores",
+    online_tab_create: "Crear Sala",
+    online_tab_join: "Unirse con Código",
+    online_player_name: "Tu Nombre o Alias:",
+    online_side_choose: "Elegir Bando Inicial:",
+    online_btn_create: "🚀 Crear Sala y Generar Enlace",
+    online_btn_join: "⚔️ Entrar a la Partida",
+    online_room_code_label: "Código de Sala:",
+    online_room_code_input: "Ejemplo: DAMAS-7X4K2M",
+    online_room_created: "¡Sala Creada con Éxito!",
+    online_share_link: "Enlace Directo de la Sala:",
+    online_btn_copy: "📋 Copiar Enlace Directo",
+    online_btn_whatsapp: "📲 Invitar por WhatsApp",
+    online_waiting_opponent: "⏳ Esperando a que tu rival se una...",
+    online_opponent_connected: "🟢 ¡Rival conectado! La partida ha comenzado.",
+    online_your_turn: "Tu Turno",
+    online_opponent_turn: "Turno del Rival (Pensando...)",
+    online_btn_leave: "🚪 Salir de Sala",
+    online_copied_toast: "¡Enlace copiado al portapapeles!"
   },
 
   en: {
@@ -87,6 +109,7 @@ export const I18N = {
     
     mode_ai: "Vs Artificial Intelligence",
     mode_pvp: "Local 1v1 Duel",
+    mode_online: "🌐 Online Duel",
     mode_puzzles: "Tactical Challenges",
     
     side_label: "Side:",
@@ -128,15 +151,15 @@ export const I18N = {
     puzzle_title: "Tactical Puzzle: ",
     puzzle_inst: "Find the winning capture sequence:",
     puzzle_solved: "Puzzle Solved Successfully!",
-    puzzle_solved_desc: "You executed the perfect tactical sequence.",
+    puzzle_solved_desc: "You executed the flawless tactical sequence.",
     puzzle_1_title: "The V-Jump",
     puzzle_1_desc: "Find the diagonal to capture 2 pieces and crown.",
-    puzzle_2_title: "The Relentless King",
-    puzzle_2_desc: "Sweep 3 enemy pieces using flying king moves.",
-    puzzle_3_title: "Sacrifice Trap",
-    puzzle_3_desc: "Force enemy capture to open a triple jump cascade.",
+    puzzle_2_title: "The Ruthless King",
+    puzzle_2_desc: "Sweep 3 enemy pieces with the flying King.",
+    puzzle_3_title: "The Sacrifice Trap",
+    puzzle_3_desc: "Force the enemy jump to open a triple capture.",
     puzzle_4_title: "The Royal Corridor",
-    puzzle_4_desc: "Dominate the main diagonal and finish the game.",
+    puzzle_4_desc: "Dominate the main diagonal and seal victory.",
     
     rules_title: "Official Rules: Spanish Draughts",
     rules_1: "1. Basic movement: Men move diagonally forward one dark square.",
@@ -144,7 +167,27 @@ export const I18N = {
     rules_quality: "3. Quality Law: Tied on captured piece count, you must choose the path that captures the most Kings. If still tied, capturing with a King takes precedence over a man.",
     rules_3: "4. Flying Kings (Damas): Reaching the opposing back row crowns the piece into a Flying King. If a man crowns during a jump sequence, its turn ends immediately.",
     rules_4: "5. Victory: You win by capturing all enemy pieces or trapping them without any legal moves.",
-    rules_pvp_tip: "💡 Online Multiplayer: Direct room invites via WhatsApp will be enabled in the upcoming update."
+    rules_pvp_tip: "💡 Online Duels Active: Create a room and share the link or invite your rival via WhatsApp in real time without registration.",
+
+    online_modal_title: "🌐 Online Duel Between Two Players",
+    online_tab_create: "Create Room",
+    online_tab_join: "Join by Code",
+    online_player_name: "Your Name or Alias:",
+    online_side_choose: "Choose Initial Side:",
+    online_btn_create: "🚀 Create Room & Generate Link",
+    online_btn_join: "⚔️ Enter the Match",
+    online_room_code_label: "Room Code:",
+    online_room_code_input: "Example: DAMAS-7X4K2M",
+    online_room_created: "Room Created Successfully!",
+    online_share_link: "Direct Room Link:",
+    online_btn_copy: "📋 Copy Direct Link",
+    online_btn_whatsapp: "📲 Invite via WhatsApp",
+    online_waiting_opponent: "⏳ Waiting for opponent to join...",
+    online_opponent_connected: "🟢 Opponent connected! The match has begun.",
+    online_your_turn: "Your Turn",
+    online_opponent_turn: "Opponent's Turn (Thinking...)",
+    online_btn_leave: "🚪 Leave Room",
+    online_copied_toast: "Link copied to clipboard!"
   },
 
   ja: {
@@ -153,6 +196,7 @@ export const I18N = {
     back_to_club: "クラブ本部",
     mode_ai: "対局 AI (コンピュータ)",
     mode_pvp: "1対1 ローカル対戦",
+    mode_online: "🌐 オンライン対戦",
     mode_puzzles: "詰めチェッカー",
     side_label: "手番:",
     side_white: "白番",
@@ -203,7 +247,27 @@ export const I18N = {
     rules_quality: "3. 品質優先ルール: 同数取れる場合は、キングを多く取れる手を優先します。同等の場合はキングでの捕獲が優先されます。",
     rules_3: "4. フライング・キング: 最奥列に達するとキングとなり斜め長距離移動が可能になります。駒取り途中で成った場合、その手番は終了します。",
     rules_4: "5. 勝敗: 相手の駒を全滅させるか、動けない状態にすると勝利です。",
-    rules_pvp_tip: "💡 オンライン対局: 近日中のアップデートで招待リンク機能が開放されます。"
+    rules_pvp_tip: "💡 オンライン対局対応: 部屋を作成して招待リンクやWhatsAppですぐに対戦相手を呼んでリアルタイム対局が可能です（登録不要）。",
+
+    online_modal_title: "🌐 2人対戦オンラインデュエル",
+    online_tab_create: "部屋を作成",
+    online_tab_join: "合言葉で参加",
+    online_player_name: "プレイヤー名:",
+    online_side_choose: "初期手番の選択:",
+    online_btn_create: "🚀 部屋を作成してリンクを発行",
+    online_btn_join: "⚔️ 対局に参加する",
+    online_room_code_label: "部屋コード:",
+    online_room_code_input: "例: DAMAS-7X4K2M",
+    online_room_created: "部屋の作成が完了しました！",
+    online_share_link: "対局招待リンク:",
+    online_btn_copy: "📋 招待リンクをコピー",
+    online_btn_whatsapp: "📲 WhatsAppで招待する",
+    online_waiting_opponent: "⏳ 対戦相手の参加を待っています...",
+    online_opponent_connected: "🟢 対戦相手が接続しました！対局開始！",
+    online_your_turn: "あなたの手番",
+    online_opponent_turn: "相手の手番（長考中...）",
+    online_btn_leave: "🚪 部屋を退室",
+    online_copied_toast: "招待リンクをクリップボードにコピーしました！"
   },
 
   fr: {
@@ -212,6 +276,7 @@ export const I18N = {
     back_to_club: "Siège Central",
     mode_ai: "Contre l'IA",
     mode_pvp: "Duel Local 1v1",
+    mode_online: "🌐 Duel en Ligne",
     mode_puzzles: "Défis de Salon",
     side_label: "Camp :",
     side_white: "Blancs",
@@ -262,7 +327,27 @@ export const I18N = {
     rules_quality: "3. Loi de la qualité : À égalité de pièces, priorité à la prise du plus grand nombre de dames, puis à la prise par une dame.",
     rules_3: "4. Dames volantes : La dame se déplace à longue distance. Si un pion couronne en prenant, le tour prend fin immédiatement.",
     rules_4: "5. Victoire : Capturer tous les pions adverses ou bloquer tout coup légal.",
-    rules_pvp_tip: "💡 Multijoueur en ligne : Les salons privés avec lien WhatsApp seront activés prochainement."
+    rules_pvp_tip: "💡 Duels en Ligne Actifs : Créez un salon et partagez le lien direct ou invitez votre adversaire par WhatsApp en temps réel sans inscription.",
+
+    online_modal_title: "🌐 Duel en Ligne entre Deux Joueurs",
+    online_tab_create: "Créer un Salon",
+    online_tab_join: "Rejoindre avec Code",
+    online_player_name: "Votre Nom ou Pseudo :",
+    online_side_choose: "Choisir le Camp Initial :",
+    online_btn_create: "🚀 Créer le Salon et Générer le Lien",
+    online_btn_join: "⚔️ Rejoindre la Partie",
+    online_room_code_label: "Code du Salon :",
+    online_room_code_input: "Exemple : DAMAS-7X4K2M",
+    online_room_created: "Salon Créé avec Succès !",
+    online_share_link: "Lien Direct d'Invitation :",
+    online_btn_copy: "📋 Copier le Lien Direct",
+    online_btn_whatsapp: "📲 Inviter par WhatsApp",
+    online_waiting_opponent: "⏳ En attente de votre adversaire...",
+    online_opponent_connected: "🟢 Adversaire connecté ! La partie a commencé.",
+    online_your_turn: "À votre tour",
+    online_opponent_turn: "Tour de l'adversaire (Réflexion...)",
+    online_btn_leave: "🚪 Quitter le Salon",
+    online_copied_toast: "Lien copié dans le presse-papiers !"
   },
 
   de: {
@@ -271,6 +356,7 @@ export const I18N = {
     back_to_club: "Hauptzentrale",
     mode_ai: "Gegen KI",
     mode_pvp: "Lokales 1v1 Duell",
+    mode_online: "🌐 Online-Duell",
     mode_puzzles: "Taktik-Aufgaben",
     side_label: "Seite:",
     side_white: "Weiß",
@@ -321,7 +407,27 @@ export const I18N = {
     rules_quality: "3. Qualitätsregel: Bei gleicher Anzahl müssen vorrangig Damen geschlagen werden.",
     rules_3: "4. Fliegende Damen: Damen ziehen beliebig weit diagonal. Bei Umwandlung im Schlag endet der Zug sofort.",
     rules_4: "5. Spielende: Sieg durch Schlagen aller Steine oder Blockieren aller Züge.",
-    rules_pvp_tip: "💡 Online-Multiplayer: Partien per WhatsApp-Einladung folgen im nächsten Ausbau."
+    rules_pvp_tip: "💡 Online-Duelle Aktiv: Erstelle einen Raum und teile den Direktlink oder lade deinen Gegner per WhatsApp in Echtzeit ohne Registrierung ein.",
+
+    online_modal_title: "🌐 Online-Duell zwischen zwei Spielern",
+    online_tab_create: "Raum erstellen",
+    online_tab_join: "Mit Code beitreten",
+    online_player_name: "Dein Name oder Alias:",
+    online_side_choose: "Startseite wählen:",
+    online_btn_create: "🚀 Raum erstellen & Link generieren",
+    online_btn_join: "⚔️ Dem Spiel beitreten",
+    online_room_code_label: "Raumcode:",
+    online_room_code_input: "Beispiel: DAMAS-7X4K2M",
+    online_room_created: "Raum erfolgreich erstellt!",
+    online_share_link: "Direkter Einladungslink:",
+    online_btn_copy: "📋 Direktlink kopieren",
+    online_btn_whatsapp: "📲 Per WhatsApp einladen",
+    online_waiting_opponent: "⏳ Warten auf Gegner...",
+    online_opponent_connected: "🟢 Gegner verbunden! Das Spiel hat begonnen.",
+    online_your_turn: "Dein Zug",
+    online_opponent_turn: "Gegnerzug (Denkt nach...)",
+    online_btn_leave: "🚪 Raum verlassen",
+    online_copied_toast: "Link in die Zwischenablage kopiert!"
   },
 
   ca: {
@@ -330,6 +436,7 @@ export const I18N = {
     back_to_club: "Seu Central",
     mode_ai: "Vs Intel·ligència Artificial",
     mode_pvp: "Duel 1v1 Local",
+    mode_online: "🌐 Duel Online",
     mode_puzzles: "Reptes de Saló",
     side_label: "Bàndol:",
     side_white: "Blanques",
@@ -380,7 +487,27 @@ export const I18N = {
     rules_quality: "3. Llei de la Qualitat: A igualtat de captures, prioritat a menjar més dames.",
     rules_3: "4. Dames voladores: La dama mou lliurement. Si corona menjant, el torn acaba immediatament.",
     rules_4: "5. Fi de partida: Guanya qui mengi totes les fitxes rivals o les bloquegi.",
-    rules_pvp_tip: "💡 Multijugador online: Sales remotes per enllaç s'habilitaran properament."
+    rules_pvp_tip: "💡 Duels Online Actius: Pots crear una sala i compartir l'enllaç directe o convidar el teu rival per WhatsApp en temps real sense registre.",
+
+    online_modal_title: "🌐 Duel Online entre Dos Jugadors",
+    online_tab_create: "Crear Sala",
+    online_tab_join: "Unir-se amb Codi",
+    online_player_name: "El teu Nom o Àlies:",
+    online_side_choose: "Triar Bàndol Inicial:",
+    online_btn_create: "🚀 Crear Sala i Generar Enllaç",
+    online_btn_join: "⚔️ Entrar a la Partida",
+    online_room_code_label: "Codi de Sala:",
+    online_room_code_input: "Exemple: DAMAS-7X4K2M",
+    online_room_created: "Sala Creada amb Èxit!",
+    online_share_link: "Enllaç Directe de la Sala:",
+    online_btn_copy: "📋 Copiar Enllaç Directe",
+    online_btn_whatsapp: "📲 Convidar per WhatsApp",
+    online_waiting_opponent: "⏳ Esperant que el teu rival s'uneixi...",
+    online_opponent_connected: "🟢 Rival connectat! La partida ha començat.",
+    online_your_turn: "El teu Torn",
+    online_opponent_turn: "Torn del Rival (Pensant...)",
+    online_btn_leave: "🚪 Sortir de Sala",
+    online_copied_toast: "Enllaç copiat al porta-retalls!"
   },
 
   va: {
@@ -389,6 +516,7 @@ export const I18N = {
     back_to_club: "Seu Central",
     mode_ai: "Vs Intel·ligència Artificial",
     mode_pvp: "Duel 1v1 Local",
+    mode_online: "🌐 Duel Online",
     mode_puzzles: "Reptes de Saló",
     side_label: "Bàndol:",
     side_white: "Blanques",
@@ -439,7 +567,27 @@ export const I18N = {
     rules_quality: "3. Llei de la Qualitat: A igualtat de captures, prioritat a menjar més dames.",
     rules_3: "4. Dames voladores: La dama mou lliurement. Si corona menjant, el torn acaba immediatament.",
     rules_4: "5. Fi de partida: Guanya qui capture totes les peces o bloquege al rival.",
-    rules_pvp_tip: "💡 Multijugador online: Sales remotes per enllaç s'habilitaran prompte."
+    rules_pvp_tip: "💡 Duels Online Actius: Pots crear una sala i compartir l'enllaç directe o convidar el teu rival per WhatsApp en temps real sense registre.",
+
+    online_modal_title: "🌐 Duel Online entre Dos Jugadors",
+    online_tab_create: "Crear Sala",
+    online_tab_join: "Unir-se amb Codi",
+    online_player_name: "El teu Nom o Àlies:",
+    online_side_choose: "Triar Bàndol Inicial:",
+    online_btn_create: "🚀 Crear Sala i Generar Enllaç",
+    online_btn_join: "⚔️ Entrar a la Partida",
+    online_room_code_label: "Codi de Sala:",
+    online_room_code_input: "Exemple: DAMAS-7X4K2M",
+    online_room_created: "Sala Creada amb Èxit!",
+    online_share_link: "Enllaç Directe de la Sala:",
+    online_btn_copy: "📋 Copiar Enllaç Directe",
+    online_btn_whatsapp: "📲 Convidar per WhatsApp",
+    online_waiting_opponent: "⏳ Esperant que el teu rival s'unisca...",
+    online_opponent_connected: "🟢 Rival connectat! La partida ha començat.",
+    online_your_turn: "El teu Torn",
+    online_opponent_turn: "Torn del Rival (Pensant...)",
+    online_btn_leave: "🚪 Eixir de Sala",
+    online_copied_toast: "Enllaç copiat al porta-retalls!"
   },
 
   eu: {
@@ -448,6 +596,7 @@ export const I18N = {
     back_to_club: "Egoitza Nagusia",
     mode_ai: "Adimen Artifizialaren Aurka",
     mode_pvp: "1v1 Bertako Duelua",
+    mode_online: "🌐 Lineako Duelua",
     mode_puzzles: "Saloi Erronkak",
     side_label: "Aldea:",
     side_white: "Zuriak",
@@ -498,7 +647,27 @@ export const I18N = {
     rules_quality: "3. Kalitatearen Legea: Pieza kopuru berdina harrapatzean, dama gehien harrapatzen dituen aukera lehenetsi behar da.",
     rules_3: "4. Dama hegalariak: Azken lerrora iristean dama bihurtzen da. Jaten ari dela koroatuz gero, txanda amaitzen da.",
     rules_4: "5. Amaiera: Aurkariaren pieza guztiak harrapatuz edo blokeatuz irabazten da.",
-    rules_pvp_tip: "💡 Online jokoa: WhatsApp bidezko gonbidapenak laster egongo dira eskuragarri."
+    rules_pvp_tip: "💡 Lineako Duoak Martxan: Gela bat sortu eta esteka partekatu edo zure aurkaria WhatsApp bidez gonbida dezakezu erregistratu gabe.",
+
+    online_modal_title: "🌐 Bi Jokalariren Arteko Lineako Duelua",
+    online_tab_create: "Gela Sortu",
+    online_tab_join: "Kodearekin Sartu",
+    online_player_name: "Zure Izena edo Ezizena:",
+    online_side_choose: "Hasierako Aldea Aukeratu:",
+    online_btn_create: "🚀 Gela Sortu eta Esteka Sortu",
+    online_btn_join: "⚔️ Partidara Sartu",
+    online_room_code_label: "Gelaren Kodea:",
+    online_room_code_input: "Adibidez: DAMAS-7X4K2M",
+    online_room_created: "Gela Arrakastaz Sortu Da!",
+    online_share_link: "Zuzeneko Gonbidapen Esteka:",
+    online_btn_copy: "📋 Zuzeneko Esteka Kopiatu",
+    online_btn_whatsapp: "📲 WhatsApp bidez gonbidatu",
+    online_waiting_opponent: "⏳ Aurkaria sartu arte zain...",
+    online_opponent_connected: "🟢 Aurkaria konektatuta! Partida hasi da.",
+    online_your_turn: "Zure Txanda",
+    online_opponent_turn: "Aurkariaren Txanda (Pentsatzen...)",
+    online_btn_leave: "🚪 Gela Utzi",
+    online_copied_toast: "Esteka arbelean kopiatu da!"
   },
 
   gl: {
@@ -507,6 +676,7 @@ export const I18N = {
     back_to_club: "Sede Central",
     mode_ai: "Vs Intelixencia Artificial",
     mode_pvp: "Duelo 1v1 Local",
+    mode_online: "🌐 Duelo Online",
     mode_puzzles: "Retos de Salón",
     side_label: "Bando:",
     side_white: "Brancas",
@@ -557,7 +727,27 @@ export const I18N = {
     rules_quality: "3. Lei da Calidade: A igualdade de capturas, prioridade a comer máis damas.",
     rules_3: "4. Damas voadoras: Ao acadar a última fila coróase como DAMA. Se coroa comendo, a quenda remata de inmediato.",
     rules_4: "5. Fin de partida: Gaña quen coma todas as pezas rivais ou as bloquee por completo.",
-    rules_pvp_tip: "💡 Multixogador en liña: As salas por ligazón activaranse proximamente."
+    rules_pvp_tip: "💡 Duelos Online Activos: Podes crear unha sala e compartir a ligazón directa ou convidar o teu rival por WhatsApp en tempo real sen rexistro.",
+
+    online_modal_title: "🌐 Duelo Online entre Dous Xogadores",
+    online_tab_create: "Crear Sala",
+    online_tab_join: "Unirse con Código",
+    online_player_name: "O teu Nome ou Alias:",
+    online_side_choose: "Elixir Bando Inicial:",
+    online_btn_create: "🚀 Crear Sala e Xerar Ligazón",
+    online_btn_join: "⚔️ Entrar na Partida",
+    online_room_code_label: "Código de Sala:",
+    online_room_code_input: "Exemplo: DAMAS-7X4K2M",
+    online_room_created: "Sala Creada con Éxito!",
+    online_share_link: "Ligazón Directa da Sala:",
+    online_btn_copy: "📋 Copiar Ligazón Directa",
+    online_btn_whatsapp: "📲 Convidar por WhatsApp",
+    online_waiting_opponent: "⏳ Agardando a que o rival se una...",
+    online_opponent_connected: "🟢 Rival conectado! A partida comezou.",
+    online_your_turn: "A túa Quenda",
+    online_opponent_turn: "Quenda do Rival (Pensando...)",
+    online_btn_leave: "🚪 Saír da Sala",
+    online_copied_toast: "Ligazón copiada ao portapapeis!"
   }
 };
 
@@ -598,7 +788,7 @@ class DamasI18nManager {
       const key = el.getAttribute('data-i18n');
       const text = this.t(key);
       if (text) {
-        if (el.tagName === 'INPUT' && el.type === 'button') {
+        if (el.tagName === 'INPUT' && (el.type === 'button' || el.type === 'submit')) {
           el.value = text;
         } else {
           el.textContent = text;
@@ -610,6 +800,12 @@ class DamasI18nManager {
       const key = el.getAttribute('data-i18n-title');
       const text = this.t(key);
       if (text) el.title = text;
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const text = this.t(key);
+      if (text) el.placeholder = text;
     });
 
     const langCodeEl = document.getElementById('current-lang-code');

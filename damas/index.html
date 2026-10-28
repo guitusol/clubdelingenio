@@ -52,6 +52,9 @@
         <button class="mode-tab" data-mode="pvp">
           <span>👥</span> <span data-i18n="mode_pvp">Duelo 1v1 Local</span>
         </button>
+        <button class="mode-tab" data-mode="online">
+          <span>🌐</span> <span data-i18n="mode_online">Duelo Online</span>
+        </button>
         <button class="mode-tab" data-mode="puzzles">
           <span>🧩</span> <span data-i18n="mode_puzzles">Retos de Salón</span>
         </button>
@@ -113,6 +116,23 @@
         <button class="diff-btn" id="btn-prev-puzzle" title="Anterior Reto">◀</button>
         <span id="puzzle-info-badge" class="puzzle-badge">Reto 1 / 4</span>
         <button class="diff-btn" id="btn-next-puzzle" title="Siguiente Reto">▶</button>
+      </div>
+
+      <!-- Controles de Duelo Online (Salas & WhatsApp) -->
+      <div class="online-controls" id="online-controls" style="display:none;">
+        <div class="online-room-badge" id="online-room-badge" title="Haz clic para copiar el enlace de la sala">
+          <span>🌐</span> <span id="online-badge-code">DAMAS-XXXXXX</span> <span class="copy-icon">📋</span>
+        </div>
+        <div class="online-rival-status" id="online-rival-status">
+          <span class="status-dot waiting" id="online-status-dot"></span>
+          <span id="online-status-text" data-i18n="online_waiting_opponent">Esperando rival...</span>
+        </div>
+        <button class="btn-online-wa" id="btn-online-wa" title="Invitar por WhatsApp">
+          <span>📲</span> <span data-i18n="online_btn_whatsapp">WhatsApp</span>
+        </button>
+        <button class="btn-online-leave" id="btn-online-leave" title="Salir de la Sala">
+          <span>🚪</span> <span data-i18n="online_btn_leave">Salir</span>
+        </button>
       </div>
 
       <div id="game-status-msg" style="font-size:0.82rem; color:var(--gold-light); font-weight:600;"></div>
@@ -194,8 +214,104 @@
         <p data-i18n="rules_4">5. Fin de partida: Gana el jugador que capture todas las piezas rivales o las deje completamente bloqueadas sin jugada legal.</p>
       </div>
       <div class="pvp-tip-box" data-i18n="rules_pvp_tip">
-        💡 Consejo Multijugador: En una próxima actualización se activarán las salas online por enlace y WhatsApp.
+        💡 Duelos Online Activos: Puedes crear una sala y compartir el enlace directo o invitar a tu rival por WhatsApp en tiempo real sin registro.
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LOBBY DUELO ONLINE (CREAR SALA & UNIRSE POR ENLACE O WHATSAPP) -->
+  <div class="modal-overlay" id="modal-online-lobby">
+    <div class="modal-card modal-online-card">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="online_modal_title">🌐 Duelo Online entre Dos Jugadores</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+
+      <!-- Selector de Pestañas: Crear / Unirse -->
+      <div class="online-tabs">
+        <button type="button" class="online-tab-btn active" id="tab-btn-create" data-online-tab="create">
+          <span>➕</span> <span data-i18n="online_tab_create">Crear Sala</span>
+        </button>
+        <button type="button" class="online-tab-btn" id="tab-btn-join" data-online-tab="join">
+          <span>🔑</span> <span data-i18n="online_tab_join">Unirse con Código</span>
+        </button>
+      </div>
+
+      <!-- Formulario: Crear Nueva Sala -->
+      <div class="online-panel" id="panel-create-room">
+        <div class="online-form-group">
+          <label class="online-label" data-i18n="online_player_name">Tu Nombre o Alias:</label>
+          <input type="text" id="online-creator-name" class="online-input" maxlength="24" value="Comandante" placeholder="Escribe tu alias">
+        </div>
+
+        <div class="online-form-group">
+          <label class="online-label" data-i18n="online_side_choose">Elegir Bando Inicial:</label>
+          <div class="online-side-selector">
+            <button type="button" class="side-pick-btn active" data-side="W" id="pick-side-white">
+              ⚪ <span data-i18n="side_white">Blancas</span>
+            </button>
+            <button type="button" class="side-pick-btn" data-side="B" id="pick-side-black">
+              ⚫ <span data-i18n="side_black">Negras</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-action-primary" id="btn-submit-create-room" style="width:100%; justify-content:center; margin-top:1.1rem; padding:0.85rem;">
+          <span>🚀</span> <span data-i18n="online_btn_create">Crear Sala y Generar Enlace</span>
+        </button>
+      </div>
+
+      <!-- Formulario: Unirse a Sala Existente -->
+      <div class="online-panel" id="panel-join-room" style="display:none;">
+        <div class="online-form-group">
+          <label class="online-label" data-i18n="online_player_name">Tu Nombre o Alias:</label>
+          <input type="text" id="online-joiner-name" class="online-input" maxlength="24" value="Rival" placeholder="Escribe tu alias">
+        </div>
+
+        <div class="online-form-group">
+          <label class="online-label" data-i18n="online_room_code_label">Código de Sala:</label>
+          <input type="text" id="online-input-code" class="online-input online-code-input" maxlength="16" placeholder="DAMAS-XXXXXX" autocomplete="off" autocorrect="off" autocapitalize="characters">
+        </div>
+
+        <button type="button" class="btn-action-primary" id="btn-submit-join-room" style="width:100%; justify-content:center; margin-top:1.1rem; padding:0.85rem;">
+          <span>⚔️</span> <span data-i18n="online_btn_join">Entrar a la Partida</span>
+        </button>
+      </div>
+
+      <!-- Tarjeta: Sala Creada (Invitar y Compartir) -->
+      <div class="online-created-card" id="online-created-card" style="display:none;">
+        <div class="created-badge-header">
+          <span class="created-icon">👑</span>
+          <h4 class="created-title" data-i18n="online_room_created">¡Sala Creada con Éxito!</h4>
+        </div>
+
+        <div class="big-room-code-box" id="btn-copy-code-direct" title="Haz clic para copiar">
+          <span class="big-room-code" id="display-room-code">DAMAS-XXXXXX</span>
+          <span class="copy-badge">📋 Copiar</span>
+        </div>
+
+        <div class="online-share-box">
+          <label class="online-label" data-i18n="online_share_link">Enlace Directo de la Sala:</label>
+          <div class="copy-input-row">
+            <input type="text" id="display-room-url" class="online-input-readonly" readonly>
+            <button type="button" class="btn-copy-action" id="btn-copy-room-link" title="Copiar enlace directo">📋</button>
+          </div>
+        </div>
+
+        <div class="online-action-buttons">
+          <button type="button" class="btn-whatsapp-action" id="btn-modal-whatsapp">
+            <span>📲</span> <span data-i18n="online_btn_whatsapp">Invitar por WhatsApp</span>
+          </button>
+        </div>
+
+        <div class="online-waiting-card">
+          <div class="pulse-orbit">
+            <div class="pulse-dot"></div>
+          </div>
+          <span class="waiting-text" id="created-waiting-text" data-i18n="online_waiting_opponent">Esperando a que tu rival se una...</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
