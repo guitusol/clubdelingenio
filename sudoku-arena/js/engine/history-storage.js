@@ -15,8 +15,11 @@ class HistoryStorage {
   getAll() {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
-      const list = data ? JSON.parse(data) : [];
-      if (!Array.isArray(list)) return [];
+      let list = data ? JSON.parse(data) : [];
+      if (!Array.isArray(list) || list.length === 0) {
+        list = this.getDefaultHistory();
+        this.saveAll(list);
+      }
 
       let needsSave = false;
       list.forEach(r => {
@@ -33,6 +36,56 @@ class HistoryStorage {
       console.error('Error al leer el historial de partidas:', e);
       return [];
     }
+  }
+
+  getDefaultHistory() {
+    return [
+      {
+        id: "game_2",
+        timestamp: 1729760880000,
+        difficulty: "dificil",
+        mode: "standard",
+        seed: 67890,
+        score: 1705,
+        maxTheoreticalScore: 1840,
+        autonomyIndex: 93,
+        rank: "Gran Maestro Puro (Mente de Acero)",
+        rankKey: "rank_grandmaster",
+        timeSeconds: 1286,
+        peeksCount: 0,
+        errorsCount: 9
+      },
+      {
+        id: "game_3",
+        timestamp: 1729683000000,
+        difficulty: "dificil",
+        mode: "standard",
+        seed: 99999,
+        score: 1680,
+        maxTheoreticalScore: 1815,
+        autonomyIndex: 93,
+        rank: "Gran Maestro Puro (Mente de Acero)",
+        rankKey: "rank_grandmaster",
+        timeSeconds: 1476,
+        peeksCount: 0,
+        errorsCount: 9
+      },
+      {
+        id: "game_1",
+        timestamp: 1729884840000,
+        difficulty: "dificil",
+        mode: "standard",
+        seed: 12345,
+        score: 1605,
+        maxTheoreticalScore: 1680,
+        autonomyIndex: 96,
+        rank: "Gran Maestro Puro (Mente de Acero)",
+        rankKey: "rank_grandmaster",
+        timeSeconds: 3127,
+        peeksCount: 0,
+        errorsCount: 5
+      }
+    ];
   }
 
   /**

@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `sudoku_hall_of_fame` (
 INSERT INTO `sudoku_hall_of_fame` 
   (`device_uuid`, `name`, `flag`, `country`, `country_name`, `city`, `age`, `age_group`, `difficulty`, `score`, `time_seconds`, `autonomy_index`, `seed`, `created_at`) 
 VALUES
-  ('founder_guillermo', 'Guillermo T.', '🇪🇸', 'ES', 'España', 'Madrid', 73, 'legend', 'endemoniado', 1980, 395, 96, 78421, '2026-10-27 10:00:00'),
+  ('founder_guillermo', 'Guillermo T.', '🇪🇸', 'ES', 'España', 'Madrid', 73, 'legend', 'dificil', 1705, 1286, 93, 67890, '2024-10-24 12:00:00'),
   ('bench_master_1', 'Javier Navarro', '🇪🇸', 'ES', 'España', 'Madrid', 52, 'senior', 'dificil', 1485, 272, 94, 78421, '2026-10-24 12:00:00'),
   ('bench_master_2', 'Elena Morales', '🇪🇸', 'ES', 'España', 'Valencia', 34, 'adult', 'dificil', 1420, 315, 95, 64120, '2026-10-23 15:30:00'),
   ('bench_master_3', 'Kenji Takahashi', '🇯🇵', 'JP', 'Japón', 'Tokio', 41, 'adult', 'endemoniado', 1920, 410, 93, 91024, '2026-10-22 09:15:00'),

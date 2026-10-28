@@ -11,12 +11,72 @@ class VaultStorage {
   getAll() {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
-      const list = data ? JSON.parse(data) : [];
+      let list = data ? JSON.parse(data) : [];
+      if (!Array.isArray(list) || list.length === 0) {
+        list = this.getDefaultVault();
+        this.saveAll(list);
+      }
       return Array.isArray(list) ? list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)) : [];
     } catch (e) {
       console.error('Error al leer la bóveda de retos:', e);
       return [];
     }
+  }
+
+  getDefaultVault() {
+    return [
+      {
+        id: "vault_1792446017139_608",
+        name: "Reto Diario El Pais",
+        board: [[0,0,0,6,0,0,4,0,0],[7,0,0,0,0,3,6,0,0],[0,0,0,0,9,1,0,8,0],[0,0,0,0,0,0,0,0,0],[0,5,0,1,8,0,0,0,3],[0,0,0,3,0,6,0,4,5],[0,4,0,2,0,0,0,6,0],[9,0,3,0,0,0,0,0,0],[0,2,0,0,0,0,1,0,0]],
+        boardString: "000600400700003600000091080000000000050180003000306045040200060903000000020000100",
+        difficulty: "medio",
+        cluesCount: 23,
+        clues: 23,
+        initialTotalPoints: 0,
+        techniqueAudit: null,
+        origin: "scan",
+        createdAt: 1792446017139,
+        bestScore: 0,
+        bestTime: 0,
+        bestRank: null,
+        timesPlayed: 0
+      },
+      {
+        id: "vault_1792445787185_303",
+        name: "Reto El Mundo",
+        board: [[0,0,0,6,0,0,4,0,0],[7,0,0,0,0,3,6,0,0],[0,0,0,0,9,1,0,8,0],[0,0,0,0,0,0,0,0,0],[0,5,0,1,8,0,0,0,3],[0,0,0,3,0,6,0,4,5],[0,4,0,2,0,0,0,6,0],[9,0,3,0,0,0,0,0,0],[0,2,0,0,0,0,1,0,0]],
+        boardString: "000600400700003600000091080000000000050180003000306045040200060903000000020000100",
+        difficulty: "medio",
+        cluesCount: 23,
+        clues: 23,
+        initialTotalPoints: 0,
+        techniqueAudit: null,
+        origin: "scan",
+        createdAt: 1792445787185,
+        bestScore: 0,
+        bestTime: 0,
+        bestRank: null,
+        timesPlayed: 0
+      },
+      {
+        id: "vault_1792445349872_247",
+        name: "Sudoku Diario El Mundo",
+        board: [[0,0,0,6,0,0,4,0,0],[7,0,0,0,0,3,6,0,0],[0,0,0,0,9,1,0,8,0],[0,0,0,0,0,0,0,0,0],[0,5,0,1,8,0,0,0,3],[0,0,0,3,0,6,0,4,5],[0,4,0,2,0,0,0,6,0],[9,0,3,0,0,0,0,0,0],[0,2,0,0,0,0,1,0,0]],
+        boardString: "000600400700003600000091080000000000050180003000306045040200060903000000020000100",
+        difficulty: "medio",
+        cluesCount: 23,
+        clues: 23,
+        initialTotalPoints: 0,
+        techniqueAudit: null,
+        origin: "scan",
+        createdAt: 1792445349872,
+        bestScore: 0,
+        bestTime: 0,
+        bestRank: null,
+        timesPlayed: 0
+      }
+    ];
   }
 
   saveAll(list) {
