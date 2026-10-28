@@ -11,6 +11,8 @@ CREATE DATABASE IF NOT EXISTS `sudoku_arena`
 
 USE `sudoku_arena`;
 
+SET NAMES utf8mb4;
+
 -- 2. Estructura de la tabla de Maestros
 CREATE TABLE IF NOT EXISTS `sudoku_hall_of_fame` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,

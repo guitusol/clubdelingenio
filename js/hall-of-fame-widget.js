@@ -270,6 +270,49 @@ export class HallOfFameWidget {
     this.renderTable(filtered);
   }
 
+  getInitials(name) {
+    if (!name) return 'GM';
+    const clean = name.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '').trim();
+    const parts = clean.split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  getPodiumAvatarHtml(master, place) {
+    const initials = this.getInitials(master.name);
+    const isFounder = master.deviceUuid === 'founder_guillermo' || master.isFounder;
+    const crownIcon = place === 1 ? '👑' : (place === 2 ? '🥈' : '🥉');
+    const flagEmoji = master.flag || '🇪🇸';
+    const countryCode = master.country || 'ES';
+    const cssClass = place === 1 ? 'gold' : (place === 2 ? 'silver' : 'bronze');
+
+    return `
+      <div class="podium-avatar podium-avatar-${cssClass} ${isFounder ? 'is-founder' : ''}">
+        <div class="avatar-crown">${crownIcon}</div>
+        <div class="avatar-crest">
+          <span class="avatar-initials">${initials}</span>
+        </div>
+        <div class="avatar-country-pill" title="${master.countryName || countryCode}">
+          <span class="pill-flag">${flagEmoji}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  getTableAvatarHtml(master) {
+    const initials = this.getInitials(master.name);
+    const isFounder = master.deviceUuid === 'founder_guillermo' || master.isFounder;
+    const flagEmoji = master.flag || '🇪🇸';
+    const countryCode = master.country || 'ES';
+
+    return `
+      <div class="table-avatar-badge ${isFounder ? 'founder-avatar' : ''}">
+        <span class="table-initials">${initials}</span>
+        <span class="table-flag-mini" title="${master.countryName || countryCode}">${flagEmoji}</span>
+      </div>
+    `;
+  }
+
   renderPodium(top3) {
     const podiumEl = document.getElementById('hof-podium');
     if (!podiumEl) return;
@@ -309,10 +352,7 @@ export class HallOfFameWidget {
       return `
         <div class="podium-card podium-${item.css} ${isFounder ? 'is-founder' : ''}">
           <div class="podium-rank-badge">${item.badge} #${item.place}</div>
-          <div class="podium-avatar">
-            <span class="avatar-crown">${item.place === 1 ? '👑' : '⭐'}</span>
-            <span class="avatar-flag">${m.flag || '🇪🇸'}</span>
-          </div>
+          ${this.getPodiumAvatarHtml(m, item.place)}
           <div class="podium-info">
             <h4 class="podium-name">${m.name} ${isFounder ? '<span class="founder-tag">FUNDADOR</span>' : ''}</h4>
             <p class="podium-location">${m.city}, ${m.countryName || m.country}</p>
@@ -373,7 +413,7 @@ export class HallOfFameWidget {
           <td class="td-rank"><strong>${posHtml}</strong></td>
           <td class="td-master">
             <div class="master-cell">
-              <span class="master-flag">${m.flag || '🇪🇸'}</span>
+              ${this.getTableAvatarHtml(m)}
               <div class="master-texts">
                 <strong>${m.name} ${isFounder ? '<span class="founder-mini-badge">LEYENDA</span>' : ''}</strong>
                 <small>${m.city}, ${m.countryName || m.country} • ${ageLabel}</small>
