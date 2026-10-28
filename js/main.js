@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.clubBackup = new ClubBackupManager();
   window.clubHallOfFame = new HallOfFameWidget();
   window.clubHallOfFame.init();
+  initPrivacyBanner();
 });
 
 /**
@@ -286,5 +287,33 @@ function seedGuillermoHistory() {
   } catch (e) {
     console.warn('Error al inicializar historial de Guillermo:', e);
   }
+}
+
+/**
+ * 6. Aviso Informativo de Privacidad Ética y Ausencia de Rastreo
+ */
+function initPrivacyBanner() {
+  const banner = document.getElementById('privacy-notice-banner');
+  const btnAccept = document.getElementById('btn-privacy-accept');
+  if (!banner || !btnAccept) return;
+
+  const isAccepted = localStorage.getItem('club_privacy_accepted');
+  if (!isAccepted) {
+    setTimeout(() => {
+      banner.classList.remove('hidden');
+      banner.classList.add('visible');
+    }, 1200);
+  }
+
+  btnAccept.addEventListener('click', () => {
+    try {
+      localStorage.setItem('club_privacy_accepted', 'true');
+    } catch (e) {}
+    banner.classList.remove('visible');
+    banner.classList.add('fade-out');
+    setTimeout(() => {
+      banner.classList.add('hidden');
+    }, 350);
+  });
 }
 

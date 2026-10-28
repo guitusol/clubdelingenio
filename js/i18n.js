@@ -175,6 +175,10 @@ export const CLUB_I18N = {
     footer_col3_title: "EL CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desarrollado por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "España • Unión Europea • Sin cookies de rastreo",
+    footer_privacy: "Política de Privacidad",
+    privacy_banner_text: "🛡️ <strong>Privacidad Ética:</strong> En Club del Ingenio respetamos tu mente y tus datos. Cero cookies de rastreo y cero anuncios. Tus progresos se guardan de forma 100% local en tu dispositivo.",
+    privacy_banner_btn_read: "Leer Política de Privacidad",
+    privacy_banner_btn_accept: "Entendido",
 
     modal_lang_title: "🌐 Seleccionar Idioma",
     modal_lang_sub: "Elige tu lengua preferida para toda la plataforma:",
@@ -372,6 +376,10 @@ export const CLUB_I18N = {
     footer_col3_title: "THE CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Developed by <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "Spain • European Union • Zero tracking cookies",
+    footer_privacy: "Privacy Policy",
+    privacy_banner_text: "🛡️ <strong>Ethical Privacy:</strong> At Club del Ingenio we respect your mind and data. Zero tracking cookies and zero ads. Your progress is saved 100% locally on your device.",
+    privacy_banner_btn_read: "Read Privacy Policy",
+    privacy_banner_btn_accept: "Understood",
 
     modal_lang_title: "🌐 Select Language",
     modal_lang_sub: "Choose your preferred language across the entire platform:",
@@ -569,6 +577,10 @@ export const CLUB_I18N = {
     footer_col3_title: "LE CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Conçu par <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "Espagne • Union Européenne • Sans cookies de pistage",
+    footer_privacy: "Politique de Confidentialité",
+    privacy_banner_text: "🛡️ <strong>Confidentialité Éthique :</strong> Au Club del Ingenio, nous respectons votre esprit et vos données. Zéro cookie de pistage et zéro publicité. Votre progression est stockée à 100 % localement sur votre appareil.",
+    privacy_banner_btn_read: "Lire la Politique de Confidentialité",
+    privacy_banner_btn_accept: "Compris",
 
     modal_lang_title: "🌐 Sélectionner la Langue",
     modal_lang_sub: "Choisissez votre langue pour l'ensemble du Club :",
@@ -766,6 +778,10 @@ export const CLUB_I18N = {
     footer_col3_title: "DER CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Entwickelt von <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "Spanien • Europäische Union • Keine Tracking-Cookies",
+    footer_privacy: "Datenschutzerklärung",
+    privacy_banner_text: "🛡️ <strong>Ethischer Datenschutz:</strong> Im Club del Ingenio respektieren wir Ihren Geist und Ihre Daten. Keine Tracking-Cookies und keine Werbung. Ihre Spielstände werden zu 100 % lokal auf Ihrem Gerät gespeichert.",
+    privacy_banner_btn_read: "Datenschutzerklärung lesen",
+    privacy_banner_btn_accept: "Verstanden",
 
     modal_lang_title: "🌐 Sprache Auswählen",
     modal_lang_sub: "Wählen Sie Ihre bevorzugte Sprache für die gesamte Plattform:",
@@ -963,6 +979,10 @@ export const CLUB_I18N = {
     footer_col3_title: "EL CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desenvolupat per <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "Espanya • Unió Europea • Sense galetes de rastreig",
+    footer_privacy: "Política de Privacitat",
+    privacy_banner_text: "🛡️ <strong>Privacitat Ètica:</strong> Al Club del Ingenio respectem la teva ment i les teves dades. Zero galetes de rastreig i zero anuncis. El teu progrés es desa de forma 100% local al teu dispositiu.",
+    privacy_banner_btn_read: "Llegir Política de Privacitat",
+    privacy_banner_btn_accept: "Entès",
 
     modal_lang_title: "🌐 Seleccionar Idioma",
     modal_lang_sub: "Tria la teva llengua preferida per a tota la plataforma:",
@@ -1160,6 +1180,10 @@ export const CLUB_I18N = {
     footer_col3_title: "EL CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desenvolupat per <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "Espanya • Unió Europea • Sense galetes de rastreig",
+    footer_privacy: "Política de Privacitat",
+    privacy_banner_text: "🛡️ <strong>Privacitat Ètica:</strong> En Club del Ingenio respectem la teua ment i les teues dades. Zero galetes de rastreig i zero anuncis. El teu progrés es guarda de forma 100% local en el teu dispositiu.",
+    privacy_banner_btn_read: "Llegir Política de Privacitat",
+    privacy_banner_btn_accept: "Entés",
 
     modal_lang_title: "🌐 Seleccionar Idioma",
     modal_lang_sub: "Tria la teua llengua preferida per a tota la plataforma:",
@@ -1357,6 +1381,10 @@ export const CLUB_I18N = {
     footer_col3_title: "KLUBA",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.k garatua.",
     footer_sub: "Espainia • Europar Batasuna • Jarraipen cookie-rik gabe",
+    footer_privacy: "Pribatutasun Politika",
+    privacy_banner_text: "🛡️ <strong>Pribatutasun Etikoa:</strong> Club del Ingenion zure adimena eta datuak errespetatzen ditugu. Zero jarraipen-cookie eta zero iragarki. Zure aurrerapena %100ean lokalki gordetzen da zure gailuan.",
+    privacy_banner_btn_read: "Irakurri Pribatutasun Politika",
+    privacy_banner_btn_accept: "Ulertuta",
 
     modal_lang_title: "🌐 Hizkuntza Hautatu",
     modal_lang_sub: "Aukeratu zure hizkuntza gogokoena plataforma osorako:",
@@ -1554,6 +1582,10 @@ export const CLUB_I18N = {
     footer_col3_title: "O CLUB",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. Desenvolvido por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "España • Unión Europea • Sen cookies de seguimento",
+    footer_privacy: "Política de Privacidade",
+    privacy_banner_text: "🛡️ <strong>Privacidade Ética:</strong> En Club del Ingenio respectamos a túa mente e os teus datos. Cero cookies de seguimento e cero anuncios. O teu progreso gárdase de xeito 100% local no teu dispositivo.",
+    privacy_banner_btn_read: "Ler Política de Privacidade",
+    privacy_banner_btn_accept: "Entendido",
 
     modal_lang_title: "🌐 Seleccionar Idioma",
     modal_lang_sub: "Elixe a túa lingua preferida para todo o Club:",
@@ -1751,6 +1783,10 @@ export const CLUB_I18N = {
     footer_col3_title: "クラブについて",
     footer_copy: "© 2026 <strong>Club del Ingenio</strong>. 開発：<strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.",
     footer_sub: "スペイン・欧州連合（EU） • トラッキングクッキー不使用",
+    footer_privacy: "プライバシーポリシー",
+    privacy_banner_text: "🛡️ <strong>倫理的なプライバシー：</strong> Club del Ingenio ではあなたの知性とプライバシーを尊重します。広告追跡クッキーゼロ、広告ゼロ。すべての進行状況はお使いの端末に100%ローカル保存されます。",
+    privacy_banner_btn_read: "プライバシーポリシーを読む",
+    privacy_banner_btn_accept: "了解しました",
 
     modal_lang_title: "🌐 言語を選択",
     modal_lang_sub: "プラットフォーム全体で使用する言語を選択してください：",
@@ -1898,7 +1934,7 @@ export class ClubI18n {
   propagateLanguageToLinks() {
     const gamePaths = [
       'top-sudoku', 'sudoku-arena', 'calculo-tactico',
-      'deduccion-logica', 'nonogramas', 'cubo-rubik', 'damas'
+      'deduccion-logica', 'nonogramas', 'cubo-rubik', 'damas', 'bridge', 'privacidad.html'
     ];
 
     document.querySelectorAll('a[href]').forEach(a => {
