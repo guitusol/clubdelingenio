@@ -7,6 +7,7 @@ import { evaluateTrick, PLAYERS, PLAYER_NAMES } from './deck.js';
 import { BridgeAI } from './ai.js';
 import { Auction, SAYCAssistant } from './bidding.js';
 import { BridgeScoring } from './scoring.js';
+import { i18n } from './i18n.js';
 
 export class BridgeEngine {
   constructor(audio) {
@@ -374,21 +375,33 @@ export class BridgeEngine {
    * Asistente pedagógico: proporciona una pista contextual de lógica de carteo
    */
   getTeacherHint() {
+    const getSuitName = (key) => {
+      const map = { C: 'suit_clubs', D: 'suit_diamonds', H: 'suit_hearts', S: 'suit_spades', NT: 'suit_nt' };
+      return map[key] ? i18n.t(map[key]) : key;
+    };
+
+    const getPlayerName = (pos) => {
+      const map = { N: 'seat_north', S: 'seat_south', W: 'seat_west', E: 'seat_east' };
+      return map[pos] ? i18n.t(map[pos]) : pos;
+    };
+
     if (this.phase === 'auction') {
       if (!this.auction) return '';
       if (this.auction.currentBidder === 'S') {
         const evalData = SAYCAssistant.evaluateHand(this.hands.S);
         const rec = SAYCAssistant.getRecommendedCall('S', this.hands.S, this.auction);
-        return `💡 Subasta: Tienes ${evalData.hcp} HCP. Voz recomendada: ${rec.call} (${rec.reason}).`;
+        return `💡 SAYC: ${evalData.hcp} HCP • ${rec.call} (${rec.reason})`;
       }
-      return `Esperando cante de ${PLAYER_NAMES[this.auction.currentBidder]}...`;
+      const waitingName = getPlayerName(this.auction.currentBidder);
+      return i18n.t('bidding_waiting_for', { player: waitingName });
     }
 
-    if (this.status !== 'playing') return 'La mano ha concluido.';
+    if (this.status !== 'playing') return i18n.t('hint_hand_ended');
 
     const isUserTurn = (this.currentTurn === 'S' || (this.scenario && this.scenario.declarer === 'S' && this.currentTurn === 'N'));
     if (!isUserTurn) {
-      return `Esperando la jugada de ${PLAYER_NAMES[this.currentTurn]}...`;
+      const pName = getPlayerName(this.currentTurn);
+      return i18n.t('hint_waiting_player', { player: pName });
     }
 
     const player = this.currentTurn;
@@ -399,10 +412,10 @@ export class BridgeEngine {
       if (this.scenario.trumpSuit !== 'NT') {
         const trumps = legalCards.filter(c => c.suitKey === this.scenario.trumpSuit);
         if (trumps.length > 0 && this.trickHistory.length < 3) {
-          return '💡 Consejo: Al inicio de una mano con triunfo suele ser buena idea "destriunfar" a los rivales jugando cartas altas de triunfo para quitarles las suyas.';
+          return i18n.t('hint_lead_trump');
         }
       }
-      return '💡 Consejo: Juega hacia los honores de la otra mano o ataca un palo largo para promocionar cartas firmes.';
+      return i18n.t('hint_lead_general');
     }
 
     const leadSuit = this.currentTrick[0].card.suitKey;
@@ -410,16 +423,16 @@ export class BridgeEngine {
     const hasLeadSuit = legalCards.some(c => c.suitKey === leadSuit);
 
     if (hasLeadSuit) {
-      return `💡 Regla: La salida fue ${leadCard.suit.symbol} ${leadCard.suit.name}. Es obligatorio asistir con una de tus cartas de ese palo.`;
+      return i18n.t('hint_must_follow', { suit: `${leadCard.suit.symbol} ${getSuitName(leadSuit)}` });
     }
 
     if (this.scenario.trumpSuit !== 'NT') {
       const trumps = legalCards.filter(c => c.suitKey === this.scenario.trumpSuit);
       if (trumps.length > 0) {
-        return `💡 ¡Oportunidad!: No tienes ${leadCard.suit.name}. ¡Puedes jugar un triunfo (${this.scenario.trumpSuit}) y cortar para llevarte la baza!`;
+        return i18n.t('hint_can_trump', { suit: getSuitName(leadSuit), trump: getSuitName(this.scenario.trumpSuit) });
       }
     }
 
-    return `💡 Descarte: No tienes ${leadCard.suit.name}. Descarta la carta más baja de tu palo más débil que no te sirva.`;
+    return i18n.t('hint_can_discard', { suit: getSuitName(leadSuit) });
   }
 }

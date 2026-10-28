@@ -36,30 +36,33 @@
       <a href="../index.html" class="brand-group" title="Volver a la Sede Central de Club del Ingenio">
         <img src="img/bridge_logo.jpg" alt="Emblema Bridge del Club" class="brand-crest">
         <div>
-          <span class="brand-title">Bridge del Club</span>
-          <span class="brand-subtitle">Escuela de Carteo & MiniBridge</span>
+          <span class="brand-title" data-i18n="app_title">Bridge del Club</span>
+          <span class="brand-subtitle" data-i18n="app_subtitle">Escuela de Carteo & Torneo Oficial</span>
         </div>
       </a>
 
       <!-- Modos de Juego -->
       <nav class="nav-modes">
         <button class="mode-tab active" data-mode="school">
-          <span>🎓</span> <span>Escuela de Carteo</span>
+          <span>🎓</span> <span data-i18n="mode_school">Escuela de Carteo</span>
         </button>
         <button class="mode-tab" data-mode="freeplay">
-          <span>🎲</span> <span>Mesa de Salón Libre</span>
+          <span>🎲</span> <span data-i18n="mode_freeplay">Mesa de Salón Libre</span>
         </button>
         <button class="mode-tab" data-mode="tournament">
-          <span>🏛️</span> <span>Salón de Torneo (Subasta & SAYC)</span>
+          <span>🏛️</span> <span data-i18n="mode_tournament">Salón de Torneo (Subasta & SAYC)</span>
         </button>
       </nav>
 
       <!-- Acciones de Cabecera -->
       <div class="header-actions">
-        <button class="btn-icon-action" id="btn-open-rules" title="Aprende a jugar en 2 minutos">
-          <span>📖</span> <span>¿Cómo se Juega?</span>
+        <button class="btn-icon-action" id="btn-open-rules" data-i18n-title="btn_rules_title" title="Aprende a jugar en 2 minutos">
+          <span>📖</span> <span data-i18n="btn_rules">¿Cómo se Juega?</span>
         </button>
-        <button class="btn-icon-action" id="btn-toggle-sound" title="Sonido activado">
+        <button class="btn-icon-action" id="btn-open-lang" data-i18n-title="btn_lang_title" title="Seleccionar idioma / Select language">
+          <span>🌐</span> <span id="current-lang-code">ES</span>
+        </button>
+        <button class="btn-icon-action" id="btn-toggle-sound" data-i18n-title="btn_sound_title" title="Sonido activado">
           🔊
         </button>
       </div>
@@ -86,7 +89,7 @@
 
       <!-- Controles Modo Libre (Ocultos por defecto) -->
       <div class="controls-group" id="freeplay-controls" style="display: none;">
-        <label for="free-contract-select" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Contrato:</label>
+        <label for="free-contract-select" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;" data-i18n="lbl_contract">Contrato:</label>
         <select class="select-control" id="free-contract-select">
           <option value="1NT">1NT — 7 Bazas (Sin Triunfo)</option>
           <option value="2H">2♥ — 8 Bazas (Corazones)</option>
@@ -94,27 +97,27 @@
           <option value="4S">4♠ — 10 Bazas (Manga Mayor)</option>
           <option value="6NT">6NT — 12 Bazas (Pequeño Slam)</option>
         </select>
-        <button class="btn-primary" id="btn-deal-random" style="padding:0.35rem 0.9rem; font-size:0.85rem;">
+        <button class="btn-primary" id="btn-deal-random" style="padding:0.35rem 0.9rem; font-size:0.85rem;" data-i18n="btn_deal_random">
           🔀 Repartir Nueva Mano
         </button>
       </div>
 
       <!-- Controles Modo Torneo Oficial con Subasta (Ocultos por defecto) -->
       <div class="controls-group" id="tournament-controls" style="display: none;">
-        <label for="dealer-select" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Dador:</label>
+        <label for="dealer-select" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;" data-i18n="lbl_dealer">Dador:</label>
         <select class="select-control" id="dealer-select">
           <option value="S">Sur (Tú)</option>
           <option value="W" selected>Oeste</option>
           <option value="N">Norte (Compañero)</option>
           <option value="E">Este</option>
         </select>
-        <button class="btn-primary" id="btn-deal-tournament" style="padding:0.35rem 0.9rem; font-size:0.85rem;">
+        <button class="btn-primary" id="btn-deal-tournament" style="padding:0.35rem 0.9rem; font-size:0.85rem;" data-i18n="btn_deal_tournament">
           🔀 Repartir Mano de Torneo
         </button>
       </div>
 
       <!-- Botón de Reiniciar Mano -->
-      <button class="btn-restart" id="btn-restart-deal" title="Reiniciar esta mano desde la primera baza">
+      <button class="btn-restart" id="btn-restart-deal" data-i18n-title="btn_restart_deal" title="Reiniciar esta mano desde la primera baza" data-i18n="btn_restart_deal">
         🔄 Reiniciar Mano
       </button>
 
@@ -124,32 +127,32 @@
   <!-- 3. MARCADOR HUD -->
   <section class="table-hud">
     <div class="hud-panel">
-      <span class="hud-label">Misión Actual</span>
+      <span class="hud-label" data-i18n="hud_mission">Misión Actual</span>
       <span class="hud-value" id="table-title" style="font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Misión 1</span>
     </div>
 
     <div class="hud-panel">
-      <span class="hud-label">Contrato en Juego</span>
+      <span class="hud-label" data-i18n="hud_contract">Contrato en Juego</span>
       <div class="hud-value highlight-gold" id="hud-contract">1NT</div>
     </div>
 
     <div class="hud-panel">
-      <span class="hud-label">Objetivo de Bazas</span>
+      <span class="hud-label" data-i18n="hud_target">Objetivo de Bazas</span>
       <div class="hud-value highlight-cyan" id="hud-target">7 bazas</div>
     </div>
 
     <div class="hud-panel">
-      <span class="hud-label">Bazas Nosotros (NS)</span>
+      <span class="hud-label" data-i18n="hud_tricks_ns">Bazas Nosotros (NS)</span>
       <div class="hud-value" id="hud-ns-tricks" style="color: #34d399;">0</div>
     </div>
 
     <div class="hud-panel">
-      <span class="hud-label">Bazas Rivales (EO)</span>
+      <span class="hud-label" data-i18n="hud_tricks_ew">Bazas Rivales (EO)</span>
       <div class="hud-value" id="hud-ew-tricks" style="color: #f87171;">0</div>
     </div>
 
     <div class="hud-panel">
-      <span class="hud-label">Para Cumplir</span>
+      <span class="hud-label" data-i18n="hud_remain">Para Cumplir</span>
       <div class="hud-value" id="hud-remain-tricks" style="color: #fde047;">7 restantes</div>
     </div>
   </section>
@@ -177,13 +180,13 @@
           
           <div class="auction-head">
             <div class="auction-title-group">
-              <h4>🏛️ Subasta Reglamentaria (Bidding Box)</h4>
+              <h4 data-i18n="auction_title">🏛️ Subasta Reglamentaria (Bidding Box)</h4>
               <span class="dealer-info" id="auction-dealer-text">Dador: Oeste | Turno de cante: Oeste</span>
             </div>
             
             <!-- Asistente Pedagógico SAYC -->
             <div class="sayc-assistant-box" id="sayc-assistant-box">
-              <div class="assistant-tag">💡 ASISTENTE PEDAGÓGICO SAYC (MAYOR QUINTO)</div>
+              <div class="assistant-tag" data-i18n="sayc_box_title">💡 ASISTENTE PEDAGÓGICO SAYC (MAYOR QUINTO)</div>
               <div class="assistant-content" id="sayc-recommendation-text">Calculando evaluación de mano...</div>
             </div>
           </div>
@@ -193,10 +196,10 @@
             <table class="auction-grid">
               <thead>
                 <tr>
-                  <th>OESTE</th>
-                  <th>NORTE (COMPAÑERO)</th>
-                  <th>ESTE</th>
-                  <th>SUR (TÚ)</th>
+                  <th data-i18n="col_west">OESTE</th>
+                  <th data-i18n="col_north">NORTE (COMPAÑERO)</th>
+                  <th data-i18n="col_east">ESTE</th>
+                  <th data-i18n="col_south">SUR (TÚ)</th>
                 </tr>
               </thead>
               <tbody id="auction-calls-tbody">
@@ -208,7 +211,7 @@
           <!-- Caja de Cantes (Bidding Box con botones para Sur) -->
           <div class="bidding-box" id="bidding-box-container">
             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--gold-accent); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:0 0.2rem;">
-              <span>Tus opciones de cante (Niveles 1 al 7 y palos oficiales)</span>
+              <span data-i18n="bidding_box_title">Tus opciones de cante (Niveles 1 al 7 y palos oficiales)</span>
               <span id="bidding-box-status" style="color:var(--text-muted); font-size:0.75rem; text-transform:none;">Esperando tu turno</span>
             </div>
             
@@ -217,9 +220,9 @@
             </div>
 
             <div class="bidding-special-calls">
-              <button type="button" class="btn-bid-special bid-pass" id="btn-call-pass">PASO (Pass)</button>
-              <button type="button" class="btn-bid-special bid-dbl" id="btn-call-double" disabled>DOBLO (X)</button>
-              <button type="button" class="btn-bid-special bid-rdbl" id="btn-call-redouble" disabled>REDOBLO (XX)</button>
+              <button type="button" class="btn-bid-special bid-pass" id="btn-call-pass" data-i18n="btn_pass">PASO (Pass)</button>
+              <button type="button" class="btn-bid-special bid-dbl" id="btn-call-double" disabled data-i18n="btn_double">DOBLO (X)</button>
+              <button type="button" class="btn-bid-special bid-rdbl" id="btn-call-redouble" disabled data-i18n="btn_redouble">REDOBLO (XX)</button>
             </div>
           </div>
 
@@ -229,7 +232,7 @@
       <!-- NORTE: El Muerto (Tu compañero, cartas abiertas sobre el paño) -->
       <div class="seat seat-north">
         <div class="seat-badge" id="seat-badge-N">
-          <span>🤝</span> <span>NORTE (El Muerto)</span>
+          <span>🤝</span> <span id="seat-label-N" data-i18n="seat_north">NORTE (El Muerto)</span>
         </div>
         <div class="hand-row" id="hand-north">
           <!-- Naipes de Norte generados dinámicamente -->
@@ -242,7 +245,7 @@
         <!-- OESTE: Defensor IA -->
         <div class="seat seat-west">
           <div class="seat-badge" id="seat-badge-W">
-            <span>🛡️</span> <span>OESTE</span>
+            <span>🛡️</span> <span id="seat-label-W" data-i18n="seat_west">OESTE (Defensa)</span>
           </div>
           <div class="hand-vertical" id="hand-west">
             <!-- Naipes de Oeste de espaldas -->
@@ -265,7 +268,7 @@
         <!-- ESTE: Defensor IA -->
         <div class="seat seat-east">
           <div class="seat-badge" id="seat-badge-E">
-            <span>🛡️</span> <span>ESTE</span>
+            <span>🛡️</span> <span id="seat-label-E" data-i18n="seat_east">ESTE (Defensa)</span>
           </div>
           <div class="hand-vertical" id="hand-east">
             <!-- Naipes de Este de espaldas -->
@@ -277,7 +280,7 @@
       <!-- SUR: Tú (El Declarador) -->
       <div class="seat seat-south">
         <div class="seat-badge active-turn" id="seat-badge-S">
-          <span>👑</span> <span>SUR (Tú — Declarador)</span>
+          <span>👑</span> <span id="seat-label-S" data-i18n="seat_south">SUR (Tú — Declarador)</span>
         </div>
         <div id="turn-indicator-text" style="font-size:0.85rem; color:#fde68a; margin-bottom:0.4rem; text-align:center;">
           Haz clic en una carta de tu mano para jugarla
@@ -302,8 +305,8 @@
         <div id="result-details"></div>
       </div>
       <div class="modal-foot">
-        <button class="btn-secondary" id="btn-result-retry">🔄 Reintentar Mano</button>
-        <button class="btn-primary" id="btn-result-next">➡️ Siguiente Misión</button>
+        <button class="btn-secondary" id="btn-result-retry" data-i18n="res_btn_retry">🔄 Reintentar Mano</button>
+        <button class="btn-primary" id="btn-result-next" data-i18n="res_btn_next">➡️ Siguiente Misión</button>
       </div>
     </div>
   </div>
@@ -312,77 +315,96 @@
   <div id="modal-rules" class="modal-overlay hidden">
     <div class="modal-card" style="max-width: 650px;">
       <div class="modal-head">
-        <h3>📖 Aprende Bridge en 2 Minutos</h3>
+        <h3 data-i18n="btn_rules">📖 Aprende Bridge en 2 Minutos</h3>
         <button class="modal-close" id="btn-close-rules">&times;</button>
       </div>
-      <div class="modal-body">
-        
-        <div class="rules-section">
-          <h4>1. ¿Qué es una Baza?</h4>
-          <p>
-            En cada ronda, los 4 jugadores tiran una carta al centro en el sentido de las agujas del reloj. 
-            El que juegue la carta más alta gana la baza y se la lleva para su pareja. La mano consta de un total de <strong>13 bazas</strong>.
-          </p>
-        </div>
-
-        <div class="rules-section">
-          <h4>2. La Regla de Oro: Asistir al Palo</h4>
-          <p>
-            El primer jugador que tira carta marca el <strong>Palo de Salida</strong> (Picas ♠, Corazones ♥, Diamantes ♦ o Tréboles ♣). 
-            Los demás jugadores están <strong>obligados por reglamento a tirar una carta de ese mismo palo</strong> si tienen alguna en la mano.
-          </p>
-        </div>
-
-        <div class="rules-section">
-          <h4>3. ¿Y si no tengo cartas de ese palo?</h4>
-          <p>
-            Si se te han terminado las cartas del palo jugado:
-          </p>
-          <ul style="padding-left: 1.25rem; margin-top: 0.35rem;">
-            <li>Si hay palo de <strong>Triunfo</strong>, ¡puedes tirar un triunfo para <em>cortar</em> y ganar la baza a cualquier carta rival!</li>
-            <li>Si juegas en <strong>Sin Triunfo (NT)</strong> o prefieres guardar tus triunfos, puedes <em>descartar</em> cualquier carta que no te sirva.</li>
-          </ul>
-        </div>
-
-        <div class="rules-section">
-          <h4>4. El Muerto (Tu Gran Compañero)</h4>
-          <p>
-            Tú juegas en <strong>Sur</strong>. Al empezar la mano, tu compañero de <strong>Norte (El Muerto)</strong> extiende todas sus cartas boca arriba sobre la mesa. 
-            <strong>Tú controlas tanto tus cartas en Sur como las del Muerto en Norte</strong> cuando le toque el turno. ¡Esto te permite armar jugadas maestras combinadas entre ambas manos!
-          </p>
-        </div>
-
-        <div class="rules-section">
-          <h4>5. El Contrato</h4>
-          <p>
-            El contrato indica cuántas bazas por encima de 6 debes ganar:
-          </p>
-          <ul style="padding-left: 1.25rem; margin-top: 0.35rem;">
-            <li><strong>1NT</strong> = 6 + 1 = <strong>7 bazas</strong>.</li>
-            <li><strong>2♥</strong> = 6 + 2 = <strong>8 bazas</strong>.</li>
-            <li><strong>3NT</strong> = 6 + 3 = <strong>9 bazas</strong> (Manga).</li>
-            <li><strong>4♠</strong> = 6 + 4 = <strong>10 bazas</strong> (Manga mayor).</li>
-          </ul>
-        </div>
-
-        <div class="rules-section">
-          <h4>6. La Subasta Oficial y el Bidding Box (Salón de Torneo)</h4>
-          <p>
-            En el Bridge de competición, antes de cartear se celebra una <strong>Subasta</strong> en la que cada jugador habla por turnos:
-          </p>
-          <ul style="padding-left: 1.25rem; margin-top: 0.35rem;">
-            <li><strong>Puntos de Honor (HCP)</strong>: Se evalúa la fuerza de tu mano con la escala clásica: <strong>As = 4</strong>, <strong>Rey = 3</strong>, <strong>Dama = 2</strong>, <strong>Jota = 1</strong> (40 puntos en toda la baraja).</li>
-            <li><strong>Sistema SAYC (Mayor Quinto)</strong>: Si tienes 12-21 HCP y un palo mayor (♥ o ♠) de 5 o más cartas, se abre en ese mayor. Si tienes 15-17 HCP equilibrados, abres 1NT. Con menos de 12 HCP, se suele pasar.</li>
-            <li><strong>Fin de la Subasta</strong>: Cuando un cante es seguido de <strong>3 Pasos consecutivos</strong>, queda fijado el Contrato definitivo y arranca el carteo de las 13 bazas.</li>
-            <li><strong>Puntuación Duplicada</strong>: Si cumples tu contrato recibes puntos por bazas, bonificación de manga (+300 pts) o parcial (+50 pts) y sobrebazas. Si caes, los rivales cobran multas por cada caída.</li>
-          </ul>
-        </div>
-
+      <div class="modal-body" id="rules-modal-body">
+        <!-- Generado dinámicamente según idioma activo -->
       </div>
       <div class="modal-foot">
-        <button class="btn-primary" id="btn-close-rules-bottom" onclick="document.getElementById('modal-rules').classList.add('hidden')">
+        <button class="btn-primary" id="btn-close-rules-bottom">
           ¡Entendido, vamos a jugar!
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. MODAL DE IDIOMAS (9 IDIOMAS OFICIALES) -->
+  <div id="modal-lang" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-head">
+        <h3 data-i18n="modal_lang_title">🌐 Seleccionar Idioma</h3>
+        <button class="modal-close" id="btn-close-lang">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-muted); font-size:0.9rem;" data-i18n="modal_lang_sub">
+          Elige tu lengua para toda la experiencia del Bridge del Club:
+        </p>
+        <div class="languages-grid">
+          <button type="button" class="lang-select-btn" data-lang="es">
+            <span class="lang-flag">🇪🇸</span>
+            <div class="lang-text">
+              <strong>Español</strong>
+              <small>Castellano</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="en">
+            <span class="lang-flag">🇬🇧</span>
+            <div class="lang-text">
+              <strong>English</strong>
+              <small>International</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="fr">
+            <span class="lang-flag">🇫🇷</span>
+            <div class="lang-text">
+              <strong>Français</strong>
+              <small>France</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="de">
+            <span class="lang-flag">🇩🇪</span>
+            <div class="lang-text">
+              <strong>Deutsch</strong>
+              <small>Deutschland</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="ca">
+            <span class="lang-flag">🏴󠁥󠁳󠁣󠁴󠁿</span>
+            <div class="lang-text">
+              <strong>Català</strong>
+              <small>Catalunya</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="va">
+            <span class="lang-flag">🦇</span>
+            <div class="lang-text">
+              <strong>Valencià</strong>
+              <small>Comunitat</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="eu">
+            <span class="lang-flag">🟩</span>
+            <div class="lang-text">
+              <strong>Euskara</strong>
+              <small>Euskal Herria</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="gl">
+            <span class="lang-flag">🟦</span>
+            <div class="lang-text">
+              <strong>Galego</strong>
+              <small>Galiza</small>
+            </div>
+          </button>
+          <button type="button" class="lang-select-btn" data-lang="ja">
+            <span class="lang-flag">🇯🇵</span>
+            <div class="lang-text">
+              <strong>日本語</strong>
+              <small>Japanese</small>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>
