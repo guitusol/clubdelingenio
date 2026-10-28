@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH6C2CGYSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EH6C2CGYSB');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Club del Ingenio — La Sede de la Lógica, el Ingenio y la Estimulación Cognitiva</title>
@@ -67,6 +76,7 @@
 
       <nav class="nav-desktop">
         <a href="#juegos" class="nav-item" data-i18n="nav_games">🎮 Sala de Juegos</a>
+        <a href="#salon-fama" class="nav-item" data-i18n="nav_hall_of_fame">🏛️ Salón de la Fama</a>
         <a href="#filosofia" class="nav-item" data-i18n="nav_manifesto">🛡️ Manifiesto Zero-Ads</a>
         <a href="#beneficios" class="nav-item" data-i18n="nav_gym">🧠 Gimnasio Mental</a>
         <a href="#copia-seguridad" class="nav-item" id="nav-backup-link" data-i18n="nav_backup">💾 Copia de Seguridad</a>
@@ -855,6 +865,73 @@
           <div class="b-badge gold-badge" data-i18n="ben_c4_badge">👑 LEYENDAS (65+ AÑOS)</div>
           <h3 data-i18n="ben_c4_title">Reserva Cognitiva Saludable</h3>
           <p data-i18n="ben_c4_desc">Estimula activamente la plasticidad cerebral y la lucidez deductiva. La mejor gimnasia para conservar la mente despierta, activa y llena de vitalidad.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN: SALÓN DE LA FAMA DE MENTES MAESTRAS -->
+  <section class="section-hall-of-fame" id="salon-fama">
+    <div class="section-container">
+      
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="hof_tag">🏛️ CUADRO DE HONOR OFICIAL</div>
+        <h2 class="section-title" data-i18n="hof_title">Salón de la Fama de Mentes Maestras</h2>
+        <p class="section-subtitle" data-i18n="hof_sub">
+          Los mayores registros de deducción lógica limpia (≥ 90% autonomía cognitiva y cero ayudas). Consulta los rankings oficiales y desafía directamente a cada maestro en su mismo tablero.
+        </p>
+      </div>
+
+      <!-- Pestañas de Filtro -->
+      <div class="hof-filters-bar">
+        <button type="button" class="hof-filter-btn active" data-filter="all" data-i18n="hof_tab_all">🌍 Todos</button>
+        <button type="button" class="hof-filter-btn" data-filter="endemoniado" data-i18n="hof_tab_endemoniado">⚡ Endemoniado</button>
+        <button type="button" class="hof-filter-btn" data-filter="dificil" data-i18n="hof_tab_dificil">🧠 Difícil</button>
+        <button type="button" class="hof-filter-btn" data-filter="legend" data-i18n="hof_tab_legends">👑 Leyendas (65+)</button>
+        <button type="button" class="hof-filter-btn" data-filter="ES" data-i18n="hof_tab_spain">🇪🇸 España</button>
+      </div>
+
+      <!-- Podio Visual Top 3 -->
+      <div class="hof-podium-container" id="hof-podium">
+        <!-- Renderizado dinámicamente por hall-of-fame-widget.js -->
+      </div>
+
+      <!-- Tabla Completa de Clasificación -->
+      <div class="hof-table-wrapper">
+        <div class="hof-table-card">
+          <div class="hof-table-responsive">
+            <table class="hof-table" id="hof-table">
+              <thead>
+                <tr>
+                  <th class="th-rank" data-i18n="hof_col_rank">Pos.</th>
+                  <th class="th-master" data-i18n="hof_col_master">Maestro &amp; Procedencia</th>
+                  <th class="th-diff" data-i18n="hof_col_diff">Nivel</th>
+                  <th class="th-score" data-i18n="hof_col_score">Puntos</th>
+                  <th class="th-time" data-i18n="hof_col_time">Tiempo</th>
+                  <th class="th-autonomy" data-i18n="hof_col_autonomy">Autonomía</th>
+                  <th class="th-action text-right" data-i18n="hof_col_action">Desafío</th>
+                </tr>
+              </thead>
+              <tbody id="hof-table-body">
+                <!-- Filas renderizadas dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner CTA para Certificar Marca en Sudoku Arena -->
+      <div class="hof-cta-banner">
+        <div class="hof-cta-content">
+          <div class="hof-cta-icon">👑</div>
+          <div class="hof-cta-texts">
+            <h3 data-i18n="hof_cta_title">¿Tienes la agilidad mental para coronarte en el Salón de la Fama?</h3>
+            <p data-i18n="hof_cta_sub">Demuestra tu maestría en Sudoku Arena sin ayudas ni errores. Al alcanzar 3 victorias como Gran Maestro, podrás inscribir tu nombre para siempre.</p>
+          </div>
+          <a href="sudoku-arena/" class="btn-action primary hof-btn-join">
+            <span data-i18n="hof_cta_btn">⚔️ Entrar a Sudoku Arena y Certificar mi Marca</span>
+          </a>
         </div>
       </div>
 

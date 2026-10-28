@@ -6,12 +6,15 @@
 
 import { ClubBackupManager } from './backup-manager.js';
 import { ClubI18n } from './i18n.js';
+import { HallOfFameWidget } from './hall-of-fame-widget.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initEnvironmentLinks();
   initSmoothScroll();
   window.clubI18n = new ClubI18n();
   window.clubBackup = new ClubBackupManager();
+  window.clubHallOfFame = new HallOfFameWidget();
+  window.clubHallOfFame.init();
 });
 
 /**
