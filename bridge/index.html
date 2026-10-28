@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH6C2CGYSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EH6C2CGYSB');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Bridge del Club — Escuela de Carteo & MiniBridge | Club del Ingenio</title>
+  
+  <meta name="description" content="Aprende y juega al Bridge desde cero en Club del Ingenio. Escuela interactiva de carteo, MiniBridge y deducción táctica de 13 bazas sin barreras de subasta.">
+  <meta name="theme-color" content="#060913">
+  <meta name="author" content="Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.">
+
+  <!-- Tipografías Oficiales de Club del Ingenio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Dark Luxury & Paño -->
+  <link rel="stylesheet" href="css/style.css?v=1.0">
+</head>
+<body>
+
+  <!-- 1. CABECERA PRINCIPAL -->
+  <header class="app-header">
+    <div class="header-inner">
+      
+      <!-- Marca & Enlace al Portal Principal -->
+      <a href="../index.html" class="brand-group" title="Volver a la Sede Central de Club del Ingenio">
+        <img src="img/bridge_logo.jpg" alt="Emblema Bridge del Club" class="brand-crest">
+        <div>
+          <span class="brand-title">Bridge del Club</span>
+          <span class="brand-subtitle">Escuela de Carteo & MiniBridge</span>
+        </div>
+      </a>
+
+      <!-- Modos de Juego -->
+      <nav class="nav-modes">
+        <button class="mode-tab active" data-mode="school">
+          <span>🎓</span> <span>Escuela de Carteo</span>
+        </button>
+        <button class="mode-tab" data-mode="freeplay">
+          <span>🎲</span> <span>Mesa de Salón Libre</span>
+        </button>
+      </nav>
+
+      <!-- Acciones de Cabecera -->
+      <div class="header-actions">
+        <button class="btn-icon-action" id="btn-open-rules" title="Aprende a jugar en 2 minutos">
+          <span>📖</span> <span>¿Cómo se Juega?</span>
+        </button>
+        <button class="btn-icon-action" id="btn-toggle-sound" title="Sonido activado">
+          🔊
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 2. BARRA DE CONTROL DEL ESCENARIO -->
+  <div class="scenario-bar">
+    <div class="scenario-bar-inner">
+      
+      <!-- Controles Modo Escuela -->
+      <div class="controls-group" id="school-controls">
+        <button class="btn-step" id="btn-prev-scenario" title="Misión anterior">◀</button>
+        <select class="select-control" id="scenario-select">
+          <option value="0">Misión 1: Mi Primera Baza (Sin Triunfo 1NT)</option>
+          <option value="1">Misión 2: El Corte con Triunfo (2 Corazones ♥)</option>
+          <option value="2">Misión 3: El Arte de la Impasse / Finesse (3NT)</option>
+          <option value="3">Misión 4: Promocionar un Palo Largo (4 Picas ♠)</option>
+          <option value="4">Misión 5: Manga Mayor en Sin Triunfo (3NT)</option>
+        </select>
+        <button class="btn-step" id="btn-next-scenario" title="Siguiente misión">▶</button>
+      </div>
+
+      <!-- Controles Modo Libre (Ocultos por defecto) -->
+      <div class="controls-group" id="freeplay-controls" style="display: none;">
+        <label for="free-contract-select" style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Contrato:</label>
+        <select class="select-control" id="free-contract-select">
+          <option value="1NT">1NT — 7 Bazas (Sin Triunfo)</option>
+          <option value="2H">2♥ — 8 Bazas (Corazones)</option>
+          <option value="3NT" selected>3NT — 9 Bazas (Manga Sin Triunfo)</option>
+          <option value="4S">4♠ — 10 Bazas (Manga Mayor)</option>
+          <option value="6NT">6NT — 12 Bazas (Pequeño Slam)</option>
+        </select>
+        <button class="btn-primary" id="btn-deal-random" style="padding:0.35rem 0.9rem; font-size:0.85rem;">
+          🔀 Repartir Nueva Mano
+        </button>
+      </div>
+
+      <!-- Botón de Reiniciar Mano -->
+      <button class="btn-restart" id="btn-restart-deal" title="Reiniciar esta mano desde la primera baza">
+        🔄 Reiniciar Mano
+      </button>
+
+    </div>
+  </div>
+
+  <!-- 3. MARCADOR HUD -->
+  <section class="table-hud">
+    <div class="hud-panel">
+      <span class="hud-label">Misión Actual</span>
+      <span class="hud-value" id="table-title" style="font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Misión 1</span>
+    </div>
+
+    <div class="hud-panel">
+      <span class="hud-label">Contrato en Juego</span>
+      <div class="hud-value highlight-gold" id="hud-contract">1NT</div>
+    </div>
+
+    <div class="hud-panel">
+      <span class="hud-label">Objetivo de Bazas</span>
+      <div class="hud-value highlight-cyan" id="hud-target">7 bazas</div>
+    </div>
+
+    <div class="hud-panel">
+      <span class="hud-label">Bazas Nosotros (NS)</span>
+      <div class="hud-value" id="hud-ns-tricks" style="color: #34d399;">0</div>
+    </div>
+
+    <div class="hud-panel">
+      <span class="hud-label">Bazas Rivales (EO)</span>
+      <div class="hud-value" id="hud-ew-tricks" style="color: #f87171;">0</div>
+    </div>
+
+    <div class="hud-panel">
+      <span class="hud-label">Para Cumplir</span>
+      <div class="hud-value" id="hud-remain-tricks" style="color: #fde047;">7 restantes</div>
+    </div>
+  </section>
+
+  <!-- 4. PISTA DEL MAESTRO -->
+  <div class="teacher-hint-bar">
+    <div class="hint-box" id="teacher-hint-box">
+      <div style="display:flex; align-items:center; gap:0.65rem;">
+        <span class="hint-icon">💡</span>
+        <span id="teacher-hint-text">Esperando inicio...</span>
+      </div>
+      <button type="button" id="btn-toggle-hint" style="background:transparent; border:none; color:var(--gold-accent); cursor:pointer; font-weight:700; font-size:0.8rem;">
+        Info
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. MESA DE PAÑO DE BRIDGE -->
+  <main class="table-stage-wrapper">
+    <div class="bridge-felt-table">
+      
+      <!-- NORTE: El Muerto (Tu compañero, cartas abiertas sobre el paño) -->
+      <div class="seat seat-north">
+        <div class="seat-badge" id="seat-badge-N">
+          <span>🤝</span> <span>NORTE (El Muerto)</span>
+        </div>
+        <div class="hand-row" id="hand-north">
+          <!-- Naipes de Norte generados dinámicamente -->
+        </div>
+      </div>
+
+      <!-- FILA MEDIA: OESTE - BAZA CENTRAL - ESTE -->
+      <div class="seat-middle-row">
+        
+        <!-- OESTE: Defensor IA -->
+        <div class="seat seat-west">
+          <div class="seat-badge" id="seat-badge-W">
+            <span>🛡️</span> <span>OESTE</span>
+          </div>
+          <div class="hand-vertical" id="hand-west">
+            <!-- Naipes de Oeste de espaldas -->
+          </div>
+        </div>
+
+        <!-- BAZA CENTRAL (4 Naipes en juego) -->
+        <div class="trick-arena" id="trick-cards-area">
+          <div class="trick-slot trick-slot-N" id="trick-slot-N"></div>
+          <div class="trick-slot trick-slot-E" id="trick-slot-E"></div>
+          <div class="trick-slot trick-slot-S" id="trick-slot-S"></div>
+          <div class="trick-slot trick-slot-W" id="trick-slot-W"></div>
+
+          <div class="trick-arena-center-info">
+            <span id="turn-badge" class="turn-badge">S</span>
+            <div id="last-trick-winner-text" style="margin-top:0.3rem; font-size:0.7rem; color:var(--gold-light);"></div>
+          </div>
+        </div>
+
+        <!-- ESTE: Defensor IA -->
+        <div class="seat seat-east">
+          <div class="seat-badge" id="seat-badge-E">
+            <span>🛡️</span> <span>ESTE</span>
+          </div>
+          <div class="hand-vertical" id="hand-east">
+            <!-- Naipes de Este de espaldas -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUR: Tú (El Declarador) -->
+      <div class="seat seat-south">
+        <div class="seat-badge active-turn" id="seat-badge-S">
+          <span>👑</span> <span>SUR (Tú — Declarador)</span>
+        </div>
+        <div id="turn-indicator-text" style="font-size:0.85rem; color:#fde68a; margin-bottom:0.4rem; text-align:center;">
+          Haz clic en una carta de tu mano para jugarla
+        </div>
+        <div class="hand-row" id="hand-south">
+          <!-- Naipes de Sur generados dinámicamente -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 6. MODAL DE RESULTADO DE LA MANO -->
+  <div id="modal-result" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="result-title">Resultado de la Mano</h3>
+        <button class="modal-close" id="btn-result-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="result-badge" class="result-badge"></div>
+        <div id="result-details"></div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-secondary" id="btn-result-retry">🔄 Reintentar Mano</button>
+        <button class="btn-primary" id="btn-result-next">➡️ Siguiente Misión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. MODAL DE REGLAS RÁPIDAS: "APRENDE BRIDGE EN 2 MINUTOS" -->
+  <div id="modal-rules" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-head">
+        <h3>📖 Aprende Bridge en 2 Minutos</h3>
+        <button class="modal-close" id="btn-close-rules">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="rules-section">
+          <h4>1. ¿Qué es una Baza?</h4>
+          <p>
+            En cada ronda, los 4 jugadores tiran una carta al centro en el sentido de las agujas del reloj. 
+            El que juegue la carta más alta gana la baza y se la lleva para su pareja. La mano consta de un total de <strong>13 bazas</strong>.
+          </p>
+        </div>
+
+        <div class="rules-section">
+          <h4>2. La Regla de Oro: Asistir al Palo</h4>
+          <p>
+            El primer jugador que tira carta marca el <strong>Palo de Salida</strong> (Picas ♠, Corazones ♥, Diamantes ♦ o Tréboles ♣). 
+            Los demás jugadores están <strong>obligados por reglamento a tirar una carta de ese mismo palo</strong> si tienen alguna en la mano.
+          </p>
+        </div>
+
+        <div class="rules-section">
+          <h4>3. ¿Y si no tengo cartas de ese palo?</h4>
+          <p>
+            Si se te han terminado las cartas del palo jugado:
+          </p>
+          <ul style="padding-left: 1.25rem; margin-top: 0.35rem;">
+            <li>Si hay palo de <strong>Triunfo</strong>, ¡puedes tirar un triunfo para <em>cortar</em> y ganar la baza a cualquier carta rival!</li>
+            <li>Si juegas en <strong>Sin Triunfo (NT)</strong> o prefieres guardar tus triunfos, puedes <em>descartar</em> cualquier carta que no te sirva.</li>
+          </ul>
+        </div>
+
+        <div class="rules-section">
+          <h4>4. El Muerto (Tu Gran Compañero)</h4>
+          <p>
+            Tú juegas en <strong>Sur</strong>. Al empezar la mano, tu compañero de <strong>Norte (El Muerto)</strong> extiende todas sus cartas boca arriba sobre la mesa. 
+            <strong>Tú controlas tanto tus cartas en Sur como las del Muerto en Norte</strong> cuando le toque el turno. ¡Esto te permite armar jugadas maestras combinadas entre ambas manos!
+          </p>
+        </div>
+
+        <div class="rules-section">
+          <h4>5. El Contrato</h4>
+          <p>
+            El contrato indica cuántas bazas por encima de 6 debes ganar:
+          </p>
+          <ul style="padding-left: 1.25rem; margin-top: 0.35rem;">
+            <li><strong>1NT</strong> = 6 + 1 = <strong>7 bazas</strong>.</li>
+            <li><strong>2♥</strong> = 6 + 2 = <strong>8 bazas</strong>.</li>
+            <li><strong>3NT</strong> = 6 + 3 = <strong>9 bazas</strong> (Manga).</li>
+            <li><strong>4♠</strong> = 6 + 4 = <strong>10 bazas</strong> (Manga mayor).</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="modal-foot">
+        <button class="btn-primary" id="btn-close-rules-bottom" onclick="document.getElementById('modal-rules').classList.add('hidden')">
+          ¡Entendido, vamos a jugar!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts del Juego -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
