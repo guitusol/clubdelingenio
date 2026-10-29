@@ -332,9 +332,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Idioma
   const btnLang = document.getElementById('btn-open-lang-modal');
+  const mBtnLang = document.getElementById('m-btn-lang');
   const modalLang = document.getElementById('modal-lang');
   if (btnLang) {
     btnLang.addEventListener('click', () => modalLang.classList.remove('hidden'));
+  }
+  if (mBtnLang) {
+    mBtnLang.addEventListener('click', () => modalLang.classList.remove('hidden'));
   }
   document.querySelectorAll('.lang-option-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -874,6 +878,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const drawerIcon = document.getElementById('drawer-sound-icon');
     if (desktopIcon) desktopIcon.textContent = icon;
     if (drawerIcon) drawerIcon.textContent = icon;
+  });
+
+  const drawerHeaderLang = document.getElementById('drawer-header-lang');
+  if (drawerHeaderLang) drawerHeaderLang.addEventListener('click', () => {
+    document.getElementById('modal-lang')?.classList.remove('hidden');
+    closeDrawer();
   });
 
   const drawerLang = document.getElementById('drawer-btn-lang');

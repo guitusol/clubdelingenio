@@ -41,6 +41,11 @@
       <button id="m-btn-ghost" class="m-btn-tool" data-i18n-title="btn_ghost" title="Imagen Guía">👻</button>
       <button id="m-btn-sort" class="m-btn-tool" data-i18n-title="btn_sort_wings" title="Ordenar en Laterales">↔️</button>
       <button id="m-btn-restart" class="m-btn-tool" data-i18n-title="btn_restart" title="Reiniciar">🔄</button>
+      <!-- Selector directo de idioma para móvil -->
+      <button id="m-btn-lang" class="m-btn-lang" data-i18n-title="btn_lang_title" title="Idioma">
+        <span class="m-lang-flag current-lang-flag">🇪🇸</span>
+        <span class="m-lang-code current-lang-code">ES</span>
+      </button>
       <!-- Botón para desplegar el resto de utilidades -->
       <button id="btn-toggle-drawer" class="m-btn-menu" data-i18n-title="drawer_title" title="Más opciones">
         <span class="m-menu-icon">☰</span>
@@ -171,7 +176,13 @@
           <span style="font-size: 1.1rem;">⚙️</span>
           <h3 style="font-size: 0.95rem; color: var(--gold-light); font-family: var(--font-title);" data-i18n="drawer_title">Utilidades del Puzle</h3>
         </div>
-        <button id="btn-close-drawer" class="btn-close-drawer">✕</button>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <button id="drawer-header-lang" class="m-btn-lang" data-i18n-title="btn_lang_title" title="Idioma">
+            <span class="m-lang-flag current-lang-flag">🇪🇸</span>
+            <span class="m-lang-code current-lang-code">ES</span>
+          </button>
+          <button id="btn-close-drawer" class="btn-close-drawer">✕</button>
+        </div>
       </div>
 
       <div class="mobile-drawer-body">
@@ -240,8 +251,8 @@
               <span data-i18n="btn_sound_title">Sonido</span>
             </button>
             <button id="drawer-btn-lang" class="drawer-action-btn">
-              <span>🌐</span>
-              <span data-i18n="btn_lang_title">Idioma</span>
+              <span class="current-lang-flag">🇪🇸</span>
+              <span><span data-i18n="btn_lang_title">Idioma</span> (<strong class="current-lang-code">ES</strong>)</span>
             </button>
             <button id="drawer-btn-rules" class="drawer-action-btn">
               <span>📖</span>
@@ -374,9 +385,9 @@
           <h4 style="color: var(--gold-light); margin-bottom: 0.25rem;">🏅 ¡Inscribe tu Victoria en el Salón de la Fama!</h4>
           <p id="hof-registration-info" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;"></p>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.6rem; margin-bottom: 0.75rem;">
-            <input type="text" id="hof-input-name" placeholder="Tu Nombre o Alias (ej. Guillermo)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
+            <input type="text" id="hof-input-name" placeholder="Tu Nombre o Alias (ej. Jugador)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
             <input type="text" id="hof-input-city" placeholder="Ciudad (ej. Valencia)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
-            <input type="number" id="hof-input-age" placeholder="Edad (ej. 73)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
+            <input type="number" id="hof-input-age" placeholder="Edad (ej. 45)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
           </div>
           <button id="btn-submit-hof-record" class="btn-upload-file" style="width: 100%; justify-content: center;">
             Grabar Registro en el Cuadro de Honor

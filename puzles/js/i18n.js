@@ -946,12 +946,39 @@ class I18nManager {
       el.setAttribute('title', this.t(key));
     });
 
-    const langCodeEl = document.getElementById('current-lang-code');
-    if (langCodeEl) {
-      langCodeEl.textContent = this.currentLang.toUpperCase();
-    }
+    const langUpper = this.currentLang.toUpperCase();
+    const flag = PUZLES_LANG_FLAGS[this.currentLang] || '🌐';
+
+    document.querySelectorAll('.current-lang-code, #current-lang-code').forEach(el => {
+      el.textContent = langUpper;
+    });
+
+    document.querySelectorAll('.current-lang-flag').forEach(el => {
+      el.textContent = flag;
+    });
+
+    document.querySelectorAll('.lang-option-btn').forEach(btn => {
+      if (btn.getAttribute('data-lang') === this.currentLang) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
   }
 }
 
+const PUZLES_LANG_FLAGS = {
+  es: '🇪🇸',
+  en: '🇬🇧',
+  ja: '🇯🇵',
+  fr: '🇫🇷',
+  de: '🇩🇪',
+  ca: '🟡🔴',
+  va: '🦇',
+  eu: '🟩',
+  gl: '🔵'
+};
+
 window.I18nManager = I18nManager;
 window.PUZLES_TRANSLATIONS = PUZLES_TRANSLATIONS;
+window.PUZLES_LANG_FLAGS = PUZLES_LANG_FLAGS;

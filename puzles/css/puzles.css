@@ -356,7 +356,7 @@ body {
   inset: 0;
   background: rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(10px);
-  z-index: 1000;
+  z-index: 6000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -825,6 +825,13 @@ body {
   border-color: var(--gold);
 }
 
+.lang-option-btn.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.1));
+  border-color: var(--gold);
+  color: var(--gold-light);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+}
+
 /* ==============================================================================
    BARRA MÓVIL ULTRA-COMPACTA & MENÚ DESPLEGABLE DE UTILIDADES (DRAWER)
    ============================================================================== */
@@ -926,6 +933,39 @@ body {
   transform: scale(0.94);
   background: var(--gold);
   color: #000;
+}
+
+.m-btn-lang {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-gold);
+  color: var(--text-main);
+  height: 34px;
+  padding: 0 0.55rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.m-btn-lang:hover, .m-btn-lang:active {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold);
+  transform: scale(0.94);
+}
+
+.m-lang-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.m-lang-code {
+  letter-spacing: 0.05em;
+  color: var(--gold-light);
 }
 
 /* ==============================================================================

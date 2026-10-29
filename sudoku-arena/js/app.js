@@ -1778,7 +1778,7 @@ ${url}`;
           if (detailsEl) {
             const ageGroupLabel = profile.ageGroup === 'junior' ? 'Júnior (<18)' :
                                   (profile.ageGroup === 'adult' ? 'Adultos (18-49)' :
-                                  (profile.ageGroup === 'senior' ? 'Senior (50-64)' : 'Leyendas (65+)'));
+                                  (profile.ageGroup === 'senior' ? 'Senior (50-64)' : 'Master (65+)'));
             detailsEl.textContent = profile.name + ' • ' + profile.city + ', ' + (profile.countryName || profile.country) + ' ' + (profile.flag || '') + ' • ' + profile.age + ' años (' + ageGroupLabel + ')';
           }
         }

@@ -31,8 +31,8 @@ export class HallOfFameWidget {
         errorsCount: 9,
         seed: 67890,
         verified: true,
-        rank: 'Gran Maestro Puro (Mente de Acero)',
-        isFounder: true,
+        rank: 'Gran Maestro',
+        isFounder: false,
         date: '2024-10-24'
       },
       {
@@ -354,7 +354,7 @@ export class HallOfFameWidget {
           <div class="podium-rank-badge">${item.badge} #${item.place}</div>
           ${this.getPodiumAvatarHtml(m, item.place)}
           <div class="podium-info">
-            <h4 class="podium-name">${m.name} ${isFounder ? '<span class="founder-tag">FUNDADOR</span>' : ''}</h4>
+            <h4 class="podium-name">${m.name}</h4>
             <p class="podium-location">${m.city}, ${m.countryName || m.country}</p>
             <div class="podium-badges">
               <span class="hof-badge ${diffClass}">${m.diffLabel || m.difficulty}</span>
@@ -404,7 +404,7 @@ export class HallOfFameWidget {
 
       // Tramo generacional
       let ageLabel = `${m.age} años`;
-      if (m.ageGroup === 'legend' || m.age >= 65) ageLabel += ' • 👑 Leyenda';
+      if (m.ageGroup === 'legend' || m.age >= 65) ageLabel += ' • 🧠 Master (65+)';
       else if (m.ageGroup === 'senior') ageLabel += ' • 🧠 Senior';
       else if (m.ageGroup === 'junior') ageLabel += ' • 🐣 Júnior';
 
@@ -415,7 +415,7 @@ export class HallOfFameWidget {
             <div class="master-cell">
               ${this.getTableAvatarHtml(m)}
               <div class="master-texts">
-                <strong>${m.name} ${isFounder ? '<span class="founder-mini-badge">LEYENDA</span>' : ''}</strong>
+                <strong>${m.name}</strong>
                 <small>${m.city}, ${m.countryName || m.country} • ${ageLabel}</small>
               </div>
             </div>

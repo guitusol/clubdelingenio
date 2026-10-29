@@ -34,7 +34,7 @@ class HallOfFameEngine {
         errorsCount: 9,
         seed: 67890,
         verified: true,
-        rank: 'Gran Maestro Puro (Mente de Acero)',
+        rank: 'Gran Maestro',
         date: '2024-10-24'
       },
       {
@@ -459,7 +459,7 @@ class HallOfFameEngine {
         { key: 'junior', titleKey: 'hof_group_junior', title: '🐣 Júnior (< 18 años)', masters: [] },
         { key: 'adult', titleKey: 'hof_group_adult', title: '⚡ Adultos (18 – 49 años)', masters: [] },
         { key: 'senior', titleKey: 'hof_group_senior', title: '🧠 Senior / Veteranos (50 – 64 años)', masters: [] },
-        { key: 'legend', titleKey: 'hof_group_legend', title: '👑 Leyendas / Master (65+ años)', masters: [] }
+        { key: 'legend', titleKey: 'hof_group_legend', title: '👑 Master (65+ años)', masters: [] }
       ];
 
       list.forEach(m => {

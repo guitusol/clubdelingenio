@@ -281,7 +281,7 @@ function seedGuillermoHistory() {
         city: 'Valencia',
         age: 73,
         ageGroup: 'legend',
-        isFounder: true
+        isFounder: false
       }));
     }
   } catch (e) {
