@@ -230,9 +230,10 @@
       <div class="modal-body">
         <!-- Formulario de Registro si acaba de ganar -->
         <div id="hof-registration-card" class="vault-dropzone hidden" style="text-align: left; margin-bottom: 1.2rem;">
-          <h4 style="color: var(--gold-light); margin-bottom: 0.5rem;">🏅 ¡Inscribe tu Victoria en el Salón de la Fama!</h4>
+          <h4 style="color: var(--gold-light); margin-bottom: 0.25rem;">🏅 ¡Inscribe tu Victoria en el Salón de la Fama!</h4>
+          <p id="hof-registration-info" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;"></p>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.6rem; margin-bottom: 0.75rem;">
-            <input type="text" id="hof-input-name" placeholder="Tu Nombre o Alias" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
+            <input type="text" id="hof-input-name" placeholder="Tu Nombre o Alias (ej. Guillermo)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
             <input type="text" id="hof-input-city" placeholder="Ciudad (ej. Valencia)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
             <input type="number" id="hof-input-age" placeholder="Edad (ej. 73)" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-gold); color: #fff; padding: 0.45rem; border-radius: 6px;">
           </div>
@@ -244,6 +245,7 @@
         <!-- Pestañas -->
         <div class="modal-tabs">
           <button class="modal-tab-btn hof-tab-btn active" data-tab="all" data-i18n="hof_tab_all">🌍 Todo el Mundo</button>
+          <button class="modal-tab-btn hof-tab-btn" data-tab="my_records" data-i18n="hof_tab_my_records">👤 Mis Marcas</button>
           <button class="modal-tab-btn hof-tab-btn" data-tab="nations" data-i18n="hof_tab_nations">🏳️ Copa de Naciones</button>
           <button class="modal-tab-btn hof-tab-btn" data-tab="cities" data-i18n="hof_tab_cities">🏙️ Orgullo Local</button>
           <button class="modal-tab-btn hof-tab-btn" data-tab="generations" data-i18n="hof_tab_generations">🎂 Generaciones</button>

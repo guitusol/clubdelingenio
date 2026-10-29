@@ -62,8 +62,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
+  // Variable para recordar la última partida finalizada
+  let lastVictoryResult = null;
+
   // 5. Callback de Victoria
   board.onVictory = (result) => {
+    lastVictoryResult = {
+      finalScore: result.finalScore,
+      timeSeconds: result.timeSeconds,
+      formattedTime: result.formattedTime,
+      pureMastery: result.pureMastery,
+      difficulty: currentDifficulty,
+      puzzleTitle: activeImageMeta ? activeImageMeta.title : 'Puzle Panorámico',
+      registered: false
+    };
+
     // Abrir modal de victoria
     const modalVictory = document.getElementById('modal-victory');
     document.getElementById('victory-score-value').textContent = result.finalScore.toLocaleString();
@@ -92,17 +105,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       window.open(shareUrl, '_blank');
     };
 
-    // Si completó en Difícil o Muy Difícil: habilitar botón para registrarse en el Salón de la Fama
+    // Habilitar botón para inscribir marca en el Cuadro de Honor
     const regSection = document.getElementById('victory-hof-registration');
-    if (currentDifficulty === 'dificil' || currentDifficulty === 'muy_dificil') {
+    if (regSection) {
       regSection.classList.remove('hidden');
       const regBtn = document.getElementById('btn-victory-register-hof');
       regBtn.onclick = () => {
         modalVictory.classList.add('hidden');
-        openHallOfFameModal(true, result);
+        openHallOfFameModal(true, lastVictoryResult);
       };
-    } else {
-      regSection.classList.add('hidden');
     }
 
     modalVictory.classList.remove('hidden');
@@ -471,12 +482,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ============================================================================
   // RENDERIZADO DEL SALÓN DE LA FAMA
   // ============================================================================
+  let activeHofTab = 'all';
+
   function openHallOfFameModal(showRegistrationForm = false, pendingResult = null) {
     const modalHof = document.getElementById('modal-hof');
     const formSection = document.getElementById('hof-registration-card');
+    const regInfo = document.getElementById('hof-registration-info');
+
+    // Si el usuario abre el modal y tiene una partida reciente pendiente de inscribir
+    if (!showRegistrationForm && lastVictoryResult && !lastVictoryResult.registered) {
+      showRegistrationForm = true;
+      pendingResult = lastVictoryResult;
+    }
 
     if (showRegistrationForm && pendingResult) {
       formSection.classList.remove('hidden');
+      if (regInfo) {
+        regInfo.textContent = `Puzle: ${pendingResult.puzzleTitle} · Nivel: ${hof.getDiffLabel(pendingResult.difficulty)} · Puntuación: ${pendingResult.finalScore.toLocaleString()} pts (${pendingResult.formattedTime})`;
+      }
+
       const inputName = document.getElementById('hof-input-name');
       const inputCity = document.getElementById('hof-input-city');
       const inputAge = document.getElementById('hof-input-age');
@@ -484,13 +508,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const existingProfile = hof.getUserProfile();
       if (existingProfile) {
-        inputName.value = existingProfile.name || '';
-        inputCity.value = existingProfile.city || '';
+        inputName.value = existingProfile.name || 'Guillermo';
+        inputCity.value = existingProfile.city || 'Valencia';
         inputAge.value = existingProfile.age || '';
+      } else {
+        inputName.value = 'Guillermo';
+        inputCity.value = 'Valencia';
       }
 
       btnSubmit.onclick = () => {
-        const name = inputName.value.trim() || 'Maestro Anónimo';
+        const name = inputName.value.trim() || 'Guillermo';
         const city = inputCity.value.trim() || 'Valencia';
         const age = parseInt(inputAge.value, 10) || 45;
 
@@ -499,38 +526,81 @@ document.addEventListener('DOMContentLoaded', async () => {
           name,
           city,
           age,
-          difficulty: currentDifficulty,
+          difficulty: pendingResult.difficulty || currentDifficulty,
           score: pendingResult.finalScore,
           timeSeconds: pendingResult.timeSeconds,
           formattedTime: pendingResult.formattedTime,
           pureMastery: pendingResult.pureMastery,
-          puzzleTitle: activeImageMeta ? activeImageMeta.title : 'Puzle Panorámico'
+          puzzleTitle: pendingResult.puzzleTitle || (activeImageMeta ? activeImageMeta.title : 'Puzle Panorámico')
         });
 
+        if (pendingResult) {
+          pendingResult.registered = true;
+        }
+
         formSection.classList.add('hidden');
-        renderHofList('all');
+
+        // Cambiar automáticamente a la pestaña 'Mis Marcas' para ver el récord grabado
+        activeHofTab = 'my_records';
+        document.querySelectorAll('.hof-tab-btn').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-tab') === 'my_records');
+        });
+        renderHofList('my_records');
       };
     } else {
       formSection.classList.add('hidden');
     }
 
-    renderHofList('all');
+    renderHofList(activeHofTab);
     modalHof.classList.remove('hidden');
   }
 
   function renderHofList(tab = 'all', diff = 'all') {
+    activeHofTab = tab;
     const container = document.getElementById('hof-records-list');
     container.innerHTML = '';
 
     const list = hof.getFilteredMasters(tab, diff);
+
+    // Estado vacío en Mis Marcas
+    if (tab === 'my_records' && list.length === 0) {
+      container.innerHTML = `
+        <div class="hof-empty-state">
+          <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📜</div>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+            ${i18n.t('hof_my_records_empty')}
+          </p>
+          ${lastVictoryResult && !lastVictoryResult.registered ? `
+            <button id="btn-inscribe-last-game" class="btn-upload-file" style="margin: 0 auto;">
+              🏅 Inscribir mi última partida (${lastVictoryResult.finalScore.toLocaleString()} pts)
+            </button>
+          ` : ''}
+        </div>
+      `;
+      const btnInscribeLast = document.getElementById('btn-inscribe-last-game');
+      if (btnInscribeLast) {
+        btnInscribeLast.onclick = () => {
+          openHallOfFameModal(true, lastVictoryResult);
+        };
+      }
+      return;
+    }
+
     list.forEach((m, idx) => {
       const row = document.createElement('div');
-      row.className = `hof-row ${idx === 0 ? 'first-place' : ''}`;
+      const isUserRecord = m.isUser || (m.id && m.id.startsWith('usr_'));
+      row.className = `hof-row ${idx === 0 ? 'first-place' : ''} ${isUserRecord ? 'user-record' : ''}`;
 
       const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : `#${idx + 1}`));
       const purityBadge = m.pureMastery 
         ? `<span class="badge-purity gold" title="${i18n.t('hof_pure_badge')}">⭐ Pura</span>` 
         : `<span class="badge-purity muted" title="${i18n.t('hof_assisted_badge')}">Guía</span>`;
+      const userTag = isUserRecord 
+        ? `<span class="badge-tag cyan" style="font-size: 0.7rem; padding: 0.1rem 0.4rem; margin-left: 0.3rem;">⭐ Tu Marca</span>` 
+        : '';
+      const deleteBtn = isUserRecord 
+        ? `<button class="btn-delete-hof" data-id="${m.id}" title="Eliminar registro" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.2rem; margin-left: 0.4rem; font-size: 0.9rem;">🗑️</button>` 
+        : '';
 
       row.innerHTML = `
         <div class="hof-rank">${medal}</div>
@@ -540,14 +610,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             <strong>${m.name}</strong>
             <span class="hof-city">${m.city} (${m.age} años)</span>
             ${purityBadge}
+            ${userTag}
           </div>
-          <div class="hof-puzzle-title">${m.puzzleTitle || ''} · <span class="hof-diff-tag">${m.diffLabel}</span></div>
+          <div class="hof-puzzle-title">${m.puzzleTitle || ''} · <span class="hof-diff-tag">${m.diffLabel}</span> · <span style="font-size: 0.75rem; color: var(--text-muted);">${m.date || ''}</span></div>
         </div>
         <div class="hof-stats">
           <span class="hof-score">${m.score.toLocaleString()} pts</span>
           <span class="hof-time">⏱️ ${m.formattedTime}</span>
+          ${deleteBtn}
         </div>
       `;
+
+      const del = row.querySelector('.btn-delete-hof');
+      if (del) {
+        del.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (confirm('¿Deseas eliminar este registro de tus marcas?')) {
+            hof.deleteMasterRecord(m.id);
+            renderHofList(tab, diff);
+          }
+        });
+      }
+
       container.appendChild(row);
     });
   }

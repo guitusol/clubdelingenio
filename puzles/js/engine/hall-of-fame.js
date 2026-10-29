@@ -110,7 +110,9 @@ class PuzlesHallOfFame {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
-        const stored = JSON.parse(data).filter(m => m.id !== 'master_founder_guillermo' && !(m.name && m.name.includes('Guillermo')));
+        // Solo excluir el antiguo récord de muestra/ejemplo del fundador si quedó en caché
+        const stored = JSON.parse(data).filter(m => m.id !== 'master_founder_guillermo');
+        stored.forEach(m => { m.isUser = true; });
         return [...this.DEFAULT_MASTERS, ...stored];
       }
     } catch (e) {
@@ -136,35 +138,44 @@ class PuzlesHallOfFame {
     }
   }
 
+  getDiffLabel(diff) {
+    switch (diff) {
+      case 'facil': return 'Fácil';
+      case 'medio': return 'Medio';
+      case 'dificil': return 'Difícil';
+      case 'muy_dificil': return 'Muy Difícil';
+      default: return diff || 'Difícil';
+    }
+  }
+
   /**
-   * Registra una victoria calificada en Difícil o Muy Difícil
+   * Registra una victoria en el Salón de la Fama / Cuadro de Honor
    */
   registerMasterRecord(recordData) {
-    if (recordData.difficulty !== 'dificil' && recordData.difficulty !== 'muy_dificil') {
-      return false; // Solo accesible para niveles altos
-    }
-
+    const diff = recordData.difficulty || 'facil';
     const newRecord = {
       id: 'usr_' + Date.now(),
-      name: recordData.name || 'Maestro Anónimo',
+      isUser: true,
+      name: recordData.name || 'Guillermo',
       flag: recordData.flag || '🇪🇸',
       country: recordData.country || 'ES',
       countryName: recordData.countryName || 'España',
       city: recordData.city || 'Valencia',
-      age: recordData.age || 40,
-      ageGroup: this.getAgeGroup(recordData.age || 40),
-      difficulty: recordData.difficulty,
-      diffLabel: recordData.difficulty === 'muy_dificil' ? 'Muy Difícil' : 'Difícil',
-      score: recordData.score,
-      timeSeconds: recordData.timeSeconds,
-      formattedTime: recordData.formattedTime,
-      pureMastery: recordData.pureMastery,
+      age: recordData.age || 45,
+      ageGroup: this.getAgeGroup(recordData.age || 45),
+      difficulty: diff,
+      diffLabel: this.getDiffLabel(diff),
+      score: recordData.score || 0,
+      timeSeconds: recordData.timeSeconds || 0,
+      formattedTime: recordData.formattedTime || '00:00',
+      pureMastery: !!recordData.pureMastery,
       puzzleTitle: recordData.puzzleTitle || 'Puzle Panorámico',
       date: new Date().toISOString().split('T')[0]
     };
 
     try {
-      const stored = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
+      const raw = localStorage.getItem(this.STORAGE_KEY);
+      const stored = raw ? JSON.parse(raw).filter(m => m.id !== 'master_founder_guillermo') : [];
       stored.unshift(newRecord);
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(stored));
       this.masters = this.loadMasters();
@@ -173,6 +184,21 @@ class PuzlesHallOfFame {
       console.warn('Error guardando récord de maestro:', e);
       return false;
     }
+  }
+
+  deleteMasterRecord(id) {
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY);
+      if (raw) {
+        const stored = JSON.parse(raw).filter(m => m.id !== id);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(stored));
+        this.masters = this.loadMasters();
+        return true;
+      }
+    } catch (e) {
+      console.warn('Error eliminando récord:', e);
+    }
+    return false;
   }
 
   getAgeGroup(age) {
@@ -184,6 +210,15 @@ class PuzlesHallOfFame {
 
   getFilteredMasters(tab = 'all', diffFilter = 'all') {
     let list = [...this.masters];
+
+    // Pestaña especial: Mis Marcas (únicamente registros del usuario actual)
+    if (tab === 'my_records') {
+      const myRecords = list.filter(m => m.isUser || (m.id && m.id.startsWith('usr_')));
+      return myRecords.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.timeSeconds - b.timeSeconds;
+      });
+    }
 
     if (diffFilter !== 'all') {
       list = list.filter(m => m.difficulty === diffFilter);

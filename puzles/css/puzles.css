@@ -624,6 +624,26 @@ body {
   background: linear-gradient(90deg, rgba(245, 158, 11, 0.12), transparent);
 }
 
+.hof-row.user-record {
+  border-color: rgba(56, 189, 248, 0.6);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.12), rgba(0, 0, 0, 0.2));
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.15);
+}
+
+.hof-row.user-record:hover {
+  border-color: var(--cyan);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(0, 0, 0, 0.25));
+}
+
+.hof-empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 12px;
+  margin: 0.5rem 0;
+}
+
 .hof-rank {
   font-size: 1.25rem;
   font-weight: 700;
