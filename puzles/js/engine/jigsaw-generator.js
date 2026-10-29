@@ -1,8 +1,9 @@
 /**
  * Puzles del Club — Generador Matemático de Troquelado Jigsaw
  * Genera piezas entrelazadas realistas con curvas de Bézier cúbicas,
- * pestañas convexas (machos) y entrantes (hembras) únicas por semilla (seed).
- * Permite despiezar cualquier imagen múltiples veces con cortes completamente distintos.
+ * pestañas convexas (machos) y entrantes (hembras) con simetría matemática exacta.
+ * Garantiza que cada pestaña macho encaja al 100% en la hembra correspondiente
+ * y permite despiezar cualquier imagen múltiples veces con cortes completamente distintos.
  */
 
 class JigsawGenerator {
@@ -18,16 +19,13 @@ class JigsawGenerator {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   }
 
-  // Genera un número pseudoaleatorio entre min y max usando la semilla activa
   randomRange(min, max) {
     const val = this.mulberry32(this.rngSeed++);
     return min + val * (max - min);
   }
 
-  // Configuración de cuadrícula según nivel de dificultad y relación de aspecto
   calculateGrid(pieceCount, imageWidth, imageHeight) {
     const aspect = imageWidth / imageHeight;
-    // Buscamos columnas y filas cuyo producto sea lo más cercano posible a pieceCount
     let bestCols = Math.round(Math.sqrt(pieceCount * aspect));
     bestCols = Math.max(3, bestCols);
     let bestRows = Math.round(pieceCount / bestCols);
@@ -42,11 +40,6 @@ class JigsawGenerator {
 
   /**
    * Genera la lista completa de piezas con sus trayectorias geométricas
-   * @param {number} boardW - Ancho del tablero
-   * @param {number} boardH - Alto del tablero
-   * @param {number} cols - Columnas
-   * @param {number} rows - Filas
-   * @param {number} seed - Semilla matemática para reproducir o cambiar cortes
    */
   generatePieces(boardW, boardH, cols, rows, seed = Date.now()) {
     this.rngSeed = seed;
@@ -54,26 +47,26 @@ class JigsawGenerator {
     const pieceW = boardW / cols;
     const pieceH = boardH / rows;
 
-    // Generar perfiles de aristas horizontales y verticales
-    // horizontalEdges[r][c] separa la fila r de la r+1 en la columna c (r de 0 a rows-2, c de 0 a cols-1)
+    // Generar perfiles canónicos para aristas horizontales y verticales
+    // horizontalEdges[r][c] separa la fila r de la r+1 en la columna c
     const horizontalEdges = [];
     for (let r = 0; r < rows - 1; r++) {
       horizontalEdges[r] = [];
       for (let c = 0; c < cols; c++) {
-        // Tab direction: 1 (hacia abajo / fila r+1), -1 (hacia arriba / fila r)
+        // dir: +1 (macho en fila r, hembra en fila r+1), -1 (hembra en fila r, macho en fila r+1)
         const dir = this.mulberry32(this.rngSeed++) > 0.5 ? 1 : -1;
-        horizontalEdges[r][c] = this.createEdgeProfile(pieceW, dir);
+        horizontalEdges[r][c] = this.createCanonicalEdge(pieceW, dir);
       }
     }
 
-    // verticalEdges[r][c] separa la columna c de la c+1 en la fila r (r de 0 a rows-1, c de 0 a cols-2)
+    // verticalEdges[r][c] separa la columna c de la c+1 en la fila r
     const verticalEdges = [];
     for (let r = 0; r < rows; r++) {
       verticalEdges[r] = [];
       for (let c = 0; c < cols - 1; c++) {
-        // Tab direction: 1 (hacia la derecha / col c+1), -1 (hacia la izquierda / col c)
+        // dir: +1 (macho en col c, hembra en col c+1), -1 (hembra en col c, macho en col c+1)
         const dir = this.mulberry32(this.rngSeed++) > 0.5 ? 1 : -1;
-        verticalEdges[r][c] = this.createEdgeProfile(pieceH, dir);
+        verticalEdges[r][c] = this.createCanonicalEdge(pieceH, dir);
       }
     }
 
@@ -90,33 +83,26 @@ class JigsawGenerator {
         const isCorner = (isTop || isBottom) && (isLeft || isRight);
         const isEdge = isTop || isBottom || isLeft || isRight;
         const isInner = !isEdge;
-
-        // Tipo de pieza para puntuación cognitiva: 'corner', 'edge', 'inner'
         const type = isCorner ? 'corner' : (isEdge ? 'edge' : 'inner');
 
-        // Obtener o invertir los 4 lados de la pieza:
-        // top, right, bottom, left
         const topEdge = isTop ? null : horizontalEdges[r - 1][c];
         const rightEdge = isRight ? null : verticalEdges[r][c];
         const bottomEdge = isBottom ? null : horizontalEdges[r][c];
         const leftEdge = isLeft ? null : verticalEdges[r][c - 1];
 
-        // Definir la trayectoria del contorno de la pieza
+        // Construir el contorno Bézier simétrico de la pieza
         const pathData = this.buildPiecePath(
           pieceW,
           pieceH,
-          topEdge,    // Top edge profile (o null si es borde plano)
-          rightEdge,  // Right edge profile (o null si es borde plano)
-          bottomEdge, // Bottom edge profile (o null si es borde plano)
-          leftEdge,   // Left edge profile (o null si es borde plano)
+          topEdge,
+          rightEdge,
+          bottomEdge,
+          leftEdge,
           isTop, isRight, isBottom, isLeft
         );
 
-        // Puntos de corrección de posición exacta en el tablero
         const targetX = c * pieceW;
         const targetY = r * pieceH;
-
-        // Bounding box con margen de seguridad para salientes (tab extensions ~30% del tamaño)
         const tabMarginX = pieceW * 0.35;
         const tabMarginY = pieceH * 0.35;
 
@@ -135,11 +121,10 @@ class JigsawGenerator {
           tabMarginX,
           tabMarginY,
           pathData,
-          // Propiedades dinámicas en juego
           currentX: 0,
           currentY: 0,
           isPlaced: false,
-          clusterId: id, // Inicialmente cada pieza es su propio grupo
+          clusterId: id,
           zIndex: 1
         });
       }
@@ -158,210 +143,197 @@ class JigsawGenerator {
   }
 
   /**
-   * Crea las curvas de Bézier orgánicas para una pestaña de acople clásica
+   * Crea los 3 segmentos Bézier canónicos de una pestaña con variación orgánica
    * @param {number} length - Longitud del lado
-   * @param {number} dir - Dirección del saliente (1 o -1)
+   * @param {number} dir - +1 o -1
    */
-  createEdgeProfile(length, dir) {
-    // Parámetros con leve variación orgánica (Mulberry32)
-    const tabCenter = length * this.randomRange(0.48, 0.52);
-    const tabSize = length * this.randomRange(0.24, 0.28);
-    const tabHeight = length * this.randomRange(0.20, 0.25) * dir;
-    const neckPinch = tabSize * this.randomRange(0.28, 0.34);
+  createCanonicalEdge(length, dir) {
+    const c = length * this.randomRange(0.48, 0.52);
+    const halfBase = length * this.randomRange(0.12, 0.14);
+    const neck = halfBase * this.randomRange(0.28, 0.34);
+    const h = length * this.randomRange(0.20, 0.24) * dir;
+
+    // Puntos clave a lo largo del eje:
+    const p0 = c - halfBase;
+    const p1 = c - neck;
+    const p2 = c + neck;
+    const p3 = c + halfBase;
+
+    // Segmento 1: Cuello de entrada
+    const seg1 = {
+      cp1: { s: p0 + (p1 - p0) * 0.2, d: h * 0.1 },
+      cp2: { s: p1 - (p2 - p1) * 0.5, d: h * 0.8 },
+      end: { s: c - halfBase * 0.55,   d: h }
+    };
+
+    // Segmento 2: Cabeza / cúpula del saliente
+    const seg2 = {
+      cp1: { s: c - halfBase * 0.2, d: h * 1.25 },
+      cp2: { s: c + halfBase * 0.2, d: h * 1.25 },
+      end: { s: c + halfBase * 0.55, d: h }
+    };
+
+    // Segmento 3: Cuello de salida
+    const seg3 = {
+      cp1: { s: p2 + (p2 - p1) * 0.5, d: h * 0.8 },
+      cp2: { s: p3 - (p3 - p2) * 0.2, d: h * 0.1 },
+      end: { s: p3,                   d: 0 }
+    };
 
     return {
       length,
       dir,
-      tabCenter,
-      tabSize,
-      tabHeight,
-      neckPinch
+      p0,
+      p3,
+      seg1,
+      seg2,
+      seg3
     };
   }
 
   /**
-   * Construye el Path2D relativo a (0, 0) de la casilla de la pieza
+   * Construye el Path2D cerrado de la pieza combinando los 4 lados en sentido horario
    */
   buildPiecePath(w, h, topEdge, rightEdge, bottomEdge, leftEdge, isTop, isRight, isBottom, isLeft) {
     const path = new Path2D();
 
-    // Comenzamos en la esquina superior izquierda (0, 0)
+    // Empezar en (0, 0)
     path.moveTo(0, 0);
 
-    // 1. LADO SUPERIOR (de (0, 0) a (w, 0))
+    // 1. LADO SUPERIOR (x va de 0 a w a lo largo de y = 0)
+    // Para la pieza inferior, el borde superior recibe la pestaña de la pieza superior
     if (isTop || !topEdge) {
       path.lineTo(w, 0);
     } else {
-      // Invertimos la dirección respecto al bottomEdge de la celda superior
-      this.drawEdgeHorizontal(path, 0, w, 0, topEdge, -topEdge.dir);
+      this.drawEdgeHorizontalForward(path, 0, w, 0, topEdge);
     }
 
-    // 2. LADO DERECHO (de (w, 0) a (w, h))
+    // 2. LADO DERECHO (y va de 0 a h a lo largo de x = w)
+    // Para la pieza izquierda, el borde derecho proyecta o recibe hacia la derecha
     if (isRight || !rightEdge) {
       path.lineTo(w, h);
     } else {
-      this.drawEdgeVertical(path, 0, h, w, rightEdge, rightEdge.dir);
+      this.drawEdgeVerticalForward(path, 0, h, w, rightEdge);
     }
 
-    // 3. LADO INFERIOR (de (w, h) a (0, h))
+    // 3. LADO INFERIOR (x va de w a 0 a lo largo de y = h)
+    // Para la pieza superior, el borde inferior coincide exactamente con el superior de la de abajo
     if (isBottom || !bottomEdge) {
       path.lineTo(0, h);
     } else {
-      this.drawEdgeHorizontalReverse(path, w, 0, h, bottomEdge, bottomEdge.dir);
+      this.drawEdgeHorizontalReverse(path, w, 0, h, bottomEdge);
     }
 
-    // 4. LADO IZQUIERDO (de (0, h) a (0, 0))
+    // 4. LADO IZQUIERDO (y va de h a 0 a lo largo de x = 0)
+    // Para la pieza derecha, el borde izquierdo coincide exactamente con el derecho de la de la izquierda
     if (isLeft || !leftEdge) {
       path.lineTo(0, 0);
     } else {
-      this.drawEdgeVerticalReverse(path, h, 0, 0, leftEdge, -leftEdge.dir);
+      this.drawEdgeVerticalReverse(path, h, 0, 0, leftEdge);
     }
 
     path.closePath();
     return path;
   }
 
-  // Dibuja borde horizontal de izquierda a derecha
-  drawEdgeHorizontal(path, startX, endX, y, edge, dir) {
-    const len = endX - startX;
-    const c = startX + edge.tabCenter;
-    const halfBase = edge.tabSize;
-    const neck = edge.neckPinch;
-    const h = Math.abs(edge.tabHeight) * dir;
-
-    const p0x = c - halfBase;
-    const p1x = c - neck;
-    const p2x = c + neck;
-    const p3x = c + halfBase;
-
-    // Línea base hasta el cuello de la pestaña
-    path.lineTo(p0x, y);
-
-    // Curva de entrada al cuello y cabeza del saliente (curva de Bézier cúbica)
-    path.bezierCurveTo(
-      p0x + (p1x - p0x) * 0.2, y + h * 0.1,
-      p1x - (p2x - p1x) * 0.5, y + h * 0.8,
-      c - edge.tabSize * 0.55, y + h
-    );
-
-    // Corona / domo superior de la pestaña
-    path.bezierCurveTo(
-      c - edge.tabSize * 0.2, y + h * 1.25,
-      c + edge.tabSize * 0.2, y + h * 1.25,
-      c + edge.tabSize * 0.55, y + h
-    );
-
-    // Curva de salida del saliente hacia la base
-    path.bezierCurveTo(
-      p2x + (p2x - p1x) * 0.5, y + h * 0.8,
-      p3x - (p3x - p2x) * 0.2, y + h * 0.1,
-      p3x, y
-    );
-
-    // Resto de la línea horizontal
-    path.lineTo(endX, y);
-  }
-
-  // Dibuja borde horizontal de derecha a izquierda
-  drawEdgeHorizontalReverse(path, startX, endX, y, edge, dir) {
-    const c = endX + (edge.length - edge.tabCenter);
-    const halfBase = edge.tabSize;
-    const neck = edge.neckPinch;
-    const h = Math.abs(edge.tabHeight) * dir;
-
-    const p0x = c + halfBase;
-    const p1x = c + neck;
-    const p2x = c - neck;
-    const p3x = c - halfBase;
-
-    path.lineTo(p0x, y);
+  // Lado horizontal hacia adelante: de x=0 a x=w
+  drawEdgeHorizontalForward(path, startX, endX, y, edge) {
+    path.lineTo(edge.p0, y);
 
     path.bezierCurveTo(
-      p0x - (p0x - p1x) * 0.2, y + h * 0.1,
-      p1x + (p1x - p2x) * 0.5, y + h * 0.8,
-      c + edge.tabSize * 0.55, y + h
+      edge.seg1.cp1.s, y + edge.seg1.cp1.d,
+      edge.seg1.cp2.s, y + edge.seg1.cp2.d,
+      edge.seg1.end.s, y + edge.seg1.end.d
     );
 
     path.bezierCurveTo(
-      c + edge.tabSize * 0.2, y + h * 1.25,
-      c - edge.tabSize * 0.2, y + h * 1.25,
-      c - edge.tabSize * 0.55, y + h
+      edge.seg2.cp1.s, y + edge.seg2.cp1.d,
+      edge.seg2.cp2.s, y + edge.seg2.cp2.d,
+      edge.seg2.end.s, y + edge.seg2.end.d
     );
 
     path.bezierCurveTo(
-      p2x - (p1x - p2x) * 0.5, y + h * 0.8,
-      p3x + (p0x - p3x) * 0.2, y + h * 0.1,
-      p3x, y
+      edge.seg3.cp1.s, y + edge.seg3.cp1.d,
+      edge.seg3.cp2.s, y + edge.seg3.cp2.d,
+      edge.seg3.end.s, y + edge.seg3.end.d
     );
 
     path.lineTo(endX, y);
   }
 
-  // Dibuja borde vertical de arriba hacia abajo
-  drawEdgeVertical(path, startY, endY, x, edge, dir) {
-    const c = startY + edge.tabCenter;
-    const halfBase = edge.tabSize;
-    const neck = edge.neckPinch;
-    const h = Math.abs(edge.tabHeight) * dir;
+  // Lado horizontal hacia atrás: de x=w a x=0 (inversión matemática exacta)
+  drawEdgeHorizontalReverse(path, startX, endX, y, edge) {
+    path.lineTo(edge.p3, y);
 
-    const p0y = c - halfBase;
-    const p1y = c - neck;
-    const p2y = c + neck;
-    const p3y = c + halfBase;
+    // Invertir segmento 3
+    path.bezierCurveTo(
+      edge.seg3.cp2.s, y + edge.seg3.cp2.d,
+      edge.seg3.cp1.s, y + edge.seg3.cp1.d,
+      edge.seg2.end.s, y + edge.seg2.end.d
+    );
 
-    path.lineTo(x, p0y);
+    // Invertir segmento 2
+    path.bezierCurveTo(
+      edge.seg2.cp2.s, y + edge.seg2.cp2.d,
+      edge.seg2.cp1.s, y + edge.seg2.cp1.d,
+      edge.seg1.end.s, y + edge.seg1.end.d
+    );
+
+    // Invertir segmento 1
+    path.bezierCurveTo(
+      edge.seg1.cp2.s, y + edge.seg1.cp2.d,
+      edge.seg1.cp1.s, y + edge.seg1.cp1.d,
+      edge.p0,         y
+    );
+
+    path.lineTo(endX, y);
+  }
+
+  // Lado vertical hacia adelante: de y=0 a y=h
+  drawEdgeVerticalForward(path, startY, endY, x, edge) {
+    path.lineTo(x, edge.p0);
 
     path.bezierCurveTo(
-      x + h * 0.1, p0y + (p1y - p0y) * 0.2,
-      x + h * 0.8, p1y - (p2y - p1y) * 0.5,
-      x + h, c - edge.tabSize * 0.55
+      x + edge.seg1.cp1.d, edge.seg1.cp1.s,
+      x + edge.seg1.cp2.d, edge.seg1.cp2.s,
+      x + edge.seg1.end.d, edge.seg1.end.s
     );
 
     path.bezierCurveTo(
-      x + h * 1.25, c - edge.tabSize * 0.2,
-      x + h * 1.25, c + edge.tabSize * 0.2,
-      x + h, c + edge.tabSize * 0.55
+      x + edge.seg2.cp1.d, edge.seg2.cp1.s,
+      x + edge.seg2.cp2.d, edge.seg2.cp2.s,
+      x + edge.seg2.end.d, edge.seg2.end.s
     );
 
     path.bezierCurveTo(
-      x + h * 0.8, p2y + (p2y - p1y) * 0.5,
-      x + h * 0.1, p3y - (p3y - p2y) * 0.2,
-      x, p3y
+      x + edge.seg3.cp1.d, edge.seg3.cp1.s,
+      x + edge.seg3.cp2.d, edge.seg3.cp2.s,
+      x + edge.seg3.end.d, edge.seg3.end.s
     );
 
     path.lineTo(x, endY);
   }
 
-  // Dibuja borde vertical de abajo hacia arriba
-  drawEdgeVerticalReverse(path, startY, endY, x, edge, dir) {
-    const c = endY + (edge.length - edge.tabCenter);
-    const halfBase = edge.tabSize;
-    const neck = edge.neckPinch;
-    const h = Math.abs(edge.tabHeight) * dir;
-
-    const p0y = c + halfBase;
-    const p1y = c + neck;
-    const p2y = c - neck;
-    const p3y = c - halfBase;
-
-    path.lineTo(x, p0y);
+  // Lado vertical hacia atrás: de y=h a y=0 (inversión matemática exacta)
+  drawEdgeVerticalReverse(path, startY, endY, x, edge) {
+    path.lineTo(x, edge.p3);
 
     path.bezierCurveTo(
-      x + h * 0.1, p0y - (p0y - p1y) * 0.2,
-      x + h * 0.8, p1y + (p1y - p2y) * 0.5,
-      x + h, c + edge.tabSize * 0.55
+      x + edge.seg3.cp2.d, edge.seg3.cp2.s,
+      x + edge.seg3.cp1.d, edge.seg3.cp1.s,
+      x + edge.seg2.end.d, edge.seg2.end.s
     );
 
     path.bezierCurveTo(
-      x + h * 1.25, c + edge.tabSize * 0.2,
-      x + h * 1.25, c - edge.tabSize * 0.2,
-      x + h, c - edge.tabSize * 0.55
+      x + edge.seg2.cp2.d, edge.seg2.cp2.s,
+      x + edge.seg2.cp1.d, edge.seg2.cp1.s,
+      x + edge.seg1.end.d, edge.seg1.end.s
     );
 
     path.bezierCurveTo(
-      x + h * 0.8, p2y - (p1y - p2y) * 0.5,
-      x + h * 0.1, p3y + (p0y - p3y) * 0.2,
-      x, p3y
+      x + edge.seg1.cp2.d, edge.seg1.cp2.s,
+      x + edge.seg1.cp1.d, edge.seg1.cp1.s,
+      x,                   edge.p0
     );
 
     path.lineTo(x, endY);

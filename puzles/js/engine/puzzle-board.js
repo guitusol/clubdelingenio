@@ -142,6 +142,58 @@ class PuzzleBoard {
     this.sound.playShuffle();
   }
 
+  // Reiniciar la partida actual (descolocar todas las piezas y resetear tiempo/puntos)
+  restart() {
+    this.placedCount = 0;
+    this.draggedCluster = null;
+    this.clusters.clear();
+    this.pieces.forEach(p => {
+      p.isPlaced = false;
+      p.clusterId = p.id;
+      this.clusters.set(p.clusterId, new Set([p]));
+    });
+    this.distributePiecesToWings();
+    this.scoring.init(this.difficulty, this.pieces);
+    this.sound.playShuffle();
+    if (this.onPiecePlaced) {
+      this.onPiecePlaced(0, this.pieces.length);
+    }
+    this.render();
+  }
+
+  // Solucionar el puzle automáticamente (ver solución / resolver)
+  solve() {
+    this.placedCount = this.pieces.length;
+    this.draggedCluster = null;
+    this.clusters.clear();
+
+    const allSet = new Set(this.pieces);
+    this.clusters.set(0, allSet);
+
+    this.pieces.forEach(p => {
+      p.currentX = this.boardX + p.targetX;
+      p.currentY = this.boardY + p.targetY;
+      p.isPlaced = true;
+      p.clusterId = 0;
+      p.zIndex = 1;
+    });
+
+    this.sound.playGroupSnap();
+    if (this.onPiecePlaced) {
+      this.onPiecePlaced(this.placedCount, this.pieces.length);
+    }
+    this.render();
+
+    // Notificar victoria asistida
+    const result = this.scoring.calculateFinalVictoryScore();
+    result.pureMastery = false;
+    if (this.onVictory) {
+      setTimeout(() => {
+        this.onVictory(result);
+      }, 350);
+    }
+  }
+
   /**
    * Distribuye las piezas no colocadas en las alas laterales izquierda y derecha
    * emulando un tapete de trabajo físico despejado al centro

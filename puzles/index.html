@@ -76,8 +76,14 @@
     </div>
 
     <div class="control-group">
-      <button id="btn-recut" class="btn-tool btn-highlight" data-i18n-title="btn_recut_title">
+      <button id="btn-restart" class="btn-tool" data-i18n-title="btn_restart_title">
+        <span data-i18n="btn_restart">🔄 Reiniciar</span>
+      </button>
+      <button id="btn-recut" class="btn-tool" data-i18n-title="btn_recut_title">
         <span data-i18n="btn_recut">🎲 Nuevo Corte</span>
+      </button>
+      <button id="btn-solve" class="btn-tool btn-highlight" data-i18n-title="btn_solve_title">
+        <span data-i18n="btn_solve">🧩 Resolver</span>
       </button>
       <button id="btn-edges-only" class="btn-tool">
         <span data-i18n="btn_edges_only">🧩 Solo Bordes</span>
@@ -250,7 +256,8 @@
 
   <!-- MODAL: VICTORIA -->
   <div id="modal-victory" class="modal-overlay hidden">
-    <div class="modal-card modal-sm">
+    <div class="modal-card modal-sm" style="position: relative;">
+      <button class="btn-close-modal" style="position: absolute; top: 12px; right: 16px; z-index: 10;">✕</button>
       <div class="modal-body victory-content">
         <div class="victory-trophy">🏆</div>
         <h3 class="victory-title" data-i18n="victory_title">¡ENHORABONA, PUZLE COMPLETADO!</h3>

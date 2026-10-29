@@ -160,11 +160,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  // Reiniciar partida (descolocar piezas y resetear tiempo/puntuación)
+  const btnRestart = document.getElementById('btn-restart');
+  if (btnRestart) {
+    btnRestart.addEventListener('click', () => {
+      board.restart();
+    });
+  }
+
   // Re-troquelar (Nuevo corte con curvas diferentes)
   const btnRecut = document.getElementById('btn-recut');
   if (btnRecut) {
     btnRecut.addEventListener('click', () => {
       board.recutPuzzle();
+    });
+  }
+
+  // Resolver / Ver solución automática
+  const btnSolve = document.getElementById('btn-solve');
+  if (btnSolve) {
+    btnSolve.addEventListener('click', () => {
+      board.solve();
     });
   }
 
@@ -302,7 +318,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Cerrar cualquier modal al pulsar el botón de cerrar o el fondo oscuro
   document.querySelectorAll('.modal-overlay').forEach(modal => {
     modal.addEventListener('click', (e) => {
-      if (e.target === modal || e.target.classList.contains('btn-close-modal')) {
+      if (e.target === modal || e.target.closest('.btn-close-modal')) {
         modal.classList.add('hidden');
       }
     });
