@@ -12,13 +12,13 @@ class PuzlesHallOfFame {
 
     this.DEFAULT_MASTERS = [
       {
-        id: 'master_founder_guillermo',
-        name: 'Guillermo T.',
+        id: 'master_1',
+        name: 'Alejandro R.',
         flag: '🇪🇸',
         country: 'ES',
         countryName: 'España',
         city: 'Valencia',
-        age: 73,
+        age: 68,
         ageGroup: 'legend', // Leyendas 65+
         difficulty: 'muy_dificil',
         diffLabel: 'Muy Difícil',
@@ -110,7 +110,7 @@ class PuzlesHallOfFame {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
       if (data) {
-        const stored = JSON.parse(data);
+        const stored = JSON.parse(data).filter(m => m.id !== 'master_founder_guillermo' && !(m.name && m.name.includes('Guillermo')));
         return [...this.DEFAULT_MASTERS, ...stored];
       }
     } catch (e) {
