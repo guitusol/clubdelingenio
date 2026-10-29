@@ -228,11 +228,11 @@ class PuzzleBoard {
 
   // Ajusta el zoom y centrado de cámara al tamaño de la pantalla
   resetCamera() {
-    const padding = 40;
+    const padding = 20;
     const scaleX = this.width / (this.worldWidth + padding);
     const scaleY = this.height / (this.worldHeight + padding);
     this.scale = Math.min(scaleX, scaleY, 1.2);
-    this.scale = Math.max(this.scale, 0.45);
+    this.scale = Math.max(this.scale, 0.15); // Adaptable a cualquier pantalla móvil en horizontal
 
     // Centrar la mesa de trabajo en el canvas
     this.panX = (this.width - this.worldWidth * this.scale) / 2;

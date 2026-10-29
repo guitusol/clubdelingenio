@@ -33,14 +33,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const comboBadgeEl = document.getElementById('stat-combo-badge');
   const challengeBannerEl = document.getElementById('challenge-banner');
 
+  const mStatPieces = document.getElementById('m-stat-pieces');
+  const mStatTimer = document.getElementById('m-stat-timer');
+  const mStatScore = document.getElementById('m-stat-score');
+
   // 3. Callback de Puntuación y Cronómetro
   scoring.onTick = (formattedTime) => {
     if (timerDisplayEl) timerDisplayEl.textContent = formattedTime;
+    if (mStatTimer) mStatTimer.textContent = `⏱️ ${formattedTime}`;
   };
 
   scoring.onScoreChange = (score, maxScore, comboMult, comboCount) => {
     if (scoreValueEl) scoreValueEl.textContent = score.toLocaleString();
     if (scoreMaxEl) scoreMaxEl.textContent = maxScore.toLocaleString();
+    if (mStatScore) mStatScore.textContent = `⭐ ${score.toLocaleString()}`;
 
     if (comboBadgeEl) {
       if (comboCount >= 2) {
@@ -56,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   board.onPiecePlaced = (placed, total) => {
     if (piecesCountEl) piecesCountEl.textContent = placed;
     if (piecesTotalEl) piecesTotalEl.textContent = total;
+    if (mStatPieces) mStatPieces.textContent = `🧩 ${placed}/${total}`;
     if (progressFillEl) {
       const pct = Math.round((placed / total) * 100);
       progressFillEl.style.width = `${pct}%`;
@@ -173,6 +180,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (timerDisplayEl) timerDisplayEl.textContent = '00:00';
     if (scoreValueEl) scoreValueEl.textContent = '0';
     if (progressFillEl) progressFillEl.style.width = '0%';
+
+    const mPieces = document.getElementById('m-stat-pieces');
+    if (mPieces) mPieces.textContent = `🧩 0/${board.pieces.length}`;
+    const mTimer = document.getElementById('m-stat-timer');
+    if (mTimer) mTimer.textContent = '⏱️ 00:00';
+    const mScore = document.getElementById('m-stat-score');
+    if (mScore) mScore.textContent = '⭐ 0';
   }
 
   // 7. Comprobación Ergonómica de Pantalla
@@ -191,20 +205,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     return false;
   }
 
+  function setDifficulty(diff) {
+    currentDifficulty = diff;
+    document.querySelectorAll('.btn-diff, .drawer-diff-btn').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-diff') === diff);
+    });
+    checkErgonomicAdvice(diff);
+    loadActiveGame(Date.now());
+  }
+
   // ============================================================================
-  // EVENTOS DE LA BARRA DE CONTROL
+  // EVENTOS DE LA BARRA DE CONTROL (DESKTOP)
   // ============================================================================
 
   // Selector de Dificultades
   document.querySelectorAll('.btn-diff').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const diff = btn.getAttribute('data-diff');
-      document.querySelectorAll('.btn-diff').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      currentDifficulty = diff;
-      checkErgonomicAdvice(diff);
-      loadActiveGame(Date.now());
+    btn.addEventListener('click', () => {
+      setDifficulty(btn.getAttribute('data-diff'));
     });
   });
 
@@ -723,11 +740,205 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadActiveGame(Date.now());
   }
 
-  // Escuchar cambio de tamaño de ventana
-  window.addEventListener('resize', () => {
-    board.resize();
+  // ============================================================================
+  // PANTALLA COMPLETA & UTILIDADES MÓVILES
+  // ============================================================================
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+  }
+
+  // Botones básicos en barra móvil
+  const mBtnGhost = document.getElementById('m-btn-ghost');
+  if (mBtnGhost) {
+    mBtnGhost.addEventListener('click', () => {
+      const isActive = board.toggleGhostImage();
+      mBtnGhost.classList.toggle('active', isActive);
+      const dGhost = document.getElementById('btn-ghost');
+      if (dGhost) dGhost.classList.toggle('active', isActive);
+    });
+  }
+
+  const mBtnSort = document.getElementById('m-btn-sort');
+  if (mBtnSort) {
+    mBtnSort.addEventListener('click', () => {
+      board.distributePiecesToWings();
+      board.render();
+      board.sound.playShuffle();
+    });
+  }
+
+  const mBtnRestart = document.getElementById('m-btn-restart');
+  if (mBtnRestart) {
+    mBtnRestart.addEventListener('click', () => {
+      board.restart();
+    });
+  }
+
+  // Menú desplegable / Drawer de utilidades en móvil
+  const drawer = document.getElementById('mobile-tools-drawer');
+  const btnToggleDrawer = document.getElementById('btn-toggle-drawer');
+  const btnCloseDrawer = document.getElementById('btn-close-drawer');
+  const drawerBackdrop = document.getElementById('drawer-backdrop');
+
+  function openDrawer() {
+    if (drawer) drawer.classList.remove('hidden');
+  }
+  function closeDrawer() {
+    if (drawer) drawer.classList.add('hidden');
+  }
+
+  if (btnToggleDrawer) btnToggleDrawer.addEventListener('click', openDrawer);
+  if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+
+  // Dificultades dentro del Drawer
+  document.querySelectorAll('.drawer-diff-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setDifficulty(btn.getAttribute('data-diff'));
+      closeDrawer();
+    });
   });
-  board.resize();
+
+  // Acciones dentro del Drawer
+  const drawerRecut = document.getElementById('drawer-btn-recut');
+  if (drawerRecut) drawerRecut.addEventListener('click', () => { board.recutPuzzle(); closeDrawer(); });
+
+  const drawerSolve = document.getElementById('drawer-btn-solve');
+  if (drawerSolve) drawerSolve.addEventListener('click', () => { board.solve(); closeDrawer(); });
+
+  const drawerEdges = document.getElementById('drawer-btn-edges');
+  if (drawerEdges) drawerEdges.addEventListener('click', () => {
+    const onlyEdges = board.toggleEdgesOnly();
+    drawerEdges.classList.toggle('active', onlyEdges);
+    const dEdges = document.getElementById('btn-edges-only');
+    if (dEdges) dEdges.classList.toggle('active', onlyEdges);
+    closeDrawer();
+  });
+
+  const drawerResetZoom = document.getElementById('drawer-btn-reset-zoom');
+  if (drawerResetZoom) drawerResetZoom.addEventListener('click', () => { board.resetZoom(); closeDrawer(); });
+
+  const drawerFullscreen = document.getElementById('drawer-btn-fullscreen');
+  if (drawerFullscreen) drawerFullscreen.addEventListener('click', () => {
+    toggleFullscreen();
+    closeDrawer();
+  });
+
+  const drawerVault = document.getElementById('drawer-btn-vault');
+  if (drawerVault) drawerVault.addEventListener('click', () => {
+    renderVaultModal();
+    document.getElementById('modal-vault')?.classList.remove('hidden');
+    closeDrawer();
+  });
+
+  const drawerWeekly = document.getElementById('drawer-btn-weekly');
+  if (drawerWeekly) drawerWeekly.addEventListener('click', () => {
+    renderWeeklyModal();
+    document.getElementById('modal-weekly')?.classList.remove('hidden');
+    closeDrawer();
+  });
+
+  const drawerHof = document.getElementById('drawer-btn-hof');
+  if (drawerHof) drawerHof.addEventListener('click', () => {
+    openHallOfFameModal();
+    closeDrawer();
+  });
+
+  const drawerWhatsapp = document.getElementById('drawer-btn-whatsapp');
+  if (drawerWhatsapp) drawerWhatsapp.addEventListener('click', () => {
+    const shareUrl = social.generateWhatsAppUrl({
+      imageId: activeImageMeta ? activeImageMeta.id : 'mediterranean_town',
+      title: activeImageMeta ? activeImageMeta.title : 'Puzle Panorámico',
+      difficulty: currentDifficulty,
+      diffLabel: i18n.t(`diff_${currentDifficulty}`),
+      piecesCount: board.pieces.length,
+      score: scoring.score,
+      timeFormatted: scoring.formatTime(scoring.elapsedSeconds),
+      seed: board.seed
+    });
+    window.open(shareUrl, '_blank');
+    closeDrawer();
+  });
+
+  const drawerSound = document.getElementById('drawer-btn-sound');
+  if (drawerSound) drawerSound.addEventListener('click', () => {
+    const isMuted = sound.toggle();
+    const icon = isMuted ? '🔇' : '🔊';
+    const desktopIcon = document.getElementById('sound-icon');
+    const drawerIcon = document.getElementById('drawer-sound-icon');
+    if (desktopIcon) desktopIcon.textContent = icon;
+    if (drawerIcon) drawerIcon.textContent = icon;
+  });
+
+  const drawerLang = document.getElementById('drawer-btn-lang');
+  if (drawerLang) drawerLang.addEventListener('click', () => {
+    document.getElementById('modal-lang')?.classList.remove('hidden');
+    closeDrawer();
+  });
+
+  const drawerRules = document.getElementById('drawer-btn-rules');
+  if (drawerRules) drawerRules.addEventListener('click', () => {
+    document.getElementById('modal-rules')?.classList.remove('hidden');
+    closeDrawer();
+  });
+
+  // ============================================================================
+  // ORIENTACIÓN APAISADA (HORIZONTAL) EN DISPOSITIVOS MÓVILES
+  // ============================================================================
+  let sessionDismissedRotate = false;
+  const modalRotate = document.getElementById('modal-rotate-device');
+  const btnDismissRotate = document.getElementById('btn-dismiss-rotate');
+  const btnRequestLandscape = document.getElementById('btn-request-landscape');
+
+  function checkDeviceOrientation() {
+    const isMobileWidth = window.innerWidth <= 900;
+    const isPortrait = window.innerHeight > window.innerWidth;
+
+    if (isMobileWidth && isPortrait && !sessionDismissedRotate) {
+      if (modalRotate) modalRotate.classList.remove('hidden');
+    } else {
+      if (modalRotate) modalRotate.classList.add('hidden');
+    }
+
+    board.resize(true);
+  }
+
+  if (btnDismissRotate) {
+    btnDismissRotate.addEventListener('click', () => {
+      sessionDismissedRotate = true;
+      if (modalRotate) modalRotate.classList.add('hidden');
+      setTimeout(() => board.resize(true), 150);
+    });
+  }
+
+  if (btnRequestLandscape) {
+    btnRequestLandscape.addEventListener('click', () => {
+      sessionDismissedRotate = true;
+      toggleFullscreen();
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(() => {});
+      }
+      if (modalRotate) modalRotate.classList.add('hidden');
+      setTimeout(() => board.resize(true), 300);
+    });
+  }
+
+  // Escuchar cambio de tamaño de ventana y orientación
+  window.addEventListener('resize', () => {
+    checkDeviceOrientation();
+  });
+  window.addEventListener('orientationchange', () => {
+    setTimeout(checkDeviceOrientation, 250);
+  });
+
+  // Comprobación inicial de orientación
+  checkDeviceOrientation();
 
   // Aplicar traducciones
   i18n.applyTranslations();

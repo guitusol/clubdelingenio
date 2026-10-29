@@ -24,7 +24,32 @@
 </head>
 <body>
 
-  <!-- CABECERA PRINCIPAL -->
+  <!-- BARRA SUPERIOR COMPACTA PARA MÓVIL / PANTALLA APAISADA -->
+  <header class="mobile-compact-bar">
+    <div class="m-bar-left">
+      <a href="../" class="m-btn-club" title="Club del Ingenio">🏛️</a>
+      <div class="m-stats-chip">
+        <span id="m-stat-pieces">🧩 0/24</span>
+        <span class="m-stat-sep">·</span>
+        <span id="m-stat-timer">⏱️ 00:00</span>
+        <span class="m-stat-sep">·</span>
+        <span id="m-stat-score">⭐ 0</span>
+      </div>
+    </div>
+    <div class="m-bar-right">
+      <!-- Botones básicos para desarrollar el puzle -->
+      <button id="m-btn-ghost" class="m-btn-tool" data-i18n-title="btn_ghost" title="Imagen Guía">👻</button>
+      <button id="m-btn-sort" class="m-btn-tool" data-i18n-title="btn_sort_wings" title="Ordenar en Laterales">↔️</button>
+      <button id="m-btn-restart" class="m-btn-tool" data-i18n-title="btn_restart" title="Reiniciar">🔄</button>
+      <!-- Botón para desplegar el resto de utilidades -->
+      <button id="btn-toggle-drawer" class="m-btn-menu" data-i18n-title="drawer_title" title="Más opciones">
+        <span class="m-menu-icon">☰</span>
+        <span class="m-menu-text" data-i18n="btn_more_tools">Más</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- CABECERA PRINCIPAL (DESKTOP) -->
   <header class="app-header">
     <div class="header-inner">
       <a href="../" class="brand-group" title="Club del Ingenio">
@@ -136,6 +161,127 @@
     <div id="challenge-banner" class="challenge-banner hidden"></div>
     <canvas id="puzzle-canvas"></canvas>
   </main>
+
+  <!-- DRAWER / MENÚ DESPLEGABLE DE UTILIDADES PARA MÓVIL -->
+  <div id="mobile-tools-drawer" class="mobile-drawer hidden">
+    <div class="mobile-drawer-backdrop" id="drawer-backdrop"></div>
+    <div class="mobile-drawer-content">
+      <div class="mobile-drawer-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.1rem;">⚙️</span>
+          <h3 style="font-size: 0.95rem; color: var(--gold-light); font-family: var(--font-title);" data-i18n="drawer_title">Utilidades del Puzle</h3>
+        </div>
+        <button id="btn-close-drawer" class="btn-close-drawer">✕</button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <!-- SECCIÓN 1: DIFICULTAD -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title" data-i18n="drawer_difficulty">Dificultad</h4>
+          <div class="drawer-diff-grid">
+            <button class="drawer-diff-btn active" data-diff="facil" data-i18n="diff_facil">Fácil (24)</button>
+            <button class="drawer-diff-btn" data-diff="medio" data-i18n="diff_medio">Medio (48)</button>
+            <button class="drawer-diff-btn" data-diff="dificil" data-i18n="diff_dificil">Difícil (96)</button>
+            <button class="drawer-diff-btn" data-diff="muy_dificil" data-i18n="diff_muy_dificil">Muy Difícil (150)</button>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 2: HERRAMIENTAS -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title" data-i18n="drawer_tools">Herramientas de Juego</h4>
+          <div class="drawer-tools-grid">
+            <button id="drawer-btn-recut" class="drawer-action-btn">
+              <span>🎲</span>
+              <span data-i18n="btn_recut">Nuevo Corte</span>
+            </button>
+            <button id="drawer-btn-solve" class="drawer-action-btn btn-highlight">
+              <span>🧩</span>
+              <span data-i18n="btn_solve">Resolver</span>
+            </button>
+            <button id="drawer-btn-edges" class="drawer-action-btn">
+              <span>🧩</span>
+              <span data-i18n="btn_edges_only">Solo Bordes</span>
+            </button>
+            <button id="drawer-btn-reset-zoom" class="drawer-action-btn">
+              <span>🔍</span>
+              <span data-i18n="btn_reset_zoom">Reset Zoom</span>
+            </button>
+            <button id="drawer-btn-fullscreen" class="drawer-action-btn">
+              <span>⛶</span>
+              <span data-i18n="btn_fullscreen">Pantalla Completa</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 3: CLUB Y RETOS -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title" data-i18n="drawer_club">Club y Galería</h4>
+          <div class="drawer-tools-grid">
+            <button id="drawer-btn-vault" class="drawer-action-btn">
+              <span>🖼️</span>
+              <span data-i18n="tab_presets">Galería / Mis Fotos</span>
+            </button>
+            <button id="drawer-btn-weekly" class="drawer-action-btn">
+              <span>📅</span>
+              <span data-i18n="btn_weekly_title">Reto Semanal</span>
+            </button>
+            <button id="drawer-btn-hof" class="drawer-action-btn">
+              <span>🏆</span>
+              <span data-i18n="btn_hof_title">Salón de Maestros</span>
+            </button>
+            <button id="drawer-btn-whatsapp" class="drawer-action-btn">
+              <span>📱</span>
+              <span data-i18n="btn_share_whatsapp">Retar WhatsApp</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 4: AJUSTES -->
+        <div class="drawer-section">
+          <h4 class="drawer-section-title" data-i18n="drawer_settings">Ajustes</h4>
+          <div class="drawer-tools-grid">
+            <button id="drawer-btn-sound" class="drawer-action-btn">
+              <span id="drawer-sound-icon">🔊</span>
+              <span data-i18n="btn_sound_title">Sonido</span>
+            </button>
+            <button id="drawer-btn-lang" class="drawer-action-btn">
+              <span>🌐</span>
+              <span data-i18n="btn_lang_title">Idioma</span>
+            </button>
+            <button id="drawer-btn-rules" class="drawer-action-btn">
+              <span>📖</span>
+              <span data-i18n="btn_rules_title">Reglas</span>
+            </button>
+            <a href="../" class="drawer-action-btn" style="text-decoration: none;">
+              <span>🏛️</span>
+              <span data-i18n="btn_club">Volver al Club</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERLAY: GIRAR DISPOSITIVO A POSICIÓN HORIZONTAL (APAISADA) -->
+  <div id="modal-rotate-device" class="modal-overlay hidden" style="z-index: 9999;">
+    <div class="modal-card modal-sm" style="text-align: center; padding: 2rem 1.5rem; max-width: 380px;">
+      <div class="rotate-phone-anim">📱</div>
+      <h3 style="font-family: var(--font-title); color: var(--gold-light); margin: 1rem 0 0.5rem; font-size: 1.25rem;" data-i18n="rotate_device_title">
+        Gira tu móvil a posición horizontal
+      </h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem;" data-i18n="rotate_device_desc">
+        Los puzles panorámicos del Club están concebidos para disfrutarse en pantalla apaisada, ofreciendo espacio para el tapete y las alas de piezas laterales.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <button id="btn-request-landscape" class="btn-upload-file" style="justify-content: center; width: 100%; font-size: 0.95rem;">
+          <span style="font-size: 1.1rem;">🔄</span> <span data-i18n="rotate_device_btn">Girar y Pantalla Completa</span>
+        </button>
+        <button id="btn-dismiss-rotate" class="btn-tool" style="justify-content: center; width: 100%; border: none; background: transparent; color: var(--text-muted); font-size: 0.85rem;" data-i18n="rotate_device_continue">
+          Continuar en vertical
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: AVISO ERGONÓMICO PARA PANTALLAS PEQUEÑAS -->
   <div id="modal-device-advice" class="modal-overlay hidden">
