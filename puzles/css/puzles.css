@@ -44,6 +44,10 @@ body {
   overflow: hidden; /* El canvas maneja su propio pan & zoom */
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* ==============================================================================
    CABECERA OFICIAL DEL CLUB
    ============================================================================== */

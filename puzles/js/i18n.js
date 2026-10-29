@@ -81,11 +81,14 @@ const PUZLES_TRANSLATIONS = {
 
     // Victoria
     victory_title: '🎉 ¡ENHORABUENA, PUZLE COMPLETADO! 🏆',
+    victory_title_autosolved: '🧩 Solución del Sistema',
     victory_time: 'Tiempo Total:',
     victory_score: 'Puntuación Cognitiva:',
     victory_purity: 'Autonomía:',
     victory_pure_yes: '100% Pura (Sin Guías)',
     victory_pure_no: 'Asistida con Guía',
+    victory_purity_autosolved: 'Resuelto por el Sistema (0 pts)',
+    victory_autosolved_banner: '🧩 Puzle resuelto automáticamente por el sistema. No otorga puntos ni es inscribible en el Salón de la Fama.',
     victory_share_btn: '📱 Desafiar a Amigos por WhatsApp',
     victory_new_game: 'Elegir Otro Puzle',
 
@@ -166,11 +169,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'With Guide Image',
 
     victory_title: '🎉 CONGRATULATIONS, PUZZLE COMPLETED! 🏆',
+    victory_title_autosolved: '🧩 System Solution',
     victory_time: 'Total Time:',
     victory_score: 'Cognitive Score:',
     victory_purity: 'Autonomy:',
     victory_pure_yes: '100% Pure (No Guides)',
     victory_pure_no: 'Assisted with Guide',
+    victory_purity_autosolved: 'Solved by System (0 pts)',
+    victory_autosolved_banner: '🧩 Puzzle automatically solved by the system. Gives 0 points and cannot be recorded in the Hall of Fame.',
     victory_share_btn: '📱 Challenge Friends on WhatsApp',
     victory_new_game: 'Choose Another Puzzle',
 
@@ -250,11 +256,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'ガイド使用',
 
     victory_title: '🎉 おめでとうございます！パズル完成！ 🏆',
+    victory_title_autosolved: '🧩 システムによる解答',
     victory_time: '完成時間:',
     victory_score: '認知スコア:',
     victory_purity: '自立度:',
     victory_pure_yes: '100%自力（ガイドなし）',
     victory_pure_no: 'ガイド下絵あり',
+    victory_purity_autosolved: 'システム解答（0点）',
+    victory_autosolved_banner: '🧩 システムが自動で完成させました。得点は0点となり、名人殿堂への登録はできません。',
     victory_share_btn: '📱 友人に挑戦状を送る',
     victory_new_game: '別のパズルを選ぶ',
 
@@ -334,11 +343,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'Avec Guide',
 
     victory_title: '🎉 FÉLICITATIONS, PUZZLE TERMINÉ ! 🏆',
+    victory_title_autosolved: '🧩 Solution du Système',
     victory_time: 'Temps Total :',
     victory_score: 'Score Cognitif :',
     victory_purity: 'Autonomie :',
     victory_pure_yes: '100% Pure (Sans Guide)',
     victory_pure_no: 'Avec Guide Visuel',
+    victory_purity_autosolved: 'Résolu par le Système (0 pts)',
+    victory_autosolved_banner: '🧩 Puzzle résolu automatiquement par le système. Ne rapporte aucun point et ne peut pas être inscrit.',
     victory_share_btn: '📱 Défier sur WhatsApp',
     victory_new_game: 'Choisir un Autre Puzzle',
 
@@ -418,11 +430,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'Mit Vorlage',
 
     victory_title: '🎉 HERZLICHEN GLÜCKWUNSCH! PUZZLE GELÖST! 🏆',
+    victory_title_autosolved: '🧩 Systemlösung',
     victory_time: 'Gesamtzeit:',
     victory_score: 'Kognitiver Score:',
     victory_purity: 'Autonomie:',
     victory_pure_yes: '100% Rein (Ohne Hilfe)',
     victory_pure_no: 'Mit Bildvorlage',
+    victory_purity_autosolved: 'Vom System gelöst (0 Pkt.)',
+    victory_autosolved_banner: '🧩 Vom System automatisch gelöst. Bringt 0 Punkte und kann nicht in der Ruhmeshalle eingetragen werden.',
     victory_share_btn: '📱 Freunde auf WhatsApp herausfordern',
     victory_new_game: 'Anderes Puzzle wählen',
 
@@ -502,11 +517,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'Amb Imatge Guia',
 
     victory_title: '🎉 ENHORABONA, PUZLE COMPLETAT! 🏆',
+    victory_title_autosolved: '🧩 Solució del Sistema',
     victory_time: 'Temps Total:',
     victory_score: 'Puntuació Cognitiva:',
     victory_purity: 'Autonomia:',
     victory_pure_yes: '100% Pura (Sense Guies)',
     victory_pure_no: 'Amb Imatge Guia',
+    victory_purity_autosolved: 'Resolt pel Sistema (0 pts)',
+    victory_autosolved_banner: '🧩 Puzle resolt automàticament pel sistema. No atorga punts ni es pot inscriure al Saló de la Fama.',
     victory_share_btn: '📱 Desafiar Amics per WhatsApp',
     victory_new_game: 'Triar un Altre Puzle',
 
@@ -586,11 +604,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'Amb Imatge Guia',
 
     victory_title: '🎉 ENHORABONA, PUZLE COMPLETAT! 🏆',
+    victory_title_autosolved: '🧩 Solució del Sistema',
     victory_time: 'Temps Total:',
     victory_score: 'Puntuació Cognitiva:',
     victory_purity: 'Autonomia:',
     victory_pure_yes: '100% Pura (Sense Guies)',
     victory_pure_no: 'Amb Imatge Guia',
+    victory_purity_autosolved: 'Resolt pel Sistema (0 pts)',
+    victory_autosolved_banner: '🧩 Puzle resolt automàticament pel sistema. No atorga punts ni es pot inscriure al Saló de la Fama.',
     victory_share_btn: '📱 Desafiar Amics per WhatsApp',
     victory_new_game: 'Triar un Altre Puzle',
 
@@ -670,11 +691,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'Gidarekin',
 
     victory_title: '🎉 ZORIONAK, PUZZLEA AMAITUTA! 🏆',
+    victory_title_autosolved: '🧩 Sistemaren Ebazpena',
     victory_time: 'Guztizko Denbora:',
     victory_score: 'Puntuazio Kognitiboa:',
     victory_purity: 'Autonomia:',
     victory_pure_yes: '%100 Garbia',
     victory_pure_no: 'Gidarekin Lagunduta',
+    victory_purity_autosolved: 'Sistemak ebatzia (0 puntu)',
+    victory_autosolved_banner: '🧩 Sistemak automatikoki ebatzitako puzzlea. Ez du punturik ematen eta ezin da erregistratu.',
     victory_share_btn: '📱 Lagunak Erronkatu WhatsApp bidez',
     victory_new_game: 'Beste Puzzle bat Aukeratu',
 
@@ -754,11 +778,14 @@ const PUZLES_TRANSLATIONS = {
     hof_assisted_badge: 'Con Guía',
 
     victory_title: '🎉 PARABÉNS, PUZLE COMPLETADO! 🏆',
+    victory_title_autosolved: '🧩 Solución do Sistema',
     victory_time: 'Tempo Total:',
     victory_score: 'Puntuación Cognitiva:',
     victory_purity: 'Autonomía:',
     victory_pure_yes: '100% Pura',
     victory_pure_no: 'Con Imaxe Guía',
+    victory_purity_autosolved: 'Resolto polo Sistema (0 pts)',
+    victory_autosolved_banner: '🧩 Puzle resolto automaticamente polo sistema. Non outorga puntos nin se pode inscribir.',
     victory_share_btn: '📱 Desafiar Amigos por WhatsApp',
     victory_new_game: 'Elixir Outro Puzle',
 

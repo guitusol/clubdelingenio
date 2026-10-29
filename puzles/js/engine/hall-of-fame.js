@@ -152,6 +152,11 @@ class PuzlesHallOfFame {
    * Registra una victoria en el Salón de la Fama / Cuadro de Honor
    */
   registerMasterRecord(recordData) {
+    if (recordData.autoSolved || !recordData.score || recordData.score <= 0) {
+      console.warn('Los puzles resueltos por el sistema no pueden inscribirse en el Salón de la Fama.');
+      return false;
+    }
+
     const diff = recordData.difficulty || 'facil';
     const newRecord = {
       id: 'usr_' + Date.now(),

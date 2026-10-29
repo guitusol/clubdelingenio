@@ -177,6 +177,25 @@ class ScoringEngine {
       timeSeconds: this.elapsedSeconds,
       formattedTime: this.formatTime(this.elapsedSeconds),
       pureMastery: !this.ghostImageUsed,
+      autoSolved: false,
+      peeksCount: this.peeksCount
+    };
+  }
+
+  // Solución automática por el sistema: 0 puntos y no apto para récords
+  solveBySystem() {
+    this.stopTimer();
+    this.score = 0;
+    if (this.onScoreChange) {
+      this.onScoreChange(0, this.maxTheoreticalScore, 1.0, 0, 0);
+    }
+    return {
+      finalScore: 0,
+      maxScore: this.maxTheoreticalScore,
+      timeSeconds: this.elapsedSeconds,
+      formattedTime: this.formatTime(this.elapsedSeconds),
+      pureMastery: false,
+      autoSolved: true,
       peeksCount: this.peeksCount
     };
   }

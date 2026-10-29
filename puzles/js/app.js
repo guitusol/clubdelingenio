@@ -67,25 +67,56 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 5. Callback de Victoria
   board.onVictory = (result) => {
-    lastVictoryResult = {
-      finalScore: result.finalScore,
-      timeSeconds: result.timeSeconds,
-      formattedTime: result.formattedTime,
-      pureMastery: result.pureMastery,
-      difficulty: currentDifficulty,
-      puzzleTitle: activeImageMeta ? activeImageMeta.title : 'Puzle Panorámico',
-      registered: false
-    };
+    const isAutoSolved = !!result.autoSolved;
+
+    if (!isAutoSolved && result.finalScore > 0) {
+      lastVictoryResult = {
+        finalScore: result.finalScore,
+        timeSeconds: result.timeSeconds,
+        formattedTime: result.formattedTime,
+        pureMastery: result.pureMastery,
+        difficulty: currentDifficulty,
+        puzzleTitle: activeImageMeta ? activeImageMeta.title : 'Puzle Panorámico',
+        autoSolved: false,
+        registered: false
+      };
+    } else {
+      lastVictoryResult = null; // No guardar para inscripción
+    }
 
     // Abrir modal de victoria
     const modalVictory = document.getElementById('modal-victory');
-    document.getElementById('victory-score-value').textContent = result.finalScore.toLocaleString();
-    document.getElementById('victory-time-value').textContent = result.formattedTime;
-    document.getElementById('victory-purity-value').textContent = result.pureMastery ? i18n.t('victory_pure_yes') : i18n.t('victory_pure_no');
+    const trophyEl = modalVictory.querySelector('.victory-trophy');
+    const titleEl = modalVictory.querySelector('.victory-title');
+    const autoBanner = document.getElementById('victory-autosolved-banner');
 
-    // Comprobar si era el reto semanal
+    if (isAutoSolved) {
+      if (trophyEl) trophyEl.textContent = '🧩';
+      if (titleEl) titleEl.textContent = i18n.t('victory_title_autosolved');
+      if (autoBanner) autoBanner.classList.remove('hidden');
+    } else {
+      if (trophyEl) trophyEl.textContent = '🏆';
+      if (titleEl) titleEl.textContent = i18n.t('victory_title');
+      if (autoBanner) autoBanner.classList.add('hidden');
+    }
+
+    document.getElementById('victory-score-value').textContent = isAutoSolved ? '0' : result.finalScore.toLocaleString();
+    document.getElementById('victory-time-value').textContent = result.formattedTime;
+
+    const purityEl = document.getElementById('victory-purity-value');
+    if (purityEl) {
+      if (isAutoSolved) {
+        purityEl.textContent = i18n.t('victory_purity_autosolved');
+        purityEl.style.color = 'var(--text-muted)';
+      } else {
+        purityEl.textContent = result.pureMastery ? i18n.t('victory_pure_yes') : i18n.t('victory_pure_no');
+        purityEl.style.color = result.pureMastery ? 'var(--cyan)' : 'var(--gold-light)';
+      }
+    }
+
+    // Comprobar si era el reto semanal (solo si NO fue resuelto por el sistema)
     const currentWeek = weekly.getCurrentChallenge();
-    if (activeImageMeta && activeImageMeta.id === currentWeek.id && currentDifficulty === currentWeek.difficulty) {
+    if (!isAutoSolved && activeImageMeta && activeImageMeta.id === currentWeek.id && currentDifficulty === currentWeek.difficulty) {
       weekly.saveCompletion(currentWeek.weekId, result);
     }
 
@@ -98,22 +129,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         difficulty: currentDifficulty,
         diffLabel: i18n.t(`diff_${currentDifficulty}`),
         piecesCount: board.pieces.length,
-        score: result.finalScore,
+        score: isAutoSolved ? 0 : result.finalScore,
         timeFormatted: result.formattedTime,
         seed: board.seed
       });
       window.open(shareUrl, '_blank');
     };
 
-    // Habilitar botón para inscribir marca en el Cuadro de Honor
+    // Habilitar botón para inscribir marca en el Cuadro de Honor SOLO si NO fue resuelto por el sistema
     const regSection = document.getElementById('victory-hof-registration');
     if (regSection) {
-      regSection.classList.remove('hidden');
-      const regBtn = document.getElementById('btn-victory-register-hof');
-      regBtn.onclick = () => {
-        modalVictory.classList.add('hidden');
-        openHallOfFameModal(true, lastVictoryResult);
-      };
+      if (isAutoSolved) {
+        regSection.classList.add('hidden');
+        regSection.style.display = 'none';
+      } else {
+        regSection.classList.remove('hidden');
+        regSection.style.display = 'block';
+        const regBtn = document.getElementById('btn-victory-register-hof');
+        regBtn.onclick = () => {
+          modalVictory.classList.add('hidden');
+          openHallOfFameModal(true, lastVictoryResult);
+        };
+      }
     }
 
     modalVictory.classList.remove('hidden');
@@ -489,13 +526,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const formSection = document.getElementById('hof-registration-card');
     const regInfo = document.getElementById('hof-registration-info');
 
-    // Si el usuario abre el modal y tiene una partida reciente pendiente de inscribir
-    if (!showRegistrationForm && lastVictoryResult && !lastVictoryResult.registered) {
+    // Si el usuario abre el modal y tiene una partida reciente pendiente de inscribir (solo partidas no resueltas por el sistema)
+    if (!showRegistrationForm && lastVictoryResult && !lastVictoryResult.registered && !lastVictoryResult.autoSolved && lastVictoryResult.finalScore > 0) {
       showRegistrationForm = true;
       pendingResult = lastVictoryResult;
     }
 
-    if (showRegistrationForm && pendingResult) {
+    if (showRegistrationForm && pendingResult && !pendingResult.autoSolved && pendingResult.finalScore > 0) {
       formSection.classList.remove('hidden');
       if (regInfo) {
         regInfo.textContent = `Puzle: ${pendingResult.puzzleTitle} · Nivel: ${hof.getDiffLabel(pendingResult.difficulty)} · Puntuación: ${pendingResult.finalScore.toLocaleString()} pts (${pendingResult.formattedTime})`;

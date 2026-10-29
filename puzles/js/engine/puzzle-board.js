@@ -184,9 +184,8 @@ class PuzzleBoard {
     }
     this.render();
 
-    // Notificar victoria asistida
-    const result = this.scoring.calculateFinalVictoryScore();
-    result.pureMastery = false;
+    // Notificar solución automática por el sistema: 0 puntos y no inscribible
+    const result = this.scoring.solveBySystem();
     if (this.onVictory) {
       setTimeout(() => {
         this.onVictory(result);
