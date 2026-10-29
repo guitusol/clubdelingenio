@@ -350,7 +350,7 @@ class HallOfFameEngine {
       }
     }
 
-    return list;
+    return list.sort((a, b) => (b.score - a.score) || (a.timeSeconds - b.timeSeconds));
   }
 
   /**

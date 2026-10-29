@@ -14,29 +14,6 @@ export class HallOfFameWidget {
     this.fallbackMasters = [
       {
         id: 'remote_1',
-        deviceUuid: 'founder_guillermo',
-        name: 'Guillermo T.',
-        flag: '🇪🇸',
-        country: 'ES',
-        countryName: 'España',
-        city: 'Valencia',
-        age: 73,
-        ageGroup: 'legend',
-        difficulty: 'dificil',
-        diffLabel: 'Difícil',
-        score: 1705,
-        timeSeconds: 1286,
-        autonomyIndex: 93,
-        peeksCount: 0,
-        errorsCount: 9,
-        seed: 67890,
-        verified: true,
-        rank: 'Gran Maestro',
-        isFounder: false,
-        date: '2024-10-24'
-      },
-      {
-        id: 'remote_2',
         deviceUuid: 'bench_master_3',
         name: 'Kenji Takahashi',
         flag: '🇯🇵',
@@ -58,7 +35,7 @@ export class HallOfFameWidget {
         date: '2026-10-22'
       },
       {
-        id: 'remote_3',
+        id: 'remote_2',
         deviceUuid: 'bench_master_6',
         name: 'Carlos Rodríguez',
         flag: '🇦🇷',
@@ -78,6 +55,29 @@ export class HallOfFameWidget {
         verified: true,
         rank: 'Gran Maestro',
         date: '2026-10-19'
+      },
+      {
+        id: 'remote_3',
+        deviceUuid: 'founder_guillermo',
+        name: 'Guillermo T.',
+        flag: '🇪🇸',
+        country: 'ES',
+        countryName: 'España',
+        city: 'Valencia',
+        age: 73,
+        ageGroup: 'legend',
+        difficulty: 'dificil',
+        diffLabel: 'Difícil',
+        score: 1705,
+        timeSeconds: 1286,
+        autonomyIndex: 93,
+        peeksCount: 0,
+        errorsCount: 9,
+        seed: 67890,
+        verified: true,
+        rank: 'Gran Maestro',
+        isFounder: false,
+        date: '2024-10-24'
       },
       {
         id: 'remote_4',
@@ -234,6 +234,12 @@ export class HallOfFameWidget {
       this.masters = this.fallbackMasters;
     }
 
+    // Ordenar siempre por puntuación descendente y tiempo ascendente
+    this.masters.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.timeSeconds - b.timeSeconds;
+    });
+
     this.render();
   }
 
@@ -250,12 +256,17 @@ export class HallOfFameWidget {
   }
 
   getFilteredMasters() {
-    if (this.currentFilter === 'all') return this.masters;
-    if (this.currentFilter === 'endemoniado') return this.masters.filter(m => m.difficulty === 'endemoniado');
-    if (this.currentFilter === 'dificil') return this.masters.filter(m => m.difficulty === 'dificil');
-    if (this.currentFilter === 'legend') return this.masters.filter(m => m.ageGroup === 'legend' || m.age >= 65);
-    if (this.currentFilter === 'ES') return this.masters.filter(m => m.country === 'ES');
-    return this.masters;
+    let list = [...this.masters];
+    if (this.currentFilter === 'endemoniado') list = list.filter(m => m.difficulty === 'endemoniado');
+    else if (this.currentFilter === 'dificil') list = list.filter(m => m.difficulty === 'dificil');
+    else if (this.currentFilter === 'legend') list = list.filter(m => m.ageGroup === 'legend' || m.age >= 65);
+    else if (this.currentFilter === 'ES') list = list.filter(m => m.country === 'ES');
+
+    // ORDENACIÓN ÉTICA Y MATEMÁTICA: Puntuación más alta primero; en empate, menor tiempo
+    return list.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.timeSeconds - b.timeSeconds;
+    });
   }
 
   formatTime(seconds) {
