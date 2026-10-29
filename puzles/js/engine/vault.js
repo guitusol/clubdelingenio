@@ -37,6 +37,7 @@ class PuzzleVault {
         subtitle: 'Góndolas, palacios y reflejos venecianos',
         category: 'ciudades',
         type: 'preset',
+        src: 'images/venice_grand_canal.jpg',
         fallbackGenerator: 'drawVeniceArt'
       },
       {
@@ -45,6 +46,7 @@ class PuzzleVault {
         subtitle: 'Polvo cósmico, estrellas y constelaciones doradas',
         category: 'arte',
         type: 'preset',
+        src: 'images/cosmic_nebula.jpg',
         fallbackGenerator: 'drawCosmosArt'
       }
     ];
