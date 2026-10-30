@@ -615,7 +615,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_name_placeholder": "Ej: Guillermo T.",
     "hof_reg_country_label": "País:",
     "hof_reg_city_label": "Ciudad / Localidad:",
-    "hof_reg_city_placeholder": "Ej: Madrid",
+    "hof_reg_city_placeholder": "Ej: Valencia",
     "hof_reg_age_label": "Edad (años):",
     "hof_reg_btn_submit": "🎖️ Inscribirme en el Salón de la Fama",
     "hof_reg_btn_later": "Ahora no",

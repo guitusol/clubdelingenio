@@ -32,7 +32,7 @@ if ($method === 'GET') {
                 age, age_group, difficulty, score, time_seconds, autonomy_index, 
                 peeks_count, errors_count, seed, verified, created_at, updated_at
             FROM sudoku_hall_of_fame
-            WHERE verified = 1";
+            WHERE verified = 1 AND NOT (name LIKE '%Guillermo%' AND city = 'Madrid')";
 
     $params = [];
     if ($diff !== 'all' && in_array($diff, ['facil', 'medio', 'dificil', 'endemoniado'])) {
@@ -128,6 +128,17 @@ if ($method === 'POST') {
     $peeksCount    = (int)($data['peeks_count'] ?? $data['peeksCount'] ?? 0);
     $errorsCount   = (int)($data['errors_count'] ?? $data['errorsCount'] ?? 0);
     $seed          = (int)($data['seed'] ?? 0);
+
+    // Garantizar que la identidad oficial de Guillermo T. sea siempre Valencia, España • 73 años
+    if (mb_stripos($name, 'Guillermo') !== false) {
+        $name = 'Guillermo T.';
+        $city = 'Valencia';
+        $age = 73;
+        $country = 'ES';
+        $countryName = 'España';
+        $flag = '🇪🇸';
+        $deviceUuid = 'founder_guillermo';
+    }
 
     // Reglas de Validación de Integridad Anti-Trampas
     if (empty($deviceUuid) || strlen($deviceUuid) < 6) {

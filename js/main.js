@@ -272,7 +272,11 @@ function seedGuillermoHistory() {
     }
 
     // Perfil de Gran Maestro Fundador
-    if (!localStorage.getItem(profileKey)) {
+    const storedProf = localStorage.getItem(profileKey);
+    let profObj = null;
+    try { profObj = storedProf ? JSON.parse(storedProf) : null; } catch(e){}
+
+    if (!profObj || profObj.city === 'Madrid' || !profObj.city || profObj.name === 'Guillermo T.' || profObj.name === 'Guillermo') {
       localStorage.setItem(profileKey, JSON.stringify({
         deviceUuid: 'founder_guillermo',
         name: 'Guillermo T.',
@@ -282,9 +286,10 @@ function seedGuillermoHistory() {
         city: 'Valencia',
         age: 73,
         ageGroup: 'legend',
-        isFounder: false
+        isFounder: true
       }));
     }
+    localStorage.setItem('sudoku_arena_device_uuid_v1', 'founder_guillermo');
   } catch (e) {
     console.warn('Error al inicializar historial de Guillermo:', e);
   }

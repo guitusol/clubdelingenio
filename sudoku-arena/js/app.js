@@ -2610,13 +2610,20 @@ ${url}`;
       const ageInput = document.getElementById('hof-input-age');
       const countrySelect = document.getElementById('hof-select-country');
 
-      const name = nameInput ? nameInput.value.trim() : '';
-      const city = cityInput ? cityInput.value.trim() : '';
-      const age = ageInput ? parseInt(ageInput.value, 10) : 0;
+      let name = nameInput ? nameInput.value.trim() : '';
+      let city = cityInput ? cityInput.value.trim() : '';
+      let age = ageInput ? parseInt(ageInput.value, 10) : 0;
       const countryOpt = countrySelect ? countrySelect.options[countrySelect.selectedIndex] : null;
       const country = countryOpt ? countryOpt.value : 'ES';
       const countryName = countryOpt ? countryOpt.getAttribute('data-name') : 'España';
       const flag = countryOpt ? countryOpt.getAttribute('data-flag') : '🇪🇸';
+
+      // Garantizar la identidad oficial de Guillermo (Valencia, España • 73 años)
+      if (name.toLowerCase().includes('guillermo')) {
+        name = 'Guillermo T.';
+        city = 'Valencia';
+        age = 73;
+      }
 
       if (!name) {
         alert('Por favor introduce tu nombre o alias para el Salón de la Fama.');
@@ -2691,9 +2698,10 @@ ${url}`;
         const ageInput = document.getElementById('hof-input-age');
         const countrySelect = document.getElementById('hof-select-country');
 
-        if (nameInput) nameInput.value = p.name || '';
-        if (cityInput) cityInput.value = p.city || '';
-        if (ageInput) ageInput.value = p.age || '';
+        const isGuillermo = p.name && p.name.toLowerCase().includes('guillermo');
+        if (nameInput) nameInput.value = isGuillermo ? 'Guillermo T.' : (p.name || '');
+        if (cityInput) cityInput.value = isGuillermo ? 'Valencia' : (p.city || '');
+        if (ageInput) ageInput.value = isGuillermo ? 73 : (p.age || '');
         if (countrySelect && p.country) countrySelect.value = p.country;
       }
       document.getElementById('hof-registration-card')?.classList.remove('hidden');
