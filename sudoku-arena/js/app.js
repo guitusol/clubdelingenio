@@ -2454,14 +2454,9 @@ ${url}`;
 
     document.getElementById('btn-tool-competition-sidebar')?.addEventListener('click', () => this.openCompetitionModal());
 
-    // Auto-guardado al cerrar o recargar la ventana y aviso si hay partida empezada
-    window.addEventListener('beforeunload', (e) => {
+    // Auto-guardado transparente al cerrar, recargar o navegar a otra página (como el Manual)
+    window.addEventListener('beforeunload', () => {
       this.saveActiveGame();
-      if (this.hasUserMadeMoves()) {
-        e.preventDefault();
-        e.returnValue = '';
-        return '';
-      }
     });
 
     // Soporte para botón atrás físico en móviles Android
