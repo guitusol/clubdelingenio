@@ -810,5 +810,153 @@ export const PRIVACY_I18N = {
 
     footer_copy: '© 2026 <strong>Club del Ingenio</strong>. 開発：<strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.',
     footer_sub: 'スペイン・バレンシア • 欧州連合（EU） • 100% GDPR準拠'
+  },
+
+  pt: {
+    code: 'pt', flag: '🇵🇹', name: 'Português',
+    nav_back: '← Voltar ao Club del Ingenio',
+    badge_legal: 'DOCUMENTO OFICIAL • RGPD & LOPDGDD',
+    title: 'Política de Privacidade e Compromisso Ético',
+    subtitle: 'Club del Ingenio (clubdelingenio.com / clubdelingenio.es) — Transparência radical, Zero-Ads e proteção absoluta dos seus dados e da sua mente.',
+    meta_date: 'Outubro 2026',
+    meta_resp: 'Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.',
+    meta_loc: 'Valência, Espanha (União Europeia)',
+    meta_scope: 'Portal Central & Catálogo Completo de Jogos',
+
+    pillars_title: 'A Nossa Privacidade em 5 Pilares Éticos ("Privacidade em 1 Minuto")',
+    p1_title: '1. Zero Anúncios e Zero Rastreadores',
+    p1_desc: 'Não exibimos anúncios comerciais, não temos acordos com redes publicitárias invasivas e nunca vendemos os seus dados. A sua concentração e a sua mente não são mercadoria.',
+    p2_title: '2. Sem Cookies de Terceiros',
+    p2_desc: 'Não utilizamos cookies publicitários, nem de rastreio entre sites, nem de criação de perfis comerciais. Apenas armazenamento técnico imprescindível para jogar.',
+    p3_title: '3. Persistência 100% Local no seu Dispositivo',
+    p3_desc: 'Os seus jogos, estatísticas, tempos e definições são guardados exclusivamente no LocalStorage do seu navegador. Nunca viajam para servidores remotos, exceto se usar o Centro de Transferência.',
+    p4_title: '4. Salão da Fama Voluntário e Sob Pseudónimo',
+    p4_desc: 'Apenas se atingir o escalão de Grão-Mestre (≥ 90% autonomia cognitiva) e decidir voluntariamente certificar o seu recorde, registamos um pseudónimo público e um identificador técnico anónimo.',
+    p5_title: '5. Controlo Total e Direitos em 1 Clique',
+    p5_desc: 'Pode apagar todo o seu rasto local a qualquer momento limpando os dados do navegador ou através do Centro de Transferência. Tem direito de acesso, retificação e esquecimento imediato.',
+
+    art1_title: '1. Responsável pelo Tratamento dos Dados',
+    art1_content: `
+      <p>O responsável pelo tratamento dos dados neste website e em todas as aplicações integradas do <strong>Club del Ingenio</strong> é:</p>
+      <ul>
+        <li><strong>Titular:</strong> Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.</li>
+        <li><strong>Sede e Domicílio:</strong> Valência, Comunidade Valenciana, Espanha (União Europeia).</li>
+        <li><strong>Portais Oficiais:</strong> <a href="https://clubdelingenio.com" class="link-domain">clubdelingenio.com</a> e <a href="https://clubdelingenio.es" class="link-domain">clubdelingenio.es</a>.</li>
+        <li><strong>Contacto de Privacidade e Encarregado de Proteção de Dados (DPO):</strong> Para qualquer questão, cancelamento de registo no Salão da Fama ou exercício de direitos, contacte por e-mail para <a href="mailto:info@conectividad.es">info@conectividad.es</a>.</li>
+      </ul>
+      <p>O tratamento de dados rege-se estritamente pelo <strong>Regulamento Geral sobre a Proteção de Dados (RGPD UE 2016/679)</strong> e pela legislação de proteção de dados aplicável.</p>
+    `,
+
+    art2_title: '2. Âmbito de Aplicação e Aplicações Integradas',
+    art2_content: `
+      <p>Esta política de privacidade aplica-se de forma uniforme a todo o ecossistema do <strong>Club del Ingenio</strong>, abrangendo o Portal Central, Top-Sudoku, Sudoku Arena, Cálculo Tático, Dedução Lógica, Nonogramas Zen, Cubo de Rubik 3D, Damas do Clube, Bridge do Clube e Puzzles do Clube.</p>
+    `,
+
+    art3_title: '3. Princípio de "Zero Rastreio" e Dados Não Recolhidos',
+    art3_content: `
+      <p>Não é necessário criar conta nem registar-se para jogar. Não recolhemos nome real, e-mail, telefone, dados bancários nem localização GPS precisa.</p>
+    `,
+
+    art4_title: '4. Armazenamento Local no Navegador (LocalStorage) e Cookies',
+    art4_content: `
+      <p>O progresso dos jogos e as preferências de idioma são guardados exclusivamente no <code>localStorage</code> do seu navegador. Permanece unicamente no seu dispositivo e pode ser apagado por si a qualquer momento.</p>
+    `,
+
+    art5_title: '5. Salão da Fama Oficial e Prevenção de Fraudes',
+    art5_content: `
+      <p>A inscrição no Salão da Fama é totalmente voluntária. Regista-se unicamente o pseudónimo público escolhido, pontuação, tempo e um identificador técnico anónimo (device_uuid) para garantir a veracidade dos recordes.</p>
+    `,
+
+    art6_title: '6. Centro de Cópia de Segurança e Transferência Entre Dispositivos',
+    art6_content: `
+      <p>As cópias de segurança (.json) e códigos de transferência são gerados diretamente no seu dispositivo sem reter dados pessoais em servidores de terceiros.</p>
+    `,
+
+    art7_title: '7. Exercício de Direitos RGPD (Acesso, Retificação e Esquecimento)',
+    art7_content: `
+      <p>Para consultar, alterar ou eliminar qualquer registo do Salão da Fama, envie um e-mail para <a href="mailto:info@conectividad.es">info@conectividad.es</a> indicando o seu pseudónimo. O pedido será processado com prontidão e sem custos.</p>
+    `,
+
+    art8_title: '8. Autoridade de Controlo e Legislação',
+    art8_content: `
+      <p>A autoridade de controlo competente é a Agência Espanhola de Proteção de Dados (AEPD, <a href="https://www.aepd.es">www.aepd.es</a>). Para qualquer esclarecimento, a nossa equipa está à sua inteira disposição.</p>
+    `,
+
+    footer_copy: '© 2026 <strong>Club del Ingenio</strong>. Desenvolvido por <strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.',
+    footer_sub: 'Valência, Espanha • União Europeia • 100% Conforme com o RGPD'
+  },
+
+  zh: {
+    code: 'zh', flag: '🇨🇳', name: '简体中文',
+    nav_back: '← 返回 Club del Ingenio',
+    badge_legal: '官方合规文件 • GDPR & LOPDGDD',
+    title: '隐私政策与伦理承诺',
+    subtitle: 'Club del Ingenio (clubdelingenio.com / clubdelingenio.es) — 纯粹透明、零广告、全力守护您的个人数据与沉浸思维。',
+    meta_date: '2026年10月',
+    meta_resp: 'Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.',
+    meta_loc: '西班牙瓦伦西亚（欧洲联盟）',
+    meta_scope: '中央门户及全系官方游戏',
+
+    pillars_title: '隐私保护的5大伦理基石（1分钟快速了解）',
+    p1_title: '1. 零商业广告、零用户追踪',
+    p1_desc: '绝不展示商业广告，不与侵入式广告平台合作，严禁向第三方出售数据。您的专注力与思维绝非商品。',
+    p2_title: '2. 无第三方商业Cookie',
+    p2_desc: '不使用跨站追踪Cookie或商业画像分析，仅保留游戏必须的本地技术存储。',
+    p3_title: '3. 100% 数据本地留存',
+    p3_desc: '游戏进度、统计、用时及个性化设置仅保存在您浏览器的 LocalStorage 中，除主动使用转移中心外，绝不上载至外部服务器。',
+    p4_title: '4. 自愿认证的名人堂与匿名机制',
+    p4_desc: '唯有在达成特级大师级别（自主率≥90%且零辅助）并自愿提交认证时，方记录公开昵称及匿名技术设备ID。',
+    p5_title: '5. 一键自主掌控与GDPR权益',
+    p5_desc: '您可以随时通过清理浏览器缓存或在备份中心彻底清除本地数据，完全享有GDPR规定的查阅、更正与被遗忘权。',
+
+    art1_title: '1. 数据处理控制方信息',
+    art1_content: `
+      <p>本平台及 <strong>Club del Ingenio</strong> 各集成应用的数据控制方为：</p>
+      <ul>
+        <li><strong>运营主体：</strong> Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.</li>
+        <li><strong>注册地址：</strong> 西班牙瓦伦西亚自治区瓦伦西亚市（欧盟）</li>
+        <li><strong>官方门户：</strong> <a href="https://clubdelingenio.com" class="link-domain">clubdelingenio.com</a> 与 <a href="https://clubdelingenio.es" class="link-domain">clubdelingenio.es</a></li>
+        <li><strong>数据保护联系人（DPO）：</strong> 如需咨询、注销名人堂记录或行使权利，请致信 <a href="mailto:info@conectividad.es">info@conectividad.es</a>。</li>
+      </ul>
+      <p>本平台严格遵循<strong>欧盟通用数据保护条例（GDPR EU 2016/679）</strong>及西班牙数据保护法律体系。</p>
+    `,
+
+    art2_title: '2. 适用范围与集成应用矩阵',
+    art2_content: `
+      <p>本隐私政策统一适用于 <strong>Club del Ingenio</strong> 全部生态，涵盖中央门户、Top-Sudoku、Sudoku Arena、战术心算、逻辑侦探、禅意数织、3D魔方、俱乐部跳棋、俱乐部桥牌及俱乐部拼图。</p>
+    `,
+
+    art3_title: '3. “零追踪”原则与不收集的数据项',
+    art3_content: `
+      <p>无需注册账户即可畅玩。我们绝不收集真实姓名、电子邮箱、手机号码、支付卡信息或精确地理位置。</p>
+    `,
+
+    art4_title: '4. 浏览器本地存储（LocalStorage）机制',
+    art4_content: `
+      <p>所有关卡进度与偏好设置直接保存在浏览器 <code>localStorage</code>，全权由用户设备控制，随时可在浏览器设置中完全清除。</p>
+    `,
+
+    art5_title: '5. 官方名人堂与成绩防伪机制',
+    art5_content: `
+      <p>提交名人堂纯属自愿行为。仅保存公开昵称、成绩、用时及防作弊匿名设备标识（device_uuid），确保排名的公正权威。</p>
+    `,
+
+    art6_title: '6. 数据备份中心与多设备迁移',
+    art6_content: `
+      <p>备份文件（.json）及迁移代码在用户浏览器端即时处理，不留存个人敏感数据于第三方服务器。</p>
+    `,
+
+    art7_title: '7. 行使GDPR合法权利（查阅、更正与被遗忘权）',
+    art7_content: `
+      <p>如需查询或删除名人堂记录，请发送邮件至 <a href="mailto:info@conectividad.es">info@conectividad.es</a> 注明您的公开昵称，我们将迅速无偿办结。</p>
+    `,
+
+    art8_title: '8. 监管机构与法律适用',
+    art8_content: `
+      <p>主管监管机构为西班牙数据保护局（AEPD, <a href="https://www.aepd.es">www.aepd.es</a>）。如有任何疑问，欢迎随时垂询官方团队。</p>
+    `,
+
+    footer_copy: '© 2026 <strong>Club del Ingenio</strong>. 开发者：<strong>Guillermo Tudela Soler</strong> / Conectividad y Comunicaciones, S.L.',
+    footer_sub: '西班牙瓦伦西亚 • 欧洲联盟（EU） • 严格遵循GDPR合规体系'
   }
 };
