@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b111e"/>
+      <stop offset="100%" stop-color="#050811"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="tileGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="6"/>
+  
+  <g opacity="0.15" stroke="#38bdf8" stroke-width="2">
+    <line x1="80" y1="80" x2="432" y2="80"/>
+    <line x1="80" y1="168" x2="432" y2="168"/>
+    <line x1="80" y1="256" x2="432" y2="256"/>
+    <line x1="80" y1="344" x2="432" y2="344"/>
+    <line x1="80" y1="432" x2="432" y2="432"/>
+    <line x1="80" y1="80" x2="80" y2="432"/>
+    <line x1="168" y1="80" x2="168" y2="432"/>
+    <line x1="256" y1="80" x2="256" y2="432"/>
+    <line x1="344" y1="80" x2="344" y2="432"/>
+    <line x1="432" y1="80" x2="432" y2="432"/>
+  </g>
+  
+  <rect x="24" y="24" width="464" height="464" rx="90" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.4"/>
+  
+  <g filter="url(#shadow)" transform="rotate(-8 180 230)">
+    <rect x="90" y="140" width="160" height="170" rx="24" fill="url(#tileGrad)" stroke="#d97706" stroke-width="4"/>
+    <text x="170" y="260" font-family="'Cinzel', 'Outfit', serif" font-weight="900" font-size="110" fill="#78350f" text-anchor="middle">L</text>
+    <text x="228" y="295" font-family="'JetBrains Mono', monospace" font-weight="800" font-size="28" fill="#92400e" text-anchor="middle">1</text>
+  </g>
+  
+  <g filter="url(#shadow)" transform="rotate(7 310 280)">
+    <rect x="230" y="190" width="160" height="170" rx="24" fill="url(#goldGrad)" stroke="#fef3c7" stroke-width="4"/>
+    <text x="310" y="310" font-family="'Cinzel', 'Outfit', serif" font-weight="900" font-size="110" fill="#ffffff" text-anchor="middle">X</text>
+    <text x="368" y="345" font-family="'JetBrains Mono', monospace" font-weight="800" font-size="28" fill="#fef3c7" text-anchor="middle">8</text>
+  </g>
+  
+  <g transform="translate(256, 95)" filter="url(#shadow)">
+    <circle cx="0" cy="0" r="32" fill="#ef4444" stroke="#fca5a5" stroke-width="3"/>
+    <text x="0" y="9" font-family="'Outfit', sans-serif" font-weight="900" font-size="24" fill="#ffffff" text-anchor="middle">3P</text>
+  </g>
+  
+  <g transform="translate(256, 424)">
+    <rect x="-140" y="-22" width="280" height="44" rx="22" fill="#0f172a" stroke="#f59e0b" stroke-width="2" opacity="0.95"/>
+    <text x="0" y="6" font-family="'Cinzel', 'Outfit', serif" font-weight="800" font-size="18" letter-spacing="2" fill="#f59e0b" text-anchor="middle">LÉXICO TÁCTICO</text>
+  </g>
+</svg>

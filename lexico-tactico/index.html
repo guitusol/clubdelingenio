@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH6C2CGYSB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EH6C2CGYSB');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Léxico Táctico — Club del Ingenio</title>
+  <meta name="description" content="Desafío de palabras cruzadas, combinatoria y casillas multiplicadoras. Domina el atril y vence a la IA. Oficial de Club del Ingenio.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="icon" type="image/jpeg" href="icons/icon-512.jpg">
+</head>
+<body>
+
+  <!-- CABECERA -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="../" class="brand-group" title="Volver a la sede oficial Club del Ingenio" data-i18n-title="btn_club_title">
+        <img src="icons/icon.svg" alt="Léxico Táctico" class="brand-icon" onerror="this.onerror=null; this.src='icons/icon-512.jpg';">
+        <div class="brand-text">
+          <h1><span data-i18n="app_title">LÉXICO TÁCTICO</span></h1>
+          <p data-i18n="app_subtitle">🔠 Palabras Cruzadas & Multiplicadores</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="../" class="btn-header club-btn" title="Volver al Portal Oficial de Club del Ingenio" data-i18n-title="btn_club_title">
+          <span>🏛️</span> <span data-i18n="btn_club">Club</span>
+        </a>
+        <button id="btn-open-lang-modal" class="btn-header" title="Seleccionar Idioma" data-i18n-title="btn_lang_title">
+          <span>🌐</span> <span id="current-lang-code" style="font-family:var(--font-mono); font-weight:800;">ES</span>
+        </button>
+        <button id="btn-toggle-sound" class="btn-header" title="Sonido" data-i18n-title="btn_sound_title">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="btn-open-rules" class="btn-header" title="Cómo Jugar y Reglas" data-i18n-title="btn_rules_title">
+          <span>📖</span>
+        </button>
+        <button id="btn-share-duel" class="btn-header" title="Retar a un Amigo" data-i18n-title="btn_duel_title">
+          <span>⚔️</span>
+        </button>
+        <button id="btn-new-game" class="btn-header" style="border-color:var(--gold); color:var(--gold);" title="Nueva Partida">
+          <span>➕</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="main-wrapper">
+
+    <!-- BARRA SUPERIOR: MODO Y DIFICULTAD -->
+    <div class="top-bar-controls">
+      <div class="mode-selector-group">
+        <button class="mode-btn active" data-mode="ai" data-i18n="mode_vs_ai">🤖 Partida vs IA</button>
+        <button class="mode-btn" data-mode="puzzle" data-i18n="mode_puzzle">🎯 Jugada Maestra</button>
+        <button class="mode-btn" data-mode="duel" data-i18n="mode_duel">⚔️ Duelo 1v1</button>
+      </div>
+
+      <div class="diff-selector-group">
+        <button class="diff-btn" data-diff="facil" data-i18n="diff_facil">Principiante</button>
+        <button class="diff-btn active" data-diff="medio" data-i18n="diff_medio">Estratega</button>
+        <button class="diff-btn" data-diff="dificil" data-i18n="diff_dificil">Gran Maestro</button>
+      </div>
+    </div>
+
+    <!-- HUD: MARCADOR Y BOLSA -->
+    <div class="score-hud-card">
+      <div class="hud-players">
+        <div class="hud-player-box">
+          <span class="hud-player-label" data-i18n="score_you">Tú</span>
+          <span id="stat-player-score" class="hud-player-score gold">0</span>
+        </div>
+        <div class="hud-player-box">
+          <span class="hud-player-label" data-i18n="score_ai">Asistente IA</span>
+          <span id="stat-ai-score" class="hud-player-score cyan">0</span>
+        </div>
+      </div>
+
+      <div class="hud-center-meta">
+        <span id="turn-status-badge" class="status-badge badge-you">Tu Turno</span>
+        <div class="hud-bag-chip">
+          <span>🎒</span>
+          <strong id="stat-bag-count">86</strong> <span data-i18n="tiles_remaining">fichas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLERO TÁCTICO 15×15 -->
+    <div class="board-container-outer">
+      <div class="board-grid-wrapper">
+        <div id="lexico-board" class="board-grid"></div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE ATRIL Y CONTROLES -->
+    <div class="rack-section">
+      <div class="rack-preview-bar">
+        <span data-i18n="preview_points">Puntos previstos:</span>
+        <span id="preview-points-val" class="preview-pts-chip">0</span>
+      </div>
+
+      <!-- Bandeja del Atril (7 fichas) -->
+      <div class="rack-tray-outer">
+        <div id="player-rack" class="player-rack-container"></div>
+      </div>
+
+      <!-- Botonera de Acción Ergonómica -->
+      <div class="action-buttons-bar">
+        <button id="btn-shuffle-rack" class="btn-action-secondary" title="Mezclar Fichas" data-i18n="btn_shuffle">🔄 Mezclar</button>
+        <button id="btn-recall-rack" class="btn-action-secondary" title="Recuperar al Atril" data-i18n="btn_recall">↩️ Recuperar</button>
+        <button id="btn-play-word" class="btn-action-primary disabled" data-i18n="btn_play_word">✨ Jugar Palabra</button>
+        <button id="btn-swap-tiles" class="btn-action-secondary" title="Cambiar Fichas" data-i18n="btn_swap">🔀 Cambiar</button>
+        <button id="btn-pass-turn" class="btn-action-secondary" title="Pasar Turno" data-i18n="btn_pass">⏭️ Pasar</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: REGLAS Y PUNTUACIÓN -->
+  <div id="modal-rules" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 data-i18n="rules_title">📖 Reglamento de Léxico Táctico</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <div style="font-size:0.88rem; line-height:1.6; color:#cbd5e1; display:flex; flex-direction:column; gap:0.75rem;">
+        <p data-i18n="rules_p1">Léxico Táctico es un juego de palabras cruzadas en un tablero de 15×15 con casillas multiplicadoras estratégicas.</p>
+        
+        <h4 style="color:var(--gold); font-size:0.95rem; margin-top:0.25rem;" data-i18n="rules_sec_mult">🌟 Casillas Multiplicadoras</h4>
+        <ul style="padding-left:1.25rem; display:flex; flex-direction:column; gap:0.35rem;">
+          <li data-i18n="rules_mult_tp"><strong>3P (Triple Palabra):</strong> Triplica los puntos totales de la palabra formada.</li>
+          <li data-i18n="rules_mult_dp"><strong>2P (Doble Palabra) / ★ Centro:</strong> Duplica los puntos totales de la palabra.</li>
+          <li data-i18n="rules_mult_tl"><strong>3L (Triple Letra):</strong> Multiplica por 3 el valor de la ficha colocada.</li>
+          <li data-i18n="rules_mult_dl"><strong>2L (Doble Letra):</strong> Duplica el valor de la ficha colocada.</li>
+        </ul>
+
+        <h4 style="color:var(--gold); font-size:0.95rem; margin-top:0.25rem;" data-i18n="rules_sec_bingo">👑 Bonificación de Bingo (+50 Puntos)</h4>
+        <p data-i18n="rules_bingo_text">Si logras colocar las 7 fichas de tu atril en un solo turno, sumas +50 puntos adicionales directos.</p>
+      </div>
+      <div style="margin-top:1.25rem; display:flex; justify-content:flex-end;">
+        <button class="btn-header btn-close-modal" data-i18n="btn_close">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ELECCIÓN DE COMODÍN (BLANK) -->
+  <div id="modal-blank" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width:440px;">
+      <div class="modal-header">
+        <h3 data-i18n="blank_modal_title">🌟 Comodín: Elige la Letra</h3>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-muted);" data-i18n="blank_modal_desc">Selecciona qué letra representará esta ficha en blanco (valdrá 0 puntos):</p>
+      
+      <div class="blank-letters-grid">
+        <button class="blank-letter-opt">A</button>
+        <button class="blank-letter-opt">B</button>
+        <button class="blank-letter-opt">C</button>
+        <button class="blank-letter-opt">D</button>
+        <button class="blank-letter-opt">E</button>
+        <button class="blank-letter-opt">F</button>
+        <button class="blank-letter-opt">G</button>
+        <button class="blank-letter-opt">H</button>
+        <button class="blank-letter-opt">I</button>
+        <button class="blank-letter-opt">J</button>
+        <button class="blank-letter-opt">L</button>
+        <button class="blank-letter-opt">M</button>
+        <button class="blank-letter-opt">N</button>
+        <button class="blank-letter-opt">Ñ</button>
+        <button class="blank-letter-opt">O</button>
+        <button class="blank-letter-opt">P</button>
+        <button class="blank-letter-opt">Q</button>
+        <button class="blank-letter-opt">R</button>
+        <button class="blank-letter-opt">S</button>
+        <button class="blank-letter-opt">T</button>
+        <button class="blank-letter-opt">U</button>
+        <button class="blank-letter-opt">V</button>
+        <button class="blank-letter-opt">X</button>
+        <button class="blank-letter-opt">Y</button>
+        <button class="blank-letter-opt">Z</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DUELO 1V1 -->
+  <div id="modal-duel" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 data-i18n="duel_modal_title">⚔️ Duelo 1v1 de Palabras Cruzadas</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;" data-i18n="duel_modal_desc">
+        Compite con un amigo en igualdad matemática absoluta. Ambos recibirán exactamente la misma secuencia de letras.
+      </p>
+      <div style="display:flex; flex-direction:column; gap:0.6rem;">
+        <button id="btn-copy-duel-link" class="btn-action-primary" style="text-align:center;" data-i18n="duel_btn_copy">📋 Copiar Enlace de Desafío</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SELECTOR DE IDIOMA (11 IDIOMAS) -->
+  <div id="modal-lang" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🌐 Selecciona tu Idioma</h3>
+        <button class="btn-close-modal">&times;</button>
+      </div>
+      <div class="lang-grid">
+        <div class="lang-card" data-lang="es"><span>🇪🇸</span><strong>Español</strong></div>
+        <div class="lang-card" data-lang="en"><span>🇬🇧</span><strong>English</strong></div>
+        <div class="lang-card" data-lang="pt"><span>🇵🇹</span><strong>Português</strong></div>
+        <div class="lang-card" data-lang="fr"><span>🇫🇷</span><strong>Français</strong></div>
+        <div class="lang-card" data-lang="de"><span>🇩🇪</span><strong>Deutsch</strong></div>
+        <div class="lang-card" data-lang="ca"><span>🟡</span><strong>Català</strong></div>
+        <div class="lang-card" data-lang="va"><span>🦇</span><strong>Valencià</strong></div>
+        <div class="lang-card" data-lang="eu"><span>🟢</span><strong>Euskara</strong></div>
+        <div class="lang-card" data-lang="gl"><span>🔵</span><strong>Galego</strong></div>
+        <div class="lang-card" data-lang="ja"><span>🇯🇵</span><strong>日本語</strong></div>
+        <div class="lang-card" data-lang="zh"><span>🇨🇳</span><strong>中文</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN TOAST -->
+  <div id="lexico-toast" class="toast-notice hidden"></div>
+
+  <!-- SCRIPTS DEL MOTOR -->
+  <script src="js/engine/sound.js"></script>
+  <script src="js/engine/dictionary.js"></script>
+  <script src="js/engine/board.js"></script>
+  <script src="js/engine/ai.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
