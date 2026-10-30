@@ -22,6 +22,17 @@ class LexicoApp {
     this.consecutivePasses = 0;
     this.pendingBlankCoord = null;
 
+    // Modo Demostración Pedagógica
+    this.isDemoMode = false;
+    this.demoPaused = false;
+    this.demoSpeed = 2800; // ms por turno
+    this.demoTimeoutId = null;
+    this.demoPlayer = 1;
+    this.demoRack1 = [];
+    this.demoRack2 = [];
+    this.demoScore1 = 0;
+    this.demoScore2 = 0;
+
     this.init();
   }
 
@@ -33,6 +44,9 @@ class LexicoApp {
   }
 
   newGame() {
+    if (this.isDemoMode) {
+      this.stopDemoMode(false);
+    }
     this.board.reset();
     this.tileBag = this.dictionary.createTileBag(this.i18n.currentLang);
     this.playerRack = [];
@@ -42,6 +56,14 @@ class LexicoApp {
     this.isAiTurn = false;
     this.selectedRackIdx = null;
     this.consecutivePasses = 0;
+
+    // Restaurar etiquetas originales del HUD
+    const pLabel = document.getElementById('stat-player-label');
+    if (pLabel) pLabel.textContent = this.i18n.t('score_you');
+    const aiLabel = document.getElementById('stat-ai-label');
+    if (aiLabel) aiLabel.textContent = this.i18n.t('score_ai');
+    const ownerLabel = document.getElementById('rack-owner-label');
+    if (ownerLabel) ownerLabel.classList.add('hidden');
 
     // Repartir 7 fichas a cada uno
     this.replenishRack(this.playerRack);
@@ -144,6 +166,10 @@ class LexicoApp {
   }
 
   selectRackTile(idx) {
+    if (this.isDemoMode) {
+      this.showToast(this.i18n.t('demo_toast_in_progress') || "🎬 Demostración en curso. Pulsa «¡Jugar Yo Ahora!» para tomar el control.");
+      return;
+    }
     if (this.isAiTurn) return;
     if (this.selectedRackIdx === idx) {
       this.selectedRackIdx = null; // deseleccionar
@@ -155,6 +181,10 @@ class LexicoApp {
   }
 
   handleCellClick(r, c) {
+    if (this.isDemoMode) {
+      this.showToast(this.i18n.t('demo_toast_in_progress') || "🎬 Demostración en curso. Pulsa «¡Jugar Yo Ahora!» para tomar el control.");
+      return;
+    }
     if (this.isAiTurn) return;
 
     // 1. Si la celda tiene una ficha provisional, devolverla al atril
@@ -421,6 +451,306 @@ class LexicoApp {
     }
   }
 
+  /* ===================================================================
+     MÉTODOS DEL MODO DEMOSTRACIÓN PEDAGÓGICA (AUTO-JUEGO)
+     =================================================================== */
+
+  startDemoMode() {
+    clearTimeout(this.demoTimeoutId);
+    this.isDemoMode = true;
+    this.demoPaused = false;
+    this.demoSpeed = 2800;
+    this.demoPlayer = 1;
+    this.demoScore1 = 0;
+    this.demoScore2 = 0;
+    this.consecutivePasses = 0;
+
+    // Actualizar botones de modo
+    document.querySelectorAll('.mode-btn').forEach(b => {
+      if (b.dataset.mode === 'demo') b.classList.add('active');
+      else b.classList.remove('active');
+    });
+
+    // Reset tablero y bolsa
+    this.board.reset();
+    this.tileBag = this.dictionary.createTileBag(this.i18n.currentLang);
+    this.demoRack1 = [];
+    this.demoRack2 = [];
+    this.replenishRack(this.demoRack1);
+    this.replenishRack(this.demoRack2);
+
+    // Mostrar banner de control de demo y ocultar aviso previo
+    document.getElementById('quick-demo-prompt')?.classList.add('hidden');
+    document.getElementById('demo-control-bar')?.classList.remove('hidden');
+
+    const ownerLabel = document.getElementById('rack-owner-label');
+    if (ownerLabel) {
+      ownerLabel.textContent = this.i18n.t('demo_player_1') || 'Jugador 1 (Azul)';
+      ownerLabel.classList.remove('hidden');
+    }
+
+    const pauseLabel = document.getElementById('demo-pause-label');
+    if (pauseLabel) pauseLabel.textContent = this.i18n.t('demo_btn_pause') || 'Pausa';
+    const speedLabel = document.getElementById('demo-speed-label');
+    if (speedLabel) speedLabel.textContent = this.i18n.t('demo_speed_slow') || 'Lento (3s)';
+
+    this.updateDemoHUD();
+    this.renderBoard();
+    this.renderDemoRack(this.demoRack1);
+
+    const descEl = document.getElementById('demo-step-desc');
+    if (descEl) {
+      descEl.textContent = "🎬 Iniciando demostración pedagógica... El primer jugador debe colocar una palabra cruzando la estrella central (★).";
+    }
+
+    this.showToast("🎬 Modo Demostración iniciado. Observa el desarrollo paso a paso.");
+    this.scheduleDemoTurn(1500);
+  }
+
+  stopDemoMode(switchToNormal = true) {
+    clearTimeout(this.demoTimeoutId);
+    this.isDemoMode = false;
+    this.demoPaused = false;
+
+    document.getElementById('demo-control-bar')?.classList.add('hidden');
+    document.getElementById('quick-demo-prompt')?.classList.remove('hidden');
+    document.getElementById('rack-owner-label')?.classList.add('hidden');
+
+    // Restaurar botones de modo
+    document.querySelectorAll('.mode-btn').forEach(b => {
+      if (b.dataset.mode === 'ai') b.classList.add('active');
+      else b.classList.remove('active');
+    });
+    this.gameMode = 'ai';
+
+    if (switchToNormal) {
+      this.newGame();
+      this.showToast(this.i18n.t('demo_toast_user_turn') || "¡Tu turno! Ahora pon en práctica lo que has visto jugando tu propia partida.");
+    }
+  }
+
+  toggleDemoPause() {
+    if (!this.isDemoMode) return;
+    this.demoPaused = !this.demoPaused;
+    const pauseLabel = document.getElementById('demo-pause-label');
+    const pauseBtn = document.getElementById('btn-demo-pause');
+    const descEl = document.getElementById('demo-step-desc');
+
+    if (this.demoPaused) {
+      clearTimeout(this.demoTimeoutId);
+      if (pauseLabel) pauseLabel.textContent = this.i18n.t('demo_btn_resume') || 'Reanudar';
+      if (pauseBtn) pauseBtn.innerHTML = '▶️ <span id="demo-pause-label">' + (this.i18n.t('demo_btn_resume') || 'Reanudar') + '</span>';
+      if (descEl) descEl.textContent = "⏸️ Demostración pausada. Puedes examinar el tablero con tranquilidad.";
+    } else {
+      if (pauseLabel) pauseLabel.textContent = this.i18n.t('demo_btn_pause') || 'Pausa';
+      if (pauseBtn) pauseBtn.innerHTML = '⏸️ <span id="demo-pause-label">' + (this.i18n.t('demo_btn_pause') || 'Pausa') + '</span>';
+      if (descEl) descEl.textContent = "▶️ Reanudando partida demostrativa...";
+      this.scheduleDemoTurn(600);
+    }
+  }
+
+  toggleDemoSpeed() {
+    const speedLabel = document.getElementById('demo-speed-label');
+    if (this.demoSpeed === 2800) {
+      this.demoSpeed = 1400;
+      if (speedLabel) speedLabel.textContent = this.i18n.t('demo_speed_fast') || 'Rápido (1.5s)';
+    } else {
+      this.demoSpeed = 2800;
+      if (speedLabel) speedLabel.textContent = this.i18n.t('demo_speed_slow') || 'Lento (3s)';
+    }
+    this.sound.playTileClick();
+  }
+
+  scheduleDemoTurn(delay) {
+    clearTimeout(this.demoTimeoutId);
+    if (!this.isDemoMode || this.demoPaused) return;
+    this.demoTimeoutId = setTimeout(() => this.runDemoStep(), delay);
+  }
+
+  async runDemoStep() {
+    if (!this.isDemoMode || this.demoPaused) return;
+
+    const isP1 = this.demoPlayer === 1;
+    const curRack = isP1 ? this.demoRack1 : this.demoRack2;
+    const playerName = isP1 ? (this.i18n.t('demo_player_1') || 'Jugador 1 (Azul)') : (this.i18n.t('demo_player_2') || 'Jugador 2 (Dorado)');
+    const playerClass = isP1 ? 'p1' : 'p2';
+
+    // Actualizar indicador de turno
+    const pill = document.getElementById('demo-active-player');
+    if (pill) {
+      pill.textContent = `Turno: ${playerName}`;
+      pill.className = `demo-player-pill ${playerClass}`;
+    }
+
+    const ownerLabel = document.getElementById('rack-owner-label');
+    if (ownerLabel) {
+      ownerLabel.textContent = `Atril de ${playerName}`;
+      ownerLabel.style.color = isP1 ? 'var(--cyan)' : 'var(--gold)';
+    }
+
+    const turnBadge = document.getElementById('turn-status-badge');
+    if (turnBadge) {
+      turnBadge.textContent = `Turno: ${playerName}`;
+      turnBadge.className = isP1 ? 'status-badge badge-you' : 'status-badge badge-ai';
+    }
+
+    // Renderizar atril del jugador activo
+    this.renderDemoRack(curRack);
+
+    const descEl = document.getElementById('demo-step-desc');
+    if (descEl) {
+      descEl.textContent = `⏳ ${playerName} está calculando la mejor combinación en su atril...`;
+    }
+
+    await new Promise(r => setTimeout(r, 650));
+    if (!this.isDemoMode || this.demoPaused) return;
+
+    // Buscar jugada de la IA para este jugador
+    const move = this.ai.findMove(curRack, this.difficulty || 'medio');
+
+    if (move && move.placements && move.placements.length > 0) {
+      // Explicar qué hace la jugada
+      let reason = '';
+      if (this.board.isFirstMove()) {
+        reason = `⭐ ${playerName} abre la partida con «${move.word}» (+${move.score} pts) cubriendo la estrella central obligatoria (★).`;
+      } else {
+        let multFound = '';
+        for (const p of move.placements) {
+          const m = MULTIPLIER_TEMPLATE[p.r][p.c];
+          if (m === 'TP') multFound = ' ¡Aprovecha casilla 3P (Triple Palabra)!';
+          else if (m === 'DP') multFound = ' ¡Aprovecha casilla 2P (Doble Palabra)!';
+          else if (m === 'TL') multFound = ' ¡Aprovecha casilla 3L (Triple Letra)!';
+          else if (m === 'DL') multFound = ' ¡Aprovecha casilla 2L (Doble Letra)!';
+        }
+        reason = `🔠 ${playerName} forma «${move.word}» (+${move.score} pts) cruzándose con letras existentes.${multFound}`;
+      }
+
+      if (descEl) descEl.textContent = reason;
+
+      // Colocar fichas una a una
+      for (const p of move.placements) {
+        if (!this.isDemoMode || this.demoPaused) return;
+
+        this.board.placeProvisional(p.r, p.c, p);
+        this.sound.playPlaceTile();
+
+        // Extraer ficha del atril
+        const rIdx = curRack.findIndex(t => (t.isBlank && p.isBlank) || t.letter === p.letter);
+        if (rIdx !== -1) curRack.splice(rIdx, 1);
+
+        this.renderBoard();
+        this.renderDemoRack(curRack);
+
+        // Añadir animación pop
+        const cellEl = document.querySelector(`.board-cell[data-r="${p.r}"][data-c="${p.c}"] .board-tile`);
+        if (cellEl) cellEl.classList.add('tile-highlight-demo');
+
+        await new Promise(r => setTimeout(r, 450));
+      }
+
+      // Previsualizar puntos
+      const prevEl = document.getElementById('preview-points-val');
+      if (prevEl) prevEl.textContent = `+${move.score} pts`;
+
+      await new Promise(r => setTimeout(r, 700));
+      if (!this.isDemoMode || this.demoPaused) return;
+
+      // Confirmar jugada
+      this.board.commitProvisional();
+      if (isP1) this.demoScore1 += move.score;
+      else this.demoScore2 += move.score;
+      this.consecutivePasses = 0;
+
+      if (move.placements.length === 7) {
+        this.sound.playBingoBonus();
+        this.showToast("🌟 ¡¡¡ BINGO !!! 7 fichas jugadas (+50 pts extra)");
+      } else {
+        this.sound.playWordSuccess(1);
+      }
+
+      // Reponer atril
+      this.replenishRack(curRack);
+      this.updateDemoHUD();
+      this.renderBoard();
+      this.renderDemoRack(curRack);
+
+      if (prevEl) prevEl.textContent = '0';
+
+      // Esperar tiempo de lectura
+      await new Promise(r => setTimeout(r, this.demoSpeed));
+      if (!this.isDemoMode || this.demoPaused) return;
+
+    } else {
+      // Si no encuentra palabra, cambiar fichas o pasar
+      if (this.tileBag.length >= 3) {
+        if (descEl) descEl.textContent = `🔀 ${playerName} no puede formar cruces válidos y cambia fichas con la bolsa.`;
+        const swapped = curRack.splice(0, Math.min(3, curRack.length));
+        this.replenishRack(curRack);
+        this.tileBag.push(...swapped);
+        this.sound.playShuffle();
+        this.renderDemoRack(curRack);
+        this.updateDemoHUD();
+        await new Promise(r => setTimeout(r, 1600));
+      } else {
+        if (descEl) descEl.textContent = `⏭️ ${playerName} pasa su turno al no haber fichas para cambiar.`;
+        this.consecutivePasses++;
+        this.updateDemoHUD();
+        await new Promise(r => setTimeout(r, 1400));
+      }
+    }
+
+    // Comprobar fin de partida
+    if (this.consecutivePasses >= 4 || (curRack.length === 0 && this.tileBag.length === 0)) {
+      if (descEl) {
+        descEl.textContent = `🏁 Fin de la partida de muestra. Marcador: ${this.demoScore1} - ${this.demoScore2}. ¡Pulsa 'Jugar Yo Ahora' para comenzar tu partida!`;
+      }
+      this.sound.playWordSuccess(3);
+      return;
+    }
+
+    // Cambiar de jugador y agendar siguiente turno
+    this.demoPlayer = isP1 ? 2 : 1;
+    this.scheduleDemoTurn(600);
+  }
+
+  renderDemoRack(rack) {
+    const rackEl = document.getElementById('player-rack');
+    if (!rackEl) return;
+    rackEl.innerHTML = '';
+
+    rack.forEach((tile) => {
+      const tileEl = document.createElement('button');
+      tileEl.className = 'rack-tile';
+      tileEl.style.cursor = 'default';
+
+      const letterEl = document.createElement('span');
+      letterEl.className = 'tile-letter';
+      letterEl.textContent = tile.letter;
+
+      const ptsEl = document.createElement('span');
+      ptsEl.className = 'tile-pts';
+      ptsEl.textContent = tile.isBlank ? '0' : tile.points;
+
+      tileEl.appendChild(letterEl);
+      tileEl.appendChild(ptsEl);
+      rackEl.appendChild(tileEl);
+    });
+  }
+
+  updateDemoHUD() {
+    const p1Score = document.getElementById('stat-player-score');
+    if (p1Score) p1Score.textContent = this.demoScore1;
+    const p2Score = document.getElementById('stat-ai-score');
+    if (p2Score) p2Score.textContent = this.demoScore2;
+    const bagCount = document.getElementById('stat-bag-count');
+    if (bagCount) bagCount.textContent = this.tileBag.length;
+
+    const pLabel = document.getElementById('stat-player-label');
+    if (pLabel) pLabel.textContent = this.i18n.t('demo_player_1') || 'Jugador 1';
+    const aiLabel = document.getElementById('stat-ai-label');
+    if (aiLabel) aiLabel.textContent = this.i18n.t('demo_player_2') || 'Jugador 2';
+  }
+
   endGame() {
     this.showToast(this.i18n.t('toast_game_over', { you: this.playerScore, rival: this.aiScore }));
     this.sound.playWordSuccess(3);
@@ -448,6 +778,13 @@ class LexicoApp {
     document.getElementById('btn-pass-turn')?.addEventListener('click', () => this.passTurn());
     document.getElementById('btn-new-game')?.addEventListener('click', () => this.newGame());
 
+    // Botones de Modo Demostración
+    document.getElementById('btn-quick-demo')?.addEventListener('click', () => this.startDemoMode());
+    document.getElementById('btn-start-demo-header')?.addEventListener('click', () => this.startDemoMode());
+    document.getElementById('btn-demo-pause')?.addEventListener('click', () => this.toggleDemoPause());
+    document.getElementById('btn-demo-speed')?.addEventListener('click', () => this.toggleDemoSpeed());
+    document.getElementById('btn-demo-stop')?.addEventListener('click', () => this.stopDemoMode(true));
+
     // Selector de Dificultad
     document.querySelectorAll('.diff-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -461,10 +798,18 @@ class LexicoApp {
     // Selector de Modo
     document.querySelectorAll('.mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        this.gameMode = btn.dataset.mode;
-        this.newGame();
+        const mode = btn.dataset.mode;
+        if (mode === 'demo') {
+          this.startDemoMode();
+        } else {
+          if (this.isDemoMode) {
+            this.stopDemoMode(false);
+          }
+          document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          this.gameMode = mode;
+          this.newGame();
+        }
       });
     });
 
@@ -517,3 +862,4 @@ class LexicoApp {
 window.addEventListener('DOMContentLoaded', () => {
   window.lexicoApp = new LexicoApp();
 });
+

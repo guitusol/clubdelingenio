@@ -229,3 +229,4 @@ class LexicoAI {
 }
 
 window.LexicoAI = LexicoAI;
+

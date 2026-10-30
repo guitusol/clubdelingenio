@@ -40,6 +40,9 @@
         <a href="../" class="btn-header club-btn" title="Volver al Portal Oficial de Club del Ingenio" data-i18n-title="btn_club_title">
           <span>🏛️</span> <span data-i18n="btn_club">Club</span>
         </a>
+        <button id="btn-start-demo-header" class="btn-header demo-btn-glow" title="Ver partida de muestra automática paso a paso" data-i18n-title="btn_demo_title">
+          <span>🎬</span> <span data-i18n="btn_demo">Auto-Demo</span>
+        </button>
         <button id="btn-open-lang-modal" class="btn-header" title="Seleccionar Idioma" data-i18n-title="btn_lang_title">
           <span>🌐</span> <span id="current-lang-code" style="font-family:var(--font-mono); font-weight:800;">ES</span>
         </button>
@@ -68,6 +71,7 @@
         <button class="mode-btn active" data-mode="ai" data-i18n="mode_vs_ai">🤖 Partida vs IA</button>
         <button class="mode-btn" data-mode="puzzle" data-i18n="mode_puzzle">🎯 Jugada Maestra</button>
         <button class="mode-btn" data-mode="duel" data-i18n="mode_duel">⚔️ Duelo 1v1</button>
+        <button class="mode-btn demo-mode-pill" data-mode="demo" data-i18n="mode_demo">🎬 Ver Demo</button>
       </div>
 
       <div class="diff-selector-group">
@@ -77,15 +81,46 @@
       </div>
     </div>
 
+    <!-- BANNER DE INVITACIÓN PARA PRINCIPIANTES -->
+    <div id="quick-demo-prompt" class="quick-demo-prompt">
+      <div class="quick-demo-info">
+        <span class="quick-demo-icon">💡</span>
+        <div class="quick-demo-text">
+          <strong data-i18n="quick_demo_title">¿Nunca has jugado a palabras cruzadas?</strong>
+          <span data-i18n="quick_demo_desc">Observa una partida de muestra jugada despacio por el sistema para aprender las reglas y cómo cruzar palabras.</span>
+        </div>
+      </div>
+      <button id="btn-quick-demo" class="btn-launch-demo" data-i18n="quick_demo_btn">🎬 Ver Partida Demo</button>
+    </div>
+
+    <!-- PANEL DE CONTROL DEL MODO DEMOSTRACIÓN -->
+    <div id="demo-control-bar" class="demo-bar hidden">
+      <div class="demo-info">
+        <div class="demo-pulse-icon">🎬</div>
+        <div class="demo-texts">
+          <div class="demo-header-title">
+            <strong data-i18n="demo_title">Demostración Pedagógica en Vivo</strong>
+            <span id="demo-active-player" class="demo-player-pill p1">Turno: Jugador 1 (Azul)</span>
+          </div>
+          <p id="demo-step-desc" class="demo-step-desc" data-i18n="demo_desc">Observa despacio cómo la IA juega contra sí misma para aprender a cruzar palabras y usar multiplicadores.</p>
+        </div>
+      </div>
+      <div class="demo-actions">
+        <button id="btn-demo-speed" class="btn-demo-action" title="Cambiar Velocidad">⏱️ <span id="demo-speed-label">Lento (3s)</span></button>
+        <button id="btn-demo-pause" class="btn-demo-action" title="Pausar / Reanudar">⏸️ <span id="demo-pause-label">Pausa</span></button>
+        <button id="btn-demo-stop" class="btn-demo-action stop-btn">🛑 <span data-i18n="demo_btn_play_now">¡Jugar Yo Ahora!</span></button>
+      </div>
+    </div>
+
     <!-- HUD: MARCADOR Y BOLSA -->
     <div class="score-hud-card">
       <div class="hud-players">
         <div class="hud-player-box">
-          <span class="hud-player-label" data-i18n="score_you">Tú</span>
+          <span id="stat-player-label" class="hud-player-label" data-i18n="score_you">Tú</span>
           <span id="stat-player-score" class="hud-player-score gold">0</span>
         </div>
         <div class="hud-player-box">
-          <span class="hud-player-label" data-i18n="score_ai">Asistente IA</span>
+          <span id="stat-ai-label" class="hud-player-label" data-i18n="score_ai">Asistente IA</span>
           <span id="stat-ai-score" class="hud-player-score cyan">0</span>
         </div>
       </div>
@@ -109,6 +144,7 @@
     <!-- SECCIÓN DE ATRIL Y CONTROLES -->
     <div class="rack-section">
       <div class="rack-preview-bar">
+        <span id="rack-owner-label" class="rack-owner-badge hidden">Atril de Jugador 1</span>
         <span data-i18n="preview_points">Puntos previstos:</span>
         <span id="preview-points-val" class="preview-pts-chip">0</span>
       </div>
@@ -246,3 +282,4 @@
   <script src="js/app.js"></script>
 </body>
 </html>
+
