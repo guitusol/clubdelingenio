@@ -33,6 +33,13 @@ class LexicoApp {
     this.demoScore1 = 0;
     this.demoScore2 = 0;
 
+    // Semilla para Duelo 1v1
+    const urlParams = new URLSearchParams(window.location.search);
+    this.duelSeed = urlParams.get('seed') || null;
+    if (this.duelSeed) {
+      this.gameMode = 'duel';
+    }
+
     this.init();
   }
 
@@ -48,7 +55,11 @@ class LexicoApp {
       this.stopDemoMode(false);
     }
     this.board.reset();
-    this.tileBag = this.dictionary.createTileBag(this.i18n.currentLang);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeSeed = this.duelSeed || urlParams.get('seed') || null;
+    this.tileBag = this.dictionary.createTileBag(this.i18n.currentLang, activeSeed);
+
     this.playerRack = [];
     this.aiRack = [];
     this.playerScore = 0;
@@ -73,6 +84,12 @@ class LexicoApp {
     this.renderBoard();
     this.renderRack();
     this.updateScorePreview();
+
+    if (activeSeed) {
+      setTimeout(() => {
+        this.showToast(`⚔️ Modo Duelo activo con la misma secuencia de letras.`);
+      }, 500);
+    }
   }
 
   replenishRack(rack) {
@@ -479,8 +496,7 @@ class LexicoApp {
     this.replenishRack(this.demoRack1);
     this.replenishRack(this.demoRack2);
 
-    // Mostrar banner de control de demo y ocultar aviso previo
-    document.getElementById('quick-demo-prompt')?.classList.add('hidden');
+    // Mostrar banner de control de demo
     document.getElementById('demo-control-bar')?.classList.remove('hidden');
 
     const ownerLabel = document.getElementById('rack-owner-label');
@@ -513,7 +529,6 @@ class LexicoApp {
     this.demoPaused = false;
 
     document.getElementById('demo-control-bar')?.classList.add('hidden');
-    document.getElementById('quick-demo-prompt')?.classList.remove('hidden');
     document.getElementById('rack-owner-label')?.classList.add('hidden');
 
     // Restaurar botones de modo
@@ -770,6 +785,100 @@ class LexicoApp {
     }, 3200);
   }
 
+  /* ===================================================================
+     MÉTODOS DE DUELO 1V1 Y COMPARTIR POR WHATSAPP
+     =================================================================== */
+
+  getDuelUrl() {
+    if (!this.duelSeed) {
+      this.duelSeed = 'LEX-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random() * 900 + 100);
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set('seed', this.duelSeed);
+    url.searchParams.set('lang', this.i18n.currentLang);
+    return url.toString();
+  }
+
+  openDuelModal() {
+    const duelUrl = this.getDuelUrl();
+    const urlInput = document.getElementById('duel-share-url');
+    if (urlInput) urlInput.value = duelUrl;
+
+    const copyBtn = document.getElementById('btn-copy-duel-link');
+    const copyText = document.getElementById('btn-copy-text');
+    const copyIcon = document.getElementById('btn-copy-icon');
+    if (copyText) copyText.textContent = this.i18n.t('duel_btn_copy') || 'Copiar Enlace de Desafío';
+    if (copyIcon) copyIcon.textContent = '📋';
+    if (copyBtn) copyBtn.style.background = '';
+
+    document.getElementById('modal-duel')?.classList.remove('hidden');
+  }
+
+  async copyTextToClipboard(text) {
+    let success = false;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        success = true;
+      } catch (e) {
+        success = false;
+      }
+    }
+    if (!success) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        success = document.execCommand('copy');
+      } catch (err) {
+        success = false;
+      }
+      document.body.removeChild(textarea);
+    }
+    return success;
+  }
+
+  async copyDuelLink() {
+    const duelUrl = this.getDuelUrl();
+    await this.copyTextToClipboard(duelUrl);
+
+    const copyBtn = document.getElementById('btn-copy-duel-link');
+    const copyText = document.getElementById('btn-copy-text');
+    const copyIcon = document.getElementById('btn-copy-icon');
+
+    if (copyText) copyText.textContent = '¡Enlace Copiado al Portapapeles!';
+    if (copyIcon) copyIcon.textContent = '✔️';
+    if (copyBtn) copyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+    this.sound.playTileClick();
+    this.showToast("📋 ¡Enlace de duelo copiado al portapapeles! Ya puedes pegarlo en WhatsApp.");
+
+    setTimeout(() => {
+      if (copyText) copyText.textContent = this.i18n.t('duel_btn_copy') || 'Copiar Enlace de Desafío';
+      if (copyIcon) copyIcon.textContent = '📋';
+      if (copyBtn) copyBtn.style.background = '';
+    }, 4000);
+  }
+
+  shareDuelViaWhatsApp() {
+    const duelUrl = this.getDuelUrl();
+    const text = `⚔️ ¡Te reto en Léxico Táctico (Palabras Cruzadas)! ¿Quién sumará más puntos con la misma bolsa de letras? Acepta el duelo aquí:\n${duelUrl}`;
+    
+    // Copiar también al portapapeles como respaldo seguro
+    this.copyTextToClipboard(text);
+
+    const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
+
+    this.sound.playTileClick();
+    this.showToast("🟢 ¡Abriendo WhatsApp y enlace copiado!");
+  }
+
   bindEvents() {
     document.getElementById('btn-play-word')?.addEventListener('click', () => this.playCurrentWord());
     document.getElementById('btn-shuffle-rack')?.addEventListener('click', () => this.shuffleRack());
@@ -778,12 +887,16 @@ class LexicoApp {
     document.getElementById('btn-pass-turn')?.addEventListener('click', () => this.passTurn());
     document.getElementById('btn-new-game')?.addEventListener('click', () => this.newGame());
 
-    // Botones de Modo Demostración
-    document.getElementById('btn-quick-demo')?.addEventListener('click', () => this.startDemoMode());
-    document.getElementById('btn-start-demo-header')?.addEventListener('click', () => this.startDemoMode());
+    // Botones de Modo Demostración (Único y centralizado)
     document.getElementById('btn-demo-pause')?.addEventListener('click', () => this.toggleDemoPause());
     document.getElementById('btn-demo-speed')?.addEventListener('click', () => this.toggleDemoSpeed());
     document.getElementById('btn-demo-stop')?.addEventListener('click', () => this.stopDemoMode(true));
+
+    // Duelo 1v1 y WhatsApp
+    document.getElementById('btn-share-duel')?.addEventListener('click', () => this.openDuelModal());
+    document.getElementById('btn-copy-duel-link')?.addEventListener('click', () => this.copyDuelLink());
+    document.getElementById('btn-share-whatsapp')?.addEventListener('click', () => this.shareDuelViaWhatsApp());
+    document.getElementById('duel-share-url')?.addEventListener('click', (e) => e.target.select());
 
     // Selector de Dificultad
     document.querySelectorAll('.diff-btn').forEach(btn => {
@@ -801,6 +914,8 @@ class LexicoApp {
         const mode = btn.dataset.mode;
         if (mode === 'demo') {
           this.startDemoMode();
+        } else if (mode === 'duel') {
+          this.openDuelModal();
         } else {
           if (this.isDemoMode) {
             this.stopDemoMode(false);
@@ -828,12 +943,9 @@ class LexicoApp {
       if (icon) icon.textContent = enabled ? '🔊' : '🔇';
     });
 
-    // Modales (Reglas, Duelo, Idioma)
+    // Modales (Reglas, Idioma)
     document.getElementById('btn-open-rules')?.addEventListener('click', () => {
       document.getElementById('modal-rules')?.classList.remove('hidden');
-    });
-    document.getElementById('btn-share-duel')?.addEventListener('click', () => {
-      document.getElementById('modal-duel')?.classList.remove('hidden');
     });
     document.getElementById('btn-open-lang-modal')?.addEventListener('click', () => {
       document.getElementById('modal-lang')?.classList.remove('hidden');

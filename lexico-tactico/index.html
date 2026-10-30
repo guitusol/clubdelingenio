@@ -40,9 +40,6 @@
         <a href="../" class="btn-header club-btn" title="Volver al Portal Oficial de Club del Ingenio" data-i18n-title="btn_club_title">
           <span>🏛️</span> <span data-i18n="btn_club">Club</span>
         </a>
-        <button id="btn-start-demo-header" class="btn-header demo-btn-glow" title="Ver partida de muestra automática paso a paso" data-i18n-title="btn_demo_title">
-          <span>🎬</span> <span data-i18n="btn_demo">Auto-Demo</span>
-        </button>
         <button id="btn-open-lang-modal" class="btn-header" title="Seleccionar Idioma" data-i18n-title="btn_lang_title">
           <span>🌐</span> <span id="current-lang-code" style="font-family:var(--font-mono); font-weight:800;">ES</span>
         </button>
@@ -79,18 +76,6 @@
         <button class="diff-btn active" data-diff="medio" data-i18n="diff_medio">Estratega</button>
         <button class="diff-btn" data-diff="dificil" data-i18n="diff_dificil">Gran Maestro</button>
       </div>
-    </div>
-
-    <!-- BANNER DE INVITACIÓN PARA PRINCIPIANTES -->
-    <div id="quick-demo-prompt" class="quick-demo-prompt">
-      <div class="quick-demo-info">
-        <span class="quick-demo-icon">💡</span>
-        <div class="quick-demo-text">
-          <strong data-i18n="quick_demo_title">¿Nunca has jugado a palabras cruzadas?</strong>
-          <span data-i18n="quick_demo_desc">Observa una partida de muestra jugada despacio por el sistema para aprender las reglas y cómo cruzar palabras.</span>
-        </div>
-      </div>
-      <button id="btn-quick-demo" class="btn-launch-demo" data-i18n="quick_demo_btn">🎬 Ver Partida Demo</button>
     </div>
 
     <!-- PANEL DE CONTROL DEL MODO DEMOSTRACIÓN -->
@@ -239,10 +224,21 @@
         <button class="btn-close-modal">&times;</button>
       </div>
       <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;" data-i18n="duel_modal_desc">
-        Compite con un amigo en igualdad matemática absoluta. Ambos recibirán exactamente la misma secuencia de letras.
+        Compite con un amigo en igualdad matemática absoluta. Ambos recibirán exactamente la misma secuencia de letras en la bolsa.
       </p>
-      <div style="display:flex; flex-direction:column; gap:0.6rem;">
-        <button id="btn-copy-duel-link" class="btn-action-primary" style="text-align:center;" data-i18n="duel_btn_copy">📋 Copiar Enlace de Desafío</button>
+
+      <div style="display:flex; flex-direction:column; gap:0.75rem;">
+        <button id="btn-share-whatsapp" class="btn-action-whatsapp">
+          <span>🟢</span> <strong>Compartir por WhatsApp</strong>
+        </button>
+
+        <button id="btn-copy-duel-link" class="btn-action-primary" style="text-align:center;">
+          <span id="btn-copy-icon">📋</span> <span id="btn-copy-text" data-i18n="duel_btn_copy">Copiar Enlace de Desafío</span>
+        </button>
+
+        <div class="duel-link-box">
+          <input type="text" id="duel-share-url" readonly class="duel-url-input" title="Haz clic para seleccionar el enlace">
+        </div>
       </div>
     </div>
   </div>

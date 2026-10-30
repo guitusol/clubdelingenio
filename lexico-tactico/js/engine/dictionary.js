@@ -205,7 +205,7 @@ class DictionaryEngine {
   /**
    * Crea una nueva bolsa de fichas mezclada para el idioma activo
    */
-  createTileBag(lang = this.currentLang) {
+  createTileBag(lang = this.currentLang, seed = null) {
     const dist = LETTER_DISTRIBUTIONS[lang] || LETTER_DISTRIBUTIONS.es;
     const bag = [];
 
@@ -220,13 +220,33 @@ class DictionaryEngine {
       }
     });
 
-    // Barajado Fisher-Yates
+    // Barajado Fisher-Yates reproducible con semilla (para Duelo 1v1) o pseudoaleatorio
+    let randomFunc = Math.random;
+    if (seed !== null && seed !== undefined) {
+      let s = typeof seed === 'number' ? seed : this.hashSeed(String(seed));
+      randomFunc = () => {
+        s = (s + 0x6D2B79F5) | 0;
+        let t = Math.imul(s ^ (s >>> 15), 1 | s);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
     for (let i = bag.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(randomFunc() * (i + 1));
       [bag[i], bag[j]] = [bag[j], bag[i]];
     }
 
     return bag;
+  }
+
+  hashSeed(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return hash;
   }
 
   getTilePoints(letter, lang = this.currentLang) {
