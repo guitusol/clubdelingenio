@@ -171,6 +171,13 @@ export const CLUB_I18N = {
     puzles_btn_manual: "📖 Escuela y Reglas",
     footer_link_puzles: "Puzles del Club (Rompecabezas)",
 
+    share_club_badge: "🌟 COMUNIDAD & DIFUSIÓN",
+    share_club_title: "SI TE HA GUSTADO NUESTRO CLUB DEL INGENIO...",
+    share_club_desc: "Ayúdanos a difundirlo a tus familiares y amigos a través de grupos de WhatsApp. De esta forma seremos muchos más disfrutando de estas maravillas de juegos lógicos, 100% gratuitos y sin publicidad invasiva.",
+    share_club_quote: "«🧠 ¡Hola! Te comparto el Club del Ingenio (https://clubdelingenio.com). Juegos de lógica, cálculo, sudoku, rompecabezas y crucigramas sin anuncios. ¡Seguro que te encanta!»",
+    share_club_btn_wa: "Compartir por WhatsApp",
+    share_club_btn_copy: "Copiar Enlace del Club",
+
     up_badge: "🔬 EN EL LABORATORIO DEL CLUB",
     up_title: "Próximos Desafíos en Desarrollo",
     up_sub: "El Club del Ingenio está ampliando su repertorio de aplicaciones lúdicas. Nuevos proyectos de lógica matemática y deducción se incorporarán a este catálogo.",
@@ -400,6 +407,13 @@ export const CLUB_I18N = {
     bridge_btn_play: "♠️ Enter the Bridge Table",
     bridge_btn_manual: "📖 Quick Guide (2 min)",
     footer_link_bridge: "Club Bridge (MiniBridge)",
+
+    share_club_badge: "🌟 COMMUNITY & SPREAD THE WORD",
+    share_club_title: "ENJOYING CLUB DEL INGENIO?",
+    share_club_desc: "Help us spread the word to your family and friends in WhatsApp groups. This way, many more minds can enjoy these wonderful brain games every day, 100% free and zero ads.",
+    share_club_quote: "«🧠 Hey! Check out Club del Ingenio (https://clubdelingenio.com). Pure logic puzzles, mental math, sudoku, crosswords, and jigsaws with zero ads. You'll love it!»",
+    share_club_btn_wa: "Share on WhatsApp",
+    share_club_btn_copy: "Copy Club Link",
 
     up_badge: "🔬 INSIDE THE CLUB LAB",
     up_title: "Upcoming Challenges in Development",
@@ -631,6 +645,13 @@ export const CLUB_I18N = {
     bridge_btn_manual: "📖 Guide Express (2 min)",
     footer_link_bridge: "Bridge du Club (MiniBridge)",
 
+    share_club_badge: "🌟 COMMUNAUTÉ & PARTAGE",
+    share_club_title: "VOUS APPRÉCIEZ LE CLUB DEL INGENIO ?",
+    share_club_desc: "Aidez-nous à le faire connaître à vos proches et amis sur vos groupes WhatsApp. Nous serons ainsi bien plus nombreux à profiter chaque jour de ces merveilles de logique, 100% gratuites et sans publicité invasive.",
+    share_club_quote: "«🧠 Salut ! Je te partage le Club del Ingenio (https://clubdelingenio.com). Des jeux de logique, calcul, sudoku, puzzles et mots croisés sans pubs. Tu vas adorer !»",
+    share_club_btn_wa: "Partager sur WhatsApp",
+    share_club_btn_copy: "Copier le Lien du Club",
+
     up_badge: "🔬 AU LABORATOIRE DU CLUB",
     up_title: "Prochains Défis en Développement",
     up_sub: "Le Club del Ingenio enrichit continuellement sa collection avec de nouvelles disciplines logiques.",
@@ -860,6 +881,13 @@ export const CLUB_I18N = {
     bridge_btn_play: "♠️ An den Bridgetisch treten",
     bridge_btn_manual: "📖 Schnell-Anleitung (2 Min.)",
     footer_link_bridge: "Club Bridge (MiniBridge)",
+
+    share_club_badge: "🌟 GEMEINSCHAFT & WEITERSAGEN",
+    share_club_title: "GEFÄLLT IHNEN UNSER CLUB DEL INGENIO?",
+    share_club_desc: "Helfen Sie uns, den Club über WhatsApp-Gruppen mit Familie und Freunden zu teilen. So können noch mehr Denksportler diese fantastischen Spiele 100% kostenlos und werbefrei genießen.",
+    share_club_quote: "«🧠 Hallo! Schau dir den Club del Ingenio an (https://clubdelingenio.com). Logikspiele, Kopfrechnen, Sudoku, Puzzles und Kreuzworträtsel ohne Werbung. Viel Spaß!»",
+    share_club_btn_wa: "Auf WhatsApp teilen",
+    share_club_btn_copy: "Club-Link kopieren",
 
     up_badge: "🔬 IM CLUB-LABOR",
     up_title: "Demnächst im Club",
@@ -1091,6 +1119,13 @@ export const CLUB_I18N = {
     bridge_btn_manual: "📖 Manual Ràpid (2 min)",
     footer_link_bridge: "Bridge del Club (MiniBridge)",
 
+    share_club_badge: "🌟 COMUNITAT & DIFUSIÓ",
+    share_club_title: "SI T'HA AGRADAT EL NOSTRE CLUB DEL INGENIO...",
+    share_club_desc: "Ajuda'ns a difondre'l entre familiars i amics a través de grups de WhatsApp. D'aquesta manera serem molts més gaudint d'aquestes meravelles de jocs de lògica, 100% gratuïts i sense publicitat invasiva.",
+    share_club_quote: "«🧠 Hola! Et comparteixo el Club del Ingenio (https://clubdelingenio.com). Jocs de lògica, càlcul, sudoku, trencaclosques i mots encreuats sense anuncis. T'encantarà!»",
+    share_club_btn_wa: "Compartir per WhatsApp",
+    share_club_btn_copy: "Copiar Enllaç del Club",
+
     up_badge: "🔬 AL LABORATORI DEL CLUB",
     up_title: "Propers Reptes en Desenvolupament",
     up_sub: "El Club del Ingenio està ampliant el seu repertori de jocs de lògica i enginy.",
@@ -1320,6 +1355,13 @@ export const CLUB_I18N = {
     bridge_btn_play: "♠️ Entrar a la Taula de Bridge",
     bridge_btn_manual: "📖 Manual Ràpid (2 min)",
     footer_link_bridge: "Bridge del Club (MiniBridge)",
+
+    share_club_badge: "🌟 COMUNITAT & DIFUSIÓ",
+    share_club_title: "SI T'HA AGRADAT EL NOSTRE CLUB DEL INGENIO...",
+    share_club_desc: "Ajuda'ns a difondre'l entre familiars i amics a través de grups de WhatsApp. D'aquesta manera serem molts més gaudint d'aquestes meravelles de jocs de lògica, 100% gratuïts i sense publicitat invasiva.",
+    share_club_quote: "«🧠 Hola! Et comparteixo el Club del Ingenio (https://clubdelingenio.com). Jocs de lògica, càlcul, sudoku, trencaclosques i mots encreuats sense anuncis. T'encantarà!»",
+    share_club_btn_wa: "Compartir per WhatsApp",
+    share_club_btn_copy: "Copiar Enllaç del Club",
 
     up_badge: "🔬 AL LABORATORI DEL CLUB",
     up_title: "Pròxims Reptes en Desenvolupament",
@@ -1551,6 +1593,13 @@ export const CLUB_I18N = {
     bridge_btn_manual: "📖 Gida Azkarra (2 min)",
     footer_link_bridge: "Klubeko Bridge-a (MiniBridge)",
 
+    share_club_badge: "🌟 KOMUNITATEA & ZABALKUNDEA",
+    share_club_title: "GUSTATU AL ZAIZU GURE CLUB DEL INGENIO?",
+    share_club_desc: "Lagun iezaguzu senide eta lagunen artean WhatsApp bidez zabaltzen. Horrela askoz gehiago izango gara logika-joko zoragarri hauetaz gozatzen, %100 doan eta iragarkirik gabe.",
+    share_club_quote: "«🧠 Kaixo! Club del Ingenio partekatzen dizut (https://clubdelingenio.com). Logika, kalkulua, sudokua eta hitz gurutzatuak iragarkirik gabe. Asko gustatuko zaizu!»",
+    share_club_btn_wa: "WhatsApp bidez partekatu",
+    share_club_btn_copy: "Klubeko esteka kopiatu",
+
     up_badge: "🔬 KLUBEKO LABORATEGIAN",
     up_title: "Garapenean dauden Hurrengo Erronkak",
     up_sub: "Club del Ingeniok joko logikoen eskaintza zabaltzen jarraitzen du etengabe.",
@@ -1781,6 +1830,13 @@ export const CLUB_I18N = {
     bridge_btn_manual: "📖 Manual Rápido (2 min)",
     footer_link_bridge: "Bridge do Club (MiniBridge)",
 
+    share_club_badge: "🌟 COMUNIDADE & DIFUSIÓN",
+    share_club_title: "SE CHE GUSTOU O NOSO CLUB DEL INGENIO...",
+    share_club_desc: "Axúdanos a difundilo entre os teus familiares e amigos a través de grupos de WhatsApp. Deste xeito seremos moitos máis desfrutando destes marabillosos xogos de enxeño, 100% gratuítos e sen publicidade invasiva.",
+    share_club_quote: "«🧠 Ola! Compártoche o Club del Ingenio (https://clubdelingenio.com). Xogos de lóxica, cálculo, sudoku, crebacabezas e palabras cruzadas sen anuncios. Seguro que che vai encantar!»",
+    share_club_btn_wa: "Compartir por WhatsApp",
+    share_club_btn_copy: "Copiar Ligazón do Club",
+
     up_badge: "🔬 NO LABORATORIO DO CLUB",
     up_title: "Próximos Desafíos en Desenvolvemento",
     up_sub: "O Club del Ingenio está a ampliar a súa colección de xogos de enxeño e lóxica.",
@@ -2010,6 +2066,13 @@ export const CLUB_I18N = {
     bridge_btn_play: "♠️ ブリッジ卓へ着席する",
     bridge_btn_manual: "📖 クイックガイド（2分）",
     footer_link_bridge: "クラブ・ブリッジ（ミニブリッジ）",
+
+    share_club_badge: "🌟 コミュニティ＆シェア",
+    share_club_title: "CLUB DEL INGENIO は楽しんでいただけましたか？",
+    share_club_desc: "ご家族やご友人のグループ、SNS等でぜひシェアしてください。完全無料・広告一切なしの純粋な思考と知性のゲームを、より多くの方々と一緒に楽しみましょう。",
+    share_club_quote: "«🧠 こんにちは！「Club del Ingenio」（https://clubdelingenio.com）をシェアします。広告なしで論理パズル、暗算、数独、ジグソー、クロスワードが楽しめる素晴らしいプラットフォームです！»",
+    share_club_btn_wa: "WhatsApp等でシェア",
+    share_club_btn_copy: "リンクをコピー",
 
     up_badge: "🔬 クラブ開発研究所",
     up_title: "開発中の次回プロジェクト",
@@ -2255,6 +2318,13 @@ export const CLUB_I18N = {
     puzles_btn_manual: "📖 Escola e Regras",
     footer_link_puzles: "Puzzles do Clube (Quebra-cabeças)",
 
+    share_club_badge: "🌟 COMUNIDADE & DIVULGAÇÃO",
+    share_club_title: "GOSTOU DO NOSSO CLUB DEL INGENIO?",
+    share_club_desc: "Ajude-nos a partilhar com os seus familiares e amigos através de grupos do WhatsApp. Assim, seremos muito mais a desfrutar destas maravilhas de jogos, 100% gratuitos e sem anúncios invasivos.",
+    share_club_quote: "«🧠 Olá! Partilho o Club del Ingenio (https://clubdelingenio.com). Jogos de lógica, cálculo, sudoku, quebra-cabeças e palavras cruzadas sem anúncios. Vais adorar!»",
+    share_club_btn_wa: "Partilhar no WhatsApp",
+    share_club_btn_copy: "Copiar Ligação do Clube",
+
     up_badge: "🔬 NO LABORATÓRIO DO CLUBE",
     up_title: "Próximos Desafios em Desenvolvimento",
     up_sub: "O Club del Ingenio está a expandir o seu repertório de aplicações cognitivas. Novos projetos de lógica matemática e dedução juntar-se-ão a este catálogo.",
@@ -2498,6 +2568,13 @@ export const CLUB_I18N = {
     puzles_btn_play: "🧩 开启俱乐部拼图",
     puzles_btn_manual: "📖 规则与拼法技巧",
     footer_link_puzles: "俱乐部拼图 (Jigsaw)",
+
+    share_club_badge: "🌟 社区与分享",
+    share_club_title: "喜欢我们的 CLUB DEL INGENIO 吗？",
+    share_club_desc: "欢迎通过群聊与亲朋好友分享。让我们一起在完全免费、零侵入性广告的纯粹逻辑世界中享受益智游戏带来的乐趣。",
+    share_club_quote: "«🧠 你好！向你推荐 Club del Ingenio（https://clubdelingenio.com）。纯粹逻辑、数独、拼图、心算与填字游戏，无广告且永久免费！»",
+    share_club_btn_wa: "在 WhatsApp/微信 分享",
+    share_club_btn_copy: "复制官方链接",
 
     up_badge: "🔬 俱乐部实验室前沿",
     up_title: "研发中的全新思维挑战",

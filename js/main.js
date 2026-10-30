@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.clubHallOfFame = new HallOfFameWidget();
   window.clubHallOfFame.init();
   initPrivacyBanner();
+  initShareClubBox();
 });
 
 /**
@@ -315,5 +316,62 @@ function initPrivacyBanner() {
       banner.classList.add('hidden');
     }, 350);
   });
+}
+
+/**
+ * 7. Recuadro Interactivo de Difusión y Compartir en WhatsApp
+ */
+function initShareClubBox() {
+  const btnWa = document.getElementById('btn-share-club-wa');
+  const btnCopy = document.getElementById('btn-share-club-copy');
+  const copyText = document.getElementById('share-club-copy-text');
+  const clubUrl = 'https://clubdelingenio.com';
+
+  const shareText = `🧠 ¡Hola! Te comparto el Club del Ingenio (${clubUrl}). Es una plataforma fantástica de estimulación mental y juegos de lógica (Sudoku, Cálculo Táctico, Léxico Táctico, Rompecabezas, Nonogramas, Cubo de Rubik y Deducción), 100% gratuita y sin anuncios invasivos. ¡Te va a encantar!`;
+
+  if (btnWa) {
+    btnWa.addEventListener('click', () => {
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+      window.open(waUrl, '_blank');
+      copyTextToClipboard(shareText);
+    });
+  }
+
+  if (btnCopy) {
+    btnCopy.addEventListener('click', async () => {
+      const ok = await copyTextToClipboard(clubUrl);
+      if (copyText) {
+        const originalText = copyText.textContent;
+        copyText.textContent = '✔️ ¡Enlace Copiado!';
+        setTimeout(() => {
+          copyText.textContent = originalText;
+        }, 3500);
+      }
+    });
+  }
+}
+
+async function copyTextToClipboard(text) {
+  let ok = false;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch (e) {}
+  }
+  if (!ok) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      ok = document.execCommand('copy');
+    } catch (err) {}
+    document.body.removeChild(ta);
+  }
+  return ok;
 }
 

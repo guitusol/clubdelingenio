@@ -864,6 +864,153 @@ body {
   color: #ffffff;
 }
 
+/* --- 6.5. Difusión y Compartir en WhatsApp (Comunidad) --- */
+.share-club-showcase {
+  position: relative;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(245, 158, 11, 0.06), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem 2rem;
+  margin: 3.5rem auto 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(245, 158, 11, 0.08);
+  overflow: hidden;
+}
+
+.share-club-glow {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(16, 185, 129, 0.05) 50%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.share-club-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.share-club-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--gold-400, #f59e0b);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.25rem 0.85rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.25rem;
+}
+
+.share-club-title {
+  font-family: var(--font-noble);
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 40%, #fef08a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.3;
+}
+
+.share-club-desc {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.share-club-quote {
+  background: rgba(7, 10, 18, 0.65);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: #94a3b8;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: left;
+  max-width: 680px;
+  width: 100%;
+}
+
+.share-club-quote .quote-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.share-club-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.btn-share-wa {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+  transition: all 0.25s ease;
+  font-family: var(--font-body);
+}
+
+.btn-share-wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55);
+}
+
+.btn-share-copy {
+  background: rgba(30, 41, 59, 0.85);
+  color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.5rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  transition: all 0.25s ease;
+  font-family: var(--font-body);
+}
+
+.btn-share-copy:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--gold-400, #f59e0b);
+  color: var(--gold-400, #f59e0b);
+  transform: translateY(-2px);
+}
+
 /* --- 7. Próximos Proyectos (Laboratorio del Club) --- */
 .upcoming-showcase {
   background: rgba(19, 27, 46, 0.5);
