@@ -5,7 +5,7 @@
  */
 
 import { ClubBackupManager } from './backup-manager.js';
-import { ClubI18n } from './i18n.js';
+import { ClubI18n } from './i18n.js?v=20261030c';
 import { HallOfFameWidget } from './hall-of-fame-widget.js';
 
 document.addEventListener('DOMContentLoaded', () => {

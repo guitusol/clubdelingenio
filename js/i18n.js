@@ -173,7 +173,7 @@ export const CLUB_I18N = {
 
     share_club_badge: "🌟 COMUNIDAD & DIFUSIÓN",
     share_club_title: "SI TE HA GUSTADO NUESTRO CLUB DEL INGENIO...",
-    share_club_desc: "Ayúdanos a difundirlo a tus familiares y amigos a través de grupos de WhatsApp. De esta forma seremos muchos más disfrutando de estas maravillas de juegos lógicos, 100% gratuitos y sin publicidad invasiva.",
+    share_club_desc: "Ayúdanos a difundirlo entre tus familiares y amigos a través de grupos de WhatsApp. De esta forma seremos muchos más disfrutando de estas maravillas de juegos lógicos, 100% gratuitos y sin publicidad invasiva.",
     share_club_quote: "«🧠 ¡Hola! Te comparto el Club del Ingenio (https://clubdelingenio.com). Juegos de lógica, cálculo, sudoku, rompecabezas y crucigramas sin anuncios. ¡Seguro que te encanta!»",
     share_club_btn_wa: "Compartir por WhatsApp",
     share_club_btn_copy: "Copiar Enlace del Club",
@@ -2737,7 +2737,10 @@ export class ClubI18n {
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (key) {
-        el.innerHTML = this.t(key);
+        const val = this.t(key);
+        if (val && val !== key) {
+          el.innerHTML = val;
+        }
       }
     });
 
@@ -2745,7 +2748,10 @@ export class ClubI18n {
     document.querySelectorAll('[data-i18n-title]').forEach(el => {
       const key = el.getAttribute('data-i18n-title');
       if (key) {
-        el.setAttribute('title', this.t(key));
+        const val = this.t(key);
+        if (val && val !== key) {
+          el.setAttribute('title', val);
+        }
       }
     });
 
