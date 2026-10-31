@@ -1380,6 +1380,19 @@ body {
   color: var(--text-dim);
 }
 
+.footer-oepm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 6px;
+  color: #fbbf24;
+  font-weight: 500;
+  font-size: 0.78rem;
+}
+
 /* --- 12. Modales --- */
 .modal-overlay {
   position: fixed;
