@@ -79,6 +79,7 @@
         <a href="#salon-fama" class="nav-item" data-i18n="nav_hall_of_fame">🏛️ Salón de la Fama</a>
         <a href="#filosofia" class="nav-item" data-i18n="nav_manifesto">🛡️ Manifiesto Zero-Ads</a>
         <a href="#beneficios" class="nav-item" data-i18n="nav_gym">🧠 Gimnasio Mental</a>
+        <a href="#biblioteca" class="nav-item" data-i18n="nav_library">📚 Biblioteca</a>
         <a href="#copia-seguridad" class="nav-item" id="nav-backup-link" data-i18n="nav_backup">💾 Copia de Seguridad</a>
       </nav>
 
@@ -1148,6 +1149,213 @@
     </div>
   </section>
 
+  
+  <!-- SECCIÓN: BIBLIOTECA DEL CLUB Y ATENEO DE DIVULGACIÓN -->
+  <section class="section-library" id="biblioteca">
+    <div class="section-container">
+      
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="lib_tag">📚 ATENEO CIENTÍFICO Y LITERARIO</div>
+        <h2 class="section-title" data-i18n="lib_title">Biblioteca y Divulgación del Club</h2>
+        <p class="section-subtitle" data-i18n="lib_sub">
+          Selección bibliográfica rigurosa de obras maestras sobre neuroeducación, matemáticas recreativas y gimnasia cerebral recomendadas por el Club del Ingenio.
+        </p>
+      </div>
+
+      <!-- Filtros Temáticos de Biblioteca -->
+      <div class="library-filter-tabs">
+        <button type="button" class="lib-tab active" data-filter="all" data-i18n="lib_tab_all">Todas las Obras</button>
+        <button type="button" class="lib-tab" data-filter="math" data-i18n="lib_tab_math">Matemáticas Recreativas</button>
+        <button type="button" class="lib-tab" data-filter="logic" data-i18n="lib_tab_logic">Lógica y Paradojas</button>
+        <button type="button" class="lib-tab" data-filter="neuro" data-i18n="lib_tab_neuro">Neuroeducación & Mente</button>
+        <button type="button" class="lib-tab" data-filter="articles" data-i18n="lib_tab_articles">Revistas & Artículos</button>
+      </div>
+
+      <!-- Cuadrícula de Libros y Revistas Recomendados -->
+      <div class="library-grid" id="library-grid">
+
+        <!-- OBRA 1: MARTIN GARDNER -->
+        <article class="book-card" data-category="math">
+          <div class="book-spine"></div>
+          <div class="book-header">
+            <span class="book-badge gold" data-i18n="lib_b1_tag">MATEMÁTICAS RECREATIVAS</span>
+            <span class="book-icon">📐</span>
+          </div>
+          <div class="book-body">
+            <h3 class="book-title" data-i18n="lib_b1_title">El ahorcamiento inesperado y otros entretenimientos matemáticos</h3>
+            <div class="book-author" data-i18n="lib_b1_meta">Martin Gardner • Alianza Editorial</div>
+            <p class="book-synopsis" data-i18n="lib_b1_synopsis">
+              La obra cumbre de la combinatoria lúdica y las paradojas matemáticas. Recopila los enigmas más brillantes de su legendaria columna en Scientific American: acertijos topológicos, juegos de lógica deductiva, cortes geométricos y dilemas probabilísticos que fascinaron a generaciones.
+            </p>
+            <div class="book-recommendation">
+              <strong class="rec-label" data-i18n="lib_why_label">💡 ¿Por qué lo recomendamos en el Club?</strong>
+              <p class="rec-text" data-i18n="lib_b1_why">
+                Gardner es el padre de los deportes de la mente modernos. Su enfoque fomenta exactamente la plasticidad y el disfrute del descarte sistemático que practicamos en nuestros juegos.
+              </p>
+            </div>
+          </div>
+          <div class="book-actions">
+            <a href="https://datos.bne.es/obra/XX2477382.html" target="_blank" rel="noopener noreferrer" class="btn-book-link">
+              <span data-i18n="lib_btn_view">Consultar Ficha Oficial</span>
+              <span class="btn-ext-icon">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- OBRA 2: RAYMOND SMULLYAN -->
+        <article class="book-card" data-category="logic">
+          <div class="book-spine"></div>
+          <div class="book-header">
+            <span class="book-badge cyan" data-i18n="lib_b2_tag">LÓGICA PURA & PARADOJAS</span>
+            <span class="book-icon">🕵️‍♂️</span>
+          </div>
+          <div class="book-body">
+            <h3 class="book-title" data-i18n="lib_b2_title">¿Cómo se llama este libro? El enigma de Drácula</h3>
+            <div class="book-author" data-i18n="lib_b2_meta">Raymond Smullyan • Editorial Cátedra</div>
+            <p class="book-synopsis" data-i18n="lib_b2_synopsis">
+              Un festín insuperable de acertijos deductivos basados en la isla de caballeros (que siempre dicen la verdad) y escuderos (que siempre mienten). Conduce al lector desde paradojas amenas hasta las fronteras de los teoremas de incompletitud de Gödel y la autorreferencia.
+            </p>
+            <div class="book-recommendation">
+              <strong class="rec-label" data-i18n="lib_why_label">💡 ¿Por qué lo recomendamos en el Club?</strong>
+              <p class="rec-text" data-i18n="lib_b2_why">
+                Es el alma matemática de nuestro juego Deducción Lógica: enseña a descartar premisas falsas con rigor impecable sin necesidad de realizar una sola operación aritmética.
+              </p>
+            </div>
+          </div>
+          <div class="book-actions">
+            <a href="https://www.catedra.com/libro/teorema-serie-mayor/como-se-llama-este-libro-raymond-smullyan-9788437602974/" target="_blank" rel="noopener noreferrer" class="btn-book-link">
+              <span data-i18n="lib_btn_view">Consultar Ficha Oficial</span>
+              <span class="btn-ext-icon">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- OBRA 3: MIGUEL DE GUZMÁN -->
+        <article class="book-card" data-category="math">
+          <div class="book-spine"></div>
+          <div class="book-header">
+            <span class="book-badge gold" data-i18n="lib_b3_tag">HEURÍSTICA & ESTRATEGIAS</span>
+            <span class="book-icon">💡</span>
+          </div>
+          <div class="book-body">
+            <h3 class="book-title" data-i18n="lib_b3_title">Para pensar mejor: Desarrollo de la creatividad</h3>
+            <div class="book-author" data-i18n="lib_b3_meta">Miguel de Guzmán • Ediciones Pirámide</div>
+            <p class="book-synopsis" data-i18n="lib_b3_synopsis">
+              Catedrático de Análisis Matemático de la UCM y fundador de la Real Academia de Ciencias. Expone con maestría las técnicas heurísticas para desbloquear problemas complejos: reformulación, pensamiento lateral, búsqueda de simetrías y simplificación de supuestos.
+            </p>
+            <div class="book-recommendation">
+              <strong class="rec-label" data-i18n="lib_why_label">💡 ¿Por qué lo recomendamos en el Club?</strong>
+              <p class="rec-text" data-i18n="lib_b3_why">
+                Una guía magistral para cultivar una actitud serena, curiosa y paciente ante cualquier desafío mental, base de nuestra Escuela de Lógica en Top-Sudoku.
+              </p>
+            </div>
+          </div>
+          <div class="book-actions">
+            <a href="https://dialnet.unirioja.es/servlet/libro?codigo=196924" target="_blank" rel="noopener noreferrer" class="btn-book-link">
+              <span data-i18n="lib_btn_view">Consultar Ficha Oficial</span>
+              <span class="btn-ext-icon">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- OBRA 4: FRANCISCO MORA -->
+        <article class="book-card" data-category="neuro">
+          <div class="book-spine"></div>
+          <div class="book-header">
+            <span class="book-badge emerald" data-i18n="lib_b4_tag">NEUROEDUCACIÓN & CEREBRO</span>
+            <span class="book-icon">🧠</span>
+          </div>
+          <div class="book-body">
+            <h3 class="book-title" data-i18n="lib_b4_title">Neuroeducación: sólo se puede aprender aquello que se ama</h3>
+            <div class="book-author" data-i18n="lib_b4_meta">Francisco Mora • Alianza Editorial</div>
+            <p class="book-synopsis" data-i18n="lib_b4_synopsis">
+              Doctor en Medicina y Neurociencia. Explica cómo la emoción, la curiosidad, el juego y la motivación encienden los neurotransmisores de la atención (dopamina y acetilcolina), favoreciendo la neurogénesis adulta y consolidando la memoria operativa a largo plazo.
+            </p>
+            <div class="book-recommendation">
+              <strong class="rec-label" data-i18n="lib_why_label">💡 ¿Por qué lo recomendamos en el Club?</strong>
+              <p class="rec-text" data-i18n="lib_b4_why">
+                Fundamento científico de nuestro Manifiesto: el entrenamiento mental no debe ser una obligación monótona, sino un deleite placentero que rejuvenece y protege el cerebro.
+              </p>
+            </div>
+          </div>
+          <div class="book-actions">
+            <a href="https://dialnet.unirioja.es/servlet/libro?codigo=553531" target="_blank" rel="noopener noreferrer" class="btn-book-link">
+              <span data-i18n="lib_btn_view">Consultar Ficha Oficial</span>
+              <span class="btn-ext-icon">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- OBRA 5: STANISLAS DEHAENE -->
+        <article class="book-card" data-category="neuro">
+          <div class="book-spine"></div>
+          <div class="book-header">
+            <span class="book-badge rose" data-i18n="lib_b5_tag">NEUROCIENCIA COGNITIVA</span>
+            <span class="book-icon">⚡</span>
+          </div>
+          <div class="book-body">
+            <h3 class="book-title" data-i18n="lib_b5_title">¡Aprender! El talento del cerebro y la plasticidad mental</h3>
+            <div class="book-author" data-i18n="lib_b5_meta">Stanislas Dehaene • Siglo XXI Editores</div>
+            <p class="book-synopsis" data-i18n="lib_b5_synopsis">
+              Director del centro de neuroimagen NeuroSpin y profesor del Collège de France. Desgrana los 4 pilares cerebrales que multiplican nuestra capacidad cognitiva: la atención focalizada, el compromiso activo, la señal de corrección del error sin castigo y la consolidación del sueño.
+            </p>
+            <div class="book-recommendation">
+              <strong class="rec-label" data-i18n="lib_why_label">💡 ¿Por qué lo recomendamos en el Club?</strong>
+              <p class="rec-text" data-i18n="lib_b5_why">
+                Valida la arquitectura pedagógica del Club: el feedback inmediato del error y la autonomía en cada partida fortalecen las redes neuronales ejecutivas.
+              </p>
+            </div>
+          </div>
+          <div class="book-actions">
+            <a href="https://dialnet.unirioja.es/servlet/libro?codigo=764219" target="_blank" rel="noopener noreferrer" class="btn-book-link">
+              <span data-i18n="lib_btn_view">Consultar Ficha Oficial</span>
+              <span class="btn-ext-icon">↗</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- OBRA 6: REVISTAS CIENTÍFICAS -->
+        <article class="book-card" data-category="articles">
+          <div class="book-spine"></div>
+          <div class="book-header">
+            <span class="book-badge cyan" data-i18n="lib_b6_tag">REVISTAS & ARTÍCULOS CIENTÍFICOS</span>
+            <span class="book-icon">🔬</span>
+          </div>
+          <div class="book-body">
+            <h3 class="book-title" data-i18n="lib_b6_title">Mente y Cerebro / Cuaderno de Cultura Científica</h3>
+            <div class="book-author" data-i18n="lib_b6_meta">Investigación y Ciencia & Cátedra UPV/EHU</div>
+            <p class="book-synopsis" data-i18n="lib_b6_synopsis">
+              Publicaciones monográficas de máxima solvencia académica. Analizan en profundidad estudios empíricos sobre la reserva cognitiva, el impacto de los deportes mentales en la prevención del deterioro cognitivo y la belleza de la resolución de acertijos matemáticos.
+            </p>
+            <div class="book-recommendation">
+              <strong class="rec-label" data-i18n="lib_why_label">💡 ¿Por qué lo recomendamos en el Club?</strong>
+              <p class="rec-text" data-i18n="lib_b6_why">
+                Lecturas periódicas de rigor que recomendamos a todos los socios y maestros para mantenerse al día con las investigaciones más punteras en plasticidad neuronal.
+              </p>
+            </div>
+          </div>
+          <div class="book-actions">
+            <a href="https://culturacientifica.com/" target="_blank" rel="noopener noreferrer" class="btn-book-link">
+              <span data-i18n="lib_btn_view">Explorar Archivo y Artículos</span>
+              <span class="btn-ext-icon">↗</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Banner de Compromiso Cultural -->
+      <div class="library-footer-badge">
+        <div class="library-badge-icon">🏛️</div>
+        <div class="library-badge-text">
+          <strong data-i18n="lib_pledge_title">Fomento de la Cultura y la Salud Cognitiva</strong>
+          <p data-i18n="lib_pledge_desc">El Club del Ingenio divulga estas obras con fines exclusivamente formativos y sin ánimo de lucro, respaldando la investigación en neurociencia cognitiva y pedagogía matemática.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- SECCIÓN: SALÓN DE LA FAMA DE MENTES MAESTRAS -->
   <section class="section-hall-of-fame" id="salon-fama">
     <div class="section-container">
@@ -1283,6 +1491,7 @@
           <strong data-i18n="footer_col3_title">EL CLUB</strong>
           <a href="#filosofia">Manifiesto Zero-Ads</a>
           <a href="#beneficios">Salud Cognitiva</a>
+          <a href="#biblioteca" data-i18n="nav_library">📚 Biblioteca</a>
           <a href="#copia-seguridad">Copia de Seguridad</a>
         </div>
       </div>

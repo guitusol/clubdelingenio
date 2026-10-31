@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.clubHallOfFame.init();
   initPrivacyBanner();
   initShareClubBox();
+  initLibraryFilters();
 });
 
 /**
@@ -412,5 +413,32 @@ async function copyTextToClipboard(text) {
     document.body.removeChild(ta);
   }
   return ok;
+}
+
+/**
+ * 8. Filtrado interactivo de la Biblioteca del Club
+ */
+function initLibraryFilters() {
+  const tabs = document.querySelectorAll('.lib-tab');
+  const cards = document.querySelectorAll('.book-card');
+  if (!tabs.length || !cards.length) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filter = tab.getAttribute('data-filter') || 'all';
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
 }
 
