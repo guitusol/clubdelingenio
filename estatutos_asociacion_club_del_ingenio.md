@@ -122,3 +122,4 @@ En caso de disolución, la Junta Directiva se constituirá en comisión liquidad
 
 **Don Guillermo Tudela Soler**  
 Presidente Fundador de la Asociación «Club del Ingenio»
+
