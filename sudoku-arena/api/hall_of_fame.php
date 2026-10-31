@@ -203,11 +203,12 @@ if ($method === 'POST') {
                 age            = VALUES(age),
                 age_group      = VALUES(age_group),
                 -- Si la nueva marca es mejor (más puntos o igual puntos en menos tiempo), actualizamos
-                score          = IF(VALUES(score) > score OR (VALUES(score) = score AND VALUES(time_seconds) < time_seconds), VALUES(score), score),
+                -- Nota: evaluamos time_seconds, seed, etc. ANTES de score para que la condición use el score anterior en MySQL
                 time_seconds   = IF(VALUES(score) > score OR (VALUES(score) = score AND VALUES(time_seconds) < time_seconds), VALUES(time_seconds), time_seconds),
-                difficulty     = IF(VALUES(score) > score, VALUES(difficulty), difficulty),
-                seed           = IF(VALUES(score) > score, VALUES(seed), seed),
-                autonomy_index = IF(VALUES(score) > score, VALUES(autonomy_index), autonomy_index),
+                difficulty     = IF(VALUES(score) >= score, VALUES(difficulty), difficulty),
+                seed           = IF(VALUES(score) >= score, VALUES(seed), seed),
+                autonomy_index = IF(VALUES(score) >= score, VALUES(autonomy_index), autonomy_index),
+                score          = IF(VALUES(score) > score OR (VALUES(score) = score AND VALUES(time_seconds) < time_seconds), VALUES(score), score),
                 peeks_count    = VALUES(peeks_count),
                 errors_count   = VALUES(errors_count),
                 updated_at     = CURRENT_TIMESTAMP";

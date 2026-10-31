@@ -151,9 +151,25 @@ function seedGuillermoHistory() {
       historyList = [];
     }
 
-    // Si no hay historial o está vacío, sembrar las 3 partidas reales de Guillermo
+    // Sembrar o actualizar la partida maestra de Guillermo (1800 pts en Difícil)
     if (!Array.isArray(historyList) || historyList.length === 0) {
       const guillermoGames = [
+        {
+          id: "game_4",
+          timestamp: 1793487120000,
+          difficulty: "dificil",
+          mode: "standard",
+          seed: 62002,
+          score: 1800,
+          maxTheoreticalScore: 1935,
+          autonomyIndex: 93,
+          rank: "Gran Maestro Puro (Mente de Acero)",
+          rankKey: "rank_grandmaster",
+          timeSeconds: 1299,
+          peeksCount: 0,
+          errorsCount: 11,
+          date: "2026-10-31"
+        },
         {
           id: "game_2",
           timestamp: 1729760880000,
@@ -204,6 +220,24 @@ function seedGuillermoHistory() {
         }
       ];
       localStorage.setItem(historyKey, JSON.stringify(guillermoGames));
+    } else if (!historyList.some(g => g.score === 1800 && g.seed === 62002)) {
+      historyList.unshift({
+        id: "game_" + Date.now(),
+        timestamp: 1793487120000,
+        difficulty: "dificil",
+        mode: "standard",
+        seed: 62002,
+        score: 1800,
+        maxTheoreticalScore: 1935,
+        autonomyIndex: 93,
+        rank: "Gran Maestro Puro (Mente de Acero)",
+        rankKey: "rank_grandmaster",
+        timeSeconds: 1299,
+        peeksCount: 0,
+        errorsCount: 11,
+        date: "2026-10-31"
+      });
+      localStorage.setItem(historyKey, JSON.stringify(historyList));
     }
 
     // Bóveda de sudokus escaneados por Guillermo

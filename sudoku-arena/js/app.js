@@ -919,6 +919,20 @@ class SudokuApp {
           customName: this.gameData?.customName || null
         });
         this.updateHistoryBadge();
+
+        // Sincronización automática de récords con el Salón de la Fama
+        try {
+          if (window.hallOfFameEngine && window.hallOfFameEngine.checkAndAutoUpdateMaster) {
+            const allHist = this.history ? this.history.getAll() : [];
+            window.hallOfFameEngine.checkAndAutoUpdateMaster(null, allHist).then(sent => {
+              if (sent) {
+                console.log('🏆 Salón de la Fama actualizado automáticamente con tu nueva marca.');
+              }
+            }).catch(() => {});
+          }
+        } catch (eHof) {
+          console.warn('Auto-actualización Salón de la Fama:', eHof);
+        }
       }
 
       window.soundFx.playVictory();
@@ -1682,12 +1696,24 @@ ${url}`;
     const historyList = this.history ? this.history.getAll() : [];
 
     // Sincronizar en segundo plano con la base de datos central de Club del Ingenio
-    if (window.hallOfFameEngine && window.hallOfFameEngine.syncWithServer) {
-      window.hallOfFameEngine.syncWithServer(historyList).then(updated => {
-        if (updated) {
-          this.renderHallOfFame();
-        }
-      });
+    if (window.hallOfFameEngine) {
+      if (window.hallOfFameEngine.checkAndAutoUpdateMaster) {
+        window.hallOfFameEngine.checkAndAutoUpdateMaster(null, historyList).finally(() => {
+          if (window.hallOfFameEngine.syncWithServer) {
+            window.hallOfFameEngine.syncWithServer(historyList).then(updated => {
+              if (updated) {
+                this.renderHallOfFame();
+              }
+            });
+          }
+        });
+      } else if (window.hallOfFameEngine.syncWithServer) {
+        window.hallOfFameEngine.syncWithServer(historyList).then(updated => {
+          if (updated) {
+            this.renderHallOfFame();
+          }
+        });
+      }
     }
     const certified = window.hallOfFameEngine ? window.hallOfFameEngine.getCertifiedVictories(historyList) : [];
     const profile = window.hallOfFameEngine ? window.hallOfFameEngine.getPlayerProfile() : null;

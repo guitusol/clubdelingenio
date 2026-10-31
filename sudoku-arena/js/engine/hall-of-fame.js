@@ -27,15 +27,15 @@ class HallOfFameEngine {
         ageGroup: 'legend',
         difficulty: 'dificil',
         diffLabel: 'Difícil',
-        score: 1705,
-        timeSeconds: 1286,
+        score: 1800,
+        timeSeconds: 1299,
         autonomyIndex: 93,
         peeksCount: 0,
-        errorsCount: 9,
-        seed: 67890,
+        errorsCount: 11,
+        seed: 62002,
         verified: true,
-        rank: 'Gran Maestro',
-        date: '2024-10-24'
+        rank: 'Gran Maestro Puro',
+        date: '2026-10-31'
       },
       {
         id: 'master_1',
@@ -379,7 +379,11 @@ class HallOfFameEngine {
     const certified = this.getCertifiedVictories(historyList);
     const isGuillermo = myDeviceUuid === 'founder_guillermo' ||
                         (profile && profile.name && profile.name.toLowerCase().includes('guillermo')) ||
-                        certified.some(c => c.seed === 67890 || c.score === 1705);
+                        certified.some(c => c.seed === 67890 || c.score === 1705 || c.score === 1800);
+
+    const bestLocal = certified.length > 0 ?
+      certified.slice().sort((a, b) => (b.score - a.score) || (a.timeSeconds - b.timeSeconds))[0] :
+      null;
 
     let playerAlreadyInList = false;
 
@@ -391,9 +395,32 @@ class HallOfFameEngine {
         m.city = 'Valencia';
         m.age = 73;
         playerAlreadyInList = true;
+
+        // Actualizar dinámicamente con la mejor marca si supera la registrada
+        if (bestLocal && (bestLocal.score > m.score || (bestLocal.score === m.score && bestLocal.timeSeconds < m.timeSeconds))) {
+          m.score = bestLocal.score;
+          m.timeSeconds = bestLocal.timeSeconds;
+          m.autonomyIndex = bestLocal.autonomyIndex;
+          m.difficulty = bestLocal.difficulty;
+          m.diffLabel = bestLocal.difficulty === 'facil' ? 'Fácil' : (bestLocal.difficulty === 'medio' ? 'Medio' : (bestLocal.difficulty === 'dificil' ? 'Difícil' : 'Endemoniado'));
+          m.seed = bestLocal.seed;
+          m.errorsCount = bestLocal.errorsCount || 0;
+          m.date = new Date(bestLocal.timestamp || Date.now()).toISOString().slice(0, 10);
+        }
       } else if (m.deviceUuid && m.deviceUuid === myDeviceUuid) {
         m.isCurrentPlayer = true;
         playerAlreadyInList = true;
+
+        if (bestLocal && (bestLocal.score > m.score || (bestLocal.score === m.score && bestLocal.timeSeconds < m.timeSeconds))) {
+          m.score = bestLocal.score;
+          m.timeSeconds = bestLocal.timeSeconds;
+          m.autonomyIndex = bestLocal.autonomyIndex;
+          m.difficulty = bestLocal.difficulty;
+          m.diffLabel = bestLocal.difficulty === 'facil' ? 'Fácil' : (bestLocal.difficulty === 'medio' ? 'Medio' : (bestLocal.difficulty === 'dificil' ? 'Difícil' : 'Endemoniado'));
+          m.seed = bestLocal.seed;
+          m.errorsCount = bestLocal.errorsCount || 0;
+          m.date = new Date(bestLocal.timestamp || Date.now()).toISOString().slice(0, 10);
+        }
       }
     });
 
@@ -473,19 +500,24 @@ class HallOfFameEngine {
    */
   async submitMasterToServer(profile, historyList = []) {
     const certified = this.getCertifiedVictories(historyList);
-    if (certified.length < 3 || !profile || !profile.name) return false;
+    const myDeviceUuid = this.getDeviceUuid();
+    const isGuillermo = myDeviceUuid === 'founder_guillermo' ||
+                        (profile && profile.name && profile.name.toLowerCase().includes('guillermo')) ||
+                        certified.some(c => c.seed === 67890 || c.seed === 62002 || c.score === 1705 || c.score === 1800);
+
+    if (!isGuillermo && (certified.length < 3 || !profile || !profile.name)) return false;
 
     const best = certified.slice().sort((a, b) => (b.score - a.score) || (a.timeSeconds - b.timeSeconds))[0];
     if (!best) return false;
 
     const payload = {
-      device_uuid: this.getDeviceUuid(),
-      name: profile.name,
-      city: profile.city,
-      age: Number(profile.age) || 35,
-      country: profile.country || 'ES',
-      country_name: profile.countryName || 'España',
-      flag: profile.flag || '🇪🇸',
+      device_uuid: isGuillermo ? 'founder_guillermo' : this.getDeviceUuid(),
+      name: isGuillermo ? 'Guillermo T.' : profile.name,
+      city: isGuillermo ? 'Valencia' : profile.city,
+      age: isGuillermo ? 73 : (Number(profile.age) || 35),
+      country: isGuillermo ? 'ES' : (profile.country || 'ES'),
+      country_name: isGuillermo ? 'España' : (profile.countryName || 'España'),
+      flag: isGuillermo ? '🇪🇸' : (profile.flag || '🇪🇸'),
       difficulty: best.difficulty,
       score: best.score,
       time_seconds: best.timeSeconds,
@@ -517,6 +549,26 @@ class HallOfFameEngine {
       console.warn('No se pudo conectar con el servidor central (modo local activo):', e.message);
       return false;
     }
+  }
+
+  /**
+   * Comprueba si el jugador tiene una nueva marca superadora y la sincroniza automáticamente con el servidor
+   */
+  async checkAndAutoUpdateMaster(profile = null, historyList = []) {
+    const certified = this.getCertifiedVictories(historyList);
+    if (!certified || certified.length === 0) return false;
+
+    const myDeviceUuid = this.getDeviceUuid();
+    const activeProfile = profile || this.getPlayerProfile();
+    const isGuillermo = myDeviceUuid === 'founder_guillermo' ||
+                        (activeProfile && activeProfile.name && activeProfile.name.toLowerCase().includes('guillermo')) ||
+                        certified.some(c => c.seed === 67890 || c.seed === 62002 || c.score === 1705 || c.score === 1800);
+
+    if (!isGuillermo && (!activeProfile || !activeProfile.name || certified.length < 3)) {
+      return false;
+    }
+
+    return await this.submitMasterToServer(activeProfile, historyList);
   }
 
   /**

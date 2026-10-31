@@ -68,16 +68,16 @@ export class HallOfFameWidget {
         ageGroup: 'legend',
         difficulty: 'dificil',
         diffLabel: 'Difícil',
-        score: 1705,
-        timeSeconds: 1286,
+        score: 1800,
+        timeSeconds: 1299,
         autonomyIndex: 93,
         peeksCount: 0,
-        errorsCount: 9,
-        seed: 67890,
+        errorsCount: 11,
+        seed: 62002,
         verified: true,
         rank: 'Gran Maestro',
         isFounder: false,
-        date: '2024-10-24'
+        date: '2026-10-31'
       },
       {
         id: 'remote_4',
