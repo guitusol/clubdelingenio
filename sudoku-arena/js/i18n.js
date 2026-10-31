@@ -621,6 +621,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_later": "Ahora no",
     "hof_reg_success_toast": "🎉 ¡Inscripción completada! Ya formas parte oficial del Salón de la Fama.",
     "hof_reg_welcome_toast": "🎖️ ¡Cumples los requisitos para inscribirte en el Salón de la Fama! Completa tu ficha a continuación.",
+    "hof_sync_toast": "🏆 ¡Tu nueva marca se ha sincronizado en el Salón de la Fama!",
     "verdict_hof_unlock_btn": "👑 ¡Inscribirme en el Salón de la Fama!",
     "hof_reopen_register_btn": "✍️ Inscribirme",
     "hof_reg_edit_btn": "✏️ Editar ficha",
@@ -954,6 +955,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_later": "Not now",
     "hof_reg_success_toast": "🎉 Registration complete! You are officially in the Masters Hall of Fame.",
     "hof_reg_welcome_toast": "🎖️ You qualify for the Hall of Fame! Fill out your registration card below.",
+    "hof_sync_toast": "🏆 Your new score has been synced to the Hall of Fame!",
     "verdict_hof_unlock_btn": "👑 Register in the Hall of Fame!",
     "hof_reopen_register_btn": "✍️ Register",
     "hof_reg_edit_btn": "✏️ Edit profile",
@@ -1286,6 +1288,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ M'inscrire au Hall of Fame",
     "hof_reg_btn_later": "Pas maintenant",
     "hof_reg_success_toast": "🎉 Inscription réussie ! Vous faites officiellement partie du Hall of Fame.",
+    "hof_sync_toast": "🏆 Votre nouveau score a été synchronisé dans le Hall of Fame !",
     "hof_reg_edit_btn": "✏️ Modifier ma fiche",
     "hof_reg_enrolled_banner": "🌟 Officiellement inscrit au Hall of Fame !"
   },
@@ -1616,6 +1619,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ In die Ruhmeshalle eintragen",
     "hof_reg_btn_later": "Jetzt nicht",
     "hof_reg_success_toast": "🎉 Registrierung abgeschlossen! Du gehörst offiziell zur Meister-Ruhmeshalle.",
+    "hof_sync_toast": "🏆 Deine neue Bestmarke wurde in der Ruhmeshalle synchronisiert!",
     "hof_reg_edit_btn": "✏️ Profil bearbeiten",
     "hof_reg_enrolled_banner": "🌟 Offiziell in der Ruhmeshalle eingetragen!"
   },
@@ -1946,6 +1950,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ Inscriure'm al Saló de la Fama",
     "hof_reg_btn_later": "Ara no",
     "hof_reg_success_toast": "🎉 Inscripció completada! Ja formes part oficial del Saló de la Fama.",
+    "hof_sync_toast": "🏆 La teua nova marca s'ha sincronitzat al Saló de la Fama!",
     "hof_reg_edit_btn": "✏️ Editar fitxa",
     "hof_reg_enrolled_banner": "🌟 Inscrit oficialment al Saló de la Fama!"
   },
@@ -2276,6 +2281,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ Inscriure'm al Saló de la Fama",
     "hof_reg_btn_later": "Ara no",
     "hof_reg_success_toast": "🎉 Inscripció completada! Ja formes part oficial del Saló de la Fama.",
+    "hof_sync_toast": "🏆 La teua nova marca s'ha sincronitzat al Saló de la Fama!",
     "hof_reg_edit_btn": "✏️ Editar fitxa",
     "hof_reg_enrolled_banner": "🌟 Inscrit oficialment al Saló de la Fama!"
   },
@@ -2606,6 +2612,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ Ospearen Aretoan izena eman",
     "hof_reg_btn_later": "Orain ez",
     "hof_reg_success_toast": "🎉 Erregistroa osatuta! Maisuen Ospearen Aretoan zaude ofizialki.",
+    "hof_sync_toast": "🏆 Zure puntuazio berria Ospearen Aretoan sinkronizatu da!",
     "hof_reg_edit_btn": "✏️ Fitxa editatu",
     "hof_reg_enrolled_banner": "🌟 Ofizialki inskribatuta Ospearen Aretoan!"
   },
@@ -2936,6 +2943,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ Inscribirme no Salón da Fama",
     "hof_reg_btn_later": "Agora non",
     "hof_reg_success_toast": "🎉 Inscrición completada! Xa formas parte oficial do Salón da Fama.",
+    "hof_sync_toast": "🏆 A túa nova marca sincronizouse no Salón da Fama!",
     "hof_reg_edit_btn": "✏️ Editar ficha",
     "hof_reg_enrolled_banner": "🌟 Inscrito oficialmente no Salón da Fama!"
   },
@@ -3266,6 +3274,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ 殿堂に登録する",
     "hof_reg_btn_later": "後で",
     "hof_reg_success_toast": "🎉 登録が完了しました！世界達人殿堂の公式メンバーになりました。",
+    "hof_sync_toast": "🏆 新記録が栄誉の殿堂に自動同期されました！",
     "hof_reg_edit_btn": "✏️ 登録情報を編集",
     "hof_reg_enrolled_banner": "🌟 世界達人殿堂に公式登録済み！"
   },
@@ -3523,6 +3532,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ Inscrever-me no Hall da Fama",
     "hof_reg_btn_later": "Agora não",
     "hof_reg_success_toast": "🎉 Inscrição concluída! Já faz parte oficial do Hall da Fama.",
+    "hof_sync_toast": "🏆 O teu novo recorde foi sincronizado no Hall da Fama!",
     "hof_reg_edit_btn": "✏️ Editar ficha",
     "hof_reg_enrolled_banner": "🌟 Inscrito oficialmente no Hall da Fama!"
   },
@@ -3780,6 +3790,7 @@ const I18N_TRANSLATIONS = {
     "hof_reg_btn_submit": "🎖️ 登记入驻名人堂",
     "hof_reg_btn_later": "稍后再说",
     "hof_reg_success_toast": "🎉 登记成功！您已正式载入全球数独名人堂。",
+    "hof_sync_toast": "🏆 你的新纪录已成功同步至名人堂！",
     "hof_reg_edit_btn": "✏️ 修改名册资料",
     "hof_reg_enrolled_banner": "🌟 已正式收录于全球特级大师名人堂！"
   }

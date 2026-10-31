@@ -927,6 +927,7 @@ class SudokuApp {
             window.hallOfFameEngine.checkAndAutoUpdateMaster(null, allHist).then(sent => {
               if (sent) {
                 console.log('🏆 Salón de la Fama actualizado automáticamente con tu nueva marca.');
+                this.showToast(window.i18n ? window.i18n.t('hof_sync_toast') : '🏆 ¡Tu nueva marca se ha sincronizado en el Salón de la Fama!', 'success');
               }
             }).catch(() => {});
           }
