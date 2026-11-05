@@ -47,6 +47,7 @@ jobs:
 
             # 3. Ajuste de permisos para servidor web (Plesk/Apache/Nginx)
             chmod -R 755 .
+            chmod -R 777 api/data sudoku-arena/api/data api/rooms 2>/dev/null || true
             chmod 644 .htaccess 2>/dev/null || true
 
             echo "✅ Despliegue completado con éxito en $(date)."

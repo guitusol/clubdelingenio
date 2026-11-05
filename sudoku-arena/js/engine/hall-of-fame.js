@@ -11,7 +11,10 @@ class HallOfFameEngine {
     this.PROFILE_KEY = 'sudoku_arena_player_master_profile_v1';
     this.DEVICE_UUID_KEY = 'sudoku_arena_device_uuid_v1';
     this.CACHE_KEY = 'sudoku_arena_remote_masters_cache_v1';
-    this.API_URL = 'api/hall_of_fame.php';
+    // Detección automática del endpoint: si se ejecuta en GitHub Pages apunta a la API central en producción; en caso contrario, usa la ruta local
+    this.API_URL = (typeof window !== 'undefined' && window.location && window.location.origin.includes('github.io'))
+      ? 'https://clubdelingenio.com/api/hall_of_fame.php'
+      : 'api/hall_of_fame.php';
     this.remoteMasters = null;
 
     this.DEFAULT_MASTERS = [
