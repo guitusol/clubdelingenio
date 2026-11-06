@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Estilos Dark Luxury -->
-  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <link rel="stylesheet" href="css/style.css?v=2.3">
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -110,9 +110,28 @@
       </div>
     </div>
 
-    <!-- 3D VIEWPORT CONTAINER (100% LIBRE DE ELEMENTOS SUPERPUESTOS) -->
+    <!-- 3D VIEWPORT CONTAINER -->
     <div class="viewport-wrapper" id="timer-touch-area">
       <div id="rubik-canvas-container"></div>
+
+      <!-- Selector Táctil Superior: Rotar Cubo vs Girar Caras -->
+      <div class="cube-touch-toggle interactive-btn">
+        <button class="cube-toggle-btn active" id="btn-touch-rotate" data-touch-mode="rotate" title="Rotar vista del cubo en 360°">
+          <span class="toggle-icon">🔄</span> <span data-i18n="touch_mode_rotate">Rotar Cubo</span>
+        </button>
+        <button class="cube-toggle-btn" id="btn-touch-move" data-touch-mode="move" title="Girar caras con el dedo">
+          <span class="toggle-icon">🧩</span> <span data-i18n="touch_mode_move">Girar Caras</span>
+        </button>
+      </div>
+
+      <!-- Controles Rápidos de Ángulo Inferiores -->
+      <div class="cube-quick-controls interactive-btn">
+        <button class="quick-cam-btn" id="btn-cam-left" title="Girar vista 90° izquierda">↺ 90°</button>
+        <button class="quick-cam-btn" id="btn-cam-up" title="Inclinar vista arriba">⬆</button>
+        <button class="quick-cam-btn quick-cam-center" id="btn-cam-reset" title="Restablecer vista centrada">⟲ <span class="hide-xs" data-i18n="btn_cam_reset">Centrar</span></button>
+        <button class="quick-cam-btn" id="btn-cam-down" title="Inclinar vista abajo">⬇</button>
+        <button class="quick-cam-btn" id="btn-cam-right" title="Girar vista 90° derecha">90° ↻</button>
+      </div>
     </div>
 
     <!-- Floating Action Dock -->
@@ -283,6 +302,6 @@
   <div class="rubik-toast" id="rubik-toast">¡Notificación!</div>
 
   <!-- SCRIPT PRINCIPAL -->
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=2.3"></script>
 </body>
 </html>

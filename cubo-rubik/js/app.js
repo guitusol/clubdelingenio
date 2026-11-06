@@ -4,12 +4,12 @@
  * Club del Ingenio
  */
 
-import { i18n } from './i18n.js';
-import { sound } from './sound.js';
-import { RubikModel } from './rubik-model.js';
-import { RubikRenderer } from './rubik-renderer.js';
-import { RubikSolver, PATTERNS } from './rubik-solver.js';
-import { RubikTimer } from './rubik-timer.js';
+import { i18n } from './i18n.js?v=2.3';
+import { sound } from './sound.js?v=2.3';
+import { RubikModel } from './rubik-model.js?v=2.3';
+import { RubikRenderer } from './rubik-renderer.js?v=2.3';
+import { RubikSolver, PATTERNS } from './rubik-solver.js?v=2.3';
+import { RubikTimer } from './rubik-timer.js?v=2.3';
 
 class RubikApp {
   constructor() {
@@ -107,8 +107,48 @@ class RubikApp {
       btn.addEventListener('click', (e) => {
         const move = e.currentTarget.getAttribute('data-move');
         this.renderer.queueMove(move);
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+          try { navigator.vibrate(10); } catch (_) {}
+        }
       });
     });
+
+    // Touch Mode Selector: 'rotate' (view orbit) vs 'move' (turn layers)
+    const btnTouchRotate = document.getElementById('btn-touch-rotate');
+    const btnTouchMove = document.getElementById('btn-touch-move');
+
+    if (btnTouchRotate && btnTouchMove) {
+      btnTouchRotate.addEventListener('click', () => {
+        btnTouchRotate.classList.add('active');
+        btnTouchMove.classList.remove('active');
+        this.renderer.setInteractionMode('rotate');
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+          try { navigator.vibrate(10); } catch (_) {}
+        }
+      });
+
+      btnTouchMove.addEventListener('click', () => {
+        btnTouchMove.classList.add('active');
+        btnTouchRotate.classList.remove('active');
+        this.renderer.setInteractionMode('move');
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+          try { navigator.vibrate(10); } catch (_) {}
+        }
+      });
+    }
+
+    // Quick Camera Orientation Controls
+    const btnCamLeft = document.getElementById('btn-cam-left');
+    const btnCamRight = document.getElementById('btn-cam-right');
+    const btnCamUp = document.getElementById('btn-cam-up');
+    const btnCamDown = document.getElementById('btn-cam-down');
+    const btnCamReset = document.getElementById('btn-cam-reset');
+
+    if (btnCamLeft) btnCamLeft.addEventListener('click', () => this.renderer.rotateCameraLeft());
+    if (btnCamRight) btnCamRight.addEventListener('click', () => this.renderer.rotateCameraRight());
+    if (btnCamUp) btnCamUp.addEventListener('click', () => this.renderer.rotateCameraUp());
+    if (btnCamDown) btnCamDown.addEventListener('click', () => this.renderer.rotateCameraDown());
+    if (btnCamReset) btnCamReset.addEventListener('click', () => this.renderer.resetCamera());
 
     // Tutor Step button
     const btnAutoStep = document.getElementById('btn-tutor-step');

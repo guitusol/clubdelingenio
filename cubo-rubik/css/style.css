@@ -250,7 +250,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* 3D VIEWPORT CONTAINER (100% LIMPIO) */
+/* 3D VIEWPORT CONTAINER */
 .viewport-wrapper {
   position: relative;
   width: 100%;
@@ -262,15 +262,128 @@ body {
   overflow: hidden;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
   cursor: grab;
+  touch-action: none !important;
+  overscroll-behavior: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
 }
 
 .viewport-wrapper:active {
   cursor: grabbing;
 }
 
-#rubik-canvas-container {
+#rubik-canvas-container,
+#rubik-canvas-container canvas {
   width: 100%;
   height: 100%;
+  display: block;
+  touch-action: none !important;
+  overscroll-behavior: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* === SELECTOR TÁCTIL DE MODO (Rotar Cubo vs Girar Caras) === */
+.cube-touch-toggle {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 3px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+
+.cube-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.cube-toggle-btn:hover {
+  color: var(--text-main);
+}
+
+.cube-toggle-btn.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(56, 189, 248, 0.22) 100%);
+  border: 1px solid var(--border-gold);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+}
+
+/* === CONTROLES RÁPIDOS DE ÁNGULO DE CÁMARA === */
+.cube-quick-controls {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 4px 8px;
+  gap: 6px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+
+.quick-cam-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.38rem 0.72rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  min-height: 32px;
+}
+
+.quick-cam-btn:hover {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--cyan-primary);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.quick-cam-btn:active {
+  transform: scale(0.93);
+  background: rgba(245, 158, 11, 0.25);
+}
+
+.quick-cam-center {
+  border-color: var(--border-cyan);
+  color: var(--cyan-primary);
 }
 
 /* Métricas en Vivo */
@@ -769,14 +882,58 @@ body {
   }
 
   .face-btn {
-    width: 32px;
-    height: 30px;
+    width: 38px;
+    height: 36px;
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+
+  .cube-touch-toggle {
+    top: 10px;
+  }
+
+  .cube-toggle-btn {
+    padding: 0.35rem 0.75rem;
     font-size: 0.78rem;
+  }
+
+  .cube-quick-controls {
+    bottom: 10px;
+    gap: 4px;
+    padding: 3px 6px;
+  }
+
+  .quick-cam-btn {
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0.32rem 0.55rem;
+    font-size: 0.74rem;
   }
 
   .btn-action-primary,
   .btn-action-secondary {
     padding: 0.5rem 0.85rem;
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .hide-xs {
+    display: none;
+  }
+  .face-btn {
+    width: 33px;
+    height: 33px;
+    font-size: 0.8rem;
+  }
+  .cube-toggle-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+  }
+  .quick-cam-btn {
+    min-width: 28px;
+    min-height: 28px;
+    padding: 0.28rem 0.45rem;
+    font-size: 0.7rem;
   }
 }

@@ -27,8 +27,16 @@ export class RubikRenderer {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
     this.isPointerDown = false;
+    this.pointerId = null;
     this.pointerStart = { x: 0, y: 0 };
     this.dragTarget = null; // { cubie, faceNormal, startScreenPoint }
+    this.interactionMode = 'rotate'; // 'rotate' (whole cube view) or 'move' (turn layers)
+    
+    // Multi-touch gestures
+    this.isTwoFinger = false;
+    this.touchDistanceStart = 0;
+    this.touchCenterStart = { x: 0, y: 0 };
+    this.startSpherical = { radius: 7.5, theta: Math.PI / 4, phi: Math.PI / 3 };
     
     // Camera orbit state
     this.isOrbiting = false;
@@ -331,18 +339,73 @@ export class RubikRenderer {
     this.buildCube();
   }
 
+  setInteractionMode(mode) {
+    this.interactionMode = mode; // 'rotate' | 'move'
+  }
+
+  animateCameraTo(targetTheta, targetPhi, duration = 260) {
+    const startTheta = this.spherical.theta;
+    const startPhi = this.spherical.phi;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3); // cubic ease out
+
+      this.spherical.theta = startTheta + (targetTheta - startTheta) * ease;
+      this.spherical.phi = startPhi + (targetPhi - startPhi) * ease;
+      this.updateCameraPosition();
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  }
+
+  rotateCameraLeft() {
+    this.animateCameraTo(this.spherical.theta - Math.PI / 2, this.spherical.phi);
+  }
+
+  rotateCameraRight() {
+    this.animateCameraTo(this.spherical.theta + Math.PI / 2, this.spherical.phi);
+  }
+
+  rotateCameraUp() {
+    const newPhi = Math.max(0.15, this.spherical.phi - Math.PI / 6);
+    this.animateCameraTo(this.spherical.theta, newPhi);
+  }
+
+  rotateCameraDown() {
+    const newPhi = Math.min(Math.PI - 0.15, this.spherical.phi + Math.PI / 6);
+    this.animateCameraTo(this.spherical.theta, newPhi);
+  }
+
+  resetCamera() {
+    const defaultRadius = (this.container.clientWidth || window.innerWidth) < 600 ? 8.4 : 7.5;
+    this.spherical.radius = defaultRadius;
+    this.animateCameraTo(Math.PI / 4, Math.PI / 3);
+  }
+
   // =========================================================================
   // INTERACTION: Raycast Drag & Orbit Controls
   // =========================================================================
 
   bindEvents() {
     const el = this.renderer.domElement;
+    el.style.touchAction = 'none';
 
-    // Mouse / Touch start
-    el.addEventListener('pointerdown', (e) => this.onPointerDown(e));
-    window.addEventListener('pointermove', (e) => this.onPointerMove(e));
+    // Pointer events with preventDefault & pointer capture
+    el.addEventListener('pointerdown', (e) => this.onPointerDown(e), { passive: false });
+    window.addEventListener('pointermove', (e) => this.onPointerMove(e), { passive: false });
     window.addEventListener('pointerup', (e) => this.onPointerUp(e));
     window.addEventListener('pointercancel', (e) => this.onPointerUp(e));
+
+    // Native touch events for pinch-to-zoom & two-finger rotate, preventing any page scroll
+    el.addEventListener('touchstart', (e) => this.onTouchStart(e), { passive: false });
+    el.addEventListener('touchmove', (e) => this.onTouchMove(e), { passive: false });
+    el.addEventListener('touchend', (e) => this.onTouchEnd(e), { passive: false });
 
     // Mouse wheel zoom
     el.addEventListener('wheel', (e) => {
@@ -353,6 +416,53 @@ export class RubikRenderer {
 
     // Window resize
     window.addEventListener('resize', () => this.onResize());
+  }
+
+  onTouchStart(e) {
+    if (e.cancelable) e.preventDefault(); // Prevents iOS / Android browser rubber-band scroll
+    if (e.touches.length === 2) {
+      this.isTwoFinger = true;
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      this.touchDistanceStart = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      this.touchCenterStart = {
+        x: (t1.clientX + t2.clientX) / 2,
+        y: (t1.clientY + t2.clientY) / 2
+      };
+      this.startSpherical = { ...this.spherical };
+    }
+  }
+
+  onTouchMove(e) {
+    if (e.cancelable) e.preventDefault();
+    if (e.touches.length === 2 && this.isTwoFinger) {
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      const currentDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      const currentCenter = {
+        x: (t1.clientX + t2.clientX) / 2,
+        y: (t1.clientY + t2.clientY) / 2
+      };
+
+      // Zoom via pinch
+      if (this.touchDistanceStart > 0 && currentDist > 0) {
+        const pinchRatio = this.touchDistanceStart / currentDist;
+        this.spherical.radius = Math.max(5.0, Math.min(13.0, this.startSpherical.radius * pinchRatio));
+      }
+
+      // Orbit via two-finger drag
+      const deltaX = currentCenter.x - this.touchCenterStart.x;
+      const deltaY = currentCenter.y - this.touchCenterStart.y;
+      this.spherical.theta = this.startSpherical.theta - deltaX * 0.008;
+      this.spherical.phi = Math.max(0.15, Math.min(Math.PI - 0.15, this.startSpherical.phi - deltaY * 0.008));
+      this.updateCameraPosition();
+    }
+  }
+
+  onTouchEnd(e) {
+    if (e.touches.length < 2) {
+      this.isTwoFinger = false;
+    }
   }
 
   onResize() {
@@ -371,10 +481,26 @@ export class RubikRenderer {
 
   onPointerDown(e) {
     if (this.isAnimating) return;
+    if (this.isTwoFinger) return;
+
+    if (e.cancelable) e.preventDefault();
 
     this.isPointerDown = true;
+    this.pointerId = e.pointerId;
+    try {
+      this.renderer.domElement.setPointerCapture(e.pointerId);
+    } catch (_) {}
+
     this.pointerStart = { x: e.clientX, y: e.clientY };
 
+    // If mode is 'rotate' or right-clicked: ALWAYS orbit camera
+    if (this.interactionMode === 'rotate' || e.button === 2) {
+      this.dragTarget = null;
+      this.isOrbiting = true;
+      return;
+    }
+
+    // Mode is 'move': check if touching/clicking directly on a cubie face
     const rect = this.renderer.domElement.getBoundingClientRect();
     this.mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     this.mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -382,10 +508,8 @@ export class RubikRenderer {
     this.raycaster.setFromCamera(this.mouse, this.camera);
     const intersects = this.raycaster.intersectObjects(this.cubies, false);
 
-    if (intersects.length > 0 && e.button !== 2) {
-      // User clicked directly on a cubie face!
+    if (intersects.length > 0) {
       const hit = intersects[0];
-      // Normal vector in world coordinates
       const worldNormal = hit.face.normal.clone().applyQuaternion(hit.object.getWorldQuaternion(new THREE.Quaternion())).round();
       
       this.dragTarget = {
@@ -395,25 +519,30 @@ export class RubikRenderer {
       };
       this.isOrbiting = false;
     } else {
-      // Clicked background or right-clicked: Orbit camera
+      // Clicked background: Orbit camera even in move mode
       this.dragTarget = null;
       this.isOrbiting = true;
     }
   }
 
   onPointerMove(e) {
-    if (!this.isPointerDown) return;
+    if (!this.isPointerDown || this.isTwoFinger) return;
+    if (e.cancelable) e.preventDefault();
 
     const dx = e.clientX - this.pointerStart.x;
     const dy = e.clientY - this.pointerStart.y;
     const dist = Math.hypot(dx, dy);
 
-    // 1. If currently dragging a cube face
+    // 1. If currently dragging a cube face (in 'move' mode)
     if (this.dragTarget) {
-      if (dist > 18) { // Drag threshold crossed
+      const threshold = window.innerWidth < 600 ? 20 : 16;
+      if (dist > threshold) {
         this.resolveDragMove(this.dragTarget, dx, dy);
         this.dragTarget = null;
         this.isPointerDown = false;
+        try {
+          this.renderer.domElement.releasePointerCapture(this.pointerId);
+        } catch (_) {}
       }
       return;
     }
@@ -424,17 +553,22 @@ export class RubikRenderer {
       const deltaY = e.clientY - this.pointerStart.y;
       this.pointerStart = { x: e.clientX, y: e.clientY };
 
-      const rotateSpeed = 0.007;
+      const rotateSpeed = window.innerWidth < 600 ? 0.0085 : 0.007;
       this.spherical.theta -= deltaX * rotateSpeed;
       this.spherical.phi -= deltaY * rotateSpeed;
       this.updateCameraPosition();
     }
   }
 
-  onPointerUp() {
+  onPointerUp(e) {
     this.isPointerDown = false;
     this.isOrbiting = false;
     this.dragTarget = null;
+    if (e && e.pointerId != null) {
+      try {
+        this.renderer.domElement.releasePointerCapture(e.pointerId);
+      } catch (_) {}
+    }
   }
 
   /**
@@ -479,6 +613,9 @@ export class RubikRenderer {
 
     if (bestMove) {
       this.queueMove(bestMove);
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try { navigator.vibrate(14); } catch (_) {}
+      }
     }
   }
 
