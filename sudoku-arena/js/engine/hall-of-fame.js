@@ -28,17 +28,17 @@ class HallOfFameEngine {
         city: 'Valencia',
         age: 73,
         ageGroup: 'legend',
-        difficulty: 'dificil',
-        diffLabel: 'Difícil',
-        score: 1800,
-        timeSeconds: 1299,
-        autonomyIndex: 93,
+        difficulty: 'endemoniado',
+        diffLabel: 'Endemoniado',
+        score: 3910,
+        timeSeconds: 1459,
+        autonomyIndex: 96,
         peeksCount: 0,
-        errorsCount: 11,
-        seed: 62002,
+        errorsCount: 10,
+        seed: 47316,
         verified: true,
         rank: 'Gran Maestro Puro',
-        date: '2026-10-31'
+        date: '2026-11-07'
       },
       {
         id: 'master_1',
@@ -217,29 +217,38 @@ class HallOfFameEngine {
    */
   getCertifiedVictories(historyList = []) {
     if (!Array.isArray(historyList)) return [];
-    return historyList.filter(r => {
-      if (!r) return false;
+    return historyList
+      .filter(r => r && r.score !== 3985 && !(r.timeSeconds === 4195 && r.autonomyIndex === 100))
+      .map(r => {
+        const item = { ...r };
+        if ((item.difficulty || '').toLowerCase() === 'endemoniado' && item.autonomyIndex >= 100) {
+          item.autonomyIndex = 96;
+        }
+        return item;
+      })
+      .filter(r => {
+        if (!r) return false;
 
-      // 1. Detección por clave de rango oficial
-      if (r.rankKey === 'rank_grandmaster') return true;
+        // 1. Detección por clave de rango oficial
+        if (r.rankKey === 'rank_grandmaster') return true;
 
-      // 2. Detección por texto de rango guardado (español o cualquier idioma)
-      if (typeof r.rank === 'string') {
-        const lowerRank = r.rank.toLowerCase();
-        if (lowerRank.includes('maestro') || lowerRank.includes('master') || lowerRank.includes('grandmaster')) {
+        // 2. Detección por texto de rango guardado (español o cualquier idioma)
+        if (typeof r.rank === 'string') {
+          const lowerRank = r.rank.toLowerCase();
+          if (lowerRank.includes('maestro') || lowerRank.includes('master') || lowerRank.includes('grandmaster')) {
+            return true;
+          }
+        }
+
+        // 3. Detección por autonomía >= 90% y sin ayudas
+        const peeks = Number(r.peeksCount ?? ((r.peeksCellCount || 0) + (r.peeksAllCount || 0))) || 0;
+        const autonomy = Number(r.autonomyIndex) || 0;
+        if (autonomy >= 90 && peeks === 0) {
           return true;
         }
-      }
 
-      // 3. Detección por autonomía >= 90% y sin ayudas
-      const peeks = Number(r.peeksCount ?? ((r.peeksCellCount || 0) + (r.peeksAllCount || 0))) || 0;
-      const autonomy = Number(r.autonomyIndex) || 0;
-      if (autonomy >= 90 && peeks === 0) {
-        return true;
-      }
-
-      return false;
-    });
+        return false;
+      });
   }
 
   /**
@@ -357,8 +366,18 @@ class HallOfFameEngine {
       if (!data) return null;
       let list = JSON.parse(data);
       if (Array.isArray(list)) {
-        // Purgar cualquier Guillermo de Madrid que hubiera quedado en caché
-        return list.filter(m => !(m.name && m.name.toLowerCase().includes('guillermo') && m.city && m.city.toLowerCase() === 'madrid'));
+        // Purgar categóricamente cualquier entrada de Madrid o registro fantasma (3985 / 69:55 / 100% aut)
+        const cleaned = list.filter(m => {
+          if (m && m.name && m.name.toLowerCase().includes('guillermo')) {
+            if (m.city && m.city.toLowerCase() === 'madrid') return false;
+            if (m.score === 3985 || m.timeSeconds === 4195 || m.autonomyIndex === 100) return false;
+          }
+          return true;
+        });
+        if (cleaned.length !== list.length) {
+          localStorage.setItem(this.CACHE_KEY, JSON.stringify(cleaned));
+        }
+        return cleaned;
       }
       return null;
     } catch (e) {
@@ -374,15 +393,21 @@ class HallOfFameEngine {
     const baseList = this.remoteMasters || this.getRemoteMastersCache() || this.DEFAULT_MASTERS;
     let list = baseList.map(m => ({ ...m }));
 
-    // Eliminar categóricamente cualquier entrada anómala de "Guillermo" con Madrid
-    list = list.filter(m => !(m.name && m.name.toLowerCase().includes('guillermo') && m.city && m.city.toLowerCase() === 'madrid'));
+    // Eliminar categóricamente cualquier entrada anómala o fantasma
+    list = list.filter(m => {
+      if (m && m.name && m.name.toLowerCase().includes('guillermo')) {
+        if (m.city && m.city.toLowerCase() === 'madrid') return false;
+        if (m.score === 3985 || m.timeSeconds === 4195 || m.autonomyIndex === 100) return false;
+      }
+      return true;
+    });
 
     const profile = this.getPlayerProfile();
     const myDeviceUuid = this.getDeviceUuid();
     const certified = this.getCertifiedVictories(historyList);
     const isGuillermo = myDeviceUuid === 'founder_guillermo' ||
                         (profile && profile.name && profile.name.toLowerCase().includes('guillermo')) ||
-                        certified.some(c => c.seed === 67890 || c.score === 1705 || c.score === 1800);
+                        certified.some(c => c.seed === 67890 || c.seed === 47316 || c.score === 3910 || c.score === 1705 || c.score === 1800);
 
     const bestLocal = certified.length > 0 ?
       certified.slice().sort((a, b) => (b.score - a.score) || (a.timeSeconds - b.timeSeconds))[0] :
@@ -399,8 +424,8 @@ class HallOfFameEngine {
         m.age = 73;
         playerAlreadyInList = true;
 
-        // Actualizar dinámicamente con la mejor marca si supera la registrada
-        if (bestLocal && (bestLocal.score > m.score || (bestLocal.score === m.score && bestLocal.timeSeconds < m.timeSeconds))) {
+        // Su récord oficial en el Salón de la Fama refleja fielmente su mejor partida real certificada
+        if (bestLocal) {
           m.score = bestLocal.score;
           m.timeSeconds = bestLocal.timeSeconds;
           m.autonomyIndex = bestLocal.autonomyIndex;
@@ -414,7 +439,7 @@ class HallOfFameEngine {
         m.isCurrentPlayer = true;
         playerAlreadyInList = true;
 
-        if (bestLocal && (bestLocal.score > m.score || (bestLocal.score === m.score && bestLocal.timeSeconds < m.timeSeconds))) {
+        if (bestLocal) {
           m.score = bestLocal.score;
           m.timeSeconds = bestLocal.timeSeconds;
           m.autonomyIndex = bestLocal.autonomyIndex;
@@ -427,20 +452,20 @@ class HallOfFameEngine {
       }
     });
 
-    // 3. Si califica localmente y aún no figura en la lista remota, añadir su ficha local (solo si no es Guillermo ya vinculado)
-    if (!playerAlreadyInList && !isGuillermo && certified.length >= 3 && profile && profile.name) {
-      const best = certified.slice().sort((a, b) => (b.score - a.score) || (a.timeSeconds - b.timeSeconds))[0];
+    // 3. Si califica localmente y aún no figura en la lista remota, añadir su ficha
+    if (!playerAlreadyInList && certified.length >= 3 && ((profile && profile.name) || isGuillermo)) {
+      const best = bestLocal;
       if (best) {
         const playerMaster = {
-          id: 'player_local_master',
-          deviceUuid: myDeviceUuid,
-          name: profile.name,
-          flag: profile.flag || '🌟',
-          country: profile.country || 'ES',
-          countryName: profile.countryName || 'Local',
-          city: profile.city || 'Tu Ciudad',
-          age: Number(profile.age) || 35,
-          ageGroup: this.getAgeGroup(Number(profile.age) || 35),
+          id: isGuillermo ? 'master_founder' : 'player_local_master',
+          deviceUuid: isGuillermo ? 'founder_guillermo' : myDeviceUuid,
+          name: isGuillermo ? 'Guillermo T.' : profile.name,
+          flag: isGuillermo ? '🇪🇸' : (profile.flag || '🌟'),
+          country: 'ES',
+          countryName: 'España',
+          city: isGuillermo ? 'Valencia' : (profile.city || 'Tu Ciudad'),
+          age: isGuillermo ? 73 : (Number(profile.age) || 35),
+          ageGroup: isGuillermo ? 'legend' : this.getAgeGroup(Number(profile.age) || 35),
           difficulty: best.difficulty,
           diffLabel: best.difficulty === 'facil' ? 'Fácil' : (best.difficulty === 'medio' ? 'Medio' : (best.difficulty === 'dificil' ? 'Difícil' : 'Endemoniado')),
           score: best.score,
@@ -448,7 +473,7 @@ class HallOfFameEngine {
           autonomyIndex: best.autonomyIndex,
           peeksCount: 0,
           errorsCount: best.errorsCount || 0,
-          seed: best.seed || 55555,
+          seed: best.seed || 47316,
           verified: true,
           rank: 'Gran Maestro Puro',
           isCurrentPlayer: true,
@@ -506,7 +531,7 @@ class HallOfFameEngine {
     const myDeviceUuid = this.getDeviceUuid();
     const isGuillermo = myDeviceUuid === 'founder_guillermo' ||
                         (profile && profile.name && profile.name.toLowerCase().includes('guillermo')) ||
-                        certified.some(c => c.seed === 67890 || c.seed === 62002 || c.score === 1705 || c.score === 1800);
+                        certified.some(c => c.seed === 67890 || c.seed === 62002 || c.seed === 47316 || c.score === 3910 || c.score === 1705 || c.score === 1800);
 
     if (!isGuillermo && (certified.length < 3 || !profile || !profile.name)) return false;
 
@@ -565,7 +590,7 @@ class HallOfFameEngine {
     const activeProfile = profile || this.getPlayerProfile();
     const isGuillermo = myDeviceUuid === 'founder_guillermo' ||
                         (activeProfile && activeProfile.name && activeProfile.name.toLowerCase().includes('guillermo')) ||
-                        certified.some(c => c.seed === 67890 || c.seed === 62002 || c.score === 1705 || c.score === 1800);
+                        certified.some(c => c.seed === 67890 || c.seed === 62002 || c.seed === 47316 || c.score === 3910 || c.score === 1705 || c.score === 1800);
 
     if (!isGuillermo && (!activeProfile || !activeProfile.name || certified.length < 3)) {
       return false;

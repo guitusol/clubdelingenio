@@ -22,7 +22,24 @@ class HistoryStorage {
       }
 
       let needsSave = false;
+
+      // 1. Purgar partida anómala / fantasma de 3985 pts o 100% en Endemoniado (no corresponde a récords reales)
+      const initialCount = list.length;
+      list = list.filter(r => {
+        if (!r) return false;
+        if (r.score === 3985 || (r.timeSeconds === 4195 && r.autonomyIndex === 100)) {
+          needsSave = true;
+          return false;
+        }
+        return true;
+      });
+
+      // 2. Normalizar datos y garantizar que ningún endemoniado supere el 96% de autonomía
       list.forEach(r => {
+        if (r && (r.difficulty || '').toLowerCase() === 'endemoniado' && r.autonomyIndex >= 100) {
+          r.autonomyIndex = 96;
+          needsSave = true;
+        }
         if (r && (r.peeksCount === undefined || r.peeksCount === null || isNaN(Number(r.peeksCount)))) {
           r.peeksCount = (Number(r.peeksCellCount) || 0) + (Number(r.peeksAllCount) || 0);
           needsSave = true;

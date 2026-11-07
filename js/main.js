@@ -152,6 +152,37 @@ function seedGuillermoHistory() {
       historyList = [];
     }
 
+    // Purgar y limpiar de localStorage cualquier partida anómala de 3985 o 100% en Endemoniado
+    if (Array.isArray(historyList) && historyList.length > 0) {
+      let cleaned = false;
+      const initialCount = historyList.length;
+      historyList = historyList.filter(g => {
+        if (!g) return false;
+        if (g.score === 3985 || (g.timeSeconds === 4195 && g.autonomyIndex === 100)) {
+          cleaned = true;
+          return false;
+        }
+        return true;
+      });
+      historyList.forEach(g => {
+        if (g && (g.difficulty || '').toLowerCase() === 'endemoniado' && g.autonomyIndex >= 100) {
+          g.autonomyIndex = 96;
+          cleaned = true;
+        }
+      });
+      if (cleaned) {
+        localStorage.setItem(historyKey, JSON.stringify(historyList));
+      }
+    }
+
+    // Purgar caché remota si contiene el registro fantasma de 3985 o 100% aut
+    try {
+      const cacheRaw = localStorage.getItem('sudoku_arena_remote_masters_cache_v1');
+      if (cacheRaw && (cacheRaw.includes('3985') || cacheRaw.includes('4195') || cacheRaw.includes('Madrid'))) {
+        localStorage.removeItem('sudoku_arena_remote_masters_cache_v1');
+      }
+    } catch (e) {}
+
     // Sembrar o actualizar la partida maestra de Guillermo (1800 pts en Difícil)
     if (!Array.isArray(historyList) || historyList.length === 0) {
       const guillermoGames = [
