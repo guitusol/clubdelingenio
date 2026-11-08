@@ -216,3 +216,4 @@ Para desarrolladores y mantenimiento de la plataforma:
 
 *Manual oficial aprobado para Club del Ingenio.*  
 *Director Técnico & Software Architect: Guillermo Tudela Soler / Conectividad y Comunicaciones, S.L.*
+

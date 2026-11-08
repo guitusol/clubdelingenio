@@ -905,6 +905,7 @@ class SudokuApp {
           mode: this.isWeeklyMode ? 'weekly' : (this.gameData?.isCustom ? 'custom' : 'standard'),
           seed: this.currentSeed,
           score: summary.currentScore,
+          pureScore: summary.pureScore || Math.round(summary.currentScore * (summary.autonomyIndex / 100)),
           maxTheoreticalScore: summary.initialTotalPoints,
           autonomyIndex: summary.autonomyIndex,
           rank: summary.rank,
@@ -919,21 +920,6 @@ class SudokuApp {
           customName: this.gameData?.customName || null
         });
         this.updateHistoryBadge();
-
-        // Sincronización automática de récords con el Salón de la Fama
-        try {
-          if (window.hallOfFameEngine && window.hallOfFameEngine.checkAndAutoUpdateMaster) {
-            const allHist = this.history ? this.history.getAll() : [];
-            window.hallOfFameEngine.checkAndAutoUpdateMaster(null, allHist).then(sent => {
-              if (sent) {
-                console.log('🏆 Salón de la Fama actualizado automáticamente con tu nueva marca.');
-                this.showToast(window.i18n ? window.i18n.t('hof_sync_toast') : '🏆 ¡Tu nueva marca se ha sincronizado en el Salón de la Fama!', 'success');
-              }
-            }).catch(() => {});
-          }
-        } catch (eHof) {
-          console.warn('Auto-actualización Salón de la Fama:', eHof);
-        }
       }
 
       window.soundFx.playVictory();
@@ -1007,7 +993,8 @@ class SudokuApp {
       if (compBanner) compBanner.classList.add('hidden');
     }
 
-    document.getElementById('verdict-score').textContent = `${summary.currentScore} pts`;
+    const pureScore = summary.pureScore || Math.round(summary.currentScore * (summary.autonomyIndex / 100));
+    document.getElementById('verdict-score').textContent = `${summary.currentScore} pts (${pureScore} puros)`;
     document.getElementById('verdict-max-theoretical').textContent = `${summary.initialTotalPoints} pts`;
     document.getElementById('verdict-autonomy').textContent = `${summary.autonomyIndex}%`;
     document.getElementById('verdict-autonomy').style.color = isSystemSolved ? '#94a3b8' : summary.rankColor;
@@ -1054,12 +1041,13 @@ class SudokuApp {
         shareBtn.innerHTML = `<span>${window.i18n ? window.i18n.t('verdict_share') : '📋 Copiar Resultado y Código de Desafío para Retar'}</span>`;
         shareBtn.onclick = () => {
           let text = '';
+          const pureScoreVal = summary.pureScore || Math.round((summary.currentScore || 0) * ((summary.autonomyIndex || 0) / 100));
           if (this.gameData && this.gameData.isCustom) {
             const url = CompetitionEngine.generateCustomChallengeUrl(this.gameData.boardString, this.gameData.customName || 'Reto Personalizado');
-            text = `🏆 ¡He resuelto este Sudoku personalizado en Sudoku Arena!\n🎯 Puntuación: ${summary.currentScore} pts (Autonomía: ${summary.autonomyIndex}% - ${summary.rank})\n⏱️ Tiempo: ${this.formatTime(this.timerSeconds)}\n⚔️ ¿Te atreves a superarme en este reto? Juega aquí:\n${url}`;
+            text = `🏆 ¡He resuelto este Sudoku personalizado en Sudoku Arena!\n💎 Puntuación Pura: ${pureScoreVal} pts (${summary.currentScore} pts brutos)\n🧠 Pureza Mental: ${summary.autonomyIndex}% (${summary.rank})\n⏱️ Tiempo: ${this.formatTime(this.timerSeconds)}\n⚔️ ¿Te atreves a superar mi pureza deductiva? Juega aquí:\n${url}`;
           } else {
             const code = CompetitionEngine.generateChallengeCode(this.selectedDifficulty, this.currentSeed);
-            text = `🏆 ¡He resuelto Sudoku Arena en nivel ${this.selectedDifficulty.toUpperCase()}!\n🎯 Puntuación: ${summary.currentScore} pts (Autonomía: ${summary.autonomyIndex}% - ${summary.rank})\n⏱️ Tiempo: ${this.formatTime(this.timerSeconds)}\n⚔️ ¿Te atreves a superarme? Juega el mismo tablero con este enlace:\n${CompetitionEngine.getChallengeUrl(code)}`;
+            text = `🏆 ¡He resuelto Sudoku Arena en nivel ${this.selectedDifficulty.toUpperCase()}!\n💎 Puntuación Pura: ${pureScoreVal} pts (${summary.currentScore} pts brutos)\n🧠 Pureza Mental: ${summary.autonomyIndex}% (${summary.rank})\n⏱️ Tiempo: ${this.formatTime(this.timerSeconds)}\n⚔️ ¿Te atreves a superar mi pureza deductiva? Juega el mismo tablero con este enlace:\n${CompetitionEngine.getChallengeUrl(code)}`;
           }
 
           if (navigator.clipboard) {
@@ -1697,24 +1685,12 @@ ${url}`;
     const historyList = this.history ? this.history.getAll() : [];
 
     // Sincronizar en segundo plano con la base de datos central de Club del Ingenio
-    if (window.hallOfFameEngine) {
-      if (window.hallOfFameEngine.checkAndAutoUpdateMaster) {
-        window.hallOfFameEngine.checkAndAutoUpdateMaster(null, historyList).finally(() => {
-          if (window.hallOfFameEngine.syncWithServer) {
-            window.hallOfFameEngine.syncWithServer(historyList).then(updated => {
-              if (updated) {
-                this.renderHallOfFame();
-              }
-            });
-          }
-        });
-      } else if (window.hallOfFameEngine.syncWithServer) {
-        window.hallOfFameEngine.syncWithServer(historyList).then(updated => {
-          if (updated) {
-            this.renderHallOfFame();
-          }
-        });
-      }
+    if (window.hallOfFameEngine && window.hallOfFameEngine.syncWithServer) {
+      window.hallOfFameEngine.syncWithServer(historyList).then(updated => {
+        if (updated) {
+          this.renderHallOfFame();
+        }
+      });
     }
     const certified = window.hallOfFameEngine ? window.hallOfFameEngine.getCertifiedVictories(historyList) : [];
     const profile = window.hallOfFameEngine ? window.hallOfFameEngine.getPlayerProfile() : null;
@@ -1805,7 +1781,7 @@ ${url}`;
           if (detailsEl) {
             const ageGroupLabel = profile.ageGroup === 'junior' ? 'Júnior (<18)' :
                                   (profile.ageGroup === 'adult' ? 'Adultos (18-49)' :
-                                  (profile.ageGroup === 'senior' ? 'Senior (50-64)' : 'Master (65+)'));
+                                  (profile.ageGroup === 'senior' ? 'Senior (50-64)' : 'Leyendas (65+)'));
             detailsEl.textContent = profile.name + ' • ' + profile.city + ', ' + (profile.countryName || profile.country) + ' ' + (profile.flag || '') + ' • ' + profile.age + ' años (' + ageGroupLabel + ')';
           }
         }
@@ -1882,8 +1858,8 @@ ${url}`;
           '</div>' +
           '<div class="hof-master-right">' +
             '<div class="hof-master-stats">' +
-              '<div class="hof-master-score">' + m.score + ' pts</div>' +
-              '<div class="hof-master-time">⏱️ ' + this.formatTime(m.timeSeconds) + ' • ' + m.autonomyIndex + '% aut.</div>' +
+              '<div class="hof-master-score">' + (m.pureScore || Math.round(m.score * (m.autonomyIndex / 100))) + ' <span style="font-size:0.75rem;font-weight:normal;opacity:0.85;">pts puros</span></div>' +
+              '<div class="hof-master-time">⏱️ ' + this.formatTime(m.timeSeconds) + ' • ' + m.autonomyIndex + '% aut. (' + m.score + ' pts)</div>' +
             '</div>' +
             '<button type="button" class="hof-btn-duel" data-master-id="' + m.id + '" title="Cargar mismo tablero y semilla del maestro">' +
               challengeBtnLabel +
@@ -2061,7 +2037,14 @@ ${url}`;
     if (totalElem) totalElem.textContent = stats.totalGames;
 
     const bestScoreElem = document.getElementById('hist-stat-best-score');
-    if (bestScoreElem) bestScoreElem.textContent = stats.globalBestScore > 0 ? `${stats.globalBestScore} pts` : '0 pts';
+    if (bestScoreElem) {
+      if (stats.globalBestPureScore > 0) {
+        bestScoreElem.textContent = `${stats.globalBestPureScore} pts puros`;
+        bestScoreElem.title = `Puntuación bruta: ${stats.globalBestScore} pts`;
+      } else {
+        bestScoreElem.textContent = stats.globalBestScore > 0 ? `${stats.globalBestScore} pts` : '0 pts';
+      }
+    }
 
     const bestTimeElem = document.getElementById('hist-stat-best-time');
     if (bestTimeElem) bestTimeElem.textContent = stats.globalBestTime > 0 ? this.formatTime(stats.globalBestTime) : '--:--';
@@ -2078,7 +2061,14 @@ ${url}`;
       const timeEl = document.getElementById(`hist-diff-time-${d}`);
 
       if (countEl) countEl.textContent = `${dStats.count}`;
-      if (scoreEl) scoreEl.textContent = dStats.bestScore > 0 ? `${dStats.bestScore} pts` : '-- pts';
+      if (scoreEl) {
+        if (dStats.bestPureScore > 0) {
+          scoreEl.textContent = `${dStats.bestPureScore} puros`;
+          scoreEl.title = `Puntuación bruta: ${dStats.bestScore} pts`;
+        } else {
+          scoreEl.textContent = dStats.bestScore > 0 ? `${dStats.bestScore} pts` : '-- pts';
+        }
+      }
       if (timeEl) timeEl.textContent = dStats.bestTime > 0 ? `⏱️ ${this.formatTime(dStats.bestTime)}` : '--:--';
     });
 
@@ -2146,7 +2136,9 @@ ${url}`;
               <span class="history-card-date">${dateStr}</span>
             </div>
             <div class="history-card-meta">
-              <span class="font-bold text-gold font-mono">${item.score} pts</span>
+              <span class="font-bold text-cyan font-mono" style="color:#38bdf8;">${item.pureScore || Math.round((item.score || 0) * ((item.autonomyIndex || 0) / 100))} pts puros</span>
+              <span>&bull;</span>
+              <span class="font-mono text-gold font-bold">${item.score} pts</span>
               ${item.maxTheoreticalScore ? `<span class="text-muted font-mono" style="font-size:0.75rem;">/ ${item.maxTheoreticalScore}</span>` : ''}
               <span>&bull;</span>
               <span class="font-mono text-emerald font-bold">${item.autonomyIndex}% aut.</span>
@@ -2186,7 +2178,8 @@ ${url}`;
         }
         const code = CompetitionEngine.generateChallengeCode(item.difficulty, item.seed);
         const url = CompetitionEngine.getChallengeUrl(code);
-        const text = `🏆 ¡He logrado ${item.score} pts (Autonomía: ${item.autonomyIndex}%) en Sudoku Arena nivel ${diffLabel}!\n⏱️ Tiempo: ${this.formatTime(item.timeSeconds)}\n⚔️ ¿Te atreves a superarme? Juega el mismo tablero aquí:\n${url}`;
+        const pureScoreVal = item.pureScore || Math.round((item.score || 0) * ((item.autonomyIndex || 0) / 100));
+        const text = `🏆 ¡He logrado ${pureScoreVal} pts puros (${item.score} pts • ${item.autonomyIndex}% Pureza) en Sudoku Arena nivel ${diffLabel}!\n⏱️ Tiempo: ${this.formatTime(item.timeSeconds)}\n⚔️ ¿Te atreves a superar mi nivel de deducción? Juega el mismo tablero aquí:\n${url}`;
         if (navigator.clipboard) {
           navigator.clipboard.writeText(text).then(() => {
             this.showToast(window.i18n ? window.i18n.t('toast_duel_link_copied') : '¡Enlace de Duelo copiado al portapapeles!', 'success');
@@ -2481,9 +2474,14 @@ ${url}`;
 
     document.getElementById('btn-tool-competition-sidebar')?.addEventListener('click', () => this.openCompetitionModal());
 
-    // Auto-guardado transparente al cerrar, recargar o navegar a otra página (como el Manual)
-    window.addEventListener('beforeunload', () => {
+    // Auto-guardado al cerrar o recargar la ventana y aviso si hay partida empezada
+    window.addEventListener('beforeunload', (e) => {
       this.saveActiveGame();
+      if (this.hasUserMadeMoves()) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
     });
 
     // Soporte para botón atrás físico en móviles Android
@@ -2637,20 +2635,13 @@ ${url}`;
       const ageInput = document.getElementById('hof-input-age');
       const countrySelect = document.getElementById('hof-select-country');
 
-      let name = nameInput ? nameInput.value.trim() : '';
-      let city = cityInput ? cityInput.value.trim() : '';
-      let age = ageInput ? parseInt(ageInput.value, 10) : 0;
+      const name = nameInput ? nameInput.value.trim() : '';
+      const city = cityInput ? cityInput.value.trim() : '';
+      const age = ageInput ? parseInt(ageInput.value, 10) : 0;
       const countryOpt = countrySelect ? countrySelect.options[countrySelect.selectedIndex] : null;
       const country = countryOpt ? countryOpt.value : 'ES';
       const countryName = countryOpt ? countryOpt.getAttribute('data-name') : 'España';
       const flag = countryOpt ? countryOpt.getAttribute('data-flag') : '🇪🇸';
-
-      // Garantizar la identidad oficial de Guillermo (Valencia, España • 73 años)
-      if (name.toLowerCase().includes('guillermo')) {
-        name = 'Guillermo T.';
-        city = 'Valencia';
-        age = 73;
-      }
 
       if (!name) {
         alert('Por favor introduce tu nombre o alias para el Salón de la Fama.');
@@ -2725,10 +2716,9 @@ ${url}`;
         const ageInput = document.getElementById('hof-input-age');
         const countrySelect = document.getElementById('hof-select-country');
 
-        const isGuillermo = p.name && p.name.toLowerCase().includes('guillermo');
-        if (nameInput) nameInput.value = isGuillermo ? 'Guillermo T.' : (p.name || '');
-        if (cityInput) cityInput.value = isGuillermo ? 'Valencia' : (p.city || '');
-        if (ageInput) ageInput.value = isGuillermo ? 73 : (p.age || '');
+        if (nameInput) nameInput.value = p.name || '';
+        if (cityInput) cityInput.value = p.city || '';
+        if (ageInput) ageInput.value = p.age || '';
         if (countrySelect && p.country) countrySelect.value = p.country;
       }
       document.getElementById('hof-registration-card')?.classList.remove('hidden');
