@@ -217,38 +217,29 @@ class HallOfFameEngine {
    */
   getCertifiedVictories(historyList = []) {
     if (!Array.isArray(historyList)) return [];
-    return historyList
-      .filter(r => r && r.score !== 3985 && !(r.timeSeconds === 4195 && r.autonomyIndex === 100))
-      .map(r => {
-        const item = { ...r };
-        if ((item.difficulty || '').toLowerCase() === 'endemoniado' && item.autonomyIndex >= 100) {
-          item.autonomyIndex = 96;
-        }
-        return item;
-      })
-      .filter(r => {
-        if (!r) return false;
+    return historyList.filter(r => {
+      if (!r) return false;
 
-        // 1. Detección por clave de rango oficial
-        if (r.rankKey === 'rank_grandmaster') return true;
+      // 1. Detección por clave de rango oficial
+      if (r.rankKey === 'rank_grandmaster') return true;
 
-        // 2. Detección por texto de rango guardado (español o cualquier idioma)
-        if (typeof r.rank === 'string') {
-          const lowerRank = r.rank.toLowerCase();
-          if (lowerRank.includes('maestro') || lowerRank.includes('master') || lowerRank.includes('grandmaster')) {
-            return true;
-          }
-        }
-
-        // 3. Detección por autonomía >= 90% y sin ayudas
-        const peeks = Number(r.peeksCount ?? ((r.peeksCellCount || 0) + (r.peeksAllCount || 0))) || 0;
-        const autonomy = Number(r.autonomyIndex) || 0;
-        if (autonomy >= 90 && peeks === 0) {
+      // 2. Detección por texto de rango guardado (español o cualquier idioma)
+      if (typeof r.rank === 'string') {
+        const lowerRank = r.rank.toLowerCase();
+        if (lowerRank.includes('maestro') || lowerRank.includes('master') || lowerRank.includes('grandmaster')) {
           return true;
         }
+      }
 
-        return false;
-      });
+      // 3. Detección por autonomía >= 90% y sin ayudas
+      const peeks = Number(r.peeksCount ?? ((r.peeksCellCount || 0) + (r.peeksAllCount || 0))) || 0;
+      const autonomy = Number(r.autonomyIndex) || 0;
+      if (autonomy >= 90 && peeks === 0) {
+        return true;
+      }
+
+      return false;
+    });
   }
 
   /**
@@ -424,8 +415,9 @@ class HallOfFameEngine {
         m.age = 73;
         playerAlreadyInList = true;
 
-        // Su récord oficial en el Salón de la Fama refleja fielmente su mejor partida real certificada
-        if (bestLocal) {
+        // La marca del servidor es la oficial global (3910 pts, 24:19, 96% aut.).
+        // Solo actualizar localmente si en este dispositivo se bate legítimamente el récord registrado (y nunca con 100% en endemoniado)
+        if (bestLocal && bestLocal.score > m.score && bestLocal.score <= 4000 && bestLocal.autonomyIndex <= 96) {
           m.score = bestLocal.score;
           m.timeSeconds = bestLocal.timeSeconds;
           m.autonomyIndex = bestLocal.autonomyIndex;
@@ -439,7 +431,7 @@ class HallOfFameEngine {
         m.isCurrentPlayer = true;
         playerAlreadyInList = true;
 
-        if (bestLocal) {
+        if (bestLocal && bestLocal.score > m.score && bestLocal.autonomyIndex <= 96) {
           m.score = bestLocal.score;
           m.timeSeconds = bestLocal.timeSeconds;
           m.autonomyIndex = bestLocal.autonomyIndex;
