@@ -34,20 +34,21 @@ function getDefaultMasters() {
             'flag'          => '🇪🇸',
             'country'       => 'ES',
             'countryName'   => 'España',
-            'city'          => 'Madrid',
+            'city'          => 'Valencia',
             'age'           => 73,
             'ageGroup'      => 'legend',
             'difficulty'    => 'endemoniado',
             'diffLabel'     => 'Endemoniado',
-            'score'         => 1980,
-            'timeSeconds'   => 395,
-            'autonomyIndex' => 96,
+            'score'         => 3560,
+            'pureScore'     => 2990,
+            'timeSeconds'   => 1459,
+            'autonomyIndex' => 84,
             'peeksCount'    => 0,
-            'errorsCount'   => 1,
-            'seed'          => 78421,
+            'errorsCount'   => 10,
+            'seed'          => 47316,
             'verified'      => true,
             'rank'          => 'Gran Maestro Puro',
-            'date'          => '2026-10-27'
+            'date'          => '2026-11-07'
         ],
         [
             'id'            => 'master_1',
@@ -230,27 +231,68 @@ function getDefaultMasters() {
 
 // Cargar lista desde JSON en disco
 function loadMastersFromJson($file) {
+    $masters = [];
     if (file_exists($file)) {
         $content = @file_get_contents($file);
         if ($content) {
             $data = json_decode($content, true);
             if (is_array($data) && count($data) > 0) {
-                return $data;
+                $masters = $data;
             }
         }
     }
     // Si no existe el archivo, inicializamos con los maestros por defecto
-    $default = getDefaultMasters();
-    saveMastersToJson($file, $default);
-    return $default;
+    if (empty($masters)) {
+        $masters = getDefaultMasters();
+        saveMastersToJson($file, $masters);
+    }
+
+    foreach ($masters as &$m) {
+        if (!isset($m['pureScore']) || !is_numeric($m['pureScore']) || $m['pureScore'] <= 0) {
+            $m['pureScore'] = (int)round(($m['score'] ?? 0) * (($m['autonomyIndex'] ?? 0) / 100));
+        }
+    }
+    unset($m);
+
+    // Criterio Oficial de Ordenación: Puntuación Pura DESC, Autonomía DESC, Puntos DESC, Tiempo ASC
+    usort($masters, function($a, $b) {
+        $diffPure = ($b['pureScore'] ?? 0) - ($a['pureScore'] ?? 0);
+        if ($diffPure !== 0) return $diffPure;
+
+        $diffAut = ($b['autonomyIndex'] ?? 0) - ($a['autonomyIndex'] ?? 0);
+        if ($diffAut !== 0) return $diffAut;
+
+        $diffScore = ($b['score'] ?? 0) - ($a['score'] ?? 0);
+        if ($diffScore !== 0) return $diffScore;
+
+        return ($a['timeSeconds'] ?? 0) - ($b['timeSeconds'] ?? 0);
+    });
+
+    return $masters;
 }
 
 // Guardar lista en JSON de forma atómica y segura
 function saveMastersToJson($file, array $masters) {
-    // Ordenar siempre por puntuación descendente y tiempo ascendente
+    foreach ($masters as &$m) {
+        if (!isset($m['pureScore'])) {
+            $m['pureScore'] = (int)round(($m['score'] ?? 0) * (($m['autonomyIndex'] ?? 0) / 100));
+        }
+    }
+    unset($m);
+
+    // Criterio Oficial de Ordenación: Puntuación Pura DESC, Autonomía DESC, Puntos DESC, Tiempo ASC
     usort($masters, function($a, $b) {
+        $pureA = $a['pureScore'] ?? round(($a['score'] ?? 0) * (($a['autonomyIndex'] ?? 0) / 100));
+        $pureB = $b['pureScore'] ?? round(($b['score'] ?? 0) * (($b['autonomyIndex'] ?? 0) / 100));
+        $diffPure = $pureB - $pureA;
+        if ($diffPure !== 0) return $diffPure;
+
+        $diffAut = ($b['autonomyIndex'] ?? 0) - ($a['autonomyIndex'] ?? 0);
+        if ($diffAut !== 0) return $diffAut;
+
         $diffScore = ($b['score'] ?? 0) - ($a['score'] ?? 0);
         if ($diffScore !== 0) return $diffScore;
+
         return ($a['timeSeconds'] ?? 0) - ($b['timeSeconds'] ?? 0);
     });
 
@@ -498,10 +540,49 @@ if ($method === 'POST') {
     $found = false;
 
     foreach ($masters as &$m) {
-        if (($m['deviceUuid'] ?? '') === $deviceUuid) {
+        $matchUuid = (!empty($deviceUuid) && ($m['deviceUuid'] ?? '') === $deviceUuid);
+        $matchNameCity = (
+            !empty($name) && !empty($city) &&
+            mb_strtolower(trim($m['name'] ?? '')) === mb_strtolower(trim($name)) &&
+            mb_strtolower(trim($m['city'] ?? '')) === mb_strtolower(trim($city))
+        );
+        $isFounder = ($deviceUuid === 'founder_guillermo' || ($m['deviceUuid'] ?? '') === 'founder_guillermo' || ($m['id'] ?? '') === 'master_founder' || stripos($name, 'guillermo') !== false || stripos($m['name'] ?? '', 'guillermo') !== false);
+
+        if ($matchUuid || $matchNameCity || $isFounder) {
             $found = true;
-            // Actualizar si bate su récord
-            if ($score > ($m['score'] ?? 0) || ($score === ($m['score'] ?? 0) && $timeSeconds < ($m['timeSeconds'] ?? 9999))) {
+
+            // Si es el fundador, su récord oficial de Valencia (3560 / 2990) está blindado
+            if ($isFounder) {
+                $m['id']            = 'master_founder';
+                $m['deviceUuid']    = 'founder_guillermo';
+                $m['name']          = 'Guillermo T.';
+                $m['city']          = 'Valencia';
+                $m['country']       = 'ES';
+                $m['countryName']   = 'España';
+                $m['flag']          = '🇪🇸';
+                $m['age']           = 73;
+                $m['ageGroup']      = 'legend';
+                $m['difficulty']    = 'endemoniado';
+                $m['diffLabel']     = 'Endemoniado';
+                $m['score']         = 3560;
+                $m['pureScore']     = 2990;
+                $m['timeSeconds']   = 1459;
+                $m['autonomyIndex'] = 84;
+                $m['errorsCount']   = 10;
+                $m['peeksCount']    = 0;
+                $m['seed']          = 47316;
+                $m['verified']      = true;
+                $m['rank']          = 'Gran Maestro Puro';
+                $m['date']          = '2026-11-07';
+                break;
+            }
+
+            // Para cualquier otro jugador: actualizar solo si supera o iguala con mejor tiempo
+            $newPure = (int)round($score * ($autonomyIndex / 100));
+            $oldPure = (int)($m['pureScore'] ?? round(($m['score'] ?? 0) * (($m['autonomyIndex'] ?? 0) / 100)));
+
+            if ($newPure > $oldPure || ($newPure === $oldPure && $timeSeconds < ($m['timeSeconds'] ?? 9999))) {
+                $m['deviceUuid']    = $deviceUuid; // Asociar al nuevo dispositivo
                 $m['name']          = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
                 $m['city']          = htmlspecialchars($city, ENT_QUOTES, 'UTF-8');
                 $m['age']           = $age;
@@ -512,12 +593,18 @@ if ($method === 'POST') {
                 $m['difficulty']    = $difficulty;
                 $m['diffLabel']     = $diffLabels[$difficulty] ?? ucfirst($difficulty);
                 $m['score']         = $score;
+                $m['pureScore']     = $newPure;
                 $m['timeSeconds']   = $timeSeconds;
                 $m['autonomyIndex'] = $autonomyIndex;
                 $m['peeksCount']    = $peeksCount;
                 $m['errorsCount']   = $errorsCount;
                 $m['seed']          = $seed;
                 $m['date']          = date('Y-m-d');
+            } else {
+                // Si la puntuación actual es inferior, mantenemos su récord pero vinculamos el dispositivo si no tenía
+                if (empty($m['deviceUuid'])) {
+                    $m['deviceUuid'] = $deviceUuid;
+                }
             }
             break;
         }
