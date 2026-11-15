@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       card.innerHTML = `
         <div class="vault-thumb-wrap">
-          <img src="${thumbSrc}" alt="${item.title}" class="vault-thumb" onerror="this.src='../puzles_del_club_logo.jpg'">
+          <img src="${thumbSrc}" alt="${item.title}" class="vault-thumb" onerror="this.onerror=null; this.src='icons/logo.svg';">
           ${item.type === 'user' ? '<span class="vault-badge-user">Personal</span>' : ''}
         </div>
         <div class="vault-card-body">
