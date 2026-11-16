@@ -11,16 +11,16 @@
         "ageGroup": "legend",
         "difficulty": "endemoniado",
         "diffLabel": "Endemoniado",
-        "score": 3560,
-        "pureScore": 2990,
-        "timeSeconds": 1459,
+        "score": 3735,
+        "pureScore": 3137,
+        "timeSeconds": 1283,
         "autonomyIndex": 84,
         "peeksCount": 0,
-        "errorsCount": 10,
-        "seed": 47316,
+        "errorsCount": 11,
+        "seed": 64683,
         "verified": true,
         "rank": "Gran Maestro Puro",
-        "date": "2026-11-07"
+        "date": "2026-11-16"
     },
     {
         "id": "master_3",

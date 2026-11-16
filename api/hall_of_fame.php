@@ -39,16 +39,16 @@ function getDefaultMasters() {
             'ageGroup'      => 'legend',
             'difficulty'    => 'endemoniado',
             'diffLabel'     => 'Endemoniado',
-            'score'         => 3560,
-            'pureScore'     => 2990,
-            'timeSeconds'   => 1459,
+            'score'         => 3735,
+            'pureScore'     => 3137,
+            'timeSeconds'   => 1283,
             'autonomyIndex' => 84,
             'peeksCount'    => 0,
-            'errorsCount'   => 10,
-            'seed'          => 47316,
+            'errorsCount'   => 11,
+            'seed'          => 64683,
             'verified'      => true,
             'rank'          => 'Gran Maestro Puro',
-            'date'          => '2026-11-07'
+            'date'          => '2026-11-16'
         ],
         [
             'id'            => 'master_1',
@@ -551,7 +551,7 @@ if ($method === 'POST') {
         if ($matchUuid || $matchNameCity || $isFounder) {
             $found = true;
 
-            // Si es el fundador, su récord oficial de Valencia (3560 / 2990) está blindado
+            // Si es el fundador, su récord oficial de Valencia (3735 / 3137) está blindado como suelo mínimo
             if ($isFounder) {
                 $m['id']            = 'master_founder';
                 $m['deviceUuid']    = 'founder_guillermo';
@@ -564,16 +564,29 @@ if ($method === 'POST') {
                 $m['ageGroup']      = 'legend';
                 $m['difficulty']    = 'endemoniado';
                 $m['diffLabel']     = 'Endemoniado';
-                $m['score']         = 3560;
-                $m['pureScore']     = 2990;
-                $m['timeSeconds']   = 1459;
+                $m['score']         = 3735;
+                $m['pureScore']     = 3137;
+                $m['timeSeconds']   = 1283;
                 $m['autonomyIndex'] = 84;
-                $m['errorsCount']   = 10;
+                $m['errorsCount']   = 11;
                 $m['peeksCount']    = 0;
-                $m['seed']          = 47316;
+                $m['seed']          = 64683;
                 $m['verified']      = true;
                 $m['rank']          = 'Gran Maestro Puro';
-                $m['date']          = '2026-11-07';
+                $m['date']          = '2026-11-16';
+
+                // Si la nueva partida enviada supera la marca en puntos puros o tiempo, actualizarla
+                $newPure = (int)round($score * ($autonomyIndex / 100));
+                if ($newPure > 3137 || ($newPure === 3137 && $timeSeconds < 1283)) {
+                    $m['score']         = $score;
+                    $m['pureScore']     = $newPure;
+                    $m['timeSeconds']   = $timeSeconds;
+                    $m['autonomyIndex'] = $autonomyIndex;
+                    $m['peeksCount']    = $peeksCount;
+                    $m['errorsCount']   = $errorsCount;
+                    $m['seed']          = $seed;
+                    $m['date']          = date('Y-m-d');
+                }
                 break;
             }
 
